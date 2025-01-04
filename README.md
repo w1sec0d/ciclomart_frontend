@@ -1,19 +1,8 @@
-# CicloMart_front
-Proyecto del curso Ingeniería de Software II de la Universidad Nacional de Colombia. Grupo de trabajo: JUDACA
+# React + Vite
 
-## Description
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-CicloMart es una aplicación web de compra-venta de bicicletas y repuestos de ciclismo. Ofrece una experiencia única, segura y confiable, al exigir documentación legal de propiedad a los vendedores. Los usuarios pueden encontrar exactamente lo que buscan usando filtros avanzados como grupos de transmisión, suspensión, peso, rines, frenos entre muchas otras características relevantes. 
+Currently, two official plugins are available:
 
-## Repository
-Front-end
-
-## Team Name 
-**JUDACA** 
-
-## Team Members 
-- **Juan David Madrid Contreras** - JuMad-SE 
-- **Carlos David Ramirez Muñoz** - wlsec0d 
-- **Johan David Rodriguez Gutierrez** - Homeros0 
-- **Ronald Daniel Jacanamejoy Mutumbajoy** - RonaldDaniel20
-
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
