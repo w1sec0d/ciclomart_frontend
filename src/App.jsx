@@ -1,5 +1,5 @@
 const App = () => {
-  return <div>Frontend CicloMart</div>;
-};
+  return <div>Frontend CicloMart</div>
+}
 
-export default App;
+export default App
