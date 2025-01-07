@@ -2,7 +2,7 @@
 
 Proyecto del curso Ingeniería de Software II de la Universidad Nacional de Colombia. Grupo de trabajo: JUDACA
 
-## Descripcion
+## Descripción
 
 CicloMart es una aplicación web de compra-venta de bicicletas y repuestos de ciclismo. Ofrece una experiencia única, segura y confiable, al exigir documentación legal de propiedad a los vendedores. Los usuarios pueden encontrar exactamente lo que buscan usando filtros avanzados como grupos de transmisión, suspensión, peso, rines, frenos entre muchas otras características relevantes.
 
@@ -42,12 +42,12 @@ npm run dev
 
 ### Consideraciones adicionales
 
-- Instalar la extensión del formateador [Prettier para VSCODE](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) y establecerla como formateador por defecto para archivos .js y .jsx
+- Es recomendable instalar la extensión del formateador [Prettier para VSCODE](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) y establecerla como formateador por defecto para archivos .js y .jsx
 
-- Antes de hacer un Pull Request es necesario ejecutar:
+> ❗ **Importante:** Antes de hacer un Pull Request es necesario ejecutar:
 
 ```bash
 npm run format
 ```
 
-> Esto formateara todos los archivos de forma estándar
+Esto formateara todos los archivos de forma estándar y evitará conflictos innecesarios en los pull request
