@@ -2,7 +2,6 @@
 import { Route, Routes } from 'react-router'
 
 // Pages
-import LandingPage from './pages/Landing'
 import Layout from './components/Layout'
 import Register from './pages/Register'
 

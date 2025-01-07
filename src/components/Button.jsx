@@ -1,9 +1,12 @@
+// filepath: /e:/ciclomart/CicloMart_front/src/components/Button.jsx
+import { twMerge } from 'tailwind-merge'
 import PropTypes from 'prop-types'
 
 const Button = ({
   type = 'submit',
   onClick = () => {},
   children,
+  className = '',
   ...props
 }) => {
   return (
@@ -11,7 +14,11 @@ const Button = ({
       {...props}
       type={type}
       onClick={onClick}
-      className="py-2 px-4 bg-primary"
+      className={twMerge(
+        'appearance-none py-2 px-4 bg-primary rounded-md text-white font-medium outline-none transition-transform duration-150',
+        'active:bg-primary-dark active:outline active:outline-2 active:outline-black',
+        className
+      )}
     >
       {children}
     </button>
@@ -21,6 +28,7 @@ const Button = ({
 Button.propTypes = {
   type: PropTypes.string,
   onClick: PropTypes.func,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 }
 
