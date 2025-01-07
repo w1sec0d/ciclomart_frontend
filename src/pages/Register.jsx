@@ -1,3 +1,7 @@
+// Images
+import registerImage from '../assets/register.png'
+import logo from '../assets/logo.png'
+
 const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -25,7 +29,12 @@ const Register = () => {
           <button type="submit">Registrarse</button>
         </form>
       </div>
-      <div></div>
+      <div>
+        <img
+          src={registerImage}
+          alt="Imagen de una persona sonriendo en una bicicleta y saludando"
+        />
+      </div>
     </section>
   )
 }

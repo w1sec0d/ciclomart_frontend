@@ -11,6 +11,9 @@ export default {
         gray: '#212121',
         white: '#FBFBFB',
       },
+      fontFamily: {
+        sans: ['Raleway', 'sans-serif'], // Add Raleway as the default font family
+      },
     },
   },
   plugins: [],

@@ -7,8 +7,8 @@ const Layout = () => {
     <div>
       <header>
         <h1>Register</h1>
-        <nav>
-          <ul>
+        <nav className="bg-primary p-4">
+          <ul className="flex flex-col md:flex-row">
             <li>
               <a href="/">Home</a>
             </li>
