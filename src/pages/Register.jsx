@@ -31,9 +31,16 @@ const Register = () => {
   } = useForm()
 
   const onSubmit = async (data) => {
-    console.log(data)
     const request = await apiService.createUsuario(data)
-    console.log('request', request)
+    if (request) {
+      dispatch(
+        setNotification({
+          title: 'Usuario creado',
+          text: `El usuario ha sido creado`,
+          icon: 'success',
+        })
+      )
+    }
   }
 
   return (
