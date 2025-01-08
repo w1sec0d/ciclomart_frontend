@@ -27,6 +27,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    reset,
     // formState: { errors },
   } = useForm()
 
@@ -40,6 +41,8 @@ const Register = () => {
           icon: 'success',
         })
       )
+      reset()
+      // Clear form
     }
   }
 
