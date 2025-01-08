@@ -1,4 +1,6 @@
-import { useForm } from 'react-hook-form'
+// State
+import { setNotification } from '../store/slices/notificationSlice'
+import { useDispatch } from 'react-redux'
 // Images
 import registerImage from '../assets/register.png'
 import logo from '../assets/logo.png'
@@ -6,8 +8,10 @@ import logo from '../assets/logo.png'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Checkbox from '../components/Checkbox'
-import { setNotification } from '../store/slices/notificationSlice'
-import { useDispatch } from 'react-redux'
+// Forms
+import { useForm } from 'react-hook-form'
+// Services
+import apiService from '../services/apiService'
 
 const Register = () => {
   const dispatch = useDispatch()
@@ -26,8 +30,10 @@ const Register = () => {
     // formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data)
+    const request = await apiService.createUsuario(data)
+    console.log('request', request)
   }
 
   return (
@@ -48,13 +54,13 @@ const Register = () => {
               id="name"
               label="Nombres"
               className="w-1/2"
-              {...register('name', { required: true })}
+              {...register('nombre', { required: true })}
             />
             <Input
               id="surname"
               label="Apellidos"
               className="w-1/2"
-              {...register('surname', { required: true })}
+              {...register('apellido', { required: true })}
             />
           </div>
           <Input
