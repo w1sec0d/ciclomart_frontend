@@ -6,8 +6,20 @@ import logo from '../assets/logo.png'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import Checkbox from '../components/Checkbox'
+import { setNotification } from '../store/slices/notificationSlice'
+import { useDispatch } from 'react-redux'
 
 const Register = () => {
+  const dispatch = useDispatch()
+
+  dispatch(
+    setNotification({
+      title: 'Hola Redux!',
+      text: 'Esto es una notificación',
+      icon: 'info',
+    })
+  )
+
   const {
     register,
     handleSubmit,
