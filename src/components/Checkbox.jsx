@@ -41,4 +41,6 @@ Checkbox.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
+Checkbox.displayName = 'Checkbox'
+
 export default Checkbox

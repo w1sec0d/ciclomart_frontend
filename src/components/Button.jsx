@@ -11,7 +11,6 @@ const Button = ({
 }) => {
   return (
     <button
-      {...props}
       type={type}
       onClick={onClick}
       className={twMerge(
@@ -19,6 +18,7 @@ const Button = ({
         'active:bg-primary-dark active:outline active:outline-2 active:outline-black',
         className
       )}
+      {...props}
     >
       {children}
     </button>

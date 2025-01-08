@@ -45,4 +45,6 @@ Input.propTypes = {
   required: PropTypes.bool,
 }
 
+Input.displayName = 'Input'
+
 export default Input
