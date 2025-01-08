@@ -40,6 +40,10 @@ npm run dev
 
 4. Abre tu navegador y navega a `http://localhost:5173` para ver la aplicación en funcionamiento.
 
+Para ejecutar correctamente el projecto debe incluirse un archivo .env en la raiz del proyecto con las siguientes variables de entorno:
+
+- VITE_API_URL
+
 ### Consideraciones adicionales
 
 - Es recomendable instalar la extensión del formateador [Prettier para VSCODE](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) y establecerla como formateador por defecto para archivos .js y .jsx
@@ -50,7 +54,9 @@ npm run dev
   npm run format
   ```
 
-  Esto formateara todos los archivos de forma estándar y evitará conflictos innecesarios en los pull request
+````
+
+Esto formateara todos los archivos de forma estándar y evitará conflictos innecesarios en los pull request
 
 - El proyecto usa Redux, una librería que permite tener un estado global en la aplicacion,
   donde se almacenan los datos o las variables que se comparten entre los diferentes componentes.
@@ -95,3 +101,4 @@ npm run dev
   Para debuggear el estado global se puede instalar la extensión de [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) en el navegador, esta extensión permite ver el estado global en tiempo real y ver las acciones que se están ejecutando.
 
   Esta extensión agrega una ventana en el navegador que muestra el estado global y las acciones que se están ejecutando, permitiendo ver el estado global en tiempo real y debuggear la aplicación de forma más sencilla.
+````
