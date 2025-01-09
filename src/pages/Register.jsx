@@ -41,8 +41,7 @@ const Register = () => {
           icon: 'success',
         })
       )
-      reset()
-      // Clear form
+      reset() // Clear form
     }
   }
 

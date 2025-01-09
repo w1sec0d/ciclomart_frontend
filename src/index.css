@@ -22,5 +22,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.image-blurred-edge {
+  box-shadow: 0 0 8px 8px white inset;
+}
+
 @tailwind components;
 @tailwind utilities;
