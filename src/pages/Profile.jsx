@@ -1,3 +1,5 @@
+import CardButton from '../components/CardButton'
+
 const Profile = () => {
   return (
     <section className="flex flex-row h-screen">
@@ -5,8 +7,9 @@ const Profile = () => {
 
       <div className="bg-lgray w-1/6 h-full">
         <ul>
-          <li>Nombre: Juan Pérez</li>
-          <li>Correo:</li>
+          <CardButton to="/register">
+            <p>Prueba</p>
+          </CardButton>
         </ul>
       </div>
 
