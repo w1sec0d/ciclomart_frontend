@@ -13,6 +13,22 @@ const Navbar = () => {
         <li className="mx-4 hover:font-bold flex items-center">
           <a href="/contact">Contacto</a>
         </li>
+
+        {/*Barra de busqueda */}
+        <div className="flexs mx-4 p-4 flex w-full flex-wrap items-stretch">
+          <input 
+            type="search"
+            className="flex m-0 w-1/3 md:w-1/6"
+            placeholder = "Buscar"
+            aria-label = "Buscar">
+          </input>
+          <Button 
+            className="flex mx-2 rounded-r px-6 py-2 text-xs uppercase text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5"
+            to="/search">
+            Buscar
+          </Button>
+        </div>
+
         <li className="mx-4 hover:font-bold flex items-center ml-auto">
           <Button className="bg-tertiary" to="/register">
             Regístrate
