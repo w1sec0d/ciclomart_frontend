@@ -2,6 +2,7 @@ import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
 import landing1 from '../assets/landing1.webp'
+import Button from '../components/Button'
 
 const LandingPage = () => {
   const responsive = {
@@ -33,12 +34,13 @@ const LandingPage = () => {
       </h1>
       <Carousel responsive={responsive}>
         <div className="flex items-center justify-center w-full relative bg-[#ebf9f6]">
-          <p className="absolute font-medium text-4xl drop-shadow-2xl top-24 right-32">
-            Encuentra tu nueva bici
+          <p className="absolute text-4xl drop-shadow-2xl top-[30%] right-[20%] text-center bg-white bg-opacity-55 px-4 py-6 rounded-md">
+            Encuentra tu <span className="font-bold">nueva bici</span>
             <br />
             Con los componentes
             <br />
-            Que necesitas
+            Que <span className="text-tertiary font-bold">necesitas</span>
+            <Button className="mx-auto flex mt-10">Buscar bicicletas</Button>
           </p>
           <img
             src={landing1}
