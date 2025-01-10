@@ -1,5 +1,8 @@
 import CardButton from '../components/CardButton'
 
+//-> Icons
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+
 const Profile = () => {
   return (
     <section className="flex flex-row h-screen">
@@ -8,7 +11,11 @@ const Profile = () => {
       <div className="bg-lgray w-1/6 h-full">
         <ul>
           <CardButton to="/register">
-            <p>Prueba</p>
+            <HomeOutlinedIcon />
+            <div className="flex flex-col">
+              <p>Prueba</p>
+              <p>hola</p>
+            </div>
           </CardButton>
         </ul>
       </div>
