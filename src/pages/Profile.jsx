@@ -9,6 +9,8 @@ import Settings from '@mui/icons-material/TuneOutlined'
 import Security from '@mui/icons-material/GppGoodOutlined'
 import Card from '@mui/icons-material/BadgeOutlined'
 
+import Photo from '../assets/userPhoto.png'
+
 const Profile = () => {
   return (
     <section className="flex flex-row h-screen">
@@ -39,12 +41,24 @@ const Profile = () => {
         </ul>
       </div>
 
-      {/* Information */}
+      {/* Main Content */}
       <div className="flex flex-col w-5/6 h-full">
-        <div className="mt-8 mx-[80px] bg-lgray h-44 w-auto"></div>
+        {/*General Information*/}
+        <div
+          className="flex items-center mt-8 mx-[170px] bg-lgray h-44 w-auto 
+          rounded-l-[16rem]  rounded-r-[16rem] shadow-sm pl-5"
+        >
+          <img src={Photo} className="h-5/6 lg:mr-[132px]" />
+          <div className="flex flex-col items-center">
+            <b className="text-4xl">¡Hola Usuario!</b>
+            <p className="text-2xl">usuario@correo.com</p>
+            <p className="text-xl">Eres un ciclomáster</p>
+            <p className="text-lg">Te uniste el 20/10/24</p>
+          </div>
+        </div>
 
         {/*Settings*/}
-        <div className="mt-8 mx-[95px] bg-lgray h-80 w-auto shadow-2xl rounded-md ">
+        <div className="mt-8 mx-[105px] bg-lgray h-80 w-auto shadow-2xl rounded-3xl ">
           <ul className="h-full">
             <li className="h-1/3">
               <CardButton arrow="2" className="h-full mt-0">
