@@ -14,6 +14,9 @@ const Navbar = () => {
           <a href="/contact">Contacto</a>
         </li>
         <li className="mx-4 hover:font-bold flex items-center ml-auto">
+          <Button className="bg-tertiary mr-2" to="/login">
+            login
+          </Button>
           <Button className="bg-tertiary" to="/register">
             Regístrate
           </Button>
