@@ -1,15 +1,18 @@
+//-> Components
 import CardButton from '../components/CardButton'
 
 //-> Icons
 import ShoppingBag from '@mui/icons-material/LocalMallOutlined'
 import Store from '@mui/icons-material/StorefrontOutlined'
 import Tag from '@mui/icons-material/LocalOfferOutlined'
-
 import Settings from '@mui/icons-material/TuneOutlined'
 import Security from '@mui/icons-material/GppGoodOutlined'
 import Card from '@mui/icons-material/BadgeOutlined'
 
+//->Images
 import Photo from '../assets/userPhoto.png'
+
+//->Utils
 import { useState } from 'react'
 
 const Profile = () => {
@@ -22,21 +25,21 @@ const Profile = () => {
       <div className="bg-lgray w-1/6 h-full shadow-2xl">
         <ul>
           <li>
-            <CardButton to="/register">
+            <CardButton>
               <ShoppingBag className="ml-2" />
               <b className="flex flex-col w-full">Compras</b>
             </CardButton>
             <hr />
           </li>
           <li>
-            <CardButton to="/register">
+            <CardButton>
               <Tag className="ml-2" />
               <b className="flex flex-col w-full">Ventas</b>
             </CardButton>
             <hr />
           </li>
           <li>
-            <CardButton to="/register">
+            <CardButton>
               <Store className="ml-2" />
               <b className="flex flex-col w-full">Ventas</b>
             </CardButton>
@@ -76,27 +79,28 @@ const Profile = () => {
         <div className="mt-8 mx-[105px] bg-lgray h-80 w-auto shadow-2xl rounded-3xl ">
           <ul className="h-full">
             <li className="h-1/3">
-              <CardButton arrow="2" className="h-full mt-0">
+              <CardButton
+                arrow="2"
+                className=" flex h-full hover:rounded-t-3xl"
+              >
                 <Card className="ml-8" style={{ fontSize: '3.5rem' }} />
                 <div className="flex flex-col w-full">
                   <b className="flex flex-col w-full">Información personal</b>
                   <p>Tus datos de identidad y contacto</p>
                 </div>
               </CardButton>
-              <hr className="c" />
             </li>
             <li className="h-1/3">
-              <CardButton arrow="2" className="h-full mt-0">
+              <CardButton arrow="2" className="h-full border-y">
                 <Security className="ml-8" style={{ fontSize: '3.5rem' }} />
                 <div className="flex flex-col w-full">
                   <b className="flex flex-col w-full">Seguridad</b>
                   <p>Configuración de inicio de sesión</p>
                 </div>
               </CardButton>
-              <hr />
             </li>
             <li className="h-1/3">
-              <CardButton arrow="2" className="h-full mt-0">
+              <CardButton arrow="2" className="h-full hover:rounded-b-3xl">
                 <Settings className="ml-8" style={{ fontSize: '3.5rem' }} />
                 <div className="flex flex-col w-full">
                   <b className="flex flex-col w-full">Información personal</b>

@@ -26,27 +26,25 @@ const CardButton = ({
   }
 
   return (
-    <div className="h-full">
-      <button
-        type={type}
-        className={twMerge(
-          'flex flex-row mt-2 items-center w-full h-16',
-          className
-        )}
-        onClick={handleClick}
-        {...props}
-      >
-        {children}
-        {arrow == 1 ? (
-          <ArrowDown className="ml-auto mr-2" />
-        ) : (
-          <ArrowRight
-            className="ml-auto mr-2 text-2xl"
-            style={{ fontSize: '3rem' }}
-          />
-        )}
-      </button>
-    </div>
+    <button
+      type={type}
+      className={twMerge(
+        'flex flex-row  items-center w-full h-16 hover:bg-dgray',
+        className
+      )}
+      onClick={handleClick}
+      {...props}
+    >
+      {children}
+      {arrow == 1 ? (
+        <ArrowDown className="ml-auto mr-2" />
+      ) : (
+        <ArrowRight
+          className="ml-auto mr-2 text-2xl"
+          style={{ fontSize: '3rem' }}
+        />
+      )}
+    </button>
   )
 }
 
