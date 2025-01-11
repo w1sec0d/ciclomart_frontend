@@ -43,7 +43,6 @@ const CardButton = ({
           <ArrowRight className="ml-auto mr-2 text-2xl" />
         )}
       </button>
-      <hr />
     </div>
   )
 }
