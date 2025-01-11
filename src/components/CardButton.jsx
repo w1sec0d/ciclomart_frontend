@@ -40,7 +40,10 @@ const CardButton = ({
         {arrow == 1 ? (
           <ArrowDown className="ml-auto mr-2" />
         ) : (
-          <ArrowRight className="ml-auto mr-2 text-2xl" />
+          <ArrowRight
+            className="ml-auto mr-2 text-2xl"
+            style={{ fontSize: '3rem' }}
+          />
         )}
       </button>
     </div>

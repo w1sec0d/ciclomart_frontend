@@ -10,8 +10,12 @@ import Security from '@mui/icons-material/GppGoodOutlined'
 import Card from '@mui/icons-material/BadgeOutlined'
 
 import Photo from '../assets/userPhoto.png'
+import { useState } from 'react'
 
 const Profile = () => {
+  const [hoverPhoto, setHoverPhoto] = useState(false)
+
+  console.log(hoverPhoto)
   return (
     <section className="flex flex-row h-screen">
       {/* Side Bar */}
@@ -40,16 +44,27 @@ const Profile = () => {
           </li>
         </ul>
       </div>
-
       {/* Main Content */}
       <div className="flex flex-col w-5/6 h-full">
         {/*General Information*/}
         <div
           className="flex items-center mt-8 mx-[170px] bg-lgray h-44 w-auto 
-          rounded-l-[16rem]  rounded-r-[16rem] shadow-sm pl-5"
+          rounded-l-[16rem]  rounded-r-[16rem] shadow-sm pl-5 on"
         >
-          <img src={Photo} className="h-5/6 lg:mr-[132px]" />
-          <div className="flex flex-col items-center">
+          <div className="flex relative h-5/6">
+            <img
+              src={Photo}
+              className="h-full transition duration-200 ease-in-out hover:scale-110 hover:opacity-80 hover:cursor-pointer"
+              onMouseEnter={() => setHoverPhoto(true)}
+              onMouseOut={() => setHoverPhoto(false)}
+            />
+            {hoverPhoto ? (
+              <b className="pointer-events-none absolute top-1/2 left-1/2 text-lg -translate-x-1/2 -translate-y-1/2 ">
+                Editar
+              </b>
+            ) : null}
+          </div>
+          <div className="flex flex-col items-center lg:ml-[132px]">
             <b className="text-4xl">¡Hola Usuario!</b>
             <p className="text-2xl">usuario@correo.com</p>
             <p className="text-xl">Eres un ciclomáster</p>
