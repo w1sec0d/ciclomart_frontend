@@ -3,16 +3,58 @@ import { useForm } from 'react-hook-form'
 import Checkbox from '../components/Checkbox'
 import Button from '../components/Button'
 
+import { setNotification } from '../store/slices/notificationSlice'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import loginService from '../services/loginService'
+
 
 
 
 const Login = () =>{
 
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(
+            setNotification({
+              title: 'Hola Redux!',
+              text: 'Esto es una notificación de login',
+              icon: 'info',
+            })
+          );
+    }, [dispatch])
+
+
     const {
-        register
-        //handleSubmit,
-        //reset,
-      } = useForm()
+        register,
+        handleSubmit,
+        reset,
+    } = useForm()
+
+      const onSubmit = async (data) => {
+        const request = await loginService.validationUser(data)
+        if (request.message) {
+          dispatch(
+            setNotification({
+              title: '¡ups!',
+              text: `Usuario y contraseña incorrectos.`,
+              icon: 'error',
+            })
+          )
+        } else {
+
+            dispatch(
+                setNotification({
+                  title: '¡Exito!',
+                  text: `Usuario y contraseña correctos.`,
+                  icon: 'error',
+                })
+              )
+        }
+
+        reset()
+      }
 
     return (
 
@@ -20,7 +62,7 @@ const Login = () =>{
             <div className="bg-white p-8 rounded shadow-md w-full max-w-4xl">
                 <h1 className="font-black text-5xl text-center" > Bienvenidos a CicloMart</h1>
                 <p className="text-center mt-3">Por favor ingresa tus datos</p>
-                <form className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                     <Input
                     id="email"
                     label="Correo electrónico"
@@ -51,7 +93,6 @@ const Login = () =>{
                         ¿No tienes una cuenta?{' '}
                         <a href="/register" className='text-blue-500 hover:underline'>Registrate</a>
                     </p>
-                    
                 </form>
             </div>
         </div>

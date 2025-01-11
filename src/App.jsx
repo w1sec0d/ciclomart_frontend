@@ -7,15 +7,21 @@ import Layout from './components/Layout'
 import Register from './pages/Register'
 import Login from './pages/Login'
 
+// Context
+
+import { AuthProvider } from './assets/Context/AuthContext'
+
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
         <Route index element={<Landing />} />
         <Route path="register" element={<Register />} />
         <Route path = "login" element={<Login />} /> 
-      </Route>
-    </Routes>
+        </Route>
+      </Routes>
+    </AuthProvider>
   )
 }
 
