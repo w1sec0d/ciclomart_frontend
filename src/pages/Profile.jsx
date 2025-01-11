@@ -1,9 +1,9 @@
 import CardButton from '../components/CardButton'
 
 //-> Icons
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined'
-import StoreOutlinedIcon from '@mui/icons-material/StoreOutlined'
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined'
+import ShoppingBag from '@mui/icons-material/LocalMallOutlined'
+import Store from '@mui/icons-material/StorefrontOutlined'
+import Tag from '@mui/icons-material/LocalOfferOutlined'
 
 const Profile = () => {
   return (
@@ -13,19 +13,19 @@ const Profile = () => {
         <ul>
           <li>
             <CardButton to="/register">
-              <LocalMallOutlinedIcon className="ml-2" />
+              <ShoppingBag className="ml-2" />
               <b className="flex flex-col w-full">Compras</b>
             </CardButton>
           </li>
           <li>
             <CardButton to="/register">
-              <LocalOfferOutlinedIcon className="ml-2" />
+              <Tag className="ml-2" />
               <b className="flex flex-col w-full">Ventas</b>
             </CardButton>
           </li>
           <li>
             <CardButton to="/register">
-              <StoreOutlinedIcon className="ml-2" />
+              <Store className="ml-2" />
               <b className="flex flex-col w-full">Ventas</b>
             </CardButton>
           </li>
