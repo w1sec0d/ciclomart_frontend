@@ -7,7 +7,7 @@ import ArrowDown from '@mui/icons-material/KeyboardArrowDownOutlined'
 import ArrowRight from '@mui/icons-material/KeyboardArrowRightOutlined'
 
 const CardButton = ({
-  icon = 1,
+  arrow = 1,
   type = 'button',
   className = '',
   onClick = () => {},
@@ -26,7 +26,7 @@ const CardButton = ({
   }
 
   return (
-    <div>
+    <div className="h-full">
       <button
         type={type}
         className={twMerge(
@@ -37,7 +37,7 @@ const CardButton = ({
         {...props}
       >
         {children}
-        {icon == 1 ? (
+        {arrow == 1 ? (
           <ArrowDown className="ml-auto mr-2" />
         ) : (
           <ArrowRight className="ml-auto mr-2 text-2xl" />
