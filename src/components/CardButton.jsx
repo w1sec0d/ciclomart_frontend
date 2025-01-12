@@ -29,7 +29,7 @@ const CardButton = ({
     <button
       type={type}
       className={twMerge(
-        'flex flex-row  items-center w-full h-16 hover:bg-dgray',
+        'flex flex-row  items-center w-full h-16 hover:bg-dgray hover:animate-pulse',
         className
       )}
       onClick={handleClick}

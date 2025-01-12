@@ -11,6 +11,7 @@ import Card from '@mui/icons-material/BadgeOutlined'
 
 //->Images
 import Photo from '../assets/userPhoto.png'
+import Logo from '../assets/logoVector.svg'
 
 //->Utils
 import { useState } from 'react'
@@ -22,7 +23,7 @@ const Profile = () => {
   return (
     <section className="flex flex-row h-screen">
       {/* Side Bar */}
-      <div className="bg-lgray w-1/6 h-full shadow-2xl">
+      <div className="bg-lgray w-1/6 h-full shadow-2xl flex flex-col">
         <ul>
           <li>
             <CardButton>
@@ -46,6 +47,12 @@ const Profile = () => {
             <hr />
           </li>
         </ul>
+        <div className="h-full flex justify-center">
+          <img
+            src={Logo}
+            className="w-[160px] h-[140px] mt-8 px-1 opacity-60 grayscale"
+          />
+        </div>
       </div>
       {/* Main Content */}
       <div className="flex flex-col w-5/6 h-full">
