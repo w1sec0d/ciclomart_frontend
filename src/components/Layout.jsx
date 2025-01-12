@@ -4,12 +4,12 @@ import { Outlet } from 'react-router'
 import Navbar from './Navbar'
 import Notification from './Notification'
 
-const Layout = () => {
+const Layout = (params) => {
   return (
     <div>
       <header>
         {/* <h1>Register</h1> */}
-        <Navbar />
+        <Navbar searchText = {params.searchText} onSearch = {params.onSearch}/>
       </header>
       <main className="mt-[64px]">
         <Outlet />

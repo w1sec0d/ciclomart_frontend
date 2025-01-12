@@ -1,6 +1,14 @@
+import { useState } from 'react'
 import Button from './Button'
 
-const Navbar = () => {
+const Navbar = (params) => {
+
+  const [inputText, setInputText] = useState('');
+
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+  };
+
   return (
     <nav className="bg-primary p-4 font-medium shadow-md md:h-[64px] flex items-center fixed left-0 top-0 w-full z-10">
       <ul className="flex flex-col md:flex-row w-full">
@@ -19,12 +27,15 @@ const Navbar = () => {
           <input 
             type="search"
             className="flex m-0 w-1/3 md:w-1/6"
-            placeholder = "Buscar"
-            aria-label = "Buscar">
-          </input>
+            placeholder="Buscar"
+            aria-label="Buscar"
+            value={inputText}
+            onChange={handleInputChange}
+          />
           <Button 
             className="flex mx-2 rounded-r px-6 py-2 text-xs uppercase text-white transition duration-150 ease-in-out hover:bg-black hover:bg-opacity-5"
-            to="/search">
+            to="/search"
+            onClick={() => params.onSearch(inputText)}>
             Buscar
           </Button>
         </div>
@@ -36,7 +47,7 @@ const Navbar = () => {
         </li>
       </ul>
     </nav>
-  )
+  );
 }
 
 export default Navbar

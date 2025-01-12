@@ -13,4 +13,15 @@ const createUsuario = async (usuario) => {
   return request.data
 }
 
-export default { getUsuario, createUsuario }
+const searchProducts = async (params) => {
+  let request = null
+  if (params.name === '' || params.name === null){
+    request = await axios.get(API_URL + '/search')
+  }
+  else{
+    request = await axios.get(API_URL + '/search', { params })
+  }
+  return request.data
+}
+
+export default { getUsuario, createUsuario, searchProducts }
