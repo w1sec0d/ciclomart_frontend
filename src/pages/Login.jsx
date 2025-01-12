@@ -6,14 +6,16 @@ import Button from '../components/Button'
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router'
+import { useAuth } from '../assets/Context/AuthContext'
 import loginService from '../services/loginService'
-
-
 
 
 const Login = () =>{
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     useEffect(()=>{
         dispatch(
@@ -32,29 +34,64 @@ const Login = () =>{
         reset,
     } = useForm()
 
-      const onSubmit = async (data) => {
-        const request = await loginService.validationUser(data)
-        if (request.message) {
+    //Funcion que almacena los datos del usuario y permite utilizarlo en otros componentes
+    const {authUser,
+      setAuthUser,
+      isLoggedIn,
+      setIsLoggedIn,
+      isAdmin, 
+      setIsAdmin} = useAuth(); 
+
+    const onSubmit = async (data) => {
+      try {
+        const request = await loginService.loginUser(data);
+
+    
+        if (request.status === 200) {
+
+          const {token, user} = request.data;
+
+          dispatch(
+            setNotification({
+              title: '¡Éxito!',
+              text: 'Usuario y contraseña correctos.',
+              icon: 'success',
+            })
+          );
+
+          localStorage.setItem('token', token)
+          setIsLoggedIn(true);
+          setAuthUser({
+            idUser: request.data.user.idUsuario,
+            email: request.data.user.correo
+          })
+
+          navigate('/userInfo')
+
+    
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
           dispatch(
             setNotification({
               title: '¡ups!',
-              text: `Usuario y contraseña incorrectos.`,
+              text: 'Usuario y contraseña incorrectos.',
               icon: 'error',
             })
-          )
+          );
         } else {
-
-            dispatch(
-                setNotification({
-                  title: '¡Exito!',
-                  text: `Usuario y contraseña correctos.`,
-                  icon: 'error',
-                })
-              )
+          console.error('Error:', error.message);
+          dispatch(
+            setNotification({
+              title: 'Error',
+              text: `Ocurrió un error: ${error.message}`,
+              icon: 'error',
+            })
+          );
         }
-
-        reset()
       }
+      reset();
+    };
 
     return (
 
