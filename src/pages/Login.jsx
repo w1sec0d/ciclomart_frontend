@@ -113,10 +113,10 @@ const Login = () =>{
                     {...register('password', { required: true })}
                     />
                     <div className='flex items-center justify-between'>
-                    <Checkbox id="terms" {...register('terms', { required: true })}>
+                    <Checkbox id="recuerdame" {...register('recuerdame', { required: false })}>
                         Recuerdame
                     </Checkbox>
-                    <a href="/register" className="text-sm text-blue-500 hover:underline">
+                    <a href="/verificacion" className="text-sm text-blue-500 hover:underline">
                         ¿Has olvidado tu contraseña?
                     </a>
                     </div>

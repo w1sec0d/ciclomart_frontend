@@ -8,6 +8,7 @@ import Layout from './components/Layout'
 import Register from './pages/Register'
 import UserInfo from './pages/UserInfo'
 import Login from './pages/Login'
+import Verificacion from './pages/Verificacion'
 
 // Context
 
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="register" element={<Register />} />
         <Route path = "login" element={<Login />} /> 
         <Route path = "userInfo" element={<UserInfo />} /> 
+        <Route path = "verificacion" element={<Verificacion />} /> 
         </Route>
       </Routes>
     </AuthProvider>
