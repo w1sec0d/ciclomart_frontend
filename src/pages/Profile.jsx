@@ -1,5 +1,4 @@
 //-> Components
-import CardButton from '../components/CardButton.jsx'
 import SideBar from '../components/Profile/SideBar.jsx'
 import Information from '../components/Profile/Information.jsx'
 import Settings from '../components/Profile/Settings.jsx'
