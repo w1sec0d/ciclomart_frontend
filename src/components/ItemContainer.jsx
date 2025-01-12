@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const ItemContainer = ({ img, name, price, fullPrice }) => {
   const discountPercentage = ((fullPrice - price) / fullPrice) * 100
 
@@ -18,6 +20,12 @@ const ItemContainer = ({ img, name, price, fullPrice }) => {
       </p>
     </div>
   )
+}
+ItemContainer.propTypes = {
+  img: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  fullPrice: PropTypes.number,
 }
 
 export default ItemContainer

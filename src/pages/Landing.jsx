@@ -46,18 +46,18 @@ const LandingPage = () => {
   }
   return (
     <section>
-      <h1 className="w-full text-center text-4xl py-10">
+      {/* <h1 className="w-full text-center text-4xl py-10">
         ¡Bienvenido a <span className="text-tertiary font-bold">Ciclo</span>
         <span className="text-secondary font-bold">Mart</span>! Tu{' '}
         <span className="font-bold">mercado bici </span>
         de <span className="font-bold">confianza</span>
-      </h1>
+      </h1> */}
       <Carousel responsive={landingCarousel}>
         <div className="flex items-center justify-center w-full relative bg-[#ebf9f6]">
           <img
             src={landing1}
             alt="Imagen de una persona sobre una bicicleta mirando un paisaje boscoso"
-            className="max-h-[80vh] rounded-md overflow-hidden object-contain"
+            className="max-h-[80vh] object-contain"
             style={{ boxShadow: '0 0 8px 8px #ebf9f6 inset' }}
           />
         </div>
