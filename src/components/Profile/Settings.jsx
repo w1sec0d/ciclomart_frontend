@@ -1,5 +1,5 @@
 //-> Components
-import CardButton from '../CardButton'
+import CardButton from './CardButton'
 
 //-> Icons
 import SettingsIcon from '@mui/icons-material/TuneOutlined'
