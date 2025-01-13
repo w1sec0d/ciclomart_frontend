@@ -25,6 +25,7 @@ const App = () => {
         <Route path = "userInfo" element={<UserInfo />} /> 
         <Route path = "verificacion" element={<Verificacion />} /> 
         <Route path = "passwordRecovery/:token"  element ={< PasswordRecovery />}/>
+
       </Routes>
     </AuthProvider>
   )
