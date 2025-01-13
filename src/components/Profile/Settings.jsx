@@ -73,7 +73,12 @@ const Settings = () => {
             setShowInfoModal(false)
           }}
         >
-          <div className="w-[800px] h-[400px] bg-white z-10 rounded-3xl -translate-y-8 shadow-2xl">
+          <div
+            className="w-[800px] h-[400px] bg-white  rounded-3xl -translate-y-8 shadow-2xl z-20"
+            onClick={(e) => {
+              e.stopPropagation()
+            }}
+          >
             <div className="flex items-center h-[64px] w-full border-b border-lgray px-4">
               <b className="text-2xl">Información personal</b>
             </div>
