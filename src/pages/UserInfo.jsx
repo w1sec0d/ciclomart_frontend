@@ -15,6 +15,7 @@ const UserInfo = () => {
 
             if(token){
                 
+                
                 const request = await userInfoService.getUserInfo(token);
                 setAuthUser(request.user);
                 setLoading(false);
