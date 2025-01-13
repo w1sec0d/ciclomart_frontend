@@ -13,9 +13,9 @@ import Logo from '../../assets/logoVector.svg'
 import { useEffect, useState } from 'react'
 
 const SideBar = () => {
-  const [ShowPurchases, setShowPurchases] = useState(false)
-  const [ShowSales, setShowSales] = useState(false)
-  const [ShowStores, setShowStores] = useState(false)
+  const [showPurchases, setShowPurchases] = useState(false)
+  const [showSales, setShowSales] = useState(false)
+  const [showStores, setShowStores] = useState(false)
 
   /* -> Handlers -> */
 
@@ -25,19 +25,32 @@ const SideBar = () => {
 
   const handlerShowData = (TypeButton) => {
     if (TypeButton === '1') {
-      /*Activate Buttons*/
-      setShowPurchases(true)
-      /*Deactivates Buttons*/
-      setShowSales(false)
-      setShowStores(false)
+      /*Deactivate doble selected button*/
+      if (showPurchases) {
+        setShowPurchases(false)
+      } else {
+        /*Activate Buttons*/
+        setShowPurchases(true)
+        /*Deactivates Buttons*/
+        setShowSales(false)
+        setShowStores(false)
+      }
     } else if (TypeButton === '2') {
-      setShowSales(true)
-      setShowPurchases(false)
-      setShowStores(false)
+      if (showSales) {
+        setShowSales(false)
+      } else {
+        setShowSales(true)
+        setShowPurchases(false)
+        setShowStores(false)
+      }
     } else if (TypeButton === '3') {
-      setShowStores(true)
-      setShowPurchases(false)
-      setShowSales(false)
+      if (showStores) {
+        setShowStores(false)
+      } else {
+        setShowStores(true)
+        setShowPurchases(false)
+        setShowSales(false)
+      }
     }
   }
 
@@ -59,7 +72,7 @@ const SideBar = () => {
           {/*Show content*/}
 
           <div
-            className={`overflow-hidden transition-all duration-500 ease-in ${ShowPurchases ? 'h-40' : 'h-0'} bg-white`}
+            className={`overflow-hidden transition-all duration-500 ease-in ${showPurchases ? 'h-40' : 'h-0'} bg-white`}
           >
             <p className="h-full overflow-auto">
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -82,6 +95,19 @@ const SideBar = () => {
             <b className="flex flex-col w-full">Ventas</b>
           </CardButton>
           <hr />
+          <div
+            className={`overflow-hidden transition-all duration-500 ease-in ${showSales ? 'h-40' : 'h-0'} bg-white`}
+          >
+            <p className="h-full overflow-auto">
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+          </div>
         </li>
         <li>
           <CardButton
@@ -93,6 +119,19 @@ const SideBar = () => {
             <b className="flex flex-col w-full">Tiendas</b>
           </CardButton>
           <hr />
+          <div
+            className={`overflow-hidden transition-all duration-500 ease-in ${showStores ? 'h-40' : 'h-0'} bg-white`}
+          >
+            <p className="h-full overflow-auto">
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+          </div>
         </li>
       </ul>
       <div className="h-full flex justify-center">
