@@ -1,6 +1,5 @@
 // Routing
-import { Route, Routes} from 'react-router'
-
+import { Route, Routes } from 'react-router'
 
 // Pages
 import Landing from './pages/Landing'
@@ -26,7 +25,10 @@ const App = () => {
         <Route path = "userInfo" element={<UserInfo />} /> 
         <Route path = "verificacion" element={<Verificacion />} /> 
         <Route path = "passwordRecovery/:token"  element ={< PasswordRecovery />}/>
-        </Route>
+        <Route index element={<Landing />} />
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
+        <Route path="userInfo" element={<UserInfo />} />
       </Routes>
     </AuthProvider>
   )
