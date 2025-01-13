@@ -1,6 +1,9 @@
 /*-> Icons*/
 import Quit from '@mui/icons-material/ClearOutlined'
 
+/*-> Utils*/
+import PropTypes from 'prop-types'
+
 const InfoModal = ({ data = [], setShowInfoModal = () => {} }) => {
   return (
     <div

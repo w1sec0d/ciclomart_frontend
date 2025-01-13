@@ -1,5 +1,6 @@
 //-> Components
 import CardButton from './CardButton'
+import DataList from './DataList'
 
 //-> Icons
 import ShoppingBag from '@mui/icons-material/LocalMallOutlined'
@@ -52,6 +53,102 @@ const SideBar = () => {
       nombre: 'MountainXtreme',
       descripcion: 'Bicicletas de montaña y accesorios',
       telefono: '3155566778',
+    },
+  ]
+
+  const ventas = [
+    {
+      idProducto: 1,
+      idUsuario: 101,
+      tipo: 'venta',
+      descripcion: 'Bicicleta de montaña usada',
+      estado: 'completado',
+      precio: 850000.0,
+      fechaCompra: '2025-01-10',
+    },
+    {
+      idProducto: 11,
+      idUsuario: 101,
+      tipo: 'venta',
+      descripcion: 'Casco de ciclismo con luz integrada',
+      estado: 'pendiente',
+      precio: 150000.0,
+      fechaCompra: '2025-01-12',
+    },
+    {
+      idProducto: 12,
+      idUsuario: 101,
+      tipo: 'venta',
+      descripcion: 'Portabicicletas para automóvil',
+      estado: 'procesando',
+      precio: 300000.0,
+      fechaCompra: '2025-01-14',
+    },
+    {
+      idProducto: 13,
+      idUsuario: 101,
+      tipo: 'venta',
+      descripcion: 'Juego de luces LED traseras',
+      estado: 'completado',
+      precio: 50000.0,
+      fechaCompra: '2025-01-15',
+    },
+    {
+      idProducto: 14,
+      idUsuario: 101,
+      tipo: 'venta',
+      descripcion: 'Zapatos para ciclismo de montaña',
+      estado: 'pendiente',
+      precio: 200000.0,
+      fechaCompra: '2025-01-16',
+    },
+  ]
+
+  const compras = [
+    {
+      idProducto: 2,
+      idUsuario: 101,
+      tipo: 'compra',
+      descripcion: 'Casco profesional para ciclismo',
+      estado: 'pendiente',
+      precio: 120000.0,
+      fechaCompra: '2025-01-12',
+    },
+    {
+      idProducto: 10,
+      idUsuario: 101,
+      tipo: 'compra',
+      descripcion: 'Par de neumáticos para montaña',
+      estado: 'completado',
+      precio: 180000.0,
+      fechaCompra: '2025-01-08',
+    },
+    {
+      idProducto: 15,
+      idUsuario: 101,
+      tipo: 'compra',
+      descripcion: 'Bomba de aire portátil',
+      estado: 'procesando',
+      precio: 50000.0,
+      fechaCompra: '2025-01-13',
+    },
+    {
+      idProducto: 16,
+      idUsuario: 101,
+      tipo: 'compra',
+      descripcion: 'Cámara de repuesto para carretera',
+      estado: 'completado',
+      precio: 25000.0,
+      fechaCompra: '2025-01-14',
+    },
+    {
+      idProducto: 17,
+      idUsuario: 101,
+      tipo: 'compra',
+      descripcion: 'Guantes térmicos de invierno',
+      estado: 'pendiente',
+      precio: 80000.0,
+      fechaCompra: '2025-01-15',
     },
   ]
 
@@ -112,15 +209,12 @@ const SideBar = () => {
           <div
             className={`overflow-hidden transition-all duration-500 ease-in ${showPurchases ? 'h-40' : 'h-0'} bg-white`}
           >
-            <p className="h-full overflow-auto">
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum."
-            </p>
+            <DataList
+              data={compras}
+              typeContent={1}
+              firstExpression={'data.descripcion'}
+              secondExpression={'data.precio'}
+            ></DataList>
           </div>
         </li>
         <li>
@@ -136,15 +230,12 @@ const SideBar = () => {
           <div
             className={`overflow-hidden transition-all duration-500 ease-in ${showSales ? 'h-40' : 'h-0'} bg-white`}
           >
-            <p className="h-full overflow-auto">
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum."
-            </p>
+            <DataList
+              data={ventas}
+              typeContent={2}
+              firstExpression={'data.descripcion'}
+              secondExpression={'data.precio'}
+            ></DataList>
           </div>
         </li>
         <li>
@@ -160,29 +251,12 @@ const SideBar = () => {
           <div
             className={`overflow-hidden transition-all duration-500 ease-in ${showStores ? 'h-40' : 'h-0'} bg-white`}
           >
-            <div className="w-full h-full overflow-auto">
-              <div className="w-full flex justify-center">
-                <b className="text-primary border-b border-lgray">
-                  Nuestras tiendas
-                </b>
-              </div>
-              <div>
-                {tiendas.map((tienda, index) => {
-                  return (
-                    <div
-                      className={`pl-1 pt-2 flex flex-row  items-center border-b border-lgray ${index === 0 ? 'mt-2' : ''}`}
-                    >
-                      <b className="text-secondary mr-2 break-all">
-                        {tienda.nombre}
-                      </b>
-                      <p className="text-sm ml-auto break-all">
-                        {tienda.telefono}
-                      </p>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
+            <DataList
+              data={tiendas}
+              typeContent={3}
+              firstExpression={'data.nombre'}
+              secondExpression={'data.telefono'}
+            ></DataList>
           </div>
         </li>
       </ul>
