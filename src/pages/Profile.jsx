@@ -5,7 +5,7 @@ import Settings from '../components/Profile/Settings.jsx'
 
 const Profile = () => {
   return (
-    <section className="flex flex-row h-screen">
+    <section className="relative flex flex-row h-screen">
       {/* Side Bar */}
       <SideBar />
       {/* Main Content */}
