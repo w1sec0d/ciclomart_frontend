@@ -15,6 +15,7 @@ const Settings = () => {
   const [showSecurityModal, setShowSecurityModal] = useState(false)
   const [showPrefModal, setShowPrefModal] = useState(false)
 
+  /* -> Test JSONS*/
   const user = [
     {
       idUsuario: 1,
@@ -31,6 +32,7 @@ const Settings = () => {
     },
   ]
 
+  /*Allows modals show*/
   const handlerShowData = (TypeModal) => {
     if (TypeModal === '1') {
       /*Activate Modal*/
@@ -46,6 +48,7 @@ const Settings = () => {
   return (
     <div className=" mt-8 mx-[105px] bg-lgray h-80 w-auto shadow-2xl rounded-3xl ">
       <ul className="h-full">
+        {/*Group of Buttons Settings*/}
         <li className="h-1/3">
           <CardButton
             arrow="2"
@@ -82,6 +85,7 @@ const Settings = () => {
           </CardButton>
         </li>
       </ul>
+      {/* Information Modal show*/}
       {showInfoModal ? (
         /*Interesant opacity Tailwindcss documentation https://tailwindcss.com/docs/upgrade-guide#new-opacity-modifier-syntax*/
         <InfoModal data={user} setShowInfoModal={setShowInfoModal} />

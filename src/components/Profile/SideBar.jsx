@@ -18,6 +18,7 @@ const SideBar = () => {
   const [showSales, setShowSales] = useState(false)
   const [showStores, setShowStores] = useState(false)
 
+  /*Tests JSONS*/
   const tiendas = [
     {
       idTienda: 1,
@@ -204,7 +205,7 @@ const SideBar = () => {
           </CardButton>
           <hr />
 
-          {/*Show content*/}
+          {/*Show conditional Content*/}
 
           <div
             className={`overflow-hidden transition-all duration-500 ease-in ${showPurchases ? 'h-40' : 'h-0'} bg-white`}
