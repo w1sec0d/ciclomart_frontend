@@ -84,7 +84,7 @@ const Settings = () => {
       </ul>
       {showInfoModal ? (
         /*Interesant opacity Tailwindcss documentation https://tailwindcss.com/docs/upgrade-guide#new-opacity-modifier-syntax*/
-        <InfoModal user={user} setShowInfoModal={setShowInfoModal} />
+        <InfoModal data={user} setShowInfoModal={setShowInfoModal} />
       ) : null}
     </div>
   )
