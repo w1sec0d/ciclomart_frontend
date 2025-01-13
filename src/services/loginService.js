@@ -8,6 +8,13 @@ const loginUser = async (data) =>{
     return request
 }
 
+const sendResetPasswordEmail = async (data) => {
+
+    const request = await axios.post(API_URL + '/sendEmail', {data});
+    return request
+}
+
 export default {
-    loginUser
+    loginUser,
+    sendResetPasswordEmail
 }
