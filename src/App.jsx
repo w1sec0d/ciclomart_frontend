@@ -18,7 +18,7 @@ const App = () => {
 
   const handleSearch = async (text) => {
     setSearchText(text);
-    const results = await apiService.searchProducts({name: text});
+    const results = await apiService.searchProducts({nombre: text});
     setSearchResults(results);
   }
 

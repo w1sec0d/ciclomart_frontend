@@ -15,11 +15,12 @@ const createUsuario = async (usuario) => {
 
 const searchProducts = async (params) => {
   let request = null
-  if (params.name === '' || params.name === null){
+  if (params === '' || params === null){
     request = await axios.get(API_URL + '/search')
   }
   else{
-    request = await axios.get(API_URL + '/search', { params })
+    params = new URLSearchParams(params).toString()
+    request = await axios.get(API_URL + '/search?' + params)
   }
   return request.data
 }
