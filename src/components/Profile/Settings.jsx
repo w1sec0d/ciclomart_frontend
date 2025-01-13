@@ -1,5 +1,6 @@
 //-> Components
-import CardButton from './CardButton'
+import CardButton from './CardButton.jsx'
+import InfoModal from './InfoModal.jsx'
 
 //-> Icons
 import SettingsIcon from '@mui/icons-material/TuneOutlined'
@@ -13,6 +14,22 @@ const Settings = () => {
   const [showInfoModal, setShowInfoModal] = useState(false)
   const [showSecurityModal, setShowSecurityModal] = useState(false)
   const [showPrefModal, setShowPrefModal] = useState(false)
+
+  const user = [
+    {
+      idUsuario: 1,
+      nombre: 'Carlos David',
+      apellido: 'Ramírez Muñoz',
+      edad: 29,
+      rol: 'Comprador',
+      correo: 'carlos.ramirez@gmail.com',
+      direccion: 'Calle 45 #23-89, Bogotá',
+      telefono: '3115678901',
+      username: 'carlos.ramirez',
+      password: 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6',
+      fechaRegistro: '2024-01-10 14:35:22',
+    },
+  ]
 
   const handlerShowData = (TypeModal) => {
     if (TypeModal === '1') {
@@ -67,34 +84,7 @@ const Settings = () => {
       </ul>
       {showInfoModal ? (
         /*Interesant opacity Tailwindcss documentation https://tailwindcss.com/docs/upgrade-guide#new-opacity-modifier-syntax*/
-        <div
-          className="flex items-center justify-center absolute inset-0 left-0 h-full w-full z-10 bg-gray/60 "
-          onClick={() => {
-            setShowInfoModal(false)
-          }}
-        >
-          <div
-            className="w-[800px] h-[400px] bg-white  rounded-3xl -translate-y-8 shadow-2xl z-20"
-            onClick={(e) => {
-              e.stopPropagation()
-            }}
-          >
-            <div className="flex items-center h-[64px] w-full border-b border-lgray px-4">
-              <b className="text-2xl">Información personal</b>
-            </div>
-            <div className="border-b border-lgray h-[272px] overflow-auto">
-              <p className="px-4 py-4">
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum."
-              </p>
-            </div>
-          </div>
-        </div>
+        <InfoModal user={user} setShowInfoModal={setShowInfoModal} />
       ) : null}
     </div>
   )
