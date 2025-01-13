@@ -10,8 +10,7 @@ import Tag from '@mui/icons-material/LocalOfferOutlined'
 import Logo from '../../assets/logoVector.svg'
 
 //-> Utils
-import { useState } from 'react'
-import { Button } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 const SideBar = () => {
   const [ShowPurchases, setShowPurchases] = useState(false)
@@ -26,11 +25,19 @@ const SideBar = () => {
 
   const handlerShowData = (TypeButton) => {
     if (TypeButton === '1') {
+      /*Activate Buttons*/
       setShowPurchases(true)
+      /*Deactivates Buttons*/
+      setShowSales(false)
+      setShowStores(false)
     } else if (TypeButton === '2') {
       setShowSales(true)
+      setShowPurchases(false)
+      setShowStores(false)
     } else if (TypeButton === '3') {
       setShowStores(true)
+      setShowPurchases(false)
+      setShowSales(false)
     }
   }
 
@@ -48,16 +55,40 @@ const SideBar = () => {
             <b className="flex flex-col w-full">Compras</b>
           </CardButton>
           <hr />
+
+          {/*Show content*/}
+
+          <div
+            className={`overflow-hidden transition-all duration-500 ease-in ${ShowPurchases ? 'h-40' : 'h-0'} bg-white`}
+          >
+            <p className="h-full overflow-auto">
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+          </div>
         </li>
         <li>
-          <CardButton>
+          <CardButton
+            onClick={() => {
+              handlerShowData('2')
+            }}
+          >
             <Tag className="ml-2" />
             <b className="flex flex-col w-full">Ventas</b>
           </CardButton>
           <hr />
         </li>
         <li>
-          <CardButton>
+          <CardButton
+            onClick={() => {
+              handlerShowData('3')
+            }}
+          >
             <Store className="ml-2" />
             <b className="flex flex-col w-full">Tiendas</b>
           </CardButton>
