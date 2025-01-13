@@ -14,7 +14,14 @@ const sendResetPasswordEmail = async (data) => {
     return request
 }
 
+const recoveryPassword = async (data, token) => {
+    console.log('Hola desde recoveryPassword ', data)
+    const request = await axios.post(API_URL + '/updatePassword', {data,token});
+    return request
+}
+
 export default {
     loginUser,
-    sendResetPasswordEmail
+    sendResetPasswordEmail,
+    recoveryPassword
 }
