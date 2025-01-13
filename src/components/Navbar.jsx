@@ -23,6 +23,7 @@ const Navbar = () => {
           <Button className="bg-tertiary mr-2" to="/login">
             Inicia sesión
           </Button>
+        </li>
         <li className="mx-4 hover:font-bold hover:cursor-pointer flex items-center ml-auto">
           <Button className="bg-tertiary" to="/register">
             Regístrate
