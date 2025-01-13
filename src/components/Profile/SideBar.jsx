@@ -25,7 +25,7 @@ const SideBar = () => {
 
   const handlerShowData = (TypeButton) => {
     if (TypeButton === '1') {
-      /*Deactivate doble selected button*/
+      /*Deactivate double selected button*/
       if (showPurchases) {
         setShowPurchases(false)
       } else {
