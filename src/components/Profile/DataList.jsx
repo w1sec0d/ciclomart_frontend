@@ -28,7 +28,10 @@ const DataList = ({
             <div
               className={`pl-1 pt-2 flex flex-row  items-center border-b border-lgray ${index === 0 ? 'mt-2' : ''}`}
             >
-              <b className="text-secondary mr-2 break-all">
+              <b
+                className="text-secondary mr-2 break-all line-clamp-1 w-2/3 hover:cursor-pointer"
+                title={eval(firstExpression)}
+              >
                 {eval(firstExpression)}
               </b>
               <p className="text-sm ml-auto break-all">
