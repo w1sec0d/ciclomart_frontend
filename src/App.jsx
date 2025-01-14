@@ -9,7 +9,7 @@ import UserInfo from './pages/UserInfo'
 import Login from './pages/Login'
 import Verificacion from './pages/Verificacion'
 import PasswordRecovery from './pages/PasswordRecovery'
-import CodeVerification from './pages/CodeVerification' 
+import CodeVerification from './pages/CodeVerification'
 
 // Context
 
@@ -25,7 +25,10 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="userInfo" element={<UserInfo />} />
           <Route path="verificacion" element={<Verificacion />} />
-          <Route path="verificacionCode/:token" element={<CodeVerification />} />
+          <Route
+            path="verificacionCode/:token"
+            element={<CodeVerification />}
+          />
           <Route
             path="passwordRecovery/:token"
             element={<PasswordRecovery />}

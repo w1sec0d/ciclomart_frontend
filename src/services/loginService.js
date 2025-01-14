@@ -18,18 +18,18 @@ const recoveryPassword = async (data, token) => {
   return request
 }
 
-const sendCodeRegister = async(data) => {
-  console.log("Hola desde sendCodeRegister",data)
-  const request = await axios.post(API_URL + '/sendEmailCode', {data})
+const sendCodeRegister = async (data) => {
+  console.log('Hola desde sendCodeRegister', data)
+  const request = await axios.post(API_URL + '/sendEmailCode', { data })
   return request
 }
 
-const validateCode = async(data, token) => {
+const validateCode = async (data, token) => {
   const request = await axios.post(API_URL + '/validateCode', { data, token })
   return request
 }
 
-const verifyEmail = async(data) => {
+const verifyEmail = async (data) => {
   const request = await axios.get(API_URL + `/verifyEmail/${data}`)
   return request
 }
@@ -40,5 +40,5 @@ export default {
   recoveryPassword,
   sendCodeRegister,
   validateCode,
-  verifyEmail
+  verifyEmail,
 }
