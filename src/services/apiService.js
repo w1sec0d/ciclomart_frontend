@@ -9,8 +9,9 @@ const getUsuario = async () => {
 }
 
 const createUsuario = async (usuario) => {
+  
   const request = await axios.post(API_URL + '/usuarios', usuario)
-  return request.data
+  return request.data 
 }
 
 export default { getUsuario, createUsuario }

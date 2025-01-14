@@ -8,10 +8,12 @@ import apiService from '../services/apiService'
 import logo from '../assets/logo.png'
 import Checkbox from './Checkbox'
 import Button from './Button'
+import loginService from '../services/loginService'
 
 const RegisterForm = () => {
 
   const navigate = useNavigate();
+
 
   const [state, setState] = useState({
     errors:{}
@@ -31,6 +33,16 @@ const RegisterForm = () => {
       icon: 'info',
     })
   )
+
+  const validationEmail = async (values) =>{
+    //const email = values.email
+
+    const request = await loginService.sendCodeRegister(values);
+    if(request.status === 200){
+      return true
+    }
+    return false
+  }
 
   const validation = (values) =>{
 
@@ -63,13 +75,31 @@ const RegisterForm = () => {
     
     const errors = validation(data);
     
+    
     setState({
       ...state,
       errors: errors
     })
 
     if(errors.email === "" && errors.password === "" && errors.invalid === ""){
-      const request = await apiService.createUsuario(data)
+
+      const validateEmail = validationEmail(data)
+      
+      if(validateEmail){
+        alert("Hola te enviamos un código para terminar el registro.")
+        dispatch(
+          setNotification({
+            title: '¡Éxito!',
+            text: 'Hola te enviamos un código para terminar el registro.',
+            icon: 'success',
+          })
+        )
+        reset();
+      }
+
+
+
+      /*const request = await apiService.createUsuario(data)
       if (request) {
         dispatch(
           setNotification({
@@ -82,9 +112,9 @@ const RegisterForm = () => {
         setTimeout(() => {
           navigate('/login')
         }, 2000)
-      }
+      }*/
     }
-    //reset() // Clear form
+     // Clear form
   }
   return (
     <>
