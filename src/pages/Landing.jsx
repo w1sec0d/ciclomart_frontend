@@ -1,9 +1,14 @@
+// Carousel styling
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
+// Assets importing
 import landing1 from '../assets/landing1.webp'
-import ItemContainer from '../components/ItemContainer'
 import bike1 from '../assets/bike1.webp'
+import { LocalFireDepartment } from '@mui/icons-material'
+
+// Components
+import ItemContainer from '../components/ItemContainer'
 
 const LandingPage = () => {
   const landingCarousel = {
@@ -62,13 +67,16 @@ const LandingPage = () => {
           />
         </div>
       </Carousel>
-      <h2 className="text-3xl text-center font-bold my-10">Lo más vendido</h2>
-      <Carousel responsive={itemContainer}>
+      <h2 className="text-3xl text-center font-bold my-10">
+        <LocalFireDepartment fontSize="large" /> Lo más vendido
+      </h2>
+      <Carousel responsive={itemContainer} className="ml-7 mb-10">
         <ItemContainer
           name="Bicicleta de carbono S-Works Ruta"
           img={bike1}
           fullPrice={3000000}
           price={2250000}
+          freeShipping={true}
         />
         <ItemContainer
           name="Bicicleta de carbono S-Works Ruta"
