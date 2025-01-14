@@ -13,10 +13,10 @@ const ItemContainer = ({
 
   return (
     <a
-      className="flex flex-col justify-center max-w-[200px] hover:cursor-pointer group"
+      className="flex flex-col justify-center w-[225px] h-[320px] hover:cursor-pointer group shadow-xl p-2 bg-white rounded-md"
       href="https://www.youtube.com"
     >
-      <img src={img} className="max-w-[200px]" />
+      <img src={img} className="max-w-[250px]" />
       <p className="my-2 group-hover:text-primary font-medium">{name}</p>
       <div className="flex flex-wrap text-xl font-bold relative mt-3 items-center">
         {fullPrice && (
@@ -31,7 +31,7 @@ const ItemContainer = ({
       </div>
       <div>
         {freeShipping && (
-          <p className="text-sm text-white bg-green-600 py-1 px-2 rounded-md font-semibold w-fit mt-2">
+          <p className="text-sm text-white bg-green-600 py-1 px-2 rounded-md font-semibold w-fit mt-2 mb-6">
             <LocalShipping fontSize="small" className="mr-2" />
             Envío gratis
           </p>

@@ -71,7 +71,7 @@ const LandingPage = () => {
       <h2 className="text-3xl text-center font-bold my-10">
         <LocalFireDepartment fontSize="large" /> Lo más vendido
       </h2>
-      <Carousel responsive={itemContainer} className="ml-7 mb-10">
+      <Carousel responsive={itemContainer} className="pl-7 pb-10">
         <ItemContainer
           name="Bicicleta de carbono S-Works Ruta"
           img={bike1}
@@ -120,25 +120,25 @@ const LandingPage = () => {
         <PedalBike fontSize="large" /> Explora tu mundo bici
       </h2>
       <section className="flex flex-row justify-between max-w-[800px] mx-auto">
-        <div>
+        <a href="/ofertas" className="p-4 shadow-xl bg-white rounded-md">
           <img src={offer} className="w-[200px] h-[200px] object-contain" />
           <h3 className="font-semibold text-center my-2 text-xl">Ofertas</h3>
-        </div>
-        <div>
+        </a>
+        <a href="/ofertas" className="p-4 shadow-xl bg-white rounded-md">
           <img src={bike2} className="w-[200px] h-[200px] object-contain" />
           <h3 className="font-semibold text-center my-2 text-xl">Bicicletas</h3>
-        </div>
-        <div>
+        </a>
+        <a href="/ofertas" className="p-4 shadow-xl bg-white rounded-md">
           <img src={repuestos} className="w-[200px] h-[200px] object-contain" />
           <h3 className="font-semibold text-center my-2 text-xl">Repuestos</h3>
-        </div>
+        </a>
       </section>
       <section className="my-6">
         <h2 className="text-3xl text-center font-bold my-10">
           <SettingsSuggest fontSize="large" /> Encuentra{' '}
           <span className="italic">ese repuesto</span> que necesitas
         </h2>
-        <Carousel responsive={itemContainer} className="ml-7 mb-10">
+        <Carousel responsive={itemContainer} className="pl-7 pb-10">
           <ItemContainer
             name="Repuesto"
             img={repuestos}
