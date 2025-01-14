@@ -3,6 +3,8 @@ import registerImage from '../assets/register.png'
 import RegisterForm from '../components/RegisterForm'
 
 const Register = () => {
+  const user = 
+
   return (
     <section className="flex flex-col md:flex-row">
       <div className="bg-white md:w-3/5 p-8">
