@@ -6,6 +6,10 @@ import Landing from './pages/Landing'
 import Layout from './components/Layout'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
+import UserInfo from './pages/UserInfo'
+import Login from './pages/Login'
+import Verificacion from './pages/Verificacion'
+import PasswordRecovery from './pages/PasswordRecovery'
 
 const App = () => {
   return (
@@ -14,6 +18,10 @@ const App = () => {
         <Route index element={<Landing />} />
         <Route path="register" element={<Register />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="login" element={<Login />} />
+        <Route path="userInfo" element={<UserInfo />} />
+        <Route path="verificacion" element={<Verificacion />} />
+        <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
       </Route>
     </Routes>
   )
