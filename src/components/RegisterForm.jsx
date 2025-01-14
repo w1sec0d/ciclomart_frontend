@@ -34,11 +34,20 @@ const RegisterForm = () => {
     })
   )
 
-  const validationEmail = async (values) =>{
+  const sendEmail = async (values) =>{
     //const email = values.email
 
     const request = await loginService.sendCodeRegister(values);
     if(request.status === 200){
+      return true
+    }
+    return false
+  }
+
+  const verifyEmail = async(values) =>{
+    const email = values.email
+    const request = await loginService.verifyEmail(email);
+    if(request.data.message){
       return true
     }
     return false
@@ -83,19 +92,33 @@ const RegisterForm = () => {
 
     if(errors.email === "" && errors.password === "" && errors.invalid === ""){
 
-      const validateEmail = validationEmail(data)
-      
-      if(validateEmail){
-        alert("Hola te enviamos un código para terminar el registro.")
+      const validateEmail = await sendEmail(data)
+      const verifirEmail = await verifyEmail(data)
+
+
+      if(verifirEmail){
         dispatch(
           setNotification({
-            title: '¡Éxito!',
-            text: 'Hola te enviamos un código para terminar el registro.',
-            icon: 'success',
+            title: '¡Ya existe un usuairo!',
+            text: 'Ya existe un usuario con este correo.',
+            icon: 'error',
           })
         )
-        reset();
+      }else{
+        if(validateEmail){
+          alert("Hola te enviamos un código para terminar el registro.")
+          dispatch(
+            setNotification({
+              title: '¡Éxito!',
+              text: 'Hola te enviamos un código para terminar el registro.',
+              icon: 'success',
+            })
+          )
+          reset();
+        }
       }
+      
+
 
 
 

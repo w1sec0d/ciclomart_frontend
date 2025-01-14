@@ -29,10 +29,16 @@ const validateCode = async(data, token) => {
   return request
 }
 
+const verifyEmail = async(data) => {
+  const request = await axios.get(API_URL + `/verifyEmail/${data}`)
+  return request
+}
+
 export default {
   loginUser,
   sendResetPasswordEmail,
   recoveryPassword,
   sendCodeRegister,
-  validateCode
+  validateCode,
+  verifyEmail
 }
