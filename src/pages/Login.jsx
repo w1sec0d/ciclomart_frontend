@@ -4,15 +4,18 @@ import Checkbox from '../components/Checkbox'
 import Button from '../components/Button'
 
 import { setNotification } from '../store/slices/notificationSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { useAuth } from '../assets/Context/AuthContext'
+import {
+  setAuthUser,
+  setIsLoggedIn,
+  setIsAdmin,
+} from '../store/slices/authSlice'
 import loginService from '../services/loginService'
 
 const Login = () => {
   const dispatch = useDispatch()
-
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -26,16 +29,6 @@ const Login = () => {
   }, [dispatch])
 
   const { register, handleSubmit, reset } = useForm()
-
-  //Funcion que almacena los datos del usuario y permite utilizarlo en otros componentes
-  const {
-    authUser,
-    setAuthUser,
-    isLoggedIn,
-    setIsLoggedIn,
-    isAdmin,
-    setIsAdmin,
-  } = useAuth()
 
   const onSubmit = async (data) => {
     try {
@@ -53,11 +46,13 @@ const Login = () => {
         )
 
         localStorage.setItem('token', token)
-        setIsLoggedIn(true)
-        setAuthUser({
-          idUser: request.data.user.idUsuario,
-          email: request.data.user.correo,
-        })
+        dispatch(setIsLoggedIn(true))
+        dispatch(
+          setAuthUser({
+            idUser: user.idUsuario,
+            email: user.correo,
+          })
+        )
 
         navigate('/userInfo')
       }
@@ -138,4 +133,5 @@ const Login = () => {
     </div>
   )
 }
+
 export default Login

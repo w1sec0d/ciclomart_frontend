@@ -1,9 +1,11 @@
-import { useAuth } from '../assets/Context/AuthContext'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import userInfoService from '../services/userInfoService'
+import { setAuthUser } from '../store/slices/authSlice'
 
 const UserInfo = () => {
-  const { authUser, setAuthUser } = useAuth()
+  const dispatch = useDispatch()
+  const authUser = useSelector((state) => state.auth.authUser)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -12,7 +14,7 @@ const UserInfo = () => {
 
       if (token) {
         const request = await userInfoService.getUserInfo(token)
-        setAuthUser(request.user)
+        dispatch(setAuthUser(request.user))
         setLoading(false)
       } else {
         setLoading(false)
@@ -20,7 +22,11 @@ const UserInfo = () => {
     }
 
     fetchUserInfo()
-  }, [setAuthUser])
+  }, [dispatch])
+
+  if (loading) {
+    return <p>Loading...</p>
+  }
 
   return (
     <div>

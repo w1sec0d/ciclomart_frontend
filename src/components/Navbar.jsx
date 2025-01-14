@@ -29,6 +29,11 @@ const Navbar = () => {
             Regístrate
           </Button>
         </li>
+        <li className="mx-4 hover:font-bold flex items-center">
+          <Button className="bg-tertiary px-8" to="/profile">
+            Perfil
+          </Button>
+        </li>
       </ul>
     </nav>
   )

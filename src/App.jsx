@@ -5,15 +5,12 @@ import { Route, Routes } from 'react-router'
 import Landing from './pages/Landing'
 import Layout from './components/Layout'
 import Register from './pages/Register'
+import Profile from './pages/Profile'
 import UserInfo from './pages/UserInfo'
 import Login from './pages/Login'
 import Verificacion from './pages/Verificacion'
 import PasswordRecovery from './pages/PasswordRecovery'
 import CodeVerification from './pages/CodeVerification'
-
-// Context
-
-import { AuthProvider } from './assets/Context/AuthContext'
 
 const App = () => {
   return (
@@ -36,6 +33,7 @@ const App = () => {
         </Route>
       </Routes>
     </AuthProvider>
+
   )
 }
 
