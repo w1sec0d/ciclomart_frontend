@@ -18,21 +18,14 @@ const App = () => {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Landing />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="userInfo" element={<UserInfo />} />
-          <Route path="verificacion" element={<Verificacion />} />
-          <Route
-            path="passwordRecovery/:token"
-            element={<PasswordRecovery />}
-          />
-          <Route index element={<Landing />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="userInfo" element={<UserInfo />} />
-        </Route>
+        <Route path="/" element={<Layout />} />
+        <Route index element={<Landing />} />
+        <Route path="register" element={<Register />} />
+        <Route path = "login" element={<Login />} /> 
+        <Route path = "userInfo" element={<UserInfo />} /> 
+        <Route path = "verificacion" element={<Verificacion />} /> 
+        <Route path = "passwordRecovery/:token"  element ={< PasswordRecovery />}/>
+
       </Routes>
     </AuthProvider>
   )
