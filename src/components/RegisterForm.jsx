@@ -16,6 +16,14 @@ const RegisterForm = () => {
     // formState: { errors },
   } = useForm()
 
+  dispatch(
+    setNotification({
+      title: 'Hola Redux!',
+      text: 'Esto es una notificación de login',
+      icon: 'info',
+    })
+  )
+
   const onSubmit = async (data) => {
     const request = await apiService.createUsuario(data)
     if (request) {
