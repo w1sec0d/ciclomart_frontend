@@ -11,12 +11,21 @@ import Tag from '@mui/icons-material/LocalOfferOutlined'
 import Logo from '../../assets/logoVector.svg'
 
 //-> Utils
-import { useEffect, useState } from 'react'
+import apiService from '../../services/apiService.js'
+import profileService from '../../services/profileService.js'
+import { useState } from 'react'
+import { setAuthUser } from '../../store/slices/authSlice.js'
+import { useSelector } from 'react-redux'
 
 const SideBar = () => {
+  /*user global state*/
+  const authUser = useSelector((state) => state.auth.authUser)
+
   const [showPurchases, setShowPurchases] = useState(false)
   const [showSales, setShowSales] = useState(false)
   const [showStores, setShowStores] = useState(false)
+  const [dataStores, setDataStores] = useState([])
+  const [dataSales, setDataSales] = useState([])
 
   /*Tests JSONS*/
   const tiendas = [
@@ -153,6 +162,25 @@ const SideBar = () => {
     },
   ]
 
+  /*Data obtained from DataBase*/
+  const fetchStores = async () => {
+    try {
+      const data = await apiService.getTiendas()
+      setDataStores(data)
+    } catch (error) {
+      console.error('Error fetching data stores', error)
+    }
+  }
+
+  const fetchSales = async () => {
+    try {
+      const data = await profileService.getSales(3)
+      setDataSales(data)
+    } catch (error) {
+      console.error('Error fetching user Sales', error)
+    }
+  }
+
   /* -> Handlers -> */
 
   /*TypeButton 1 -> Purchases
@@ -221,7 +249,7 @@ const SideBar = () => {
         <li>
           <CardButton
             onClick={() => {
-              handlerShowData('2')
+              handlerShowData('2'), fetchSales()
             }}
           >
             <Tag className="ml-2" />
@@ -232,17 +260,17 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${showSales ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={ventas}
+              data={dataSales}
               typeContent={2}
-              firstExpression={'data.descripcion'}
-              secondExpression={'data.precio'}
+              firstExpression={'data.fecha'}
+              secondExpression={'data.monto'}
             ></DataList>
           </div>
         </li>
         <li>
           <CardButton
             onClick={() => {
-              handlerShowData('3')
+              handlerShowData('3'), fetchStores()
             }}
           >
             <Store className="ml-2" />
@@ -253,7 +281,7 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${showStores ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={tiendas}
+              data={dataStores}
               typeContent={3}
               firstExpression={'data.nombre'}
               secondExpression={'data.telefono'}

@@ -37,7 +37,6 @@ const Settings = () => {
     if (TypeModal === '1') {
       /*Activate Modal*/
       setShowInfoModal(true)
-      console.log('funciona')
     } else if (TypeModal === '2') {
       setShowSecurityModal(true)
     } else if (TypeModal === '3') {

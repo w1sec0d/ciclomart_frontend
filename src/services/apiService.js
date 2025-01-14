@@ -13,4 +13,9 @@ const createUsuario = async (usuario) => {
   return request.data
 }
 
-export default { getUsuario, createUsuario }
+const getTiendas = async () => {
+  const request = await axios.get(API_URL + '/getTiendas')
+  return request.data
+}
+
+export default { getUsuario, createUsuario, getTiendas }
