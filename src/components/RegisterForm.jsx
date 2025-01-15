@@ -5,7 +5,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { setNotification } from '../store/slices/notificationSlice'
 import apiService from '../services/apiService'
-import logo from '../assets/logo.png'
 import Checkbox from './Checkbox'
 import Button from './Button'
 import loginService from '../services/loginService'
@@ -130,7 +129,6 @@ const RegisterForm = () => {
   }
   return (
     <>
-      <img src={logo} alt="Logo de CicloMart" className="w-14 h-14 mb-5" />
       <h1 className="font-black text-5xl">Únete a CicloMart</h1>
       <p>Crea una cuenta gratuita o inicia sesión</p>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">

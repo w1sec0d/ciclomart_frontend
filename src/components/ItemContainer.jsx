@@ -1,13 +1,24 @@
+import { LocalShipping } from '@mui/icons-material'
+
 import PropTypes from 'prop-types'
 
-const ItemContainer = ({ img, name, price, fullPrice }) => {
+const ItemContainer = ({
+  img,
+  name,
+  price,
+  fullPrice,
+  freeShipping = false,
+}) => {
   const discountPercentage = ((fullPrice - price) / fullPrice) * 100
 
   return (
-    <div className="flex flex-col text-center items-center justify-center max-w-[200px] hover:cursor-pointer">
-      <img src={img} className="max-w-[200px]" />
-      <p className="my-2 text-base">{name}</p>
-      <p className="flex flex-wrap text-xl font-bold mx-auto relative mt-3 items-center">
+    <a
+      className="flex flex-col justify-center w-[225px] h-[320px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a"
+      href="https://www.youtube.com"
+    >
+      <img src={img} className="max-w-[250px]" />
+      <p className="my-2 group-hover:text-primary font-medium">{name}</p>
+      <div className="flex flex-wrap text-xl font-bold relative mt-3 items-center">
         {fullPrice && (
           <span className="absolute text-red-500 line-through text-sm text-left -top-3">
             ${fullPrice}
@@ -17,8 +28,16 @@ const ItemContainer = ({ img, name, price, fullPrice }) => {
         <span className="text-sm text-primary ml-2">
           {discountPercentage}% OFF
         </span>
-      </p>
-    </div>
+      </div>
+      <div>
+        {freeShipping && (
+          <p className="text-sm text-white bg-green-600 py-1 px-2 rounded-md font-semibold w-fit mt-2 mb-6">
+            <LocalShipping fontSize="small" className="mr-2" />
+            Envío gratis
+          </p>
+        )}
+      </div>
+    </a>
   )
 }
 ItemContainer.propTypes = {
@@ -26,6 +45,7 @@ ItemContainer.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   fullPrice: PropTypes.number,
+  freeShipping: PropTypes.bool,
 }
 
 export default ItemContainer
