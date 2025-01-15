@@ -20,36 +20,17 @@ const RegisterForm = () => {
   } = useForm()
   const password = watch('password') // Watch password input
 
-  const sendEmail = async (values) => {
-    const request = await loginService.sendCodeRegister(values)
+  const sendRegisterCode = async (values) => {
+    const request = await loginService.sendRegisterCode(values)
     if (request.status === 200) {
       return true
     }
     return false
   }
 
-  const verifyEmail = async (values) => {
-    const email = values.email
-    const request = await loginService.verifyEmail(email)
-    if (request.data.message) {
-      return true
-    }
-    return false
-  }
-
-  console.log('errors', errors)
   const onSubmit = async (data) => {
-    const validateEmail = await sendEmail(data)
-    const verifirEmail = await verifyEmail(data)
-    if (verifirEmail) {
-      dispatch(
-        setNotification({
-          title: '¡Ya existe un usuairo!',
-          text: 'Ya existe un usuario con este correo.',
-          icon: 'error',
-        })
-      )
-    } else {
+    try {
+      const validateEmail = await sendRegisterCode(data)
       if (validateEmail) {
         dispatch(
           setNotification({
@@ -58,7 +39,18 @@ const RegisterForm = () => {
             icon: 'success',
           })
         )
-        reset() // Clear form
+        // reset() // Clear form
+      }
+    } catch (error) {
+      // check error http response
+      if (error.status === 400) {
+        dispatch(
+          setNotification({
+            title: '¡Error!',
+            text: error.response.data.message ?? 'ha ocurrido un error',
+            icon: 'error',
+          })
+        )
       }
     }
   }
