@@ -4,12 +4,12 @@ import ChangePassword from '@mui/icons-material/LockResetOutlined'
 import ChangeEmail from '@mui/icons-material/EmailOutlined'
 import LogOut from '@mui/icons-material/ExitToAppOutlined'
 
-const SecurityModal = ({ setShowSecurityModal = () => {} }) => {
+const PrefModal = ({ setShowPrefModal = () => {} }) => {
   return (
     <div
       className="flex items-center justify-center absolute inset-0 left-0 h-full w-full z-10 bg-gray/60 "
       onClick={() => {
-        setShowSecurityModal(false)
+        setShowPrefModal(false)
         document.body.classList.remove('overflow-hidden')
       }}
     >
@@ -25,7 +25,7 @@ const SecurityModal = ({ setShowSecurityModal = () => {} }) => {
             <Quit
               className="hover:rounded-full hover:cursor-pointer transition duration-200 ease-in-out hover:scale-125"
               onClick={() => {
-                setShowSecurityModal(false)
+                setShowPrefModal(false)
                 document.body.classList.remove('overflow-hidden')
               }}
             ></Quit>
@@ -66,4 +66,4 @@ const SecurityModal = ({ setShowSecurityModal = () => {} }) => {
   )
 }
 
-export default SecurityModal
+export default PrefModal
