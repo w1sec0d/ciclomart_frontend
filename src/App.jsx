@@ -10,20 +10,30 @@ import UserInfo from './pages/UserInfo'
 import Login from './pages/Login'
 import Verificacion from './pages/Verificacion'
 import PasswordRecovery from './pages/PasswordRecovery'
+import CodeVerification from './pages/CodeVerification'
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Landing />} />
-        <Route path="register" element={<Register />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="login" element={<Login />} />
-        <Route path="userInfo" element={<UserInfo />} />
-        <Route path="verificacion" element={<Verificacion />} />
-        <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
-      </Route>
-    </Routes>
+    
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Landing />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="userInfo" element={<UserInfo />} />
+          <Route path="verificacion" element={<Verificacion />} />
+          <Route
+            path="verificacionCode/:token"
+            element={<CodeVerification />}
+          />
+          <Route
+            path="passwordRecovery/:token"
+            element={<PasswordRecovery />}
+          />
+        </Route>
+      </Routes>
+    
+
   )
 }
 
