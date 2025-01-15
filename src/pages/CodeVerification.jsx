@@ -1,15 +1,9 @@
 import Input from '../components/Input'
 import { useForm } from 'react-hook-form'
 import Button from '../components/Button'
-import { useEffect } from 'react'
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import loginService from '../services/loginService'
 import apiService from '../services/apiService'
 

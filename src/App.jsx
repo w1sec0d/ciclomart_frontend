@@ -19,7 +19,7 @@ import CodeVerification from './pages/CodeVerification'
 import Layout from './components/Layout'
 
 // Utils
-import getUserFromLocalStorage from './utils/getUser'
+import getUserFromLocalStorage from './utils/GetUser'
 import { setAuthUser } from './store/slices/authSlice'
 
 const App = () => {
