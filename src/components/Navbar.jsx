@@ -1,7 +1,12 @@
 import Button from './Button'
 import logo from '../assets/logo.png'
+import { Person } from '@mui/icons-material'
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
+  // load user info to check if user is logged in
+  const user = useSelector((state) => state.auth.authUser)
+
   return (
     <nav className="bg-white p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-lg">
       <ul className="flex flex-col md:flex-row w-full">
@@ -28,25 +33,29 @@ const Navbar = () => {
             de <span className="font-bold">confianza</span>
           </h1>
         </li>
-        <li className="hover:font-bold flex items-center ml-auto">
-          <Button
-            className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:hover:bg-tertiary-dark"
-            to="/login"
-          >
-            Inicia sesión
-          </Button>
-          <Button
-            className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:hover:bg-tertiary-dark"
-            to="/register"
-          >
-            Regístrate
-          </Button>
-        </li>
-        <li className="mx-4 hover:font-bold flex items-center">
-          <Button className="bg-tertiary px-8" to="/profile">
-            Perfil
-          </Button>
-        </li>
+        {user ? (
+          <li className="mx-4 hover:font-bold flex items-center">
+            <Button className="bg-tertiary px-8" to="/profile">
+              <Person />
+              Perfil
+            </Button>
+          </li>
+        ) : (
+          <li className="hover:font-bold flex items-center ml-auto">
+            <Button
+              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:hover:bg-tertiary-dark"
+              to="/login"
+            >
+              Inicia sesión
+            </Button>
+            <Button
+              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:hover:bg-tertiary-dark"
+              to="/register"
+            >
+              Regístrate
+            </Button>
+          </li>
+        )}
       </ul>
     </nav>
   )

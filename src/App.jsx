@@ -1,9 +1,12 @@
+// React and state logic
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
 // Routing
 import { Route, Routes } from 'react-router-dom'
 
 // Pages
 import Landing from './pages/Landing'
-import Layout from './components/Layout'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
 import UserInfo from './pages/UserInfo'
@@ -12,7 +15,24 @@ import Verificacion from './pages/Verificacion'
 import PasswordRecovery from './pages/PasswordRecovery'
 import CodeVerification from './pages/CodeVerification'
 
+// Components
+import Layout from './components/Layout'
+
+// Utils
+import getUserFromLocalStorage from './utils/getUser'
+import { setAuthUser } from './store/slices/authSlice'
+
 const App = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getUserFromLocalStorage()
+      dispatch(setAuthUser(user))
+    }
+    fetchUser()
+  }, [dispatch])
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
