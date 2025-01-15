@@ -8,4 +8,9 @@ const getSales = async (idUser) => {
   return request.data
 }
 
-export default { getSales }
+const getPurchases = async (idUser) => {
+  const request = await axios.get(`${API_URL}/getComprasById/${idUser}`)
+  return request.data
+}
+
+export default { getSales, getPurchases }

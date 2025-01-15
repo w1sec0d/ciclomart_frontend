@@ -1,6 +1,7 @@
 //-> Components
 import CardButton from './CardButton.jsx'
 import InfoModal from './InfoModal.jsx'
+import SecurityModal from './SecurityModal.jsx'
 
 //-> Icons
 import SettingsIcon from '@mui/icons-material/TuneOutlined'
@@ -9,8 +10,10 @@ import Card from '@mui/icons-material/BadgeOutlined'
 
 //-> Utils
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const Settings = () => {
+  const authUser = useSelector((state) => state.auth.authUser)
   const [showInfoModal, setShowInfoModal] = useState(false)
   const [showSecurityModal, setShowSecurityModal] = useState(false)
   const [showPrefModal, setShowPrefModal] = useState(false)
@@ -66,7 +69,14 @@ const Settings = () => {
           </CardButton>
         </li>
         <li className="h-1/3">
-          <CardButton arrow="2" className="h-full border-y">
+          <CardButton
+            arrow="2"
+            className="h-full border-y"
+            onClick={() => {
+              handlerShowData('2')
+              document.body.classList.add('overflow-hidden')
+            }}
+          >
             <Security className="ml-8" style={{ fontSize: '3.5rem' }} />
             <div className="flex flex-col w-full">
               <b className="flex flex-col w-full">Seguridad</b>
@@ -87,7 +97,11 @@ const Settings = () => {
       {/* Information Modal show*/}
       {showInfoModal ? (
         /*Interesant opacity Tailwindcss documentation https://tailwindcss.com/docs/upgrade-guide#new-opacity-modifier-syntax*/
-        <InfoModal data={user} setShowInfoModal={setShowInfoModal} />
+        <InfoModal data={[authUser]} setShowInfoModal={setShowInfoModal} />
+      ) : null}
+      ,
+      {showSecurityModal ? (
+        <SecurityModal setShowSecurityModal={setShowSecurityModal} />
       ) : null}
     </div>
   )

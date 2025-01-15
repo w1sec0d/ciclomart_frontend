@@ -26,141 +26,7 @@ const SideBar = () => {
   const [showStores, setShowStores] = useState(false)
   const [dataStores, setDataStores] = useState([])
   const [dataSales, setDataSales] = useState([])
-
-  /*Tests JSONS*/
-  const tiendas = [
-    {
-      idTienda: 1,
-      idUsuarioAdministrador: 101,
-      nombre: 'CicloMarket',
-      descripcion: 'Tienda de bicicletas y accesorios',
-      telefono: '3201234567',
-    },
-    {
-      idTienda: 2,
-      idUsuarioAdministrador: 102,
-      nombre: 'BikePro',
-      descripcion: 'Repuestos y personalización de bicicletas',
-      telefono: '3109876543',
-    },
-    {
-      idTienda: 3,
-      idUsuarioAdministrador: 103,
-      nombre: 'EcoRide',
-      descripcion: 'Bicicletas ecológicas y eléctricas',
-      telefono: '3126547890',
-    },
-    {
-      idTienda: 4,
-      idUsuarioAdministrador: 104,
-      nombre: 'UrbanCycle',
-      descripcion: 'Especialistas en bicicletas urbanas',
-      telefono: '3001122334',
-    },
-    {
-      idTienda: 5,
-      idUsuarioAdministrador: 105,
-      nombre: 'MountainXtreme',
-      descripcion: 'Bicicletas de montaña y accesorios',
-      telefono: '3155566778',
-    },
-  ]
-
-  const ventas = [
-    {
-      idProducto: 1,
-      idUsuario: 101,
-      tipo: 'venta',
-      descripcion: 'Bicicleta de montaña usada',
-      estado: 'completado',
-      precio: 850000.0,
-      fechaCompra: '2025-01-10',
-    },
-    {
-      idProducto: 11,
-      idUsuario: 101,
-      tipo: 'venta',
-      descripcion: 'Casco de ciclismo con luz integrada',
-      estado: 'pendiente',
-      precio: 150000.0,
-      fechaCompra: '2025-01-12',
-    },
-    {
-      idProducto: 12,
-      idUsuario: 101,
-      tipo: 'venta',
-      descripcion: 'Portabicicletas para automóvil',
-      estado: 'procesando',
-      precio: 300000.0,
-      fechaCompra: '2025-01-14',
-    },
-    {
-      idProducto: 13,
-      idUsuario: 101,
-      tipo: 'venta',
-      descripcion: 'Juego de luces LED traseras',
-      estado: 'completado',
-      precio: 50000.0,
-      fechaCompra: '2025-01-15',
-    },
-    {
-      idProducto: 14,
-      idUsuario: 101,
-      tipo: 'venta',
-      descripcion: 'Zapatos para ciclismo de montaña',
-      estado: 'pendiente',
-      precio: 200000.0,
-      fechaCompra: '2025-01-16',
-    },
-  ]
-
-  const compras = [
-    {
-      idProducto: 2,
-      idUsuario: 101,
-      tipo: 'compra',
-      descripcion: 'Casco profesional para ciclismo',
-      estado: 'pendiente',
-      precio: 120000.0,
-      fechaCompra: '2025-01-12',
-    },
-    {
-      idProducto: 10,
-      idUsuario: 101,
-      tipo: 'compra',
-      descripcion: 'Par de neumáticos para montaña',
-      estado: 'completado',
-      precio: 180000.0,
-      fechaCompra: '2025-01-08',
-    },
-    {
-      idProducto: 15,
-      idUsuario: 101,
-      tipo: 'compra',
-      descripcion: 'Bomba de aire portátil',
-      estado: 'procesando',
-      precio: 50000.0,
-      fechaCompra: '2025-01-13',
-    },
-    {
-      idProducto: 16,
-      idUsuario: 101,
-      tipo: 'compra',
-      descripcion: 'Cámara de repuesto para carretera',
-      estado: 'completado',
-      precio: 25000.0,
-      fechaCompra: '2025-01-14',
-    },
-    {
-      idProducto: 17,
-      idUsuario: 101,
-      tipo: 'compra',
-      descripcion: 'Guantes térmicos de invierno',
-      estado: 'pendiente',
-      precio: 80000.0,
-      fechaCompra: '2025-01-15',
-    },
-  ]
+  const [dataPurchases, setDataPurchases] = useState([])
 
   /*Data obtained from DataBase*/
   const fetchStores = async () => {
@@ -176,6 +42,15 @@ const SideBar = () => {
     try {
       const data = await profileService.getSales(3)
       setDataSales(data)
+    } catch (error) {
+      console.error('Error fetching user Sales', error)
+    }
+  }
+
+  const fetchPurchases = async () => {
+    try {
+      const data = await profileService.getPurchases(5)
+      setDataPurchases(data)
     } catch (error) {
       console.error('Error fetching user Sales', error)
     }
@@ -225,7 +100,7 @@ const SideBar = () => {
         <li>
           <CardButton
             onClick={() => {
-              handlerShowData('1')
+              handlerShowData('1'), fetchPurchases()
             }}
           >
             <ShoppingBag className="ml-2" />
@@ -239,10 +114,10 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${showPurchases ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={compras}
+              data={dataPurchases}
               typeContent={1}
-              firstExpression={'data.descripcion'}
-              secondExpression={'data.precio'}
+              firstExpression={'data.fecha'}
+              secondExpression={'data.monto'}
             ></DataList>
           </div>
         </li>
