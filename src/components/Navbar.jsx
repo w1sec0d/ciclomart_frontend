@@ -1,9 +1,13 @@
 import { useState } from 'react'
 import Button from './Button'
 import logo from '../assets/logo.png'
+import { Person } from '@mui/icons-material'
+import { useSelector } from 'react-redux'
 
 const Navbar = (params) => {
-
+  // load user info to check if user is logged in
+  const user = useSelector((state) => state.auth.authUser)
+  
   const [inputText, setInputText] = useState('');
 
   const handleInputChange = (e) => {
@@ -57,25 +61,29 @@ const Navbar = (params) => {
             de <span className="font-bold">confianza</span>
           </h1>
         </li>
-        <li className="hover:font-bold flex items-center ml-auto">
-          <Button
-            className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:hover:bg-tertiary-dark"
-            to="/login"
-          >
-            Inicia sesión
-          </Button>
-          <Button
-            className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:hover:bg-tertiary-dark"
-            to="/register"
-          >
-            Regístrate
-          </Button>
-        </li>
-        <li className="mx-4 hover:font-bold flex items-center">
-          <Button className="bg-tertiary px-8" to="/profile">
-            Perfil
-          </Button>
-        </li>
+        {user ? (
+          <li className="mx-4 hover:font-bold flex items-center">
+            <Button className="bg-tertiary px-8" to="/profile">
+              <Person />
+              Perfil
+            </Button>
+          </li>
+        ) : (
+          <li className="hover:font-bold flex items-center ml-auto">
+            <Button
+              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:hover:bg-tertiary-dark"
+              to="/login"
+            >
+              Inicia sesión
+            </Button>
+            <Button
+              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:hover:bg-tertiary-dark"
+              to="/register"
+            >
+              Regístrate
+            </Button>
+          </li>
+        )}
       </ul>
     </nav>
   );

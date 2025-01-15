@@ -18,9 +18,9 @@ const recoveryPassword = async (data, token) => {
   return request
 }
 
-const sendCodeRegister = async (data) => {
+const sendRegisterCode = async (data) => {
   console.log('Hola desde sendCodeRegister', data)
-  const request = await axios.post(API_URL + '/sendEmailCode', { data })
+  const request = await axios.post(API_URL + '/sendRegisterCode', { data })
   return request
 }
 
@@ -38,7 +38,7 @@ export default {
   loginUser,
   sendResetPasswordEmail,
   recoveryPassword,
-  sendCodeRegister,
+  sendRegisterCode,
   validateCode,
   verifyEmail,
 }

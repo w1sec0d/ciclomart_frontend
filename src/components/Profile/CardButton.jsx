@@ -1,7 +1,7 @@
 //-> Utils
 import PropTypes from 'prop-types'
 import { twMerge } from 'tailwind-merge'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 //-> Icons
 import ArrowDown from '@mui/icons-material/KeyboardArrowDownOutlined'

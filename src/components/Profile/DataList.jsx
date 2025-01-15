@@ -1,6 +1,6 @@
 /*Utils*/
 import PropTypes from 'prop-types'
-import { data } from 'react-router'
+import { data } from 'react-router-dom'
 
 /*typeContent = 1 = Puchases
 typeContent = 2 = Sales
