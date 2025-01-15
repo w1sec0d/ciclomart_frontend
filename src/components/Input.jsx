@@ -49,9 +49,13 @@ const Input = forwardRef(
           <button
             type="button"
             onClick={toggleVisibility}
-            className="absolute right-0 top-2 text-gray-600 hover:text-gray-900"
+            className="absolute right-4 top-2 group"
           >
-            {passwordVisible ? <VisibilityOff /> : <Visibility />}
+            {passwordVisible ? (
+              <VisibilityOff className="group-hover:text-primaryDark text-neutral-600" />
+            ) : (
+              <Visibility className="group-hover:text-primaryDark text-neutral-600" />
+            )}
           </button>
         )}
       </div>
