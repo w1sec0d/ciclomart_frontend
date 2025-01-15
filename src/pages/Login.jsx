@@ -2,6 +2,7 @@ import Input from '../components/Input'
 import { useForm } from 'react-hook-form'
 import Checkbox from '../components/Checkbox'
 import Button from '../components/Button'
+import background1 from '../assets/background1.webp'
 
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,6 +33,7 @@ const Login = () => {
             title: '¡Éxito!',
             text: 'Usuario y contraseña correctos.',
             icon: 'success',
+            timer: 1000,
           })
         )
 
@@ -44,7 +46,7 @@ const Login = () => {
           })
         )
 
-        navigate('/userInfo')
+        navigate('/')
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -70,11 +72,16 @@ const Login = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-4xl">
+    <div className="flex items-center justify-center h-screen-minus-navbar">
+      <img
+        src={background1}
+        alt="Fondo de bicicletas"
+        className="absolute object-cover -z-10 blur-sm "
+      />
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-3xl">
         <h1 className="font-black text-5xl text-center">
           {' '}
-          Bienvenidos a CicloMart
+          Bienvenido a CicloMart
         </h1>
         <p className="text-center mt-3">Por favor ingresa tus datos</p>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">

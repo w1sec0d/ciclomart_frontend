@@ -6,6 +6,8 @@ import Checkbox from './Checkbox'
 import Button from './Button'
 import loginService from '../services/loginService'
 import { useNavigate } from 'react-router-dom'
+import Loading from './Loading'
+import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 
 const RegisterForm = () => {
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
@@ -27,16 +29,19 @@ const RegisterForm = () => {
     }
     return false
   }
-
   const onSubmit = async (data) => {
     try {
+      dispatch(setLoading())
       const validateEmail = await sendRegisterCode(data)
       if (validateEmail) {
+        dispatch(clearLoading())
         navigate(`/verificationCode/${validateEmail.token}`)
       }
     } catch (error) {
       // check error http response
       if (error.status === 400) {
+        dispatch(clearLoading())
+
         dispatch(
           setNotification({
             title: '¡Error!',

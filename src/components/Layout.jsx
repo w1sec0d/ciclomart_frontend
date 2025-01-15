@@ -3,6 +3,7 @@
 import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 import Notification from './Notification'
+import Loading from './Loading'
 
 const Layout = () => {
   return (
@@ -14,6 +15,7 @@ const Layout = () => {
       <main className="mt-[64px]">
         <Outlet />
         <Notification />
+        <Loading />
       </main>
       <footer></footer>
     </div>

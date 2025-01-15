@@ -16,6 +16,7 @@ import {
 
 // Components
 import ItemContainer from '../components/ItemContainer'
+import Loading from '../components/Loading'
 
 const LandingPage = () => {
   const landingCarousel = {
