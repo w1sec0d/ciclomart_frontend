@@ -12,13 +12,13 @@ const ToastNotification = () => {
   useEffect(() => {
     if (notification.title && !notification.isConfirmation) {
       Swal.fire({
-        title: notification.title,
-        text: notification.text,
-        icon: notification.icon ?? 'success',
-        timer: notification.timer ?? 5000,
-        toast: notification.isToast ?? true,
-        position: notification.position ?? 'top-right',
+        icon: 'success',
+        timer: 5000,
+        toast: true,
+        timerProgressBar: true,
+        position: 'top-right',
         showConfirmButton: false,
+        ...notification,
       }).then(() => {
         dispatch(clearNotification())
       })

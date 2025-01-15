@@ -1,11 +1,11 @@
 import Input from './Input'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { useState } from 'react'
 import { setNotification } from '../store/slices/notificationSlice'
 import Checkbox from './Checkbox'
 import Button from './Button'
 import loginService from '../services/loginService'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterForm = () => {
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
@@ -19,11 +19,12 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm()
   const password = watch('password') // Watch password input
+  const navigate = useNavigate()
 
   const sendRegisterCode = async (values) => {
     const request = await loginService.sendRegisterCode(values)
     if (request.status === 200) {
-      return true
+      return request.data
     }
     return false
   }
@@ -32,14 +33,7 @@ const RegisterForm = () => {
     try {
       const validateEmail = await sendRegisterCode(data)
       if (validateEmail) {
-        dispatch(
-          setNotification({
-            title: '¡Éxito!',
-            text: 'Hola te enviamos un código para terminar el registro.',
-            icon: 'success',
-          })
-        )
-        // reset() // Clear form
+        navigate(`/verificationCode/${validateEmail.token}`)
       }
     } catch (error) {
       // check error http response

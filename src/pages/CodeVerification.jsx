@@ -4,16 +4,22 @@ import Button from '../components/Button'
 import { useEffect } from 'react'
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom'
 import loginService from '../services/loginService'
 import apiService from '../services/apiService'
 
 const CodeVerification = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { token } = useParams()
+  const [searchParams] = useSearchParams()
+  const code = searchParams.get('code') // Get the 'code' query parameter
 
+  const { token } = useParams()
   const { register, handleSubmit, reset } = useForm()
 
   const onSubmit = async (data) => {
@@ -61,6 +67,11 @@ const CodeVerification = () => {
         )
       }
     }
+  }
+
+  if (code) {
+    // Si el usuario hizo click en el link de verificación
+    onSubmit({ code }) // Llamar a la función onSubmit con el código
   }
 
   return (

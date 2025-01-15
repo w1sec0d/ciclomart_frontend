@@ -41,7 +41,8 @@ const App = () => {
         <Route path="login" element={<Login />} />
         <Route path="userInfo" element={<UserInfo />} />
         <Route path="verificacion" element={<Verificacion />} />
-        <Route path="verificacionCode/:token" element={<CodeVerification />} />
+        <Route path="verificationCode" element={<CodeVerification />} />
+        <Route path="verificationCode/:token" element={<CodeVerification />} />
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
         <Route path="profile" element={<Profile />} />
       </Route>
