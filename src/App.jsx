@@ -27,7 +27,7 @@ const App = () => {
       <Route path="/" element={<Layout searchText={searchText} onSearch={handleSearch}/>}>
         <Route index element={<Landing />} />
         <Route path="register" element={<Register />} />
-        <Route path="search" element={<Search searchResults={searchResults} />} />
+        <Route path="search" element={<Search searchResults={searchResults} name={searchText} />} />
       </Route>
     </Routes>
   )

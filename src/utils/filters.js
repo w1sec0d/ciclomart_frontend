@@ -8,12 +8,13 @@ const filters = {
         {label: 'Marca', options: [
             {label: 'Marca X', value: "MarcaX"}, 
             {label: 'Marca Y', value: "MarcaY"},
-            {label: 'Giant', value: "giant"}
+            {label: 'Giant', value: "giant"},
+            {label: 'Trek', value: "trek"}
         ]} ,
         {label: 'Tipo de bicicleta', options: [
             {label: 'Montaña', value: "montaña"}, 
             {label: 'Ruta', value: "ruta"},
-            {label: 'BMX', value: "bmx"}
+            {label: 'BMX', value: "bmx"},
         ]} ,
         {label: 'Tamaño del marco', options: [
             {label: 'Pequeño', value: "small"}, 
@@ -56,7 +57,7 @@ const filters = {
             {label: 'Delantera', value: "delantera"},
             {label: 'Doble', value: "doble"}
         ]} ,
-        {label: 'Transmisión', options: [
+        {label: 'Transmision', options: [
             {label: 'Monoplato', value: "monoplato"}, 
             {label: 'Doble plato', value: "doble"},
             {label: 'Triple plato', value: "triple"}
@@ -104,8 +105,8 @@ const filters = {
             {label: '$50K - $200K', value: "medium"},
             {label: 'Mayor a $200K', value: "high"}
         ]} ,
-        {label: 'Categoría', options: [
-            {label: 'Transmisión', value: "transmision"}, 
+        {label: 'Categoria', options: [
+            {label: 'Transmision', value: "transmision"}, 
             {label: 'Rueda', value: "rueda"},
             {label: 'Manubrio', value: "manubrio"},
             {label: 'Pedales', value: "pedales"},

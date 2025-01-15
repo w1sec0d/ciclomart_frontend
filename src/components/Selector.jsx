@@ -6,7 +6,6 @@ const Selector = (props) => {
 
     const handleChange = (event) => {
         if (props.onFilterChange) {
-            console.log('Selector: ', props.label, event.target.value);
             props.onFilterChange(props.label, event.target.value);
         }
     }

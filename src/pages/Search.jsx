@@ -5,50 +5,88 @@ import ProductRow from "../components/ProductRow";
 import Selector from "../components/Selector";
 import apiService from "../services/apiService";
 //import filters
-import filters from "../components/filters";
+import filters from "../utils/filters";
+import Button from "../components/Button";
 
 const SearchPage = (params) => {
 
     const [tipo, setTipo] = useState("bicicleta");
     const [showAllFilters, setShowAllFilters] = useState(false);
-    const [results, setResults] = useState(params.searchResults || []);
-    const [request, setRequest] = useState({});
-    const [filterValues, setFilterValues] = useState({});
-
-    const handleTipoChange = (event) => {
-      setTipo(event.target.value);
-      setRequest({ tipo: event.target.value }); 
-
-      const defaultValues = {}
-      filters[event.target.value].forEach(filter => {
-        defaultValues[filter.label] = "";
-      });
-
-      setFilterValues(defaultValues);
-  
-    };
+    const [filterResults, setFilterResults] = useState(params.searchResults || []);
+    const [filterValues, setFilterValues] = useState({tipo: tipo});
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     const handleShowAllFilters = () => {
       setShowAllFilters(!showAllFilters);
     };
 
+    const handleNextPage = () => {
+      setCurrentPage(prevPage => prevPage + 1);
+    };
+  
+    const handlePreviousPage = () => {
+      setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
+    };
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentItems = filterResults.slice(startIndex, startIndex + itemsPerPage);
+
     const handleFilterChange = async (filterLabel, selectedValue) => {
-      setFilterValues((prev) => ({ ...prev, [filterLabel]: selectedValue }));    
       
-      const response = await apiService.searchProducts({tipo: tipo, ...filters, [filterLabel.toLowerCase()]: selectedValue});
-      if (response.length >= 1) {
-        setResults(response);
+      let newFilters = {}
+      const defaultValues = {}
+
+      //If tipo selector changed, reset all filters
+
+      if (filterLabel === "tipo") {
+
+        setTipo(selectedValue);
+
+        const types = ["bicicleta", "repuesto"];
+      
+        for (const type of types) {
+          filters[type].forEach(filter => {
+            if (filter.label === "tipo") defaultValues[filter.label.toLowerCase()] = type;
+            else if (filter.label === "nombre") defaultValues[filter.label.toLowerCase()] = params.name;
+            else
+              defaultValues[filter.label.toLowerCase()] = "";
+      
+          });
+        }
+
+        newFilters = ({ nombre:params.name, tipo: selectedValue, ...defaultValues }); 
+        setFilterValues({...newFilters, ...defaultValues});
+
+        }
+
+      //For every other selector, update the filters
+      
+      else {
+        newFilters = ({ ...filterValues, [filterLabel.toLowerCase()]: selectedValue }); 
+        setFilterValues(newFilters);
+       
       }
-      else{
-        setResults([]);
-      }
+      console.log("New Filters:", newFilters);
+      const  request = await apiService.searchProducts(newFilters);
+      console.log("Request:", request);
+      const filtered = request.filter((result) => {
+        return Object.entries(newFilters).every(([key, value]) => {
+          if (value === "") return true;
+          return result[key.toLowerCase()]?.toString().toLowerCase().includes(value.toString().toLowerCase());
+        });
+      });
+
+      setFilterResults(filtered);
+
+      console.log("Filtered Results:", filtered);
       
     }
 
+
     useEffect(() => {
-      setResults(params.searchResults || []);
-      setRequest({});
-    }, [params.searchResults, tipo]);
+      setFilterResults(params.searchResults || []);
+    }, [params.searchResults]);
 
     return (
     <>
@@ -74,7 +112,6 @@ const SearchPage = (params) => {
                 className="px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300 w-full"
                 value={tipo}
                 onChange={(event) => {
-                  handleTipoChange(event);
                   handleFilterChange("tipo", event.target.value);
                 }}
               >
@@ -90,7 +127,7 @@ const SearchPage = (params) => {
                     key={index} 
                     label={filter.label} 
                     options={filter.options} 
-                    value={filterValues[filter.label] || ""}
+                    value={filterValues[filter.label.toLowerCase()] || ""}
                     onFilterChange={handleFilterChange}
                   />
                 ))}
@@ -117,17 +154,25 @@ const SearchPage = (params) => {
 
             {/* Products List */}
             <div className="bg-white shadow rounded-lg">
-              {results && results.map((result, index) => (
+              {
+                filterResults.length > 0?
+                currentItems.map((result, index) => (
                 <ProductRow
                   key={index}
                   image="https://bicistore.com.co/wp-content/uploads/2020/11/imagen-5.jpg"
                   alt={result.nombre}
                   description={result.nombre}
                   brand={result.marca}
-                  type={result.tipo}
-                  price="$1000"
-                />)) }
+                  type={result.tipo.charAt(0).toUpperCase() + result.tipo.slice(1)}
+                  price={`$${result.precio.toString()}`}
+                />)):( <p>No hay resultados para los filtros ingresados</p>) 
+               }
             </div>
+            {/* Pagination Controls */}
+          <div className="flex justify-center mt-4">
+            <Button onClick={handlePreviousPage} disabled={currentPage === 1}>Anterior</Button>
+            <Button onClick={handleNextPage} disabled={startIndex + itemsPerPage >= filterResults.length}>Siguiente</Button>
+          </div>
       </main>
     </>
     );
