@@ -1,6 +1,7 @@
 // React and state logic
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { setAuthUser } from './store/slices/authSlice'
 
 // Routing
 import { Route, Routes } from 'react-router-dom'
@@ -18,9 +19,11 @@ import Login from './pages/Login'
 import Verificacion from './pages/Verificacion'
 import PasswordRecovery from './pages/PasswordRecovery'
 import CodeVerification from './pages/CodeVerification'
-
+import Layout from './components/Layout'
 
 import apiService from './services/apiService'
+import getUserFromLocalStorage from './utils/getUser'
+
 
 const App = () => {
 
