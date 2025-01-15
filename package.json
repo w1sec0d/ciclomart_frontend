@@ -1,5 +1,5 @@
 {
-  "name": "vite-project",
+  "name": "ciclomart-front",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -24,7 +24,8 @@
     "react-hook-form": "^7.54.2",
     "react-multi-carousel": "^2.8.5",
     "react-redux": "^9.2.0",
-    "react-router": "^7.1.1",
+    "react-router-dom": "^7.1.1",
+    "react-spinners": "^0.15.0",
     "sweetalert2": "^11.15.10",
     "tailwind-merge": "^2.6.0"
   },

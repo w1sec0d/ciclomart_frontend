@@ -17,6 +17,9 @@ export default {
       fontFamily: {
         sans: ['Raleway', 'sans-serif'], // Add Raleway as the default font family
       },
+      height: {
+        'screen-minus-navbar': 'calc(100vh - 64px)',
+      },
     },
     plugins: [],
   },

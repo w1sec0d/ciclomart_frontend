@@ -4,25 +4,14 @@ import Button from '../components/Button'
 
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
-import { useParams } from 'react-router'
-import { useNavigate } from 'react-router'
+import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import loginService from '../services/loginService'
 
 const PasswordRecovery = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { token } = useParams()
-
-  useEffect(() => {
-    dispatch(
-      setNotification({
-        title: 'Hola Redux!',
-        text: 'Esto es una notificación de login',
-        icon: 'info',
-      })
-    )
-  }, [dispatch])
 
   const { register, handleSubmit, reset } = useForm()
 
