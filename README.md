@@ -54,8 +54,6 @@ Para ejecutar correctamente el projecto debe incluirse un archivo .env en la rai
   npm run format
   ```
 
-````
-
 Esto formateara todos los archivos de forma estándar y evitará conflictos innecesarios en los pull request
 
 - El proyecto usa Redux, una librería que permite tener un estado global en la aplicacion,
@@ -101,4 +99,3 @@ Esto formateara todos los archivos de forma estándar y evitará conflictos inne
   Para debuggear el estado global se puede instalar la extensión de [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) en el navegador, esta extensión permite ver el estado global en tiempo real y ver las acciones que se están ejecutando.
 
   Esta extensión agrega una ventana en el navegador que muestra el estado global y las acciones que se están ejecutando, permitiendo ver el estado global en tiempo real y debuggear la aplicación de forma más sencilla.
-````
