@@ -13,7 +13,7 @@ const ItemContainer = ({
 
   return (
     <a
-      className="flex flex-col justify-center w-[225px] h-[320px] hover:cursor-pointer group shadow-xl p-2 bg-white rounded-md"
+      className="flex flex-col justify-center w-[225px] h-[320px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a"
       href="https://www.youtube.com"
     >
       <img src={img} className="max-w-[250px]" />

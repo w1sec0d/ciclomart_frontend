@@ -15,15 +15,7 @@ export default {
         sans: ['Raleway', 'sans-serif'], // Add Raleway as the default font family
       },
     },
-    plugins: [
-      function ({ addUtilities }) {
-        addUtilities({
-          '.image-blur': {
-            boxShadow: '0 0 8px 8px #ebf9f6 inset',
-          },
-        })
-      },
-    ],
+    plugins: [],
   },
   plugins: [],
 }

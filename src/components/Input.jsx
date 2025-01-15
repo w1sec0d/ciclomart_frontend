@@ -1,5 +1,6 @@
-import { forwardRef } from 'react'
+import { forwardRef, useRef, useState, useImperativeHandle } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import PropTypes from 'prop-types'
 
 const Input = forwardRef(
@@ -14,6 +15,18 @@ const Input = forwardRef(
     },
     ref
   ) => {
+    const internalRef = useRef(null) // internal reference for input element
+    const [passwordVisible, setPasswordVisible] = useState(false)
+
+    useImperativeHandle(ref, () => internalRef.current) // expose internal reference to parent component
+
+    const toggleVisibility = () => {
+      setPasswordVisible((prev) => !prev)
+      if (internalRef.current) {
+        internalRef.current.type = passwordVisible ? 'password' : 'text'
+      }
+    }
+
     return (
       <div className={twMerge('mt-5 relative group', className)}>
         <input
@@ -23,7 +36,7 @@ const Input = forwardRef(
           className="peer h-10 w-full border-b-[1.5px] border-gray border-opacity-75 text-gray-900 placeholder-transparent focus:border-primary focus:outline-none bg-inherit"
           placeholder={label}
           required={required}
-          ref={ref}
+          ref={internalRef}
           {...props}
         />
         <label
@@ -32,10 +45,21 @@ const Input = forwardRef(
         >
           {label}
         </label>
+        {type === 'password' && (
+          <button
+            type="button"
+            onClick={toggleVisibility}
+            className="absolute right-0 top-2 text-gray-600 hover:text-gray-900"
+          >
+            {passwordVisible ? <VisibilityOff /> : <Visibility />}
+          </button>
+        )}
       </div>
     )
   }
 )
+
+Input.displayName = 'Input'
 
 Input.propTypes = {
   label: PropTypes.string,
@@ -44,7 +68,5 @@ Input.propTypes = {
   className: PropTypes.string,
   required: PropTypes.bool,
 }
-
-Input.displayName = 'Input'
 
 export default Input

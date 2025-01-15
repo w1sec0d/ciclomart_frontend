@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../store/slices/notificationSlice'
 import apiService from '../services/apiService'
-import logo from '../assets/logo.png'
 import Checkbox from './Checkbox'
 import Button from './Button'
 
@@ -16,15 +15,18 @@ const RegisterForm = () => {
     // formState: { errors },
   } = useForm()
 
-  dispatch(
-    setNotification({
-      title: 'Hola Redux!',
-      text: 'Esto es una notificación de login',
-      icon: 'info',
-    })
-  )
-
   const onSubmit = async (data) => {
+    if (data.password !== data['password-confirm']) {
+      dispatch(
+        setNotification({
+          title: 'Error',
+          text: `Las contraseñas no coinciden`,
+          icon: 'error',
+        })
+      )
+      return
+    }
+
     const request = await apiService.createUsuario(data)
     if (request) {
       dispatch(
@@ -39,7 +41,6 @@ const RegisterForm = () => {
   }
   return (
     <>
-      <img src={logo} alt="Logo de CicloMart" className="w-14 h-14 mb-5" />
       <h1 className="font-black text-5xl">Únete a CicloMart</h1>
       <p>Crea una cuenta gratuita o inicia sesión</p>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">

@@ -58,7 +58,7 @@ const LandingPage = () => {
   }
   return (
     <section>
-      <Carousel responsive={landingCarousel}>
+      <Carousel responsive={landingCarousel} className="hover:cursor-pointer">
         <div className="flex items-center justify-center w-full relative bg-[#ebf9f6]">
           <img
             src={landing1}
@@ -120,17 +120,23 @@ const LandingPage = () => {
         <PedalBike fontSize="large" /> Explora tu mundo bici
       </h2>
       <section className="flex flex-row justify-between max-w-[800px] mx-auto">
-        <a href="/ofertas" className="p-4 shadow-xl bg-white rounded-md">
+        <a href="/ofertas" className="p-4 shadow-a bg-white rounded-md group">
           <img src={offer} className="w-[200px] h-[200px] object-contain" />
-          <h3 className="font-semibold text-center my-2 text-xl">Ofertas</h3>
+          <h3 className="font-semibold text-center my-2 text-xl group-hover:text-primary">
+            Ofertas
+          </h3>
         </a>
-        <a href="/ofertas" className="p-4 shadow-xl bg-white rounded-md">
+        <a href="/ofertas" className="p-4 shadow-a bg-white rounded-md group">
           <img src={bike2} className="w-[200px] h-[200px] object-contain" />
-          <h3 className="font-semibold text-center my-2 text-xl">Bicicletas</h3>
+          <h3 className="font-semibold text-center my-2 text-xl group-hover:text-primary">
+            Bicicletas
+          </h3>
         </a>
-        <a href="/ofertas" className="p-4 shadow-xl bg-white rounded-md">
+        <a href="/ofertas" className="p-4 shadow-a bg-white rounded-md group">
           <img src={repuestos} className="w-[200px] h-[200px] object-contain" />
-          <h3 className="font-semibold text-center my-2 text-xl">Repuestos</h3>
+          <h3 className="font-semibold text-center my-2 text-xl group-hover:text-primary">
+            Repuestos
+          </h3>
         </a>
       </section>
       <section className="my-6">
