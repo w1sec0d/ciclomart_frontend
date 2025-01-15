@@ -14,7 +14,7 @@ import CodeVerification from './pages/CodeVerification'
 
 const App = () => {
   return (
-    <AuthProvider>
+    
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Landing />} />
@@ -32,7 +32,7 @@ const App = () => {
           />
         </Route>
       </Routes>
-    </AuthProvider>
+    
 
   )
 }
