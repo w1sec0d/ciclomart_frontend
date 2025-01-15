@@ -15,8 +15,10 @@ const RegisterForm = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm()
+  const password = watch('password') // Watch password input
 
   const sendEmail = async (values) => {
     const request = await loginService.sendCodeRegister(values)
@@ -37,34 +39,28 @@ const RegisterForm = () => {
 
   console.log('errors', errors)
   const onSubmit = async (data) => {
-    // if (
-    //   errors.email === '' &&
-    //   errors.password === '' &&
-    //   errors.invalid === ''
-    // ) {
-    //   const validateEmail = await sendEmail(data)
-    //   const verifirEmail = await verifyEmail(data)
-    //   if (verifirEmail) {
-    //     dispatch(
-    //       setNotification({
-    //         title: '¡Ya existe un usuairo!',
-    //         text: 'Ya existe un usuario con este correo.',
-    //         icon: 'error',
-    //       })
-    //     )
-    //   } else {
-    //     if (validateEmail) {
-    //       dispatch(
-    //         setNotification({
-    //           title: '¡Éxito!',
-    //           text: 'Hola te enviamos un código para terminar el registro.',
-    //           icon: 'success',
-    //         })
-    //       )
-    //       reset() // Clear form
-    //     }
-    //   }
-    // }
+    const validateEmail = await sendEmail(data)
+    const verifirEmail = await verifyEmail(data)
+    if (verifirEmail) {
+      dispatch(
+        setNotification({
+          title: '¡Ya existe un usuairo!',
+          text: 'Ya existe un usuario con este correo.',
+          icon: 'error',
+        })
+      )
+    } else {
+      if (validateEmail) {
+        dispatch(
+          setNotification({
+            title: '¡Éxito!',
+            text: 'Hola te enviamos un código para terminar el registro.',
+            icon: 'success',
+          })
+        )
+        reset() // Clear form
+      }
+    }
   }
   return (
     <>
@@ -113,15 +109,18 @@ const RegisterForm = () => {
           </span>
         )}
         <Input
-          id="password-confirm"
+          id="passwordConfirm"
           label="Confirmar contraseña"
           type="password"
           {...register('passwordConfirm', {
             required: 'Password is required',
+            validate: (value) =>
+              value === password ||
+              'Las contraseñas no coinciden, verifica de nuevo',
             pattern: {
               value: passwordRegex,
               message:
-                'La contraseña debe tener al menos 6 caracteres, una letra mayúscula, una letra minúscula y un número.',
+                'La contraseña debe tener al menos 6 caracteres, una letra mayúcula, una letra minúscula y un número.',
             },
           })}
         />
