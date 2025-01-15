@@ -3,7 +3,7 @@ import logo from '../assets/logo.png'
 
 const Navbar = () => {
   return (
-    <nav className="bg-white p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-xl">
+    <nav className="bg-white p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-lg">
       <ul className="flex flex-col md:flex-row w-full">
         <li className="mx-4 hover:font-bold hover:cursor-pointer flex items-center">
           <img
@@ -21,7 +21,7 @@ const Navbar = () => {
         </li>
         <li className="text-center mx-auto">
           {' '}
-          <h1 className="w-full text-center text-xl py-4">
+          <h1 className="w-full text-center text-lg py-4">
             ¡Bienvenido a <span className="text-tertiary font-bold">Ciclo</span>
             <span className="text-secondary font-bold">Mart</span>! Tu{' '}
             <span className="font-bold">mercado bici </span>
