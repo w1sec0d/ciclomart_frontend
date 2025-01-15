@@ -9,6 +9,7 @@ const DataList = ({
   typeContent = 1,
   firstExpression,
   secondExpression,
+  modal = () => {},
 }) => {
   return (
     <div className="w-full h-full overflow-auto">
@@ -30,8 +31,9 @@ const DataList = ({
                 key={index}
               >
                 <b
-                  className="text-secondary mr-2 break-all line-clamp-1 w-2/3 hover:cursor-pointer"
+                  className="text-secondary mr-2 break-all line-clamp-1 w-2/3 hover:cursor-pointer hover:underline"
                   title={eval(firstExpression)}
+                  onClick={() => modal(true)}
                 >
                   {eval(firstExpression)}
                 </b>
@@ -41,8 +43,10 @@ const DataList = ({
               </div>
             )
           })
+        ) : typeContent === 1 || typeContent === 2 ? (
+          <p>No hay datos que mostrar</p>
         ) : (
-          <p>Loading</p>
+          <p>Loading...</p>
         )}
       </div>
     </div>

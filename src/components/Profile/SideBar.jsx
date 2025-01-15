@@ -22,11 +22,15 @@ const SideBar = () => {
   const authUser = useSelector((state) => state.auth.authUser)
 
   const [showPurchases, setShowPurchases] = useState(false)
+  const [showSideBarPurchaseModal, setShowSideBarPurchaseModal] =
+    useState(false)
+  const [showSideBarSaleModal, setShowSideBarSaleModal] = useState(false)
+  const [showSideBarStoreModal, setShowSideBarStoreModal] = useState(false)
   const [showSales, setShowSales] = useState(false)
   const [showStores, setShowStores] = useState(false)
   const [dataStores, setDataStores] = useState([])
-  const [dataSales, setDataSales] = useState([])
-  const [dataPurchases, setDataPurchases] = useState([])
+  const [dataTransactionSale, setDataTransactionSale] = useState([])
+  const [dataTransactionPurchase, setDataTransactionPurchase] = useState([])
 
   /*Data obtained from DataBase*/
   const fetchStores = async () => {
@@ -40,8 +44,8 @@ const SideBar = () => {
 
   const fetchSales = async () => {
     try {
-      const data = await profileService.getSales(3)
-      setDataSales(data)
+      const data = await profileService.getSales(authUser.idUsuario)
+      setDataTransactionSale(data)
     } catch (error) {
       console.error('Error fetching user Sales', error)
     }
@@ -49,8 +53,8 @@ const SideBar = () => {
 
   const fetchPurchases = async () => {
     try {
-      const data = await profileService.getPurchases(5)
-      setDataPurchases(data)
+      const data = await profileService.getPurchases(authUser.idUsuario)
+      setDataTransactionPurchase(data)
     } catch (error) {
       console.error('Error fetching user Sales', error)
     }
@@ -114,10 +118,11 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${showPurchases ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={dataPurchases}
+              data={dataTransactionPurchase}
               typeContent={1}
               firstExpression={'data.fecha'}
               secondExpression={'data.monto'}
+              modal={setShowSideBarPurchaseModal}
             ></DataList>
           </div>
         </li>
@@ -135,10 +140,11 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${showSales ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={dataSales}
+              data={dataTransactionSale}
               typeContent={2}
               firstExpression={'data.fecha'}
               secondExpression={'data.monto'}
+              modal={setShowSideBarSaleModal}
             ></DataList>
           </div>
         </li>
@@ -160,6 +166,7 @@ const SideBar = () => {
               typeContent={3}
               firstExpression={'data.nombre'}
               secondExpression={'data.telefono'}
+              modal={setShowSideBarStoreModal}
             ></DataList>
           </div>
         </li>
@@ -170,6 +177,9 @@ const SideBar = () => {
           className="w-[160px] h-[140px] mt-8 px-1 opacity-60 grayscale"
         />
       </div>
+      {showSideBarPurchaseModal
+        ? console.log(showSideBarPurchaseModal)
+        : console.log(showSideBarPurchaseModal)}
     </div>
   )
 }
