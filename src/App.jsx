@@ -1,5 +1,5 @@
 // Routing
-import { Route, Routes } from 'react-router'
+import { Route, Routes } from 'react-router-dom'
 
 // Pages
 import Landing from './pages/Landing'
@@ -14,26 +14,18 @@ import CodeVerification from './pages/CodeVerification'
 
 const App = () => {
   return (
-    
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Landing />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="userInfo" element={<UserInfo />} />
-          <Route path="verificacion" element={<Verificacion />} />
-          <Route
-            path="verificacionCode/:token"
-            element={<CodeVerification />}
-          />
-          <Route
-            path="passwordRecovery/:token"
-            element={<PasswordRecovery />}
-          />
-        </Route>
-      </Routes>
-    
-
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Landing />} />
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
+        <Route path="userInfo" element={<UserInfo />} />
+        <Route path="verificacion" element={<Verificacion />} />
+        <Route path="verificacionCode/:token" element={<CodeVerification />} />
+        <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+    </Routes>
   )
 }
 

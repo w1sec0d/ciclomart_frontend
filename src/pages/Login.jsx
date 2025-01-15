@@ -6,7 +6,7 @@ import Button from '../components/Button'
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import {
   setAuthUser,
   setIsLoggedIn,
@@ -17,16 +17,6 @@ import loginService from '../services/loginService'
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    dispatch(
-      setNotification({
-        title: 'Hola Redux!',
-        text: 'Esto es una notificación de login',
-        icon: 'info',
-      })
-    )
-  }, [dispatch])
 
   const { register, handleSubmit, reset } = useForm()
 

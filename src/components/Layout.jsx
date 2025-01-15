@@ -1,6 +1,6 @@
 // General layout structure for the app, each route will be rendered inside <Outlet />
 
-import { Outlet } from 'react-router'
+import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 import Notification from './Notification'
 

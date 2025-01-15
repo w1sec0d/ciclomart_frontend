@@ -4,8 +4,8 @@ import Button from '../components/Button'
 import { useEffect } from 'react'
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router'
-import { useNavigate } from 'react-router'
+import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import loginService from '../services/loginService'
 import apiService from '../services/apiService'
 
@@ -13,16 +13,6 @@ const CodeVerification = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { token } = useParams()
-
-  useEffect(() => {
-    dispatch(
-      setNotification({
-        title: 'Hola Redux!',
-        text: 'Esto es una notificación de login',
-        icon: 'info',
-      })
-    )
-  }, [dispatch])
 
   const { register, handleSubmit, reset } = useForm()
 

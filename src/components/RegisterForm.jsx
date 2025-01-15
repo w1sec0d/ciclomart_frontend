@@ -2,7 +2,7 @@ import Input from './Input'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { setNotification } from '../store/slices/notificationSlice'
 import apiService from '../services/apiService'
 import Checkbox from './Checkbox'
@@ -18,14 +18,6 @@ const RegisterForm = () => {
 
   const dispatch = useDispatch()
   const { register, handleSubmit, reset } = useForm()
-
-  dispatch(
-    setNotification({
-      title: 'Hola Redux!',
-      text: 'Esto es una notificación de login',
-      icon: 'info',
-    })
-  )
 
   const sendEmail = async (values) => {
     //const email = values.email
