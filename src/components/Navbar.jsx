@@ -33,10 +33,10 @@ const Navbar = (params) => {
         </li>
 
         {/*Barra de busqueda */}
-        <div className="flexs mx-4 p-4 flex w-full flex-wrap items-stretch">
+        <div className="flexs mx-4 p-4 flex flex-wrap items-center justify-between">
           <input 
             type="search"
-            className="flex m-0 w-1/3 md:w-1/6"
+            className="flex m-0 w-1/2"
             placeholder="Buscar"
             aria-label="Buscar"
             value={inputText}
@@ -49,9 +49,7 @@ const Navbar = (params) => {
             Buscar
           </Button>
         </div>
-
-        <li className="mx-4 hover:font-bold flex items-center ml-auto">
-          <Button className="bg-tertiary" to="/register">
+        
         <li className="text-center mx-auto">
           {' '}
           <h1 className="w-full text-center text-lg py-4">

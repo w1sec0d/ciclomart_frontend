@@ -18,7 +18,7 @@ import Login from './pages/Login'
 import Verificacion from './pages/Verificacion'
 import PasswordRecovery from './pages/PasswordRecovery'
 import CodeVerification from './pages/CodeVerification'
-
+import Layout from './components/Layout'
 
 import apiService from './services/apiService'
 
