@@ -1,7 +1,13 @@
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 import React, { useState, useRef } from 'react'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { setAuthUser } from '../../store/slices/authSlice'
+import { useDispatch } from 'react-redux'
 
 const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
+  const dispatch = useDispatch()
+  const authUser = useSelector((state) => state.auth.authUser)
   const [hoverPhoto, setHoverPhoto] = useState(false)
   const [image, setImage] = useState(null)
   const [url, setUrl] = useState('')
@@ -36,9 +42,13 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
         'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload', // Reemplaza con tu cloud name
         formData
       )
+      await axios.put(`${API_URL}/updateUsuarioFoto/${authUser.idUsuario}`, {
+        photoUrl: response.data.secure_url,
+      })
+      dispatch(setAuthUser({ ...authUser, foto: response.data.secure_url }))
       setUrl(response.data.secure_url)
       setLoading(false)
-      onUploadSuccess(response.data.secure_url)
+      setImage(null) // Reset the image state after successful upload
     } catch (error) {
       console.error('Error subiendo la imagen:', error)
       setError('Error uploading the image')
@@ -50,41 +60,29 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
     <div className="h-full">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center h-full"
+        className="flex flex-row items-center h-full"
       >
         <div
-          className="bg-gray-200 rounded cursor-pointer h-full "
+          className="bg-gray-200 rounded cursor-pointer h-full"
           onClick={() => fileInputRef.current.click()}
         >
-          {image ? (
-            <div className="flex relative h-full items-center ml-4">
-              <img
-                src={URL.createObjectURL(image)}
-                className="transition duration-200 ease-in-out hover:scale-110 hover:opacity-80 hover:cursor-pointer w-36 h-36 rounded-full"
-                onMouseEnter={() => setHoverPhoto(true)}
-                onMouseOut={() => setHoverPhoto(false)}
-              />
-              {hoverPhoto ? (
-                <b className="pointer-events-none absolute top-1/2 left-1/2 text-lg -translate-x-1/2 -translate-y-1/2">
-                  Editar
-                </b>
-              ) : null}
-            </div>
-          ) : (
-            <div className="flex relative h-full items-center ml-4">
-              <img
-                src={defaultPhoto}
-                className="transition duration-200 ease-in-out hover:scale-110 hover:opacity-80 hover:cursor-pointer w-36 h-36 rounded-full"
-                onMouseEnter={() => setHoverPhoto(true)}
-                onMouseOut={() => setHoverPhoto(false)}
-              />
-              {hoverPhoto ? (
-                <b className="pointer-events-none absolute top-1/2 left-1/2 text-lg -translate-x-1/2 -translate-y-1/2">
-                  Editar
-                </b>
-              ) : null}
-            </div>
-          )}
+          <div className="flex relative h-full items-center ml-4">
+            <img
+              src={
+                image
+                  ? URL.createObjectURL(image)
+                  : authUser.foto || defaultPhoto
+              }
+              className="transition duration-200 ease-in-out hover:scale-110 hover:opacity-80 hover:cursor-pointer w-36 h-36 rounded-full"
+              onMouseEnter={() => setHoverPhoto(true)}
+              onMouseOut={() => setHoverPhoto(false)}
+            />
+            {hoverPhoto ? (
+              <b className="pointer-events-none absolute top-1/2 left-1/2 text-lg -translate-x-1/2 -translate-y-1/2">
+                Editar
+              </b>
+            ) : null}
+          </div>
         </div>
         <input
           type="file"
@@ -92,16 +90,17 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
           ref={fileInputRef}
           style={{ display: 'none' }}
         />
-        {/* <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50 mt-4"
-          disabled={loading}
-        >
-          {loading ? 'Uploading...' : 'Subir Imagen'}
-        </button> */}
+        {image && (
+          <button
+            type="submit"
+            className="bg-tertiary text-white px-2 py-2 rounded disabled:opacity-50 mt-4 ml-2 -mr-16"
+            disabled={loading}
+          >
+            {loading ? 'Uploading...' : 'Subir Imagen'}
+          </button>
+        )}
       </form>
       {error && <p className="text-red-500 mt-2">{error}</p>}
-      {url && <img src={url} alt="Uploaded" className="mt-4" />}
     </div>
   )
 }

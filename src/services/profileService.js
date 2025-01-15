@@ -13,4 +13,11 @@ const getPurchases = async (idUser) => {
   return request.data
 }
 
-export default { getSales, getPurchases }
+const updatePhoto = async (PhotoUrl, idUser) => {
+  const request = await axios.get(
+    `${API_URL}/updateUsuarioFoto/${PhotoUrl}/${idUser}`
+  )
+  return request.data
+}
+
+export default { getSales, getPurchases, updatePhoto }
