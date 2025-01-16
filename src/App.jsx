@@ -36,6 +36,7 @@ const App = () => {
     setSearchResults(results);
   }
   
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -45,6 +46,7 @@ const App = () => {
     }
     fetchUser()
   }, [dispatch])
+
 
   return (
     <Routes>

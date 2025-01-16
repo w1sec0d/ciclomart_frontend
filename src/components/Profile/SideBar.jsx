@@ -11,147 +11,54 @@ import Tag from '@mui/icons-material/LocalOfferOutlined'
 import Logo from '../../assets/logoVector.svg'
 
 //-> Utils
-import { useEffect, useState } from 'react'
+import apiService from '../../services/apiService.js'
+import profileService from '../../services/profileService.js'
+import { useState } from 'react'
+import { setAuthUser } from '../../store/slices/authSlice.js'
+import { useSelector } from 'react-redux'
 
 const SideBar = () => {
+  /*user global state*/
+  const authUser = useSelector((state) => state.auth.authUser)
+
   const [showPurchases, setShowPurchases] = useState(false)
+  const [showSideBarPurchaseModal, setShowSideBarPurchaseModal] =
+    useState(false)
+  const [showSideBarSaleModal, setShowSideBarSaleModal] = useState(false)
+  const [showSideBarStoreModal, setShowSideBarStoreModal] = useState(false)
   const [showSales, setShowSales] = useState(false)
   const [showStores, setShowStores] = useState(false)
+  const [dataStores, setDataStores] = useState([])
+  const [dataTransactionSale, setDataTransactionSale] = useState([])
+  const [dataTransactionPurchase, setDataTransactionPurchase] = useState([])
 
-  /*Tests JSONS*/
-  const tiendas = [
-    {
-      idTienda: 1,
-      idUsuarioAdministrador: 101,
-      nombre: 'CicloMarket',
-      descripcion: 'Tienda de bicicletas y accesorios',
-      telefono: '3201234567',
-    },
-    {
-      idTienda: 2,
-      idUsuarioAdministrador: 102,
-      nombre: 'BikePro',
-      descripcion: 'Repuestos y personalización de bicicletas',
-      telefono: '3109876543',
-    },
-    {
-      idTienda: 3,
-      idUsuarioAdministrador: 103,
-      nombre: 'EcoRide',
-      descripcion: 'Bicicletas ecológicas y eléctricas',
-      telefono: '3126547890',
-    },
-    {
-      idTienda: 4,
-      idUsuarioAdministrador: 104,
-      nombre: 'UrbanCycle',
-      descripcion: 'Especialistas en bicicletas urbanas',
-      telefono: '3001122334',
-    },
-    {
-      idTienda: 5,
-      idUsuarioAdministrador: 105,
-      nombre: 'MountainXtreme',
-      descripcion: 'Bicicletas de montaña y accesorios',
-      telefono: '3155566778',
-    },
-  ]
+  /*Data obtained from DataBase*/
+  const fetchStores = async () => {
+    try {
+      const data = await apiService.getTiendas()
+      setDataStores(data)
+    } catch (error) {
+      console.error('Error fetching data stores', error)
+    }
+  }
 
-  const ventas = [
-    {
-      idProducto: 1,
-      idUsuario: 101,
-      tipo: 'venta',
-      descripcion: 'Bicicleta de montaña usada',
-      estado: 'completado',
-      precio: 850000.0,
-      fechaCompra: '2025-01-10',
-    },
-    {
-      idProducto: 11,
-      idUsuario: 101,
-      tipo: 'venta',
-      descripcion: 'Casco de ciclismo con luz integrada',
-      estado: 'pendiente',
-      precio: 150000.0,
-      fechaCompra: '2025-01-12',
-    },
-    {
-      idProducto: 12,
-      idUsuario: 101,
-      tipo: 'venta',
-      descripcion: 'Portabicicletas para automóvil',
-      estado: 'procesando',
-      precio: 300000.0,
-      fechaCompra: '2025-01-14',
-    },
-    {
-      idProducto: 13,
-      idUsuario: 101,
-      tipo: 'venta',
-      descripcion: 'Juego de luces LED traseras',
-      estado: 'completado',
-      precio: 50000.0,
-      fechaCompra: '2025-01-15',
-    },
-    {
-      idProducto: 14,
-      idUsuario: 101,
-      tipo: 'venta',
-      descripcion: 'Zapatos para ciclismo de montaña',
-      estado: 'pendiente',
-      precio: 200000.0,
-      fechaCompra: '2025-01-16',
-    },
-  ]
+  const fetchSales = async () => {
+    try {
+      const data = await profileService.getSales(authUser.idUsuario)
+      setDataTransactionSale(data)
+    } catch (error) {
+      console.error('Error fetching user Sales', error)
+    }
+  }
 
-  const compras = [
-    {
-      idProducto: 2,
-      idUsuario: 101,
-      tipo: 'compra',
-      descripcion: 'Casco profesional para ciclismo',
-      estado: 'pendiente',
-      precio: 120000.0,
-      fechaCompra: '2025-01-12',
-    },
-    {
-      idProducto: 10,
-      idUsuario: 101,
-      tipo: 'compra',
-      descripcion: 'Par de neumáticos para montaña',
-      estado: 'completado',
-      precio: 180000.0,
-      fechaCompra: '2025-01-08',
-    },
-    {
-      idProducto: 15,
-      idUsuario: 101,
-      tipo: 'compra',
-      descripcion: 'Bomba de aire portátil',
-      estado: 'procesando',
-      precio: 50000.0,
-      fechaCompra: '2025-01-13',
-    },
-    {
-      idProducto: 16,
-      idUsuario: 101,
-      tipo: 'compra',
-      descripcion: 'Cámara de repuesto para carretera',
-      estado: 'completado',
-      precio: 25000.0,
-      fechaCompra: '2025-01-14',
-    },
-    {
-      idProducto: 17,
-      idUsuario: 101,
-      tipo: 'compra',
-      descripcion: 'Guantes térmicos de invierno',
-      estado: 'pendiente',
-      precio: 80000.0,
-      fechaCompra: '2025-01-15',
-    },
-  ]
+  const fetchPurchases = async () => {
+    try {
+      const data = await profileService.getPurchases(authUser.idUsuario)
+      setDataTransactionPurchase(data)
+    } catch (error) {
+      console.error('Error fetching user Sales', error)
+    }
+  }
 
   /* -> Handlers -> */
 
@@ -197,7 +104,7 @@ const SideBar = () => {
         <li>
           <CardButton
             onClick={() => {
-              handlerShowData('1')
+              handlerShowData('1'), fetchPurchases()
             }}
           >
             <ShoppingBag className="ml-2" />
@@ -211,17 +118,18 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${showPurchases ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={compras}
+              data={dataTransactionPurchase}
               typeContent={1}
-              firstExpression={'data.descripcion'}
-              secondExpression={'data.precio'}
+              firstExpression={'data.fecha'}
+              secondExpression={'data.monto'}
+              modal={setShowSideBarPurchaseModal}
             ></DataList>
           </div>
         </li>
         <li>
           <CardButton
             onClick={() => {
-              handlerShowData('2')
+              handlerShowData('2'), fetchSales()
             }}
           >
             <Tag className="ml-2" />
@@ -232,17 +140,18 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${showSales ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={ventas}
+              data={dataTransactionSale}
               typeContent={2}
-              firstExpression={'data.descripcion'}
-              secondExpression={'data.precio'}
+              firstExpression={'data.fecha'}
+              secondExpression={'data.monto'}
+              modal={setShowSideBarSaleModal}
             ></DataList>
           </div>
         </li>
         <li>
           <CardButton
             onClick={() => {
-              handlerShowData('3')
+              handlerShowData('3'), fetchStores()
             }}
           >
             <Store className="ml-2" />
@@ -253,10 +162,11 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${showStores ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={tiendas}
+              data={dataStores}
               typeContent={3}
               firstExpression={'data.nombre'}
               secondExpression={'data.telefono'}
+              modal={setShowSideBarStoreModal}
             ></DataList>
           </div>
         </li>
@@ -267,6 +177,9 @@ const SideBar = () => {
           className="w-[160px] h-[140px] mt-8 px-1 opacity-60 grayscale"
         />
       </div>
+      {showSideBarPurchaseModal
+        ? console.log(showSideBarPurchaseModal)
+        : console.log(showSideBarPurchaseModal)}
     </div>
   )
 }
