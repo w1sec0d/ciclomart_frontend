@@ -45,7 +45,7 @@ const Login = () => {
             email: user.correo,
           })
         )
-
+        reset()
         navigate('/')
       }
     } catch (error) {
@@ -68,7 +68,6 @@ const Login = () => {
         )
       }
     }
-    reset()
   }
 
   return (
