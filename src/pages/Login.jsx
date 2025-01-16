@@ -27,6 +27,7 @@ const Login = () => {
 
       if (request.status === 200) {
         const { token, user } = request.data
+        console.log('request data', request.data)
 
         dispatch(
           setNotification({
@@ -41,8 +42,10 @@ const Login = () => {
         dispatch(setIsLoggedIn(true))
         dispatch(
           setAuthUser({
+            ...user,
             idUser: user.idUsuario,
             email: user.correo,
+            nombre: user.nombre,
           })
         )
         reset()

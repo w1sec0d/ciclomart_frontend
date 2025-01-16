@@ -121,8 +121,21 @@ const RegisterForm = () => {
         )}
         <div>
           <Checkbox id="terms" {...register('terms', { required: true })}>
-            Acepto los <a href="/">Términos y condiciones</a>
+            Acepto los{' '}
+            <a
+              href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=49981"
+              target="_BLANK"
+              className="text-primary"
+            >
+              Términos y condiciones
+            </a>
+            {errors.terms && (
+              <span className="ml-5 text-red-500 text-xs">
+                Debes aceptar los términos y condiciones
+              </span>
+            )}
           </Checkbox>
+
           <Button type="submit">Registrarse</Button>
         </div>
       </form>
