@@ -44,11 +44,12 @@ const CodeVerification = () => {
         }
       }
     } catch (error) {
+      dispatch(clearLoading())
       if (error.response && error.response.status === 400) {
         dispatch(
           setNotification({
             title: '¡ups!',
-            text: 'No coinciden los código.',
+            text: 'No coinciden los códigos',
             icon: 'error',
           })
         )

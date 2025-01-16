@@ -7,9 +7,12 @@ import Photo from '../../assets/userPhoto.png'
 
 //->Components
 import ImageUpload from './ImageUpload'
+import Loading from '../Loading'
 
 const Information = () => {
   const authUser = useSelector((state) => state.auth.authUser)
+  if (!authUser) return <Loading />
+  console.log('authUser', authUser)
   const firstName = authUser.nombre.split(' ')[0]
   const formattedDate = new Date(authUser.fechaRegistro).toLocaleDateString()
   return (
