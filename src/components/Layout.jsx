@@ -1,19 +1,21 @@
 // General layout structure for the app, each route will be rendered inside <Outlet />
 
-import { Outlet } from 'react-router'
+import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 import Notification from './Notification'
+import Loading from './Loading'
 
-const Layout = () => {
+const Layout = (params) => {
   return (
     <div>
       <header>
         {/* <h1>Register</h1> */}
-        <Navbar />
+        <Navbar searchText = {params.searchText} onSearch = {params.onSearch}/>
       </header>
       <main className="mt-[64px]">
         <Outlet />
         <Notification />
+        <Loading />
       </main>
       <footer></footer>
     </div>

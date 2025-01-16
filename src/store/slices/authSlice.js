@@ -1,7 +1,7 @@
-// filepath: /e:/ciclomart/CicloMart_front/src/store/slices/authSlice.js
 import { createSlice } from '@reduxjs/toolkit'
-import userInfoService from '../../services/userInfoService'
-import getUserFromLocalStorage from '../../utils/GetUser'
+
+import getUserFromLocalStorage from '../../utils/getUser'
+
 
 const initialState = {
   authUser: getUserFromLocalStorage(),

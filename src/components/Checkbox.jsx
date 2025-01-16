@@ -7,7 +7,6 @@ const Checkbox = forwardRef(
     {
       id,
       className = '', // custom class for container
-      required = true,
       children,
       ...props
     },
@@ -24,7 +23,6 @@ const Checkbox = forwardRef(
           type="checkbox"
           id={id}
           className="mr-2 h-5 w-5 text-primary border-[1.5px] border-gray border-opacity-75 focus:ring-1 focus:ring-primary focus:ring-offset-2 focus:ring-offset-white"
-          required={required}
           ref={ref}
           {...props}
         />

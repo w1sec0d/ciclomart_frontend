@@ -2,44 +2,58 @@ import Input from './Input'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../store/slices/notificationSlice'
-import apiService from '../services/apiService'
-import logo from '../assets/logo.png'
 import Checkbox from './Checkbox'
 import Button from './Button'
+import loginService from '../services/loginService'
+import { useNavigate } from 'react-router-dom'
+import Loading from './Loading'
+import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 
 const RegisterForm = () => {
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
+
   const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
-    reset,
-    // formState: { errors },
+    watch,
+    formState: { errors },
   } = useForm()
+  const password = watch('password') // Watch password input
+  const navigate = useNavigate()
 
-  dispatch(
-    setNotification({
-      title: 'Hola Redux!',
-      text: 'Esto es una notificación de login',
-      icon: 'info',
-    })
-  )
-
+  const sendRegisterCode = async (values) => {
+    const request = await loginService.sendRegisterCode(values)
+    if (request.status === 200) {
+      return request.data
+    }
+    return false
+  }
   const onSubmit = async (data) => {
-    const request = await apiService.createUsuario(data)
-    if (request) {
-      dispatch(
-        setNotification({
-          title: 'Usuario creado',
-          text: `El usuario ha sido creado`,
-          icon: 'success',
-        })
-      )
-      reset() // Clear form
+    try {
+      dispatch(setLoading())
+      const validateEmail = await sendRegisterCode(data)
+      if (validateEmail) {
+        dispatch(clearLoading())
+        navigate(`/verificationCode/${validateEmail.token}`)
+      }
+    } catch (error) {
+      // check error http response
+      if (error.status === 400) {
+        dispatch(clearLoading())
+
+        dispatch(
+          setNotification({
+            title: '¡Error!',
+            text: error.response.data.message ?? 'ha ocurrido un error',
+            icon: 'error',
+          })
+        )
+      }
     }
   }
   return (
     <>
-      <img src={logo} alt="Logo de CicloMart" className="w-14 h-14 mb-5" />
       <h1 className="font-black text-5xl">Únete a CicloMart</h1>
       <p>Crea una cuenta gratuita o inicia sesión</p>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -49,6 +63,9 @@ const RegisterForm = () => {
           type="email"
           {...register('email', { required: true })}
         />
+        {errors.email && (
+          <span className="text-red-500 text-xs">{errors.email.message}</span>
+        )}
         <div className="flex gap-4">
           <Input
             id="name"
@@ -67,14 +84,41 @@ const RegisterForm = () => {
           id="password"
           label="Contraseña"
           type="password"
-          {...register('password', { required: true })}
+          {...register('password', {
+            required: 'Password is required',
+            pattern: {
+              value: passwordRegex,
+              message:
+                'La contraseña debe tener al menos 6 caracteres, una letra mayúscula, una letra minúscula y un número.',
+            },
+          })}
         />
+        {errors.password && (
+          <span className="text-red-500 text-xs">
+            {errors.password.message}
+          </span>
+        )}
         <Input
-          id="password-confirm"
+          id="passwordConfirm"
           label="Confirmar contraseña"
           type="password"
-          {...register('password-confirm', { required: true })}
+          {...register('passwordConfirm', {
+            required: 'Password is required',
+            validate: (value) =>
+              value === password ||
+              'Las contraseñas no coinciden, verifica de nuevo',
+            pattern: {
+              value: passwordRegex,
+              message:
+                'La contraseña debe tener al menos 6 caracteres, una letra mayúcula, una letra minúscula y un número.',
+            },
+          })}
         />
+        {errors.passwordConfirm && (
+          <span className="text-red-500 text-xs">
+            {errors.passwordConfirm.message}
+          </span>
+        )}
         <div>
           <Checkbox id="terms" {...register('terms', { required: true })}>
             Acepto los <a href="/">Términos y condiciones</a>

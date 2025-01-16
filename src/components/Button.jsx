@@ -1,7 +1,7 @@
 // filepath: /e:/ciclomart/CicloMart_front/src/components/Button.jsx
 import { twMerge } from 'tailwind-merge'
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 const Button = ({
   type = 'submit',
@@ -16,6 +16,9 @@ const Button = ({
     if (to) {
       event.preventDefault()
       navigate(to)
+      if(onClick) {
+        onClick(event)
+      }
     } else {
       onClick(event)
     }
