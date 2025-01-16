@@ -7,7 +7,7 @@ import background1 from '../assets/background1.webp'
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   setAuthUser,
   setIsLoggedIn,
@@ -106,12 +106,12 @@ const Login = () => {
             >
               Recuerdame
             </Checkbox>
-            <a
-              href="/verificacion"
+            <Link
+              to="/verificacion"
               className="text-sm text-blue-500 hover:underline"
             >
               ¿Has olvidado tu contraseña?
-            </a>
+            </Link>
           </div>
           <div className="flex items-center justify-center">
             <Button
