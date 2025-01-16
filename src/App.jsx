@@ -24,18 +24,15 @@ import Layout from './components/Layout'
 import apiService from './services/apiService'
 import getUserFromLocalStorage from './utils/getUser'
 
-
 const App = () => {
-
-  const [searchText, setSearchText] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchText, setSearchText] = useState('')
+  const [searchResults, setSearchResults] = useState([])
 
   const handleSearch = async (text) => {
-    setSearchText(text);
-    const results = await apiService.searchProducts({nombre: text});
-    setSearchResults(results);
+    setSearchText(text)
+    const results = await apiService.searchProducts({ nombre: text })
+    setSearchResults(results)
   }
-  
 
   const dispatch = useDispatch()
 
@@ -47,28 +44,26 @@ const App = () => {
     fetchUser()
   }, [dispatch])
 
-
   return (
     <Routes>
-      <Route path="/" element={<Layout searchText={searchText} onSearch={handleSearch}/>}>
+      <Route
+        path="/"
+        element={<Layout searchText={searchText} onSearch={handleSearch} />}
+      >
         <Route index element={<Landing />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="userInfo" element={<UserInfo />} />
         <Route path="verificacion" element={<Verificacion />} />
-        <Route path="verificationCode" element={<CodeVerification />} />
-        <Route path="verificationCode/:token" element={<CodeVerification />} />
+        <Route path="verificationCode/:token?" element={<CodeVerification />} />
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="search" element={<Search searchResults={searchResults} name={searchText} />} />
         <Route
-          path="verificacionCode/:token"
-          element={<CodeVerification />}
+          path="search"
+          element={<Search searchResults={searchResults} name={searchText} />}
         />
-        <Route
-          path="passwordRecovery/:token"
-          element={<PasswordRecovery />}
-        />
+        <Route path="verificacionCode/:token" element={<CodeVerification />} />
+        <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
       </Route>
     </Routes>
   )
