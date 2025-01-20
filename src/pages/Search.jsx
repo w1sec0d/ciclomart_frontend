@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 //import components
-import ProductRow from "../components/ProductRow";
-import Selector from "../components/Selector";
+import ProductRow from "../components/Search/ProductRow";
+import Selector from "../components/Search/Selector";
 import apiService from "../services/apiService";
 //import filters
 import filters from "../utils/filters";
@@ -89,12 +89,51 @@ const SearchPage = (params) => {
     }, [params.searchResults]);
 
     return (
-    <>
+    <div className="flex">
+      {/* filters sidebar */}
+      <div className="w-1/4 p-4 mt-border-r hidden md:block bg-primaryDark">
+        <h2 className="text-xl font-semibold mt-20 mb-4 text-zinc-100">Filtros</h2>
+        <div className="flex flex-col items-start">
+          <label className="text-sm font-semibold text-zinc-100 600 mb-1">Tipo</label>
+          <select
+            className="px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300 w-full"
+            value={tipo}
+            onChange={(event) => {
+              handleFilterChange("tipo", event.target.value);
+            }}
+          >
+            <option value="bicicleta">Bicicleta</option>
+            <option value="repuesto">Repuesto</option>
+          </select>
+        </div>
+        {Array.isArray(filters[tipo]) &&
+          filters[tipo]
+            .slice(0, showAllFilters ? filters[tipo].length : 4)
+            .map((filter, index) => (
+              <Selector 
+                key={index}
+                label={filter.label}
+                options={filter.options} 
+                value={filterValues[filter.label.toLowerCase()] || ""}
+                onFilterChange={handleFilterChange}
+              />
+            ))}
+        {filters[tipo].length > 4 && (
+            <div className="px-4">
+              <button
+                onClick={handleShowAllFilters}
+                className="text-blue-500 hover:underline mt-2"
+              >
+                {showAllFilters ? "Mostrar menos filtros" : "Mostrar más filtros"}
+              </button>
+            </div>
+          )}
+      </div>
       {/* Main Section */}
-      <main className="max-w-5xl mx-auto py-8">
-        <h1 className="text-3xl font-bold text-center mb-6">Busca Bicicletas y Repuestos</h1>
+        <div className="flex-1 max-w-5xl mx-3 py-8">
+          <h1 className="text-3xl font-bold text-center mb-6">Busca Bicicletas y Repuestos</h1>
 
-        {/* Search Bar */}
+          {/* Search Bar */}
         <div className="bg-white shadow rounded-lg overflow-hidden mb-4">
           <div className="flex items-center border-b px-4 py-3">
             <input
@@ -104,7 +143,7 @@ const SearchPage = (params) => {
             />
             {/* <button className="ml-2 bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded">Bicicleta de ruta</button> */}
           </div>
-          {/* Filters Row */}
+          {/* Filters Row
           <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 py-4 px-4">
             <div className="flex flex-col items-start">
               <label className="text-sm font-semibold text-gray-600 mb-1">Tipo</label>
@@ -131,8 +170,8 @@ const SearchPage = (params) => {
                     onFilterChange={handleFilterChange}
                   />
                 ))}
-          </div>
-          {filters[tipo].length > 4 && (
+          </div> */}
+          {/* {filters[tipo].length > 4 && (
             <div className="px-4">
               <button
                 onClick={handleShowAllFilters}
@@ -141,11 +180,11 @@ const SearchPage = (params) => {
                 {showAllFilters ? "Mostrar menos filtros" : "Mostrar más filtros"}
               </button>
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Table Header */}
-        <div className="hidden sm:grid grid-cols-4 bg-blue-200 text-blue-800 font-semibold py-2 px-4">
+        <div className="sm:grid grid-cols-4 bg-blue-200 text-blue-800 font-semibold py-2 px-4">
           <span>Producto</span>
           <span>Descripción</span>
           <span>Tipo</span>
@@ -173,8 +212,8 @@ const SearchPage = (params) => {
             <Button onClick={handlePreviousPage} disabled={currentPage === 1}>Anterior</Button>
             <Button onClick={handleNextPage} disabled={startIndex + itemsPerPage >= filterResults.length}>Siguiente</Button>
           </div>
-      </main>
-    </>
+      </div>
+    </div>
     );
 }
 

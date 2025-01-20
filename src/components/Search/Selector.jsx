@@ -13,7 +13,7 @@ const Selector = (props) => {
 
     return (
       <div className="flex flex-col items-start">
-        <label className="text-sm font-semibold text-gray-600 mb-1">{props.label}</label>
+        <label className="text-sm font-semibold text-zinc-100 -600 mb-1">{props.label}</label>
         <select 
             className="px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300 w-full"
             onChange={handleChange}
