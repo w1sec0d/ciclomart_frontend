@@ -110,12 +110,14 @@ const SearchPage = (params) => {
           filters[tipo]
             .slice(0, showAllFilters ? filters[tipo].length : 4)
             .map((filter, index) => (
+              console.log("Filter:", filter),
               <Selector 
                 key={index}
                 label={filter.label}
                 options={filter.options} 
                 value={filterValues[filter.label.toLowerCase()] || ""}
                 onFilterChange={handleFilterChange}
+                range={filter.label === "Precio"? true : null}
               />
             ))}
         {filters[tipo].length > 4 && (
