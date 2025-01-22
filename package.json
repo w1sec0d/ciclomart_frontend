@@ -25,6 +25,7 @@
     "react-multi-carousel": "^2.8.5",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.1",
+    "react-select": "^5.9.0",
     "react-spinners": "^0.15.0",
     "sweetalert2": "^11.15.10",
     "tailwind-merge": "^2.6.0"

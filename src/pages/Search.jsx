@@ -8,6 +8,9 @@ import apiService from "../services/apiService";
 import filters from "../utils/filters";
 import Button from "../components/Button";
 
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+
 const SearchPage = (params) => {
 
     const [tipo, setTipo] = useState("bicicleta");
@@ -16,6 +19,8 @@ const SearchPage = (params) => {
     const [filterValues, setFilterValues] = useState({tipo: tipo});
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const animatedComponents = makeAnimated();
+    const[selectedOptions, setSelectedOptions] = useState([]);
 
     const handleShowAllFilters = () => {
       setShowAllFilters(!showAllFilters);
@@ -36,12 +41,13 @@ const SearchPage = (params) => {
       
       let newFilters = {}
       const defaultValues = {}
-
+      
+      console.log("sv:", selectedValue);
       //If tipo selector changed, reset all filters
 
       if (filterLabel === "tipo") {
 
-        setTipo(selectedValue);
+        setTipo(selectedValue.value);
 
         const types = ["bicicleta", "repuesto"];
       
@@ -55,7 +61,7 @@ const SearchPage = (params) => {
           });
         }
 
-        newFilters = ({ nombre:params.name, tipo: selectedValue, ...defaultValues }); 
+        newFilters = ({ nombre:params.name, tipo: selectedValue[0].value, ...defaultValues }); 
         setFilterValues({...newFilters, ...defaultValues});
 
         }
@@ -63,9 +69,14 @@ const SearchPage = (params) => {
       //For every other selector, update the filters
       
       else {
-        newFilters = ({ ...filterValues, [filterLabel.toLowerCase()]: selectedValue }); 
-        setFilterValues(newFilters);
-       
+        if(selectedValue.length === 0){
+          newFilters = ({ ...filterValues, [filterLabel.toLowerCase()]: "" }); 
+          setFilterValues(newFilters);
+        }
+        else{
+          newFilters = ({ ...filterValues, [filterLabel.toLowerCase()]: selectedValue[0].value }); 
+          setFilterValues(newFilters);  
+        }       
       }
       console.log("New Filters:", newFilters);
       const  request = await apiService.searchProducts(newFilters);
@@ -73,7 +84,7 @@ const SearchPage = (params) => {
       const filtered = request.filter((result) => {
         return Object.entries(newFilters).every(([key, value]) => {
           if (value === "") return true;
-          return result[key.toLowerCase()]?.toString().toLowerCase().includes(value.toString().toLowerCase());
+          return result[key.toLowerCase()].toString().toLowerCase().includes(value.toString().toLowerCase());
         });
       });
 
@@ -83,6 +94,10 @@ const SearchPage = (params) => {
       
     }
 
+    const handleSelectChange = (selected) => {
+      setSelectedOptions(selected);
+      console.log("selected :", selected);
+    }
 
     useEffect(() => {
       setFilterResults(params.searchResults || []);
@@ -110,16 +125,21 @@ const SearchPage = (params) => {
           filters[tipo]
             .slice(0, showAllFilters ? filters[tipo].length : 4)
             .map((filter, index) => (
-              console.log("Filter:", filter),
-              <Selector 
-                key={index}
-                label={filter.label}
-                options={filter.options} 
-                value={filterValues[filter.label.toLowerCase()] || ""}
-                onFilterChange={handleFilterChange}
-                range={filter.label === "Precio"? true : null}
-              />
-            ))}
+              //console.log("Filter:", filter),
+              <div key={index} className="flex flex-col items-start">
+                <label className="text-sm font-semibold text-zinc-100 -600 mb-1">{filter.label}</label>
+                <Select
+                  key={index}
+                  closeMenuOnSelect={false}
+                  components={animatedComponents}
+                  isMulti
+                  defaultValue={""}
+                  options={filter.options} 
+                  onChange={(selected) => handleFilterChange(filter.label, selected)}
+                  className="px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300 w-full"
+                />
+              </div>
+              ))}
         {filters[tipo].length > 4 && (
             <div className="px-4">
               <button
