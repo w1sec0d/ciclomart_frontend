@@ -17,7 +17,7 @@ const SettingsModalShow = ({ activeModalIndex, setActiveModalIndex }) => {
 
   /*Abre el modal de acuerdo al indice seleccionado*/
   return activeModalIndex === 1 ? (
-    <InfoModal data={[authUser]} onClose={handleModalClose} />
+    <InfoModal data={authUser} onClose={handleModalClose} />
   ) : activeModalIndex === 2 ? (
     <SecurityModal onClose={handleModalClose} />
   ) : activeModalIndex === 3 ? (
