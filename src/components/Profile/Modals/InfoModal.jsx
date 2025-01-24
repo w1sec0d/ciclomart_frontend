@@ -20,12 +20,6 @@ const InfoModal = ({ data, onClose }) => {
         {data.length != 0 ? (
           <div className="border-b border-lgray h-[272px] overflow-auto">
             <div className="grid grid-cols-3 ">
-              {/*Display information in a grid system*/}
-              {/* <div className="border-r border-b border-lgray ">
-                <b className="pl-4 text-sm text-primary">Nombre:</b>
-                <p className="pl-4">{nombre}</p>
-              </div> */}
-
               <UserData title="Nombre:" dataItem={nombre} />
               <UserData title="Apellido:" dataItem={apellido} />
               <UserData className="border-l" title="Edad:" dataItem={edad} />
