@@ -1,4 +1,4 @@
-//-> Components
+//-> Componentes
 import SideBar from '../components/Profile/PrincipalSections/SideBar.jsx'
 import Information from '../components/Profile/PrincipalSections/Information.jsx'
 import Settings from '../components/Profile/PrincipalSections/Settings.jsx'
