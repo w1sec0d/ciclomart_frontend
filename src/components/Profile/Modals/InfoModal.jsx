@@ -1,5 +1,6 @@
 // -> Componentes
 import ModalHeader from './ModalHeader'
+import UserData from './UserData'
 
 const InfoModal = ({ data, onClose }) => {
   const { nombre, apellido, edad, rol, telefono, username, correo, direccion } =
@@ -18,40 +19,29 @@ const InfoModal = ({ data, onClose }) => {
 
         {data.length != 0 ? (
           <div className="border-b border-lgray h-[272px] overflow-auto">
-            <div className="grid grid-cols-3">
+            <div className="grid grid-cols-3 ">
               {/*Display information in a grid system*/}
-              <div className="pt-2 border-r h-[67px] border-b border-lgray ">
+              {/* <div className="border-r border-b border-lgray ">
                 <b className="pl-4 text-sm text-primary">Nombre:</b>
                 <p className="pl-4">{nombre}</p>
-              </div>
-              <div className="pt-2 h-[67px] border-b border-lgray ">
-                <b className="pl-4 text-sm text-primary">Apellido:</b>
-                <p className="pl-4">{apellido}</p>
-              </div>
-              <div className="pt-2 h-[67px] border-b border-l border-lgray ">
-                <b className="pl-4 pt-0 text-sm text-primary">Edad:</b>
-                <p className="pl-4">{edad}</p>
-              </div>
-              <div className="pt-2 h-[67px] border-b border-r border-lgray ">
-                <b className="pl-4 pt-0 text-sm text-primary">Rol:</b>
-                <p className="pl-4">{rol}</p>
-              </div>
-              <div className="pt-2 h-[67px] border-b border-r border-lgray ">
-                <b className="pl-4 pt-0 text-sm text-primary">Telefono:</b>
-                <p className="pl-4">{telefono}</p>
-              </div>
-              <div className="pt-2 h-[67px] border-b  border-lgray ">
-                <b className="pl-4 pt-0 text-sm text-primary">Usuario:</b>
-                <p className="pl-4">{username}</p>
-              </div>
-              <div className="pt-2 col-span-3 h-[67px] border-b  border-lgray ">
-                <b className="pl-4 pt-0 text-sm text-primary">Correo:</b>
-                <p className="pl-4">{correo}</p>
-              </div>
-              <div className="pt-2 col-span-3 h-[67px] border-r border-lgray ">
-                <b className="pl-4 pt-0 text-sm text-primary">Dirección:</b>
-                <p className="pl-4">{direccion}</p>
-              </div>
+              </div> */}
+
+              <UserData title="Nombre:" dataItem={nombre} />
+              <UserData title="Apellido:" dataItem={apellido} />
+              <UserData className="border-l" title="Edad:" dataItem={edad} />
+              <UserData title="Rol:" dataItem={rol} />
+              <UserData title="Telefono:" dataItem={telefono} />
+              <UserData title="Usuario:" dataItem={username} />
+              <UserData
+                className="col-span-3"
+                title="Correo:"
+                dataItem={correo}
+              />
+              <UserData
+                className="col-span-3 border-b-0"
+                title="Dirección:"
+                dataItem={direccion}
+              />
             </div>
           </div>
         ) : null}
