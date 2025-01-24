@@ -1,14 +1,11 @@
 /*-> Icons*/
 import Quit from '@mui/icons-material/ClearOutlined'
 
-const InfoModal = ({ data = [], setShowInfoModal = () => {} }) => {
+const InfoModal = ({ data = [], onClose }) => {
   return (
     <div
       className="flex items-center justify-center absolute inset-0 left-0 h-full w-full z-10 bg-gray/60 "
-      onClick={() => {
-        setShowInfoModal(false)
-        document.body.style.overflow = 'auto'
-      }}
+      onClick={onClose}
     >
       <div
         className="w-[800px] h-[400px] bg-white  rounded-3xl -translate-y-8 shadow-2xl z-20 mx-4"
@@ -21,10 +18,7 @@ const InfoModal = ({ data = [], setShowInfoModal = () => {} }) => {
           <div className="flex flex-row-reverse items-center w-2/3 h-full  ">
             <Quit
               className="hover:rounded-full hover:cursor-pointer transition duration-200 ease-in-out hover:scale-125"
-              onClick={() => {
-                setShowInfoModal(false)
-                document.body.style.overflow = 'auto'
-              }}
+              onClick={onClose}
             ></Quit>
           </div>
         </div>

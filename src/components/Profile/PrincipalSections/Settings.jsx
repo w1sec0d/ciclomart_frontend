@@ -15,11 +15,8 @@ import CardIcon from '@mui/icons-material/BadgeOutlined'
 
 const Settings = () => {
   const authUser = useSelector((state) => state.auth.authUser)
-  const [showInfoModal, setShowInfoModal] = useState(false)
-  const [showSecurityModal, setShowSecurityModal] = useState(false)
-  const [showPrefModal, setShowPrefModal] = useState(false)
 
-  //index 1 = Infomodal, index2 = SecModal, index3 = PrefModal
+  //index 1 = Infomodal, index2 = SecModal, index3 = PrefModal, index0 = cerrado
   const [ActiveModalIndex, setActiveModalIndex] = useState(0)
 
   const handleModalShow = (index) => {
@@ -27,6 +24,11 @@ const Settings = () => {
     document.body.style.overflow = 'hidden'
     /*Hábilita al modal (index) para mostrarse*/
     setActiveModalIndex(index)
+  }
+
+  const handleModalClose = () => {
+    document.body.style.overflow = 'auto'
+    setActiveModalIndex(0)
   }
 
   return (
@@ -76,11 +78,11 @@ const Settings = () => {
       {/* Modals show*/}
 
       {ActiveModalIndex === 1 ? (
-        <InfoModal data={[authUser]} setShowInfoModal={setShowInfoModal} />
+        <InfoModal data={[authUser]} onClose={handleModalClose} />
       ) : ActiveModalIndex === 2 ? (
-        <SecurityModal setShowSecurityModal={setShowSecurityModal} />
+        <SecurityModal onClose={handleModalClose} />
       ) : ActiveModalIndex === 3 ? (
-        <PrefModal setShowPrefModal={setShowPrefModal} />
+        <PrefModal onClose={handleModalClose} />
       ) : null}
     </div>
   )
