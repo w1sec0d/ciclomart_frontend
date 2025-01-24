@@ -1,12 +1,9 @@
 //-> Utilidades
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 
 //-> Componentes
 import CardButton from '../CardButton.jsx'
-import InfoModal from '../Modals/InfoModal.jsx'
-import SecurityModal from '../Modals/SecurityModal.jsx'
-import PrefModal from '../Modals/PrefModal.jsx'
+import SettingsModalShow from '../SettingsModalShow.jsx'
 
 //-> Iconos
 import SettingsIcon from '@mui/icons-material/TuneOutlined'
@@ -14,21 +11,14 @@ import Security from '@mui/icons-material/GppGoodOutlined'
 import CardIcon from '@mui/icons-material/BadgeOutlined'
 
 const Settings = () => {
-  const authUser = useSelector((state) => state.auth.authUser)
-
   //index 1 = Infomodal, index2 = SecModal, index3 = PrefModal, index0 = cerrado
-  const [ActiveModalIndex, setActiveModalIndex] = useState(0)
+  const [activeModalIndex, setActiveModalIndex] = useState(0)
 
   const handleModalShow = (index) => {
     /*Utiliza las utilidades del DOM-API para ocultar la barra scroll*/
     document.body.style.overflow = 'hidden'
     /*Hábilita al modal (index) para mostrarse*/
     setActiveModalIndex(index)
-  }
-
-  const handleModalClose = () => {
-    document.body.style.overflow = 'auto'
-    setActiveModalIndex(0)
   }
 
   return (
@@ -75,15 +65,11 @@ const Settings = () => {
           </CardButton>
         </li>
       </ul>
-      {/* Modals show*/}
-
-      {ActiveModalIndex === 1 ? (
-        <InfoModal data={[authUser]} onClose={handleModalClose} />
-      ) : ActiveModalIndex === 2 ? (
-        <SecurityModal onClose={handleModalClose} />
-      ) : ActiveModalIndex === 3 ? (
-        <PrefModal onClose={handleModalClose} />
-      ) : null}
+      {/* Muestra modales*/}
+      <SettingsModalShow
+        activeModalIndex={activeModalIndex}
+        setActiveModalIndex={setActiveModalIndex}
+      />
     </div>
   )
 }

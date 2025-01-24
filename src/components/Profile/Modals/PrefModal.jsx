@@ -21,7 +21,7 @@ const PrefModal = ({ onClose }) => {
           <div className="flex flex-row-reverse items-center w-2/3 h-full  ">
             <Quit
               className="hover:rounded-full hover:cursor-pointer transition duration-200 ease-in-out hover:scale-125"
-              onClick={onCLose}
+              onClick={onClose}
             ></Quit>
           </div>
         </div>
