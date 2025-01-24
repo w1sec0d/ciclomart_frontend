@@ -10,7 +10,7 @@ const SecurityModal = ({ setShowSecurityModal = () => {} }) => {
       className="flex items-center justify-center absolute inset-0 left-0 h-full w-full z-10 bg-gray/60 "
       onClick={() => {
         setShowSecurityModal(false)
-        document.body.classList.remove('overflow-hidden')
+        document.body.style.overflow = 'auto'
       }}
     >
       <div
@@ -26,7 +26,7 @@ const SecurityModal = ({ setShowSecurityModal = () => {} }) => {
               className="hover:rounded-full hover:cursor-pointer transition duration-200 ease-in-out hover:scale-125"
               onClick={() => {
                 setShowSecurityModal(false)
-                document.body.classList.remove('overflow-hidden')
+                document.body.style.overflow = 'auto'
               }}
             ></Quit>
           </div>
