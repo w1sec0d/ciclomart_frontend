@@ -19,19 +19,14 @@ const Settings = () => {
   const [showSecurityModal, setShowSecurityModal] = useState(false)
   const [showPrefModal, setShowPrefModal] = useState(false)
 
-  /*Allows modals show*/
-  const handleModalShow = (TypeModal) => {
-    /*Utiliza las utilidades del DOM-API para ocultar la barra scroll*/
+  //index 1 = Infomodal, index2 = SecModal, index3 = PrefModal
+  const [ActiveModalIndex, setActiveModalIndex] = useState(0)
 
+  const handleModalShow = (index) => {
+    /*Utiliza las utilidades del DOM-API para ocultar la barra scroll*/
     document.body.style.overflow = 'hidden'
-    if (TypeModal === '1') {
-      /*Activate Modal*/
-      setShowInfoModal(true)
-    } else if (TypeModal === '2') {
-      setShowSecurityModal(true)
-    } else if (TypeModal === '3') {
-      setShowPrefModal(true)
-    }
+    /*Hábilita al modal (index) para mostrarse*/
+    setActiveModalIndex(index)
   }
 
   return (
@@ -42,10 +37,7 @@ const Settings = () => {
           <CardButton
             arrow="2"
             className=" flex h-full hover:rounded-t-3xl"
-            onClick={() => {
-              handleModalShow('1')
-              /*Using DOM-API utilities for disable scrollbar temporaly*/
-            }}
+            onClick={() => handleModalShow(1)}
           >
             <CardIcon className="ml-8" style={{ fontSize: '3.5rem' }} />
             <div className="flex flex-col w-full">
@@ -58,9 +50,7 @@ const Settings = () => {
           <CardButton
             arrow="2"
             className="h-full border-y"
-            onClick={() => {
-              handleModalShow('2')
-            }}
+            onClick={() => handleModalShow(2)}
           >
             <Security className="ml-8" style={{ fontSize: '3.5rem' }} />
             <div className="flex flex-col w-full">
@@ -73,9 +63,7 @@ const Settings = () => {
           <CardButton
             arrow="2"
             className="h-full hover:rounded-b-3xl"
-            onClick={() => {
-              handleModalShow('3')
-            }}
+            onClick={() => handleModalShow(3)}
           >
             <SettingsIcon className="ml-8" style={{ fontSize: '3.5rem' }} />
             <div className="flex flex-col w-full">
@@ -86,16 +74,14 @@ const Settings = () => {
         </li>
       </ul>
       {/* Modals show*/}
-      {showInfoModal ? (
-        /*Interesant opacity Tailwindcss documentation https://tailwindcss.com/docs/upgrade-guide#new-opacity-modifier-syntax*/
+
+      {ActiveModalIndex === 1 ? (
         <InfoModal data={[authUser]} setShowInfoModal={setShowInfoModal} />
-      ) : null}
-      ,
-      {showSecurityModal ? (
+      ) : ActiveModalIndex === 2 ? (
         <SecurityModal setShowSecurityModal={setShowSecurityModal} />
+      ) : ActiveModalIndex === 3 ? (
+        <PrefModal setShowPrefModal={setShowPrefModal} />
       ) : null}
-      ,
-      {showPrefModal ? <PrefModal setShowPrefModal={setShowPrefModal} /> : null}
     </div>
   )
 }

@@ -20,7 +20,7 @@ const PrefModal = ({ setShowPrefModal = () => {} }) => {
         }}
       >
         <div className="flex items-center h-[64px] w-full border-b border-lgray px-4">
-          <b className="w-1/3 text-2xl">Seguridad</b>
+          <b className="w-1/3 text-2xl">Preferencias</b>
           <div className="flex flex-row-reverse items-center w-2/3 h-full  ">
             <Quit
               className="hover:rounded-full hover:cursor-pointer transition duration-200 ease-in-out hover:scale-125"
