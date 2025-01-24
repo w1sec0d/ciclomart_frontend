@@ -1,8 +1,8 @@
 //-> Components
-import CardButton from './CardButton.jsx'
-import InfoModal from './Modals/InfoModal.jsx'
-import SecurityModal from './Modals/SecurityModal.jsx'
-import PrefModal from './Modals/PrefModal.jsx'
+import CardButton from '../CardButton.jsx'
+import InfoModal from '../Modals/InfoModal.jsx'
+import SecurityModal from '../Modals/SecurityModal.jsx'
+import PrefModal from '../Modals/PrefModal.jsx'
 
 //-> Icons
 import SettingsIcon from '@mui/icons-material/TuneOutlined'

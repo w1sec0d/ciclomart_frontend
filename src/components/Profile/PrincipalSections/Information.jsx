@@ -3,11 +3,11 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 //-> Images
-import Photo from '../../assets/userPhoto.png'
+import Photo from '../../../assets/userPhoto.png'
 
 //->Components
-import ImageUpload from './ImageUpload'
-import Loading from '../Loading'
+import ImageUpload from '../ImageUpload'
+import Loading from '../../Loading'
 
 const Information = () => {
   const authUser = useSelector((state) => state.auth.authUser)

@@ -1,6 +1,6 @@
 //-> Components
-import CardButton from './CardButton'
-import DataList from './DataList'
+import CardButton from '../CardButton.jsx'
+import DataList from '../DataList.jsx'
 
 //-> Icons
 import ShoppingBag from '@mui/icons-material/LocalMallOutlined'
@@ -8,13 +8,12 @@ import Store from '@mui/icons-material/StorefrontOutlined'
 import Tag from '@mui/icons-material/LocalOfferOutlined'
 
 //-> Images
-import Logo from '../../assets/logoVector.svg'
+import Logo from '../../../assets/logoVector.svg'
 
 //-> Utils
-import apiService from '../../services/apiService.js'
-import profileService from '../../services/profileService.js'
+import apiService from '../../../services/apiService.js'
+import profileService from '../../../services/profileService.js'
 import { useState } from 'react'
-import { setAuthUser } from '../../store/slices/authSlice.js'
 import { useSelector } from 'react-redux'
 
 const SideBar = () => {
