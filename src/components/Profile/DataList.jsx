@@ -2,7 +2,6 @@
 import PropTypes from 'prop-types'
 import { data } from 'react-router-dom'
 
-
 /*typeContent = 1 = Puchases
 typeContent = 2 = Sales
 typeContent = 3 = Stores*/
@@ -11,7 +10,7 @@ const DataList = ({
   typeContent = 1,
   firstExpression,
   secondExpression,
-  modal = () => {},
+  onShowModal = () => {},
 }) => {
   return (
     <div className="w-full h-full overflow-auto">
@@ -35,7 +34,7 @@ const DataList = ({
                 <b
                   className="text-secondary mr-2 break-all line-clamp-1 w-2/3 hover:cursor-pointer hover:underline"
                   title={eval(firstExpression)}
-                  onClick={() => modal(true)}
+                  onClick={onShowModal}
                 >
                   {eval(firstExpression)}
                 </b>

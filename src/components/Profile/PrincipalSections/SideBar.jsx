@@ -17,16 +17,12 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const SideBar = () => {
-  /*user global state*/
+  /*Estado global del usuario registrado*/
   const authUser = useSelector((state) => state.auth.authUser)
+  /*Permite manejar que sección se muestra */
+  const [activeButton, setActiveButton] = useState(0)
+  const [activeModal, setActiveModal] = useState(0)
 
-  const [showPurchases, setShowPurchases] = useState(false)
-  const [showSideBarPurchaseModal, setShowSideBarPurchaseModal] =
-    useState(false)
-  const [showSideBarSaleModal, setShowSideBarSaleModal] = useState(false)
-  const [showSideBarStoreModal, setShowSideBarStoreModal] = useState(false)
-  const [showSales, setShowSales] = useState(false)
-  const [showStores, setShowStores] = useState(false)
   const [dataStores, setDataStores] = useState([])
   const [dataTransactionSale, setDataTransactionSale] = useState([])
   const [dataTransactionPurchase, setDataTransactionPurchase] = useState([])
@@ -60,39 +56,13 @@ const SideBar = () => {
   }
 
   /* -> Handlers -> */
+  //index1 = compras , index2= ventas , index3 = tiendas , index0 = nada
 
-  /*TypeButton 1 -> Purchases
-  TypeButton 2 -> Sales
-  TypeButton 3 -> Stores*/
-
-  const handlerShowData = (TypeButton) => {
-    if (TypeButton === '1') {
-      /*Deactivate double selected button*/
-      if (showPurchases) {
-        setShowPurchases(false)
-      } else {
-        /*Activate Buttons*/
-        setShowPurchases(true)
-        /*Deactivates Buttons*/
-        setShowSales(false)
-        setShowStores(false)
-      }
-    } else if (TypeButton === '2') {
-      if (showSales) {
-        setShowSales(false)
-      } else {
-        setShowSales(true)
-        setShowPurchases(false)
-        setShowStores(false)
-      }
-    } else if (TypeButton === '3') {
-      if (showStores) {
-        setShowStores(false)
-      } else {
-        setShowStores(true)
-        setShowPurchases(false)
-        setShowSales(false)
-      }
+  const handleShowData = (index) => {
+    if (activeButton === index) {
+      setActiveButton(0)
+    } else {
+      setActiveButton(index)
     }
   }
 
@@ -103,7 +73,7 @@ const SideBar = () => {
         <li>
           <CardButton
             onClick={() => {
-              handlerShowData('1'), fetchPurchases()
+              handleShowData(1), fetchPurchases()
             }}
           >
             <ShoppingBag className="ml-2" />
@@ -114,21 +84,21 @@ const SideBar = () => {
           {/*Show conditional Content*/}
 
           <div
-            className={`overflow-hidden transition-all duration-500 ease-in ${showPurchases ? 'h-40' : 'h-0'} bg-white`}
+            className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 1 ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
               data={dataTransactionPurchase}
               typeContent={1}
               firstExpression={'data.fecha'}
               secondExpression={'data.monto'}
-              modal={setShowSideBarPurchaseModal}
+              onShowModal={() => setActiveModal(1)}
             ></DataList>
           </div>
         </li>
         <li>
           <CardButton
             onClick={() => {
-              handlerShowData('2'), fetchSales()
+              handleShowData(2), fetchSales()
             }}
           >
             <Tag className="ml-2" />
@@ -136,21 +106,21 @@ const SideBar = () => {
           </CardButton>
           <hr />
           <div
-            className={`overflow-hidden transition-all duration-500 ease-in ${showSales ? 'h-40' : 'h-0'} bg-white`}
+            className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 2 ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
               data={dataTransactionSale}
               typeContent={2}
               firstExpression={'data.fecha'}
               secondExpression={'data.monto'}
-              modal={setShowSideBarSaleModal}
+              onShowModal={() => setActiveModal(2)}
             ></DataList>
           </div>
         </li>
         <li>
           <CardButton
             onClick={() => {
-              handlerShowData('3'), fetchStores()
+              handleShowData(3), fetchStores()
             }}
           >
             <Store className="ml-2" />
@@ -158,14 +128,14 @@ const SideBar = () => {
           </CardButton>
           <hr />
           <div
-            className={`overflow-hidden transition-all duration-500 ease-in ${showStores ? 'h-40' : 'h-0'} bg-white`}
+            className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 3 ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
               data={dataStores}
               typeContent={3}
               firstExpression={'data.nombre'}
               secondExpression={'data.telefono'}
-              modal={setShowSideBarStoreModal}
+              onShowModal={() => setActiveModal(3)}
             ></DataList>
           </div>
         </li>
@@ -176,9 +146,14 @@ const SideBar = () => {
           className="w-[160px] h-[140px] mt-8 px-1 opacity-60 grayscale"
         />
       </div>
-      {showSideBarPurchaseModal
-        ? console.log(showSideBarPurchaseModal)
-        : console.log(showSideBarPurchaseModal)}
+      {/*Muestra modales */}
+      {activeModal === 1
+        ? console.log('Modal Compras')
+        : activeModal === 2
+          ? console.log('Modal Ventas')
+          : activeModal === 3
+            ? console.log('Modal Tiendas')
+            : null}
     </div>
   )
 }
