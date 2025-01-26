@@ -16,6 +16,9 @@ const Button = ({
     if (to) {
       event.preventDefault()
       navigate(to)
+      if(onClick) {
+        onClick(event)
+      }
     } else {
       onClick(event)
     }

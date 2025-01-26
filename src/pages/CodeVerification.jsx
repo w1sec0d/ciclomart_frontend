@@ -49,7 +49,7 @@ const CodeVerification = () => {
         dispatch(
           setNotification({
             title: '¡ups!',
-            text: 'No coinciden los códigos.',
+            text: 'No coinciden los códigos',
             icon: 'error',
           })
         )

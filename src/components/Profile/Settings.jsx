@@ -1,6 +1,8 @@
 //-> Components
 import CardButton from './CardButton.jsx'
-import InfoModal from './InfoModal.jsx'
+import InfoModal from './Modals/InfoModal.jsx'
+import SecurityModal from './Modals/SecurityModal.jsx'
+import PrefModal from './Modals/PrefModal.jsx'
 
 //-> Icons
 import SettingsIcon from '@mui/icons-material/TuneOutlined'
@@ -9,35 +11,19 @@ import Card from '@mui/icons-material/BadgeOutlined'
 
 //-> Utils
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const Settings = () => {
+  const authUser = useSelector((state) => state.auth.authUser)
   const [showInfoModal, setShowInfoModal] = useState(false)
   const [showSecurityModal, setShowSecurityModal] = useState(false)
   const [showPrefModal, setShowPrefModal] = useState(false)
-
-  /* -> Test JSONS*/
-  const user = [
-    {
-      idUsuario: 1,
-      nombre: 'Carlos David',
-      apellido: 'Ramírez Muñoz',
-      edad: 29,
-      rol: 'Comprador',
-      correo: 'carlos.ramirez@gmail.com',
-      direccion: 'Calle 45 #23-89, Bogotá',
-      telefono: '3115678901',
-      username: 'carlos.ramirez',
-      password: 'a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6',
-      fechaRegistro: '2024-01-10 14:35:22',
-    },
-  ]
 
   /*Allows modals show*/
   const handlerShowData = (TypeModal) => {
     if (TypeModal === '1') {
       /*Activate Modal*/
       setShowInfoModal(true)
-      console.log('funciona')
     } else if (TypeModal === '2') {
       setShowSecurityModal(true)
     } else if (TypeModal === '3') {
@@ -67,7 +53,14 @@ const Settings = () => {
           </CardButton>
         </li>
         <li className="h-1/3">
-          <CardButton arrow="2" className="h-full border-y">
+          <CardButton
+            arrow="2"
+            className="h-full border-y"
+            onClick={() => {
+              handlerShowData('2')
+              document.body.classList.add('overflow-hidden')
+            }}
+          >
             <Security className="ml-8" style={{ fontSize: '3.5rem' }} />
             <div className="flex flex-col w-full">
               <b className="flex flex-col w-full">Seguridad</b>
@@ -76,7 +69,14 @@ const Settings = () => {
           </CardButton>
         </li>
         <li className="h-1/3">
-          <CardButton arrow="2" className="h-full hover:rounded-b-3xl">
+          <CardButton
+            arrow="2"
+            className="h-full hover:rounded-b-3xl"
+            onClick={() => {
+              handlerShowData('3')
+              document.body.classList.add('overflow-hidden')
+            }}
+          >
             <SettingsIcon className="ml-8" style={{ fontSize: '3.5rem' }} />
             <div className="flex flex-col w-full">
               <b className="flex flex-col w-full">Preferencias</b>
@@ -85,11 +85,17 @@ const Settings = () => {
           </CardButton>
         </li>
       </ul>
-      {/* Information Modal show*/}
+      {/* Modals show*/}
       {showInfoModal ? (
         /*Interesant opacity Tailwindcss documentation https://tailwindcss.com/docs/upgrade-guide#new-opacity-modifier-syntax*/
-        <InfoModal data={user} setShowInfoModal={setShowInfoModal} />
+        <InfoModal data={[authUser]} setShowInfoModal={setShowInfoModal} />
       ) : null}
+      ,
+      {showSecurityModal ? (
+        <SecurityModal setShowSecurityModal={setShowSecurityModal} />
+      ) : null}
+      ,
+      {showPrefModal ? <PrefModal setShowPrefModal={setShowPrefModal} /> : null}
     </div>
   )
 }
