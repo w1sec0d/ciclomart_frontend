@@ -1,5 +1,6 @@
 // -> Components
 import ModalHeader from './ModalHeader'
+import OptionSelector from './OptionSelector'
 
 // -> Icons
 import ChangePassword from '@mui/icons-material/LockResetOutlined'
@@ -21,33 +22,27 @@ const PrefModal = ({ onClose }) => {
         <ModalHeader title="Preferencias" onClose={onClose} />
 
         <div className="grid grid-cols-1 gap-0 border-b border-lgray h-[272px] overflow-auto">
-          <div className="border-b border-lgray flex flex-row items-center hover:border-b hover:border-t hover:border-black hover:cursor-pointer hover:bg-lgray hover:animate-pulse">
+          <OptionSelector text={'Cambia tu contraseña'}>
             <ChangePassword
               className="opacity-50 ml-4 text-tertiary"
               style={{ fontSize: '4rem' }}
             ></ChangePassword>
-            <div className="h-full w-full flex flex-col justify-center items-center">
-              <b className="text-2xl">Cambia tu contraseña</b>
-            </div>
-          </div>
-          <div className="border-b border-lgray flex flex-row items-center hover:border-b hover:border-t hover:border-black hover:cursor-pointer hover:bg-lgray hover:animate-pulse">
+          </OptionSelector>
+          <OptionSelector text={'Cambia tu correo Electrónico'}>
             <ChangeEmail
               className="opacity-50 ml-4 text-primary"
               style={{ fontSize: '4rem' }}
             ></ChangeEmail>
-            <div className="h-full w-full flex flex-col justify-center items-center">
-              <b className="text-2xl">Cambia tu Correo Electrónico</b>
-            </div>
-          </div>
-          <div className="border-b border-lgray flex flex-row items-center hover:border-b hover:border-t hover:border-red-400 hover:cursor-pointer hover:bg-red-200 hover:animate-pulse">
+          </OptionSelector>
+          <OptionSelector
+            text={'Cerrar sesión'}
+            className={'hover:border-red-400  hover:bg-red-200'}
+          >
             <LogOut
               className="opacity-30 ml-4 text-red-950"
               style={{ fontSize: '4rem' }}
             ></LogOut>
-            <div className="h-full w-full flex flex-col justify-center items-center">
-              <b className="text-2xl ">Cerrar sesión</b>
-            </div>
-          </div>
+          </OptionSelector>
         </div>
       </div>
     </div>
