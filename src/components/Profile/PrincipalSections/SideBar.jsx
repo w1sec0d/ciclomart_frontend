@@ -23,35 +23,22 @@ const SideBar = () => {
   const [activeButton, setActiveButton] = useState(0)
   const [activeModal, setActiveModal] = useState(0)
 
-  const [dataStores, setDataStores] = useState([])
-  const [dataTransactionSale, setDataTransactionSale] = useState([])
-  const [dataTransactionPurchase, setDataTransactionPurchase] = useState([])
+  const [sectionData, setSectionData] = useState([])
 
-  /*Data obtained from DataBase*/
-  const fetchStores = async () => {
+  //indexSection1 = Compras, indexSection2 = Ventas , indexSection3= Tiendas
+  const fetchData = async (indexSection) => {
     try {
-      const data = await apiService.getTiendas()
-      setDataStores(data)
+      let data
+      if (indexSection === 1) {
+        data = await profileService.getPurchases(authUser.idUsuario)
+      } else if (indexSection === 2) {
+        data = await profileService.getSales(authUser.idUsuario)
+      } else {
+        data = await apiService.getTiendas()
+      }
+      setSectionData(data)
     } catch (error) {
-      console.error('Error fetching data stores', error)
-    }
-  }
-
-  const fetchSales = async () => {
-    try {
-      const data = await profileService.getSales(authUser.idUsuario)
-      setDataTransactionSale(data)
-    } catch (error) {
-      console.error('Error fetching user Sales', error)
-    }
-  }
-
-  const fetchPurchases = async () => {
-    try {
-      const data = await profileService.getPurchases(authUser.idUsuario)
-      setDataTransactionPurchase(data)
-    } catch (error) {
-      console.error('Error fetching user Sales', error)
+      console.error('Error fetching data', error)
     }
   }
 
@@ -73,7 +60,7 @@ const SideBar = () => {
         <li>
           <CardButton
             onClick={() => {
-              handleShowData(1), fetchPurchases()
+              handleShowData(1), fetchData(1)
             }}
           >
             <ShoppingBag className="ml-2" />
@@ -87,7 +74,7 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 1 ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={dataTransactionPurchase}
+              data={sectionData}
               typeContent={1}
               firstExpression={'data.fecha'}
               secondExpression={'data.monto'}
@@ -98,7 +85,7 @@ const SideBar = () => {
         <li>
           <CardButton
             onClick={() => {
-              handleShowData(2), fetchSales()
+              handleShowData(2), fetchData(2)
             }}
           >
             <Tag className="ml-2" />
@@ -109,7 +96,7 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 2 ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={dataTransactionSale}
+              data={sectionData}
               typeContent={2}
               firstExpression={'data.fecha'}
               secondExpression={'data.monto'}
@@ -120,7 +107,7 @@ const SideBar = () => {
         <li>
           <CardButton
             onClick={() => {
-              handleShowData(3), fetchStores()
+              handleShowData(3), fetchData(3)
             }}
           >
             <Store className="ml-2" />
@@ -131,7 +118,7 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 3 ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={dataStores}
+              data={sectionData}
               typeContent={3}
               firstExpression={'data.nombre'}
               secondExpression={'data.telefono'}
