@@ -44,7 +44,6 @@ const SideBar = () => {
 
   /* -> Handlers -> */
   //index1 = compras , index2= ventas , index3 = tiendas , index0 = nada
-
   const handleShowData = (index) => {
     if (activeButton === index) {
       setActiveButton(0)
