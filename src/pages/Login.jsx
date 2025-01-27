@@ -27,7 +27,6 @@ const Login = () => {
 
       if (request.status === 200) {
         const { token, user } = request.data
-        console.log('request data', request.data)
 
         dispatch(
           setNotification({

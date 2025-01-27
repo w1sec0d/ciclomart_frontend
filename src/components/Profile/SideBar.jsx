@@ -177,9 +177,6 @@ const SideBar = () => {
           className="w-[160px] h-[140px] mt-8 px-1 opacity-60 grayscale"
         />
       </div>
-      {showSideBarPurchaseModal
-        ? console.log(showSideBarPurchaseModal)
-        : console.log(showSideBarPurchaseModal)}
     </div>
   )
 }
