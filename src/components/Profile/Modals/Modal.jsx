@@ -3,7 +3,7 @@ import ModalHeader from './ModalHeader'
 const Modal = ({ children, onClose, title }) => {
   return (
     <div
-      className="flex items-center justify-center absolute inset-0 left-0 h-full w-full z-10 bg-gray/60 "
+      className="flex items-center justify-center  fixed inset-0 h-full w-full z-10 bg-gray/60 "
       onClick={onClose}
     >
       <div
