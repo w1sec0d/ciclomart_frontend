@@ -1,26 +1,29 @@
 //-> Utils
 import { useSelector } from 'react-redux'
+import { cleanShowModal } from '../../store/slices/showModalSlice'
+import { useDispatch } from 'react-redux'
 
 // -> Modals
 import InfoModal from './Modals/InfoModal'
 import PrefModal from './Modals/PrefModal'
 import SecurityModal from './Modals/SecurityModal'
 
-const SettingsModalShow = ({ activeModalIndex, setActiveModalIndex }) => {
+const SettingsModalShow = () => {
+  const authUser = useSelector((state) => state.auth.authUser)
+  const activeModal = useSelector((state) => state.showModal.activeModal)
+  const dispatch = useDispatch()
   /*Cierra el modal abierto */
   const handleModalClose = () => {
     document.body.style.overflow = 'auto'
-    setActiveModalIndex(0)
+    dispatch(cleanShowModal())
   }
 
-  const authUser = useSelector((state) => state.auth.authUser)
-
   /*Abre el modal de acuerdo al indice seleccionado*/
-  return activeModalIndex === 1 ? (
+  return activeModal === 1 ? (
     <InfoModal data={authUser} onClose={handleModalClose} />
-  ) : activeModalIndex === 2 ? (
+  ) : activeModal === 2 ? (
     <SecurityModal onClose={handleModalClose} />
-  ) : activeModalIndex === 3 ? (
+  ) : activeModal === 3 ? (
     <PrefModal onClose={handleModalClose} />
   ) : null
 }

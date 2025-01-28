@@ -1,5 +1,6 @@
 //-> Utilidades
-import { useState } from 'react'
+import { setShowModal } from '../../../store/slices/showModalSlice.js'
+import { useDispatch } from 'react-redux'
 
 //-> Componentes
 import CardButton from '../CardButton.jsx'
@@ -11,14 +12,17 @@ import Security from '@mui/icons-material/GppGoodOutlined'
 import CardIcon from '@mui/icons-material/BadgeOutlined'
 
 const Settings = () => {
-  //index 1 = Infomodal, index2 = SecModal, index3 = PrefModal, index0 = cerrado
-  const [activeModalIndex, setActiveModalIndex] = useState(0)
+  const dispatch = useDispatch()
 
   const handleModalShow = (index) => {
     /*Utiliza las utilidades del DOM-API para ocultar la barra scroll*/
     document.body.style.overflow = 'hidden'
     /*Hábilita al modal (index) para mostrarse*/
-    setActiveModalIndex(index)
+    dispatch(
+      setShowModal({
+        activeModal: index,
+      })
+    )
   }
 
   return (
@@ -66,10 +70,7 @@ const Settings = () => {
         </li>
       </ul>
       {/* Muestra modales*/}
-      <SettingsModalShow
-        activeModalIndex={activeModalIndex}
-        setActiveModalIndex={setActiveModalIndex}
-      />
+      <SettingsModalShow />
     </div>
   )
 }
