@@ -5,6 +5,8 @@ import UserData from './UserData'
 const InfoModal = ({ data, onClose }) => {
   const { nombre, apellido, edad, rol, telefono, username, correo, direccion } =
     data
+
+  console.log('entre')
   return (
     <div
       className="flex items-center justify-center absolute inset-0 left-0 h-full w-full z-10 bg-gray/60 "

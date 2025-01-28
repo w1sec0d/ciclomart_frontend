@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 
 //-> Componentes
 import CardButton from '../CardButton.jsx'
-import SettingsModalShow from '../SettingsModalShow.jsx'
+import SettingsModalShow from '../../ModalShow.jsx'
 
 //-> Iconos
 import SettingsIcon from '@mui/icons-material/TuneOutlined'
@@ -69,8 +69,6 @@ const Settings = () => {
           </CardButton>
         </li>
       </ul>
-      {/* Muestra modales*/}
-      <SettingsModalShow />
     </div>
   )
 }
