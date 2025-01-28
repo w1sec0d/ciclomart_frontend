@@ -4,10 +4,13 @@ import { cleanShowModal } from '../store/slices/showModalSlice'
 import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 
-// -> Modals
-import InfoModal from './Profile/Modals/InfoModal'
-import PrefModal from './Profile/Modals/PrefModal'
-import SecurityModal from './Profile/Modals/SecurityModal'
+// -> Bodies
+import InfoModal from './Profile/Modals/Bodies/InfoModal'
+import PrefModal from './Profile/Modals/Bodies/PrefModal'
+import SecurityModal from './Profile/Modals/Bodies/SecurityModal'
+
+//-> Modal
+import Modal from './Profile/Modals/Modal'
 
 const ModalShow = () => {
   const authUser = useSelector((state) => state.auth.authUser)
@@ -20,17 +23,26 @@ const ModalShow = () => {
     dispatch(cleanShowModal())
   }
 
-  console.log(activeModal)
   /*Abre el modal de acuerdo al indice seleccionado*/
   useEffect(() => {
     activeModal === 1
       ? setModalComponent(
-          <InfoModal data={authUser} onClose={handleModalClose} />
+          <Modal onClose={handleModalClose} title="Información Personal">
+            <InfoModal data={authUser} />
+          </Modal>
         )
       : activeModal === 2
-        ? setModalComponent(<SecurityModal onClose={handleModalClose} />)
+        ? setModalComponent(
+            <Modal onClose={handleModalClose} title="Seguridad">
+              <SecurityModal />
+            </Modal>
+          )
         : activeModal === 3
-          ? setModalComponent(<PrefModal onClose={handleModalClose} />)
+          ? setModalComponent(
+              <Modal onClose={handleModalClose} title="Seguridad">
+                <PrefModal />
+              </Modal>
+            )
           : setModalComponent(null)
   }, [activeModal])
 

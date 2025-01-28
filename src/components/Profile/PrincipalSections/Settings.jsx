@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 
 //-> Componentes
 import CardButton from '../CardButton.jsx'
-import SettingsModalShow from '../../ModalShow.jsx'
 
 //-> Iconos
 import SettingsIcon from '@mui/icons-material/TuneOutlined'
@@ -16,7 +15,7 @@ const Settings = () => {
 
   const handleModalShow = (index) => {
     /*Utiliza las utilidades del DOM-API para ocultar la barra scroll*/
-    document.body.style.overflow = 'hidden'
+    // document.body.style.overflow = 'hidden'
     /*Hábilita al modal (index) para mostrarse*/
     dispatch(
       setShowModal({

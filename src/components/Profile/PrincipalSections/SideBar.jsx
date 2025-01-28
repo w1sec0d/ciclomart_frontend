@@ -132,14 +132,6 @@ const SideBar = () => {
           className="w-[160px] h-[140px] mt-8 px-1 opacity-60 grayscale"
         />
       </div>
-      {/*Muestra modales */}
-      {activeModal === 1
-        ? console.log('Modal Compras')
-        : activeModal === 2
-          ? console.log('Modal Ventas')
-          : activeModal === 3
-            ? console.log('Modal Tiendas')
-            : null}
     </div>
   )
 }
