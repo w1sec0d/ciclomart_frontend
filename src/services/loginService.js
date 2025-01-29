@@ -9,7 +9,7 @@ const loginUser = async (data) => {
 }
 
 const sendResetPasswordEmail = async (data) => {
-  const request = await axios.post(API_URL + '/sendEmail', { data })
+  const request = await axios.post(API_URL + '/sendRecover', { data })
   return request
 }
 
@@ -28,16 +28,10 @@ const validateCode = async (data, token) => {
   return request
 }
 
-const isEmailAvailable = async (data) => {
-  const request = await axios.get(API_URL + `/isEmailAvailable/${data}`)
-  return request
-}
-
 export default {
   loginUser,
   sendResetPasswordEmail,
   recoveryPassword,
   sendRegisterCode,
   validateCode,
-  isEmailAvailable,
 }
