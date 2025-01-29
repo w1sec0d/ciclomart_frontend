@@ -24,10 +24,10 @@ const CodeVerification = () => {
       const request = await loginService.validateCode(data, token)
       if (request.status === 200) {
         const registro = await apiService.createUsuario({
-          nombre: request.data.data.nombre,
-          apellido: request.data.data.apellido,
-          email: request.data.data.correo,
-          password: request.data.data.password,
+          nombre: request.data.nombre,
+          apellido: request.data.apellido,
+          email: request.data.correo,
+          password: request.data.password,
         })
 
         if (registro) {

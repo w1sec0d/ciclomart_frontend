@@ -24,7 +24,7 @@ const RegisterForm = () => {
   const sendRegisterCode = async (values) => {
     const request = await loginService.sendRegisterCode(values)
     if (request.status === 200) {
-      return request.data.data
+      return request.data
     }
     return false
   }
