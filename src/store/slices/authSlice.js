@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import getUserFromLocalStorage from '../../utils/getUser'
 
-
 const initialState = {
   authUser: getUserFromLocalStorage(),
   isLoggedIn: false,

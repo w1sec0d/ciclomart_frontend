@@ -25,7 +25,7 @@ const RegisterForm = () => {
   const sendRegisterCode = async (values) => {
     const request = await loginService.sendRegisterCode(values)
     if (request.status === 200) {
-      return request.data
+      return request.data.data
     }
     return false
   }
@@ -38,14 +38,21 @@ const RegisterForm = () => {
         navigate(`/verificationCode/${validateEmail.token}`)
       }
     } catch (error) {
+      dispatch(clearLoading())
       // check error http response
       if (error.status === 400) {
-        dispatch(clearLoading())
-
         dispatch(
           setNotification({
             title: '¡Error!',
             text: error.response.data.message ?? 'ha ocurrido un error',
+            icon: 'error',
+          })
+        )
+      } else if (error.status === 500) {
+        dispatch(
+          setNotification({
+            title: '¡Error!',
+            text: 'Error en el servidor, intentalo más tarde',
             icon: 'error',
           })
         )

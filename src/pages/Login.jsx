@@ -26,8 +26,7 @@ const Login = () => {
       const request = await loginService.loginUser(data)
 
       if (request.status === 200) {
-        const { token, user } = request.data
-        console.log('request data', request.data)
+        const { token, user } = request.data.data
 
         dispatch(
           setNotification({
