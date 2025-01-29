@@ -6,7 +6,6 @@ import Checkbox from './Checkbox'
 import Button from './Button'
 import loginService from '../services/loginService'
 import { useNavigate } from 'react-router-dom'
-import Loading from './Loading'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 
 const RegisterForm = () => {
