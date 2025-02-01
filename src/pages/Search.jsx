@@ -7,6 +7,7 @@ import Results from "../components/Search/Results";
 import Filters from "../components/Search/Filters";
 import Select from "react-select";
 import makeAnimated from 'react-select/animated';
+import Button from "../components/Button";
 
 //import filters
 import filters from "../utils/filters";
@@ -159,6 +160,7 @@ const SearchPage = (params) => {
             <p>No hay resultados para los filtros ingresados</p>
           )}
         </div>
+        <Button to="/publish" className="sticky bottom-10 right-10 bg-primaryDark text-zinc-100">Publicar</Button>
         <PaginationControls
           currentPage={currentPage}
           handlePreviousPage={handlePreviousPage}
@@ -168,6 +170,7 @@ const SearchPage = (params) => {
           filterResultsLength={searchResults.length}
         />
       </div>
+      
     </div>
   );
 }
