@@ -1,0 +1,19 @@
+.star {
+    font-size: 20px;
+    color: #ddd;
+}
+.star.rated {
+    color: gold;
+}
+.star.partial {
+    position: relative;
+}
+.star.partial::after {
+    content: '★';
+    position: absolute;
+    clip-path: polygon(0 0, var(--fill) 0%, var(--fill) 100%, 0% 100%);
+    color: #ddd;
+}
+
+
+
