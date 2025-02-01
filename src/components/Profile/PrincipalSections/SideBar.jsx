@@ -52,7 +52,7 @@ const SideBar = () => {
     }
   }
 
-  /* -> Visual Content -> */
+  /* -> Contenido Visual -> */
   return (
     <div className="bg-lgray w-[20%] h-full shadow-2xl flex flex-col">
       <ul>
@@ -67,7 +67,7 @@ const SideBar = () => {
           </CardButton>
           <hr />
 
-          {/*Show conditional Content*/}
+          {/*Muestra contenido condicional*/}
 
           <div
             className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 1 ? 'h-40' : 'h-0'} bg-white`}
@@ -75,8 +75,6 @@ const SideBar = () => {
             <DataList
               data={sectionData}
               typeContent={1}
-              firstExpression={'data.fecha'}
-              secondExpression={'data.monto'}
               onShowModal={() => setActiveModal(1)}
             ></DataList>
           </div>
@@ -97,8 +95,6 @@ const SideBar = () => {
             <DataList
               data={sectionData}
               typeContent={2}
-              firstExpression={'data.fecha'}
-              secondExpression={'data.monto'}
               onShowModal={() => setActiveModal(2)}
             ></DataList>
           </div>
@@ -119,8 +115,6 @@ const SideBar = () => {
             <DataList
               data={sectionData}
               typeContent={3}
-              firstExpression={'data.nombre'}
-              secondExpression={'data.telefono'}
               onShowModal={() => setActiveModal(3)}
             ></DataList>
           </div>

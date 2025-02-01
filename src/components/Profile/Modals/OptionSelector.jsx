@@ -2,7 +2,7 @@
 import { twMerge } from 'tailwind-merge'
 
 /* Permite mostrar información de el modal de seguridad y de preferencias*/
-const PrefData = ({ text, children, className }) => {
+const OptionSelector = ({ text, children, className }) => {
   return (
     <div
       className={twMerge(
@@ -18,4 +18,4 @@ const PrefData = ({ text, children, className }) => {
   )
 }
 
-export default PrefData
+export default OptionSelector

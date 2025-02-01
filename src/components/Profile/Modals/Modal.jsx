@@ -11,7 +11,7 @@ const Modal = ({ children, onClose, title }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader title={title} onClose={onClose} />
-        {children}
+        <div className="border-b border-lgray h-[272px]">{children}</div>
       </div>
     </div>
   )

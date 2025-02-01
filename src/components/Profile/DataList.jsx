@@ -5,13 +5,15 @@ import { data } from 'react-router-dom'
 /*typeContent = 1 = Puchases
 typeContent = 2 = Sales
 typeContent = 3 = Stores*/
-const DataList = ({
-  data = [],
-  typeContent = 1,
-  firstExpression,
-  secondExpression,
-  onShowModal = () => {},
-}) => {
+const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
+  let firstKey = 'fecha'
+  let secondKey = 'monto'
+
+  if (typeContent === 3) {
+    firstKey = 'nombre'
+    secondKey = 'telefono'
+  }
+
   return (
     <div className="w-full h-full overflow-auto">
       <div className="w-full flex justify-center">
@@ -25,7 +27,7 @@ const DataList = ({
       </div>
       <div>
         {data.length != 0 ? (
-          data.map((data, index) => {
+          data.map((item, index) => {
             return (
               <div
                 className={`pl-1 pt-2 flex flex-row  items-center border-b border-lgray ${index === 0 ? 'mt-2' : ''}`}
@@ -33,14 +35,14 @@ const DataList = ({
               >
                 <b
                   className="text-secondary mr-2 break-all line-clamp-1 w-2/3 hover:cursor-pointer hover:underline"
-                  title={eval(firstExpression)}
+                  title={item[firstKey]}
                   onClick={onShowModal}
                 >
-                  {eval(firstExpression)}
+                  {typeContent < 3
+                    ? new Date(item[firstKey]).toLocaleDateString()
+                    : item[firstKey]}
                 </b>
-                <p className="text-sm ml-auto break-all">
-                  {eval(secondExpression)}
-                </p>
+                <p className="text-sm ml-auto break-all">{item[secondKey]}</p>
               </div>
             )
           })
@@ -57,8 +59,6 @@ const DataList = ({
 DataList.propTypes = {
   data: PropTypes.array.isRequired,
   typeContent: PropTypes.number,
-  firstExpression: PropTypes.string.isRequired,
-  secondExpression: PropTypes.string.isRequired,
 }
 
 export default DataList

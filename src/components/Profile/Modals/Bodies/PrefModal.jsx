@@ -8,7 +8,7 @@ import LogOut from '@mui/icons-material/ExitToAppOutlined'
 
 const PrefModal = () => {
   return (
-    <div className="grid grid-cols-1 gap-0 border-b border-lgray h-[272px] overflow-auto">
+    <div className="grid grid-cols-1 gap-0 h-full">
       <OptionSelector text={'Cambia tu contraseña'}>
         <ChangePassword
           className="opacity-50 ml-4 text-tertiary"
