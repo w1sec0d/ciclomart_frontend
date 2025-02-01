@@ -1,6 +1,6 @@
 //-> Components
 import CardButton from '../CardButton.jsx'
-import DataList from '../DataList.jsx'
+import ShowDataList from '../ShowDataList.jsx'
 
 //-> Icons
 import ShoppingBag from '@mui/icons-material/LocalMallOutlined'
@@ -21,7 +21,6 @@ const SideBar = () => {
   const authUser = useSelector((state) => state.auth.authUser)
   /*Permite manejar que sección se muestra */
   const [activeButton, setActiveButton] = useState(0)
-  const [activeModal, setActiveModal] = useState(0)
   const [purchaseData, setPurchaseData] = useState([])
   const [salesData, setSalesData] = useState([])
   const [storesData, setStoresData] = useState([])
@@ -70,18 +69,12 @@ const SideBar = () => {
             <b className="flex flex-col w-full">Compras</b>
           </CardButton>
           <hr />
-
           {/*Muestra contenido condicional*/}
-
-          <div
-            className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 1 ? 'h-40' : 'h-0'} bg-white`}
-          >
-            <DataList
-              data={purchaseData}
-              typeContent={1}
-              onShowModal={() => setActiveModal(1)}
-            ></DataList>
-          </div>
+          <ShowDataList
+            data={purchaseData}
+            type={1}
+            activeButton={activeButton}
+          />
         </li>
         <li>
           <CardButton
@@ -93,15 +86,7 @@ const SideBar = () => {
             <b className="flex flex-col w-full">Ventas</b>
           </CardButton>
           <hr />
-          <div
-            className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 2 ? 'h-40' : 'h-0'} bg-white`}
-          >
-            <DataList
-              data={salesData}
-              typeContent={2}
-              onShowModal={() => setActiveModal(2)}
-            ></DataList>
-          </div>
+          <ShowDataList data={salesData} type={2} activeButton={activeButton} />
         </li>
         <li>
           <CardButton
@@ -113,15 +98,11 @@ const SideBar = () => {
             <b className="flex flex-col w-full">Tiendas</b>
           </CardButton>
           <hr />
-          <div
-            className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 3 ? 'h-40' : 'h-0'} bg-white`}
-          >
-            <DataList
-              data={storesData}
-              typeContent={3}
-              onShowModal={() => setActiveModal(3)}
-            ></DataList>
-          </div>
+          <ShowDataList
+            data={storesData}
+            type={3}
+            activeButton={activeButton}
+          />
         </li>
       </ul>
       <div className="h-full flex justify-center">
