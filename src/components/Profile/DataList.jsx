@@ -1,30 +1,43 @@
 /*Utils*/
 import PropTypes from 'prop-types'
-import { data } from 'react-router-dom'
 
 /*typeContent = 1 = Puchases
 typeContent = 2 = Sales
 typeContent = 3 = Stores*/
-const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
-  let firstKey = 'fecha'
-  let secondKey = 'monto'
 
-  if (typeContent === 3) {
-    firstKey = 'nombre'
-    secondKey = 'telefono'
+const Title = ({ typeContent }) => {
+  return (
+    <div className="w-full flex justify-center">
+      <b className="text-primary border-b border-lgray">
+        {typeContent === 1
+          ? 'Tus Compras'
+          : typeContent === 2
+            ? 'Tus Ventas'
+            : 'Nuestras Tiendas'}
+      </b>
+    </div>
+  )
+}
+
+const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
+  //Obtiene las instrucciones para mostrar datos en los botones del sidebar
+  const getInstructions = () => {
+    if (typeContent === 3) {
+      return { firstKey: 'nombre', secondKey: 'telefono' }
+    }
+    return { firstKey: 'fecha', secondKey: 'monto' }
   }
+
+  //Formatea la fecha para mostrar un formato más abreviado
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString()
+  }
+
+  const { firstKey, secondKey } = getInstructions()
 
   return (
     <div className="w-full h-full overflow-auto">
-      <div className="w-full flex justify-center">
-        <b className="text-primary border-b border-lgray">
-          {typeContent === 1
-            ? 'Tus Compras'
-            : typeContent === 2
-              ? 'Tus Ventas'
-              : 'Nuestras Tiendas'}
-        </b>
-      </div>
+      <Title typeContent={typeContent} />
       <div>
         {data.length != 0 ? (
           data.map((item, index) => {
@@ -39,17 +52,15 @@ const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
                   onClick={onShowModal}
                 >
                   {typeContent < 3
-                    ? new Date(item[firstKey]).toLocaleDateString()
+                    ? formatDate(item[firstKey])
                     : item[firstKey]}
                 </b>
                 <p className="text-sm ml-auto break-all">{item[secondKey]}</p>
               </div>
             )
           })
-        ) : typeContent === 1 || typeContent === 2 ? (
-          <p>No hay datos que mostrar</p>
         ) : (
-          <p>Loading...</p>
+          <p>No hay datos que mostrar</p>
         )}
       </div>
     </div>
@@ -57,7 +68,6 @@ const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
 }
 
 DataList.propTypes = {
-  data: PropTypes.array.isRequired,
   typeContent: PropTypes.number,
 }
 

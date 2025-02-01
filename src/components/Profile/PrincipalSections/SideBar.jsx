@@ -13,7 +13,7 @@ import Logo from '../../../assets/logoVector.svg'
 //-> Utils
 import apiService from '../../../services/apiService.js'
 import profileService from '../../../services/profileService.js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 const SideBar = () => {
@@ -22,25 +22,29 @@ const SideBar = () => {
   /*Permite manejar que sección se muestra */
   const [activeButton, setActiveButton] = useState(0)
   const [activeModal, setActiveModal] = useState(0)
-
-  const [sectionData, setSectionData] = useState([])
+  const [purchaseData, setPurchaseData] = useState([])
+  const [salesData, setSalesData] = useState([])
+  const [storesData, setStoresData] = useState([])
 
   //indexSection1 = Compras, indexSection2 = Ventas , indexSection3= Tiendas
-  const fetchData = async (indexSection) => {
+  const fetchInitialData = async () => {
     try {
-      let data
-      if (indexSection === 1) {
-        data = await profileService.getPurchases(authUser.idUsuario)
-      } else if (indexSection === 2) {
-        data = await profileService.getSales(authUser.idUsuario)
-      } else {
-        data = await apiService.getTiendas()
-      }
-      setSectionData(data)
+      const purchaseData = await profileService.getPurchases(authUser.idUsuario)
+      const salesData = await profileService.getSales(authUser.idUsuario)
+      const storesData = await apiService.getTiendas()
+      setPurchaseData(purchaseData)
+      setSalesData(salesData)
+      setStoresData(storesData)
     } catch (error) {
-      console.error('Error fetching data', error)
+      console.error('Error obteniendo datos de la sidebarxd', error)
     }
   }
+
+  useEffect(() => {
+    if (authUser.idUsuario) {
+      fetchInitialData()
+    }
+  }, [authUser])
 
   /* -> Handlers -> */
   //index1 = compras , index2= ventas , index3 = tiendas , index0 = nada
@@ -59,7 +63,7 @@ const SideBar = () => {
         <li>
           <CardButton
             onClick={() => {
-              handleShowData(1), fetchData(1)
+              handleShowData(1)
             }}
           >
             <ShoppingBag className="ml-2" />
@@ -73,7 +77,7 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 1 ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={sectionData}
+              data={purchaseData}
               typeContent={1}
               onShowModal={() => setActiveModal(1)}
             ></DataList>
@@ -82,7 +86,7 @@ const SideBar = () => {
         <li>
           <CardButton
             onClick={() => {
-              handleShowData(2), fetchData(2)
+              handleShowData(2)
             }}
           >
             <Tag className="ml-2" />
@@ -93,7 +97,7 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 2 ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={sectionData}
+              data={salesData}
               typeContent={2}
               onShowModal={() => setActiveModal(2)}
             ></DataList>
@@ -102,7 +106,7 @@ const SideBar = () => {
         <li>
           <CardButton
             onClick={() => {
-              handleShowData(3), fetchData(3)
+              handleShowData(3)
             }}
           >
             <Store className="ml-2" />
@@ -113,7 +117,7 @@ const SideBar = () => {
             className={`overflow-hidden transition-all duration-500 ease-in ${activeButton === 3 ? 'h-40' : 'h-0'} bg-white`}
           >
             <DataList
-              data={sectionData}
+              data={storesData}
               typeContent={3}
               onShowModal={() => setActiveModal(3)}
             ></DataList>
