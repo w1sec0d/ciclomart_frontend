@@ -1,7 +1,7 @@
-//-> Components
-import SideBar from '../components/Profile/SideBar.jsx'
-import Information from '../components/Profile/Information.jsx'
-import Settings from '../components/Profile/Settings.jsx'
+//-> Componentes
+import SideBar from '../components/Profile/PrincipalSections/SideBar.jsx'
+import Information from '../components/Profile/PrincipalSections/Information.jsx'
+import Settings from '../components/Profile/PrincipalSections/Settings.jsx'
 
 const Profile = () => {
   return (

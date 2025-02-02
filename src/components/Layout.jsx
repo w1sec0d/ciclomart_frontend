@@ -3,6 +3,7 @@
 import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 import Notification from './Notification'
+import ModalShow from './ModalShow'
 import Loading from './Loading'
 import Footer from './Footer'
 
@@ -16,6 +17,7 @@ const Layout = (params) => {
       <main className="mt-[64px]">
         <Outlet />
         <Notification />
+        <ModalShow />
         <Loading />
       </main>
       <Footer />
