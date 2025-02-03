@@ -31,9 +31,9 @@ const SideBar = () => {
       const purchaseData = await profileService.getPurchases(authUser.idUsuario)
       const salesData = await profileService.getSales(authUser.idUsuario)
       const storesData = await apiService.getTiendas()
-      setPurchaseData(purchaseData)
-      setSalesData(salesData)
-      setStoresData(storesData)
+      setPurchaseData(purchaseData.results)
+      setSalesData(salesData.results)
+      setStoresData(storesData.results)
     } catch (error) {
       console.error('Error obteniendo datos de la sidebarxd', error)
     }

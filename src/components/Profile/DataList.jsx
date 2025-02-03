@@ -35,6 +35,7 @@ const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
 
   const { firstKey, secondKey } = getInstructions()
 
+  if (!data) return <p>No hay datos que mostrar</p>
   return (
     <div className="w-full h-full overflow-auto">
       <Title typeContent={typeContent} />
