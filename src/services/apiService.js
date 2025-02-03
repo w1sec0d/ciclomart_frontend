@@ -14,7 +14,7 @@ const createUsuario = async (usuario) => {
 }
 
 const getTiendas = async () => {
-  const request = await axios.get(API_URL + '/getTiendas')
+  const request = await axios.get(API_URL + '/tiendas')
   return request.data
 }
 
@@ -25,4 +25,4 @@ const searchProducts = async (params) => {
   return request.data
 }
 
-export default { getUsuario, createUsuario, searchProducts, getTiendas }
+export default { getUsuario, createUsuario, searchProducts, tiendas }

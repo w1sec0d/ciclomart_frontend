@@ -4,12 +4,12 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 import axios from 'axios'
 
 const getSales = async (idUser) => {
-  const request = await axios.get(`${API_URL}/getVentasById/${idUser}`)
+  const request = await axios.get(`${API_URL}/ventas/${idUser}`)
   return request.data
 }
 
 const getPurchases = async (idUser) => {
-  const request = await axios.get(`${API_URL}/getComprasById/${idUser}`)
+  const request = await axios.get(`${API_URL}/compras/${idUser}`)
   return request.data
 }
 
