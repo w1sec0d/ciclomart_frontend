@@ -72,7 +72,7 @@ const SearchPage = (params) => {
       setFilterValues(newFilters)
     }
     const request = await apiService.searchProducts(newFilters)
-    const filtered = request.filter((result) => {
+    const filtered = request.results.filter((result) => {
       return Object.entries(newFilters).every(([key, value]) => {
         if (value === '') return true
         return result[key.toLowerCase()]
