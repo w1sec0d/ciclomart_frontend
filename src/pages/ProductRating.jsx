@@ -3,25 +3,34 @@ import Button from '../components/Button';
 import { useForm } from 'react-hook-form';
 import { FaStar, FaUpload } from "react-icons/fa";
 import Input from '../components/Input';
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import StarRating from "../components/StarRating";
 import { setNotification } from "../store/slices/notificationSlice";
 import { useDispatch } from "react-redux";
+import ratingService from "../services/ratingService";
 
 const ProductRating = (props) => {
+
+    //En las props se debe pasar el id del producto que sea calificar
+
+    
     const descripcion = " Hola soy una descripcion daniel";
     const date = "2023-03-04";
     const nota = 0;
+
 
     const { register, handleSubmit, reset } = useForm();
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
     const [image, setImage] = useState(null);
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
+    const [commentList, setCommentList] = useState([]);
+    const [newCommentAdded, setNewCommentAdded] = useState(false);
+    const [ avgRating, setAvgRating] = useState(0);
     const fileInputRef = useRef(null);
     const dispatch = useDispatch();
 
-
+    //Valida si se introdujo un comentario y se marco alguna estrella
     const validateFields = ( Comment, Rating) =>{
 
         if(!Comment || !Rating){
@@ -38,6 +47,7 @@ const ProductRating = (props) => {
         return 0
     }
 
+    //Carga la imagen 
     const ImageUpload = (e) => {
         const file = e.target.files[0];
         if(file && file.type.startsWith('image/')){
@@ -55,15 +65,44 @@ const ProductRating = (props) => {
         }
     }
 
+    // Obtiene todos las calificaciones del producto
+    const getProductRating = async () =>{
+
+       try{
+            const request = await ratingService.getRatingProduct(1);
+            setCommentList(request.results);
+            getAvgRating();
+       }catch (error) {
+            console.error('Error al obtener las calificaciones', error)
+       }
+    }
+
+    // Renderiza cuando se añade un nuevo comentario
+    useEffect(() =>{
+        getProductRating();
+    }, [newCommentAdded])
+
+
+      
+    // Envia la calificación al backend
     const onSubmit = async (data) => {
         // Maneja el envío del formulario
         if(validateFields(data.calificacion, rating) === 0){
             console.log("Yes");
             console.log(image);
         }
-
-
     };
+
+    const getAvgRating = async () => {
+        try{
+            
+            const request = await ratingService.getAvgRatingProduct(1);
+            setAvgRating(request.results[0].avg_calificacion);
+
+        }catch (error){
+            console.error("Error al obtener el promedio de las calificaciones", error);
+        }
+    }
 
     const StartGenerate = () =>{
         
@@ -108,23 +147,33 @@ const ProductRating = (props) => {
             <div className="mt-4">
                 <div className="flex  items-start space-x-12">
                     <div className="flex space-x-5 items-center">
-                        <div className="text-7xl font-bold text-blue-500">{nota}</div>
+                        <div className="text-7xl font-bold text-blue-500">{avgRating}</div>
                         <div className="flex flex-col">
-                            <StarRating rating ={nota} size="star-large"/>
-                            <p className="text-sm ">1 comentario</p>
+                            {
+                                !avgRating ? (
+                                    <StarRating rating ={0} size="star-large"/>
+                                ):(
+                                    <StarRating rating ={avgRating} size="star-large"/>
+                                )
+                            }
+                            <p className="text-sm ">{commentList.length } comentario</p>
                         </div>
                     </div>
                     <div className="flex flex-col space-y-4">
-                        <RatingView 
-                        description={descripcion}
-                        date={date}
-                        rating={nota}
-                        />
-                        <RatingView 
-                            description={descripcion}
-                            date={date}
-                            rating={nota}
-                        />
+                    {commentList.length === 0 ? (
+                            <p>No hay comentarios disponibles.</p>
+                        ) : (
+                            commentList.map((val, key) => (
+                                
+                                <div key={val.idCalificacion}>
+                                    <RatingView
+                                        description={val.comentario}
+                                        date={val.fecha}
+                                        rating={val.nota}
+                                    />
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>

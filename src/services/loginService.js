@@ -19,7 +19,6 @@ const recoveryPassword = async (data, token) => {
 }
 
 const sendRegisterCode = async (data) => {
-  console.log('Hola desde sendCodeRegister', data)
   const request = await axios.post(API_URL + '/sendRegisterCode', { data })
   return request
 }
