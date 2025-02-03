@@ -12,7 +12,13 @@ const getAvgRatingProduct = async ( data ) => {
     return request.data;
 }
 
+const createRating = async ( data ) => {
+    const request = await axios.post(API_URL + `/addRatingProduct`, data);
+    return request.data
+}
+
 export default {
     getRatingProduct,
-    getAvgRatingProduct
+    getAvgRatingProduct,
+    createRating
 }

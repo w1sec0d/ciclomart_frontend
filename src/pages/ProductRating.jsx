@@ -8,16 +8,13 @@ import StarRating from "../components/StarRating";
 import { setNotification } from "../store/slices/notificationSlice";
 import { useDispatch } from "react-redux";
 import ratingService from "../services/ratingService";
+import axios from "axios";
 
 const ProductRating = (props) => {
 
     //En las props se debe pasar el id del producto que sea calificar
 
     
-    const descripcion = " Hola soy una descripcion daniel";
-    const date = "2023-03-04";
-    const nota = 0;
-
 
     const { register, handleSubmit, reset } = useForm();
     const [rating, setRating] = useState(null);
@@ -29,6 +26,12 @@ const ProductRating = (props) => {
     const [ avgRating, setAvgRating] = useState(0);
     const fileInputRef = useRef(null);
     const dispatch = useDispatch();
+
+    //id de prueba (se debe cambiar por los ids de la props o hacer una peticion para obtener los ids)
+
+    const idCom = 1;
+    const idDoc = 2;
+    const idVen = 3;
 
     //Valida si se introdujo un comentario y se marco alguna estrella
     const validateFields = ( Comment, Rating) =>{
@@ -69,7 +72,7 @@ const ProductRating = (props) => {
     const getProductRating = async () =>{
 
        try{
-            const request = await ratingService.getRatingProduct(1);
+            const request = await ratingService.getRatingProduct(2);
             setCommentList(request.results);
             getAvgRating();
        }catch (error) {
@@ -87,16 +90,84 @@ const ProductRating = (props) => {
     // Envia la calificación al backend
     const onSubmit = async (data) => {
         // Maneja el envío del formulario
-        if(validateFields(data.calificacion, rating) === 0){
-            console.log("Yes");
-            console.log(image);
+        try{
+            if(validateFields(data.calificacion, rating) === 0){
+                if(!image){
+                    
+                    const request = await ratingService.createRating({
+
+                        "idUsuarioComprador": idCom,
+                        "idDocumentoProducto": idDoc,
+                        "idUsuarioVendedor": idVen,
+                        "comentario": data.calificacion,
+                        "nota": rating
+                    })
+                    
+                    setNewCommentAdded(true);
+                    dispatch(
+                        setNotification({
+                            title: "Comentario",
+                            text: "Tú comentario se ha añadio con éxito",
+                            icon: "success",
+                            timer: 3000
+                        })
+                    )
+                    return;
+                }
+
+                const formData = new FormData();
+                console.log(image);
+                formData.append('file', image);
+                formData.append('upload_preset', 'cicloMart');
+
+                
+
+                const response = await axios.post(
+                    'https://api.cloudinary.com/v1_1/dg354wdzy/image/upload', // Reemplaza con tu cloud name
+                    formData
+                )
+
+                const request = await ratingService.createRating({
+                    "idUsuarioComprador": idCom,
+                    "idDocumentoProducto": idDoc,
+                    "idUsuarioVendedor": idVen,
+                    "comentario": data.calificacion,
+                    "foto": response.data.secure_url,
+                    "nota": rating
+                });
+
+                setNewCommentAdded(true);
+                dispatch(
+                    setNotification({
+                        title: "Comentario",
+                        text: "Tú comentario se ha añadio con éxito",
+                        icon: "success",
+                        timer: 3000
+                    })
+                )
+            }
+        }catch (error){
+            console.error(error.response.data);
+            setNewCommentAdded(false);
+            dispatch(
+                setNotification({
+                    title: "¡UPS!",
+                    text: "Ocurrio un error. Vuelve a intentarlo",
+                    icon: "error",
+                    timer: 3000
+                })
+            )
+        }finally{
+            setImage(null);
+            setRating(null);
+            reset();
         }
     };
 
     const getAvgRating = async () => {
         try{
             
-            const request = await ratingService.getAvgRatingProduct(1);
+            const request = await ratingService.getAvgRatingProduct(2);
             setAvgRating(request.results[0].avg_calificacion);
 
         }catch (error){
@@ -170,6 +241,7 @@ const ProductRating = (props) => {
                                         description={val.comentario}
                                         date={val.fecha}
                                         rating={val.nota}
+                                        image = {val.foto}
                                     />
                                 </div>
                             ))
