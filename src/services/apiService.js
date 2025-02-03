@@ -25,4 +25,4 @@ const searchProducts = async (params) => {
   return request.data
 }
 
-export default { getUsuario, createUsuario, searchProducts, tiendas }
+export default { getUsuario, createUsuario, searchProducts, getTiendas }
