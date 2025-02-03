@@ -9,7 +9,7 @@ const loginUser = async (data) => {
 }
 
 const sendResetPasswordEmail = async (data) => {
-  const request = await axios.post(API_URL + '/sendEmail', { data })
+  const request = await axios.post(API_URL + '/sendRecover', { data })
   return request
 }
 

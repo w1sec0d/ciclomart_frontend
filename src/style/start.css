@@ -3,7 +3,7 @@
     color: #ddd;
 }
 .star.rated {
-    color: gold;
+    color: #3b82f6;
 }
 .star.partial {
     position: relative;
@@ -15,5 +15,9 @@
     color: #ddd;
 }
 
+
+.star-large {
+    font-size: 30px; 
+}
 
 

@@ -1,35 +1,11 @@
 import PropTypes from 'prop-types';
-import "../style/start.css"
+import StarRating from './StarRating';
+
 
 const RatingView = (props) => {
-    
-    const StarRating = ({rating}) => {
-        
-        // Limita la calificación a un máximo de 5
-        rating = Math.min(rating, 5);
-        
-        const stars = [];
-        for (let i = 0; i < 5; i++) {
-          let starClass = 'star';
-          if (rating > i) {
-            starClass += ' rated';
-            if (rating < i+1) {
-              starClass += ' partial';
-              const percentage = ((rating - i) * 100).toFixed(1);
-              stars.push(<span key={i} className={starClass} style={{'--fill': `${percentage}%`}}>★</span>);
-              continue;
-            }
-          }
-          stars.push(<span key={i} className={starClass}>★</span>);
-        }
-        return <div>{stars}</div>;
-      };
-
-
-
   return (
-    <div className="ContenedorCalificaciones">
-      <p>{props.description}</p>
+    <div className='w-full max-w-lg'>
+      <p className='whitespace-normal break-words'>{props.description}</p>
       <p>{props.date}</p>
       <StarRating rating={props.rating} />
     </div>
