@@ -1,13 +1,10 @@
 // React and state logic
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearAuth, setAuthUser } from './store/slices/authSlice'
 
 // Routing
 import { Route, Routes } from 'react-router-dom'
-
-//State
-import { useState } from 'react'
 
 // Pages
 import Landing from './pages/Landing'
@@ -21,6 +18,7 @@ import PasswordRecovery from './pages/PasswordRecovery'
 import CodeVerification from './pages/CodeVerification'
 import Layout from './components/Layout'
 
+// Services
 import apiService from './services/apiService'
 import getUserFromLocalStorage from './utils/getUser'
 

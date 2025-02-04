@@ -18,7 +18,21 @@ import {
 import ItemContainer from '../components/ItemContainer'
 import Loading from '../components/Loading'
 
+// React Query
+import { useQuery } from 'react-query'
+
+// Services
+import { getProducts } from '../services/productService'
+
 const LandingPage = () => {
+  // const queryClient = useQueryClient()
+  const {
+    data: productos,
+    isLoading,
+    error,
+  } = useQuery('productos', getProducts)
+
+  console.log('productos', productos)
   const landingCarousel = {
     // superLargeDesktop: {
     //   // the naming can be any, depends on you.
@@ -57,6 +71,10 @@ const LandingPage = () => {
       items: 5,
     },
   }
+
+  if (isLoading) return <Loading />
+  if (error) return <p>Error: {error.message}</p>
+
   return (
     <section>
       <Carousel responsive={landingCarousel} className="hover:cursor-pointer">
@@ -80,42 +98,16 @@ const LandingPage = () => {
           price={2250000}
           freeShipping={true}
         />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
+        {productos.map((producto) => (
+          <ItemContainer
+            key={producto.idProducto}
+            name={producto.nombre}
+            // img={producto.img}
+            // fullPrice={producto.fullPrice}
+            price={producto.precio}
+            // freeShipping={producto.freeShipping}
+          />
+        ))}
       </Carousel>
       <h2 className="text-3xl text-center font-bold my-10">
         <PedalBike fontSize="large" /> Explora tu mundo bici
