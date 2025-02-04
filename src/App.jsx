@@ -1,7 +1,7 @@
 // React and state logic
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { setAuthUser } from './store/slices/authSlice'
+import { clearAuth, setAuthUser } from './store/slices/authSlice'
 
 // Routing
 import { Route, Routes } from 'react-router-dom'
@@ -40,7 +40,11 @@ const App = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const user = await getUserFromLocalStorage()
-      dispatch(setAuthUser(user))
+      if (user) {
+        dispatch(setAuthUser(user))
+      } else {
+        dispatch(clearAuth())
+      }
     }
     fetchUser()
   }, [dispatch])
