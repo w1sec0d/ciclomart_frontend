@@ -6,4 +6,9 @@ const getProducts = async () => {
   return request.data.results
 }
 
-export { getProducts }
+const getProductById = async (id) => {
+  const request = await axios.get(API_URL + '/productos/' + id)
+  return request.data.results[0]
+}
+
+export { getProducts, getProductById }
