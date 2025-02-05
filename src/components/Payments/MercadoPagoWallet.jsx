@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 
-const MercadoPagoWallet = () => {
+const MercadoPagoWallet = ({ preferenceId }) => {
   useEffect(() => {
-    initMercadoPago('YOUR_PUBLIC_KEY', { locale: 'es-CO' })
+    initMercadoPago(import.meta.env.VITE_MP_PUBLIC_KEY, { locale: 'es-CO' })
   }, [])
 
   return (
     <div>
-      <Wallet initialization={{ preferenceId: '<PREFERENCE_ID>' }} />
+      <Wallet initialization={{ preferenceId: preferenceId }} />
     </div>
   )
 }

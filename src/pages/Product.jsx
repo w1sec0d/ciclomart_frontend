@@ -24,6 +24,8 @@ const ProductPage = ({ product }) => {
         quantity: 1,
         price: producto.precio,
       })
+      console.log('retrievedId', retrievedId)
+
       setPreferenceId(retrievedId)
     } catch (error) {
       console.error('Error creating MercadoPago preference:', error)
