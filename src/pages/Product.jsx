@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import { getProductById } from '../services/productService'
 import { useQuery } from 'react-query'
 import Loading from '../components/Loading'
+import MercadoPagoWallet from '../components/Payments/MercadoPagoWallet'
+import mercadoPago from '../services/mercadoPago'
 
 const ProductPage = ({ product }) => {
   // get product id from URL
@@ -13,24 +15,19 @@ const ProductPage = ({ product }) => {
     isLoading,
     isError,
   } = useQuery(['productos', id], () => getProductById(id))
-  console.log('id', id)
-  console.log('producto', producto)
+  const [preferenceId, setPreferenceId] = React.useState(null)
 
   const handleBuy = async () => {
-    // try {
-    //   const response = await apiService.createMercadoPagoPreference({
-    //     items: [
-    //       {
-    //         title: product.name,
-    //         unit_price: product.price,
-    //         quantity: 1,
-    //       },
-    //     ],
-    //   })
-    //   window.location.href = response.init_point
-    // } catch (error) {
-    //   console.error('Error creating MercadoPago preference:', error)
-    // }
+    try {
+      const retrievedId = await mercadoPago.createPreference({
+        title: producto.nombre,
+        quantity: 1,
+        price: producto.precio,
+      })
+      setPreferenceId(retrievedId)
+    } catch (error) {
+      console.error('Error creating MercadoPago preference:', error)
+    }
   }
 
   if (isLoading) return <Loading />
@@ -51,6 +48,7 @@ const ProductPage = ({ product }) => {
         >
           Comprar
         </button>
+        {preferenceId && <MercadoPagoWallet preferenceId={preferenceId} />}
       </div>
     </div>
   )
