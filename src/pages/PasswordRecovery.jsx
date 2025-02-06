@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import Button from '../components/Button'
 
 import { setNotification } from '../store/slices/notificationSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import loginService from '../services/loginService'
@@ -16,6 +16,7 @@ const PasswordRecovery = () => {
   const { register, handleSubmit, reset } = useForm()
 
   const onSubmit = async (data) => {
+    const authUser = useSelector((state) => state.auth.authUser)
     try {
       //const request = await loginService.recoveryPassword(data,token);
       if (data.password === data['password-confirm']) {
@@ -43,7 +44,8 @@ const PasswordRecovery = () => {
               icon: 'error',
             })
           )
-          navigate('/login')
+
+          authUser ? navigate('/login') : navigate('/profile')
         }
       } else {
         dispatch(
