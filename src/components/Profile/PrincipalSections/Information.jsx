@@ -12,7 +12,7 @@ const Information = () => {
   const authUser = useSelector((state) => state.auth.authUser)
 
   /*Verifica que exista el nombre del usuario */
-  if (!authUser.nombre) return <Loading />
+  if (!authUser || !authUser.nombre) return <Loading />
 
   /*Formatea la fecha a dd/mm/aa y toma el primer nombre de usuario*/
   const firstName = authUser.nombre.split(' ')[0]

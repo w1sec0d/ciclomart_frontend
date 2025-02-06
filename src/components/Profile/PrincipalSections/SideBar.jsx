@@ -40,7 +40,7 @@ const SideBar = () => {
   }
 
   useEffect(() => {
-    if (authUser.idUsuario) {
+    if (authUser && authUser.idUsuario) {
       fetchInitialData()
     }
   }, [authUser])
