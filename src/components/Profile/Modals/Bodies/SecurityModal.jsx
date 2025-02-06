@@ -3,7 +3,6 @@ import OptionSelector from '../OptionSelector'
 
 // -> Iconos
 import ChangePassword from '@mui/icons-material/LockResetOutlined'
-import ChangeEmail from '@mui/icons-material/EmailOutlined'
 import LogOut from '@mui/icons-material/ExitToAppOutlined'
 
 //-> Utilidades
@@ -66,12 +65,6 @@ const SecurityModal = () => {
           className="opacity-50 ml-4 text-tertiary"
           style={{ fontSize: '4rem' }}
         ></ChangePassword>
-      </OptionSelector>
-      <OptionSelector text={'Cambia tu correo Electrónico'}>
-        <ChangeEmail
-          className="opacity-50 ml-4 text-primary"
-          style={{ fontSize: '4rem' }}
-        ></ChangeEmail>
       </OptionSelector>
       <OptionSelector
         text={'Cerrar sesión'}

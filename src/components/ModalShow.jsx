@@ -39,7 +39,7 @@ const ModalShow = () => {
           )
         : activeModal === 3
           ? setModalComponent(
-              <Modal onClose={handleModalClose} title="Seguridad">
+              <Modal onClose={handleModalClose} title="Preferencias">
                 <PrefModal />
               </Modal>
             )
