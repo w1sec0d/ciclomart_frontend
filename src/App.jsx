@@ -23,6 +23,16 @@ import apiService from './services/apiService'
 import getUserFromLocalStorage from './utils/getUser'
 import ProductPage from './pages/Product'
 
+// MercadoPago
+import { initMercadoPago } from '@mercadopago/sdk-react'
+
+if (import.meta.env.VITE_MP_PUBLIC_KEY) {
+  console.log('VITE_MP_PUBLIC_KEY', typeof import.meta.env.VITE_MP_PUBLIC_KEY)
+  initMercadoPago(import.meta.env.VITE_MP_PUBLIC_KEY)
+} else {
+  console.error('VITE_MP_PUBLIC_KEY no está definida')
+}
+
 const App = () => {
   const [searchText, setSearchText] = useState('')
   const [searchResults, setSearchResults] = useState([])
