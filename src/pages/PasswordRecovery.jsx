@@ -12,11 +12,11 @@ const PasswordRecovery = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { token } = useParams()
+  const authUser = useSelector((state) => state.auth.authUser)
 
   const { register, handleSubmit, reset } = useForm()
 
   const onSubmit = async (data) => {
-    const authUser = useSelector((state) => state.auth.authUser)
     try {
       //const request = await loginService.recoveryPassword(data,token);
       if (data.password === data['password-confirm']) {
@@ -34,7 +34,7 @@ const PasswordRecovery = () => {
           )
 
           setTimeout(() => {
-            navigate('/login')
+            authUser ? navigate('/profile') : navigate('/login')
           }, 2000)
         } else {
           dispatch(
@@ -45,7 +45,7 @@ const PasswordRecovery = () => {
             })
           )
 
-          authUser ? navigate('/login') : navigate('/profile')
+          authUser ? navigate('/profile') : navigate('/login')
         }
       } else {
         dispatch(
@@ -66,7 +66,7 @@ const PasswordRecovery = () => {
           icon: 'error',
         })
       )
-      navigate('/login')
+      authUser ? navigate('/profile') : navigate('/login')
     }
   }
 
