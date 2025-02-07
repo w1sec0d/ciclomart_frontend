@@ -13,8 +13,6 @@ import axios from 'axios'
 import Loading from '../components/Loading'
 
 const ProductRating = (props) => {
-
-
   const { register, handleSubmit, reset } = useForm()
   const [rating, setRating] = useState(null)
   const [hover, setHover] = useState(null)
@@ -28,9 +26,7 @@ const ProductRating = (props) => {
 
   //el id del Documento producto es necesario pasarlo por la prop
 
-
   const idDoc = 1
-
 
   //Obteniendo el id del usuario logueado
 
@@ -48,8 +44,8 @@ const ProductRating = (props) => {
         idDocProducto: idDoc,
       })
 
-      if(request.results.length > 0){
-        return {success: true, idVendedor: request.results[0].idVendedor}
+      if (request.results.length > 0) {
+        return { success: true, idVendedor: request.results[0].idVendedor }
       }
       dispatch(
         setNotification({
@@ -59,8 +55,7 @@ const ProductRating = (props) => {
           timer: 3000,
         })
       )
-      return {success: false}
-
+      return { success: false }
     } catch (error) {
       console.error('Ocurrio un error ', error)
     }
@@ -112,20 +107,20 @@ const ProductRating = (props) => {
   }
 
   //Actualiza el componente cada vez que se agrega un comentario
-  useEffect(() =>{
-    getProductRating();
-  },[newCommentAdded])
+  useEffect(() => {
+    getProductRating()
+  }, [newCommentAdded])
 
   // Envia la calificación al backend
   const onSubmit = async (data) => {
-    
     try {
-
-      const isPurcharse = await checkPurchase();
+      const isPurcharse = await checkPurchase()
       const idUsuario = authUser.idUsuario
 
-      if ((validateFields(data.calificacion, rating) === 0) &&  isPurcharse.success === true) {
-
+      if (
+        validateFields(data.calificacion, rating) === 0 &&
+        isPurcharse.success === true
+      ) {
         if (!image) {
           const request = await ratingService.createRating({
             idUsuarioComprador: idUsuario,
@@ -194,7 +189,7 @@ const ProductRating = (props) => {
     }
   }
 
-  //Obtiene el promedio de las calificaciones de un producto 
+  //Obtiene el promedio de las calificaciones de un producto
   const getAvgRating = async () => {
     try {
       const request = await ratingService.getAvgRatingProduct(idDoc)
@@ -245,7 +240,9 @@ const ProductRating = (props) => {
       <div className="mt-4">
         <div className="flex  items-start space-x-12">
           <div className="flex space-x-5 items-center">
-            <div className="text-7xl font-bold text-blue-500">{avgRating.toFixed(1)}</div>
+            <div className="text-7xl font-bold text-blue-500">
+              {avgRating.toFixed(1)}
+            </div>
             <div className="flex flex-col">
               {!avgRating ? (
                 <StarRating rating={0} size="star-large" />
@@ -260,7 +257,6 @@ const ProductRating = (props) => {
               <p>No hay comentarios disponibles.</p>
             ) : (
               commentList.map((val, key) => (
-                
                 <div key={val.idCalificacion}>
                   <RatingView
                     description={val.comentario}

@@ -3,9 +3,8 @@ import '../style/start.css'
 
 const StarRating = ({ rating, size = 'start' }) => {
   // Limita la calificación a un máximo de 5
-  
-  rating = Math.min(rating, 5);
 
+  rating = Math.min(rating, 5)
 
   const stars = []
   for (let i = 0; i < 5; i++) {
