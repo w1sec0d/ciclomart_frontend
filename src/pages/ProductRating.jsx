@@ -13,7 +13,7 @@ import axios from 'axios'
 import Loading from '../components/Loading'
 
 const ProductRating = (props) => {
-  //En las props se debe pasar el id del producto que sea calificar
+
 
   const { register, handleSubmit, reset } = useForm()
   const [rating, setRating] = useState(null)
@@ -21,35 +21,46 @@ const ProductRating = (props) => {
   const [image, setImage] = useState(null)
   const [error, setError] = useState('')
   const [commentList, setCommentList] = useState([])
-  //   const [newCommentAdded, setNewCommentAdded] = useState(false)
+  const [newCommentAdded, setNewCommentAdded] = useState(false)
   const [avgRating, setAvgRating] = useState(0)
-  const [userCalificate, setUserCalificate] = useState(false)
   const fileInputRef = useRef(null)
   const dispatch = useDispatch()
 
-  //id de prueba (se debe cambiar por los ids de la props o hacer una peticion para obtener los ids)
+  //el id del Documento producto es necesario pasarlo por la prop
 
-  const idCom = 6
+
   const idDoc = 1
-  const idVen = 3
+
 
   //Obteniendo el id del usuario logueado
 
   const authUser = useSelector((state) => state.auth.authUser)
 
+  //Verifica si un usuario ya ha realizado un compra del producto
   const checkPurchase = async () => {
     try {
-      console.log(authUser.idUsuario)
       if (!authUser || !authUser.idUsuario) return <Loading />
 
       const idUsuario = authUser.idUsuario
 
       const request = await ratingService.checkUserPurchase({
-        idComprador: authUser.idUsuario,
+        idComprador: idUsuario,
         idDocProducto: idDoc,
       })
 
-      console.log(request)
+      if(request.results.length > 0){
+        return {success: true, idVendedor: request.results[0].idVendedor}
+      }
+      dispatch(
+        setNotification({
+          title: '¡UPS!',
+          text: 'Todavia no has adquirido el producto para poder calificarlo',
+          icon: 'error',
+          timer: 3000,
+        })
+      )
+      return {success: false}
+
     } catch (error) {
       console.error('Ocurrio un error ', error)
     }
@@ -89,34 +100,42 @@ const ProductRating = (props) => {
     }
   }
 
-  // Obtiene todos las calificaciones del producto
+  // Obtiene todos las calificaciones del producto es necesario cambiar el valor por la prop
   const getProductRating = async () => {
     try {
-      const request = await ratingService.getRatingProduct(5)
+      const request = await ratingService.getRatingProduct(idDoc)
       setCommentList(request.results)
       getAvgRating()
-      checkPurchase()
     } catch (error) {
       console.error('Error al obtener las calificaciones', error)
     }
   }
 
+  //Actualiza el componente cada vez que se agrega un comentario
+  useEffect(() =>{
+    getProductRating();
+  },[newCommentAdded])
+
   // Envia la calificación al backend
   const onSubmit = async (data) => {
-    // Maneja el envío del formulario
+    
     try {
-      if (validateFields(data.calificacion, rating) === 0) {
+
+      const isPurcharse = await checkPurchase();
+      const idUsuario = authUser.idUsuario
+
+      if ((validateFields(data.calificacion, rating) === 0) &&  isPurcharse.success === true) {
+
         if (!image) {
           const request = await ratingService.createRating({
-            idUsuarioComprador: idCom,
+            idUsuarioComprador: idUsuario,
             idDocumentoProducto: idDoc,
-            idUsuarioVendedor: idVen,
+            idUsuarioVendedor: isPurcharse.idVendedor,
             comentario: data.calificacion,
             nota: rating,
           })
 
-          //   setNewCommentAdded(true)
-          getProductRating()
+          setNewCommentAdded(true)
           dispatch(
             setNotification({
               title: 'Comentario',
@@ -129,7 +148,6 @@ const ProductRating = (props) => {
         }
 
         const formData = new FormData()
-        console.log(image)
         formData.append('file', image)
         formData.append('upload_preset', 'cicloMart')
 
@@ -139,16 +157,15 @@ const ProductRating = (props) => {
         )
 
         const request = await ratingService.createRating({
-          idUsuarioComprador: idCom,
+          idUsuarioComprador: idUsuario,
           idDocumentoProducto: idDoc,
-          idUsuarioVendedor: idVen,
+          idUsuarioVendedor: isPurcharse.idVendedor,
           comentario: data.calificacion,
           foto: response.data.secure_url,
           nota: rating,
         })
 
-        // setNewCommentAdded(true)
-        getProductRating()
+        setNewCommentAdded(true)
 
         dispatch(
           setNotification({
@@ -161,7 +178,7 @@ const ProductRating = (props) => {
       }
     } catch (error) {
       console.error(error.response.data)
-      //   setNewCommentAdded(false)
+      setNewCommentAdded(false)
       dispatch(
         setNotification({
           title: '¡UPS!',
@@ -177,9 +194,10 @@ const ProductRating = (props) => {
     }
   }
 
+  //Obtiene el promedio de las calificaciones de un producto 
   const getAvgRating = async () => {
     try {
-      const request = await ratingService.getAvgRatingProduct(5)
+      const request = await ratingService.getAvgRatingProduct(idDoc)
       setAvgRating(request.results[0].avg_calificacion)
     } catch (error) {
       console.error('Error al obtener el promedio de las calificaciones', error)
@@ -188,7 +206,7 @@ const ProductRating = (props) => {
 
   const StartGenerate = () => {
     return (
-      <div className="Calificacion_Start items-center flex-col flex mt-4">
+      <div className="Calificacion_Start items-center flex-col flex mt-0">
         <div className="flex">
           {[...Array(5)].map((start, index) => {
             const currentRating = index + 1
@@ -215,7 +233,7 @@ const ProductRating = (props) => {
           })}
         </div>
         <div>
-          <p className="mt-2">Tu calificación es {rating}</p>
+          <p className="mt-1">Tu calificación es {rating}</p>
         </div>
       </div>
     )
@@ -227,14 +245,14 @@ const ProductRating = (props) => {
       <div className="mt-4">
         <div className="flex  items-start space-x-12">
           <div className="flex space-x-5 items-center">
-            <div className="text-7xl font-bold text-blue-500">{avgRating}</div>
+            <div className="text-7xl font-bold text-blue-500">{avgRating.toFixed(1)}</div>
             <div className="flex flex-col">
               {!avgRating ? (
                 <StarRating rating={0} size="star-large" />
               ) : (
                 <StarRating rating={avgRating} size="star-large" />
               )}
-              <p className="text-sm ">{commentList.length} comentario</p>
+              <p className="text-sm ">{commentList.length} comentario(s)</p>
             </div>
           </div>
           <div className="flex flex-col space-y-4">
@@ -242,10 +260,11 @@ const ProductRating = (props) => {
               <p>No hay comentarios disponibles.</p>
             ) : (
               commentList.map((val, key) => (
+                
                 <div key={val.idCalificacion}>
                   <RatingView
                     description={val.comentario}
-                    date={val.fecha}
+                    date={new Date(val.fecha).toLocaleDateString()}
                     rating={val.nota}
                     image={val.foto}
                   />
@@ -268,19 +287,20 @@ const ProductRating = (props) => {
       </div>
       <div className="py-1">
         <h2 className="py-2 font-black text-2xl">Deja tú comentario</h2>
-        <div className="flex justify-center items-center ">
+        <div className="flex flex-col justify-center items-center ">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col w-full max-w-3xl gap-3"
+            className="flex flex-col w-full max-w-4xl gap-3"
           >
-            <div className="flex flex-row items-center gap-4">
+            <div className="flex flex-row ml-32 gap-2">
               <div className="flex-grow">
-                <Input
+                <textarea
                   id="calificacion"
-                  label="Ingresa tu comentario"
-                  type="textarea"
+                  placeholder="Escribe aquí tu comentario"
                   {...register('calificacion', { required: false })}
-                  className="w-full"
+                  rows="4"
+                  maxLength="45"
+                  className="mt-1 block w-full p-2 border border-blue-500 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
               <div className="relative flex items-center justify-center">
@@ -307,13 +327,13 @@ const ProductRating = (props) => {
                 </div>
               </div>
             </div>
-            <div className="mt-1 ">
+            <div className="mt-0">
               <StartGenerate />
             </div>
             <div className="flex items-center justify-center">
               <Button
                 type="submit"
-                className="text-center bg-blue-500 text-white py-2 px-7 rounded-full"
+                className="text-center bg-blue-500 text-white py-2 px-7  rounded-full"
               >
                 Enviar
               </Button>
