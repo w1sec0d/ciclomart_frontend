@@ -1,23 +1,20 @@
 .star {
-    font-size: 20px;
-    color: #ddd;
+  font-size: 20px;
+  color: #ddd;
 }
 .star.rated {
-    color: #3b82f6;
+  color: #3b82f6;
 }
 .star.partial {
-    position: relative;
+  position: relative;
 }
 .star.partial::after {
-    content: '★';
-    position: absolute;
-    clip-path: polygon(0 0, var(--fill) 0%, var(--fill) 100%, 0% 100%);
-    color: #ddd;
+  content: '★';
+  position: absolute;
+  clip-path: polygon(0 0, var(--fill) 0%, var(--fill) 100%, 0% 100%);
+  color: #ddd;
 }
-
 
 .star-large {
-    font-size: 30px; 
+  font-size: 30px;
 }
-
-
