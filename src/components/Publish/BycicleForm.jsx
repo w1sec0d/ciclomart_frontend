@@ -38,34 +38,36 @@ const BycicleForm = ({ onSubmit }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-6 shadow-lg bg-white rounded-lg">
-      
-        <Input
-          id="title"
-          label="Título"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
-        <label className="block text-sm font-medium mb-1">Descripcion</label>
-        <textarea
-        name='description'
+    <form
+      onSubmit={handleSubmit}
+      className="w-full p-6 shadow-lg bg-white rounded-lg"
+    >
+      <Input
+        id="title"
+        label="Título"
+        name="title"
+        value={formData.title}
+        onChange={handleChange}
+        required
+      />
+      <label className="block text-sm font-medium mb-1">Descripcion</label>
+      <textarea
+        name="description"
         value={formData.description}
         onChange={handleChange}
         className="flex-1 w-full px-3 py-2 border rounded-lg"
         required
-        />
-        <Input
-          id="price"
-          label="Precio"
-          name="price"
-          type="number"
-          value={formData.price}
-          onChange={handleChange}
-          required
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-10">
+      />
+      <Input
+        id="price"
+        label="Precio"
+        name="price"
+        type="number"
+        value={formData.price}
+        onChange={handleChange}
+        required
+      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-10">
         <Select
           name="brand"
           label="Marca"
@@ -195,7 +197,9 @@ const BycicleForm = ({ onSubmit }) => {
           required
         />
       </div>
-      <Button type="submit" className="mt-4 w-full">Publicar</Button>
+      <Button type="submit" className="mt-4 w-full">
+        Publicar
+      </Button>
     </form>
   )
 }

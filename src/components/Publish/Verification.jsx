@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 const Verification = ({ onVerify }) => {
-  const [verificationCode, setVerificationCode] = useState("");
+  const [verificationCode, setVerificationCode] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    onVerify(verificationCode);
-  };
+    e.preventDefault()
+    onVerify(verificationCode)
+  }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-2xl font-bold mb-4">Verificar propiedad de la bicicleta</h1>
+      <h1 className="text-2xl font-bold mb-4">
+        Verificar propiedad de la bicicleta
+      </h1>
       <form onSubmit={handleSubmit} className="w-80">
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">
@@ -32,7 +34,7 @@ const Verification = ({ onVerify }) => {
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Verification;
+export default Verification

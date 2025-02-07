@@ -24,7 +24,7 @@ const searchSlice = createSlice({
     setSearchInput: (state, action) => {
       state.searchInput = action.payload
       localStorage.setItem('searchInput', action.payload)
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
