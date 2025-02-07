@@ -1,0 +1,21 @@
+.star {
+  font-size: 20px;
+  color: #ddd; /* Color de las estrellas vacías */
+  position: relative;
+  display: inline-block;
+}
+
+.star.rated {
+  color: #3b82f6; /* Color de las estrellas llenas */
+}
+
+.star.partial {
+  background: linear-gradient(to right, #3b82f6 var(--fill), #ddd var(--fill));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.star-large {
+  font-size: 30px;
+}

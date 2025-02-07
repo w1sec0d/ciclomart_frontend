@@ -71,6 +71,7 @@ const SearchPage = (params) => {
       }
       setFilterValues(newFilters)
     }
+
     const request = await apiService.searchProducts(newFilters)
     const filtered = request.results.filter((result) => {
       return Object.entries(newFilters).every(([key, value]) => {

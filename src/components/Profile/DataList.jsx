@@ -1,6 +1,7 @@
 /*Utils*/
 import PropTypes from 'prop-types'
 
+
 /*typeContent = 1 = Puchases
 typeContent = 2 = Sales
 typeContent = 3 = Stores*/

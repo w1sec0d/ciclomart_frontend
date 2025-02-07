@@ -23,6 +23,7 @@ import Layout from './components/Layout'
 
 import apiService from './services/apiService'
 import getUserFromLocalStorage from './utils/getUser'
+import ProductRating from './pages/ProductRating'
 
 const App = () => {
   const [searchText, setSearchText] = useState('')
@@ -65,6 +66,7 @@ const App = () => {
         />
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
+        <Route path="productRating" element={<ProductRating />} />
       </Route>
     </Routes>
   )
