@@ -14,11 +14,18 @@ const getAvgRatingProduct = async ( data ) => {
 
 const createRating = async ( data ) => {
     const request = await axios.post(API_URL + `/addRatingProduct`, data);
-    return request.data
+    return request.data;
+}
+
+const checkUserPurchase = async ( data ) => {
+    console.log(data);
+    const request = await axios.get(API_URL + `/checkUserPurchase/${data.idComprador}/${data.idDocProducto}`, data);
+    return request.data;
 }
 
 export default {
     getRatingProduct,
     getAvgRatingProduct,
-    createRating
+    createRating,
+    checkUserPurchase
 }

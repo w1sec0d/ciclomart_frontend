@@ -7,14 +7,14 @@ import { useState, useRef, useEffect } from "react";
 import StarRating from "../components/StarRating";
 import { setNotification } from "../store/slices/notificationSlice";
 import { useDispatch } from "react-redux";
+import { useSelector } from 'react-redux';
 import ratingService from "../services/ratingService";
 import axios from "axios";
+import Loading from "../components/Loading";
 
 const ProductRating = (props) => {
 
     //En las props se debe pasar el id del producto que sea calificar
-
-    
 
     const { register, handleSubmit, reset } = useForm();
     const [rating, setRating] = useState(null);
@@ -24,14 +24,42 @@ const ProductRating = (props) => {
     const [commentList, setCommentList] = useState([]);
     const [newCommentAdded, setNewCommentAdded] = useState(false);
     const [ avgRating, setAvgRating] = useState(0);
+    const [ userCalificate, setUserCalificate] = useState(false);
     const fileInputRef = useRef(null);
     const dispatch = useDispatch();
 
     //id de prueba (se debe cambiar por los ids de la props o hacer una peticion para obtener los ids)
 
-    const idCom = 1;
-    const idDoc = 2;
+    const idCom = 6;
+    const idDoc = 1;
     const idVen = 3;
+
+    //Obteniendo el id del usuario logueado
+
+    const authUser = useSelector((state) => state.auth.authUser);
+ 
+    const checkPurchase = async () => {
+
+        try{
+
+            console.log(authUser.idUsuario);
+            if(!authUser || !authUser.idUsuario) return <Loading />
+
+            const idUsuario = authUser.idUsuario;
+
+            const request = await ratingService.checkUserPurchase({
+                "idComprador": authUser.idUsuario,
+                "idDocProducto": idDoc
+            })
+
+            console.log(request);
+
+        }catch(error){
+            console.error("Ocurrio un error ", error)
+        }
+
+    }
+
 
     //Valida si se introdujo un comentario y se marco alguna estrella
     const validateFields = ( Comment, Rating) =>{
@@ -72,9 +100,10 @@ const ProductRating = (props) => {
     const getProductRating = async () =>{
 
        try{
-            const request = await ratingService.getRatingProduct(2);
+            const request = await ratingService.getRatingProduct(5);
             setCommentList(request.results);
             getAvgRating();
+            checkPurchase();
        }catch (error) {
             console.error('Error al obtener las calificaciones', error)
        }
@@ -167,7 +196,7 @@ const ProductRating = (props) => {
     const getAvgRating = async () => {
         try{
             
-            const request = await ratingService.getAvgRatingProduct(2);
+            const request = await ratingService.getAvgRatingProduct(5);
             setAvgRating(request.results[0].avg_calificacion);
 
         }catch (error){
