@@ -5,14 +5,9 @@ import Button from '../components/Button'
 import background1 from '../assets/background1.webp'
 
 import { setNotification } from '../store/slices/notificationSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {
-  setAuthUser,
-  setIsLoggedIn,
-  setIsAdmin,
-} from '../store/slices/authSlice'
+import { setAuthUser, setIsLoggedIn } from '../store/slices/authSlice'
 import loginService from '../services/loginService'
 
 const Login = () => {
@@ -27,7 +22,6 @@ const Login = () => {
 
       if (request.status === 200) {
         const { token, user } = request.data
-        console.log('request data', request.data)
 
         dispatch(
           setNotification({

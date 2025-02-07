@@ -31,8 +31,9 @@ const App = () => {
 
   const handleSearch = async (text) => {
     setSearchText(text)
-    const results = await apiService.searchProducts({ nombre: text })
-    setSearchResults(results)
+    const request = await apiService.searchProducts({ nombre: text })
+    setSearchResults(request.results)
+    console.log('request.results', request.results)
   }
 
   const dispatch = useDispatch()

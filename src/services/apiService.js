@@ -14,12 +14,11 @@ const createUsuario = async (usuario) => {
 }
 
 const getTiendas = async () => {
-  const request = await axios.get(API_URL + '/getTiendas')
+  const request = await axios.get(API_URL + '/tiendas')
   return request.data
 }
 
 //Products search
-
 const searchProducts = async (params) => {
   params = new URLSearchParams(params).toString()
   const request = await axios.get(API_URL + '/search?' + params)
