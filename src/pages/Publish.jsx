@@ -19,6 +19,7 @@ const Publish = () => {
       setStep("verification");
     } else {
       setStep("complete");
+      console.log("Product Data:", data);
     }
   };
 
@@ -37,10 +38,10 @@ const Publish = () => {
         <Verification onVerify={handleVerification} />
       )}
       {step === "complete" && (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-          <h1 className="text-2xl font-bold mb-4">Publish Complete!</h1>
+        <div className="flex flex-col w-full items-center justify-center h-screen bg-gray-100">
+          <h1 className="text-2xl font-bold mb-4">Publicación Completada!</h1>
           <p className="text-gray-700">
-            Your {productType} "{productData?.title}" has been published.
+            Tu {productType} {productData?.title} ha sido publicado correctamente.
           </p>
         </div>
       )}
