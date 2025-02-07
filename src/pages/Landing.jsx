@@ -100,6 +100,7 @@ const LandingPage = () => {
         />
         {productos.map((producto) => (
           <ItemContainer
+            id={producto.idProducto}
             key={producto.idProducto}
             name={producto.nombre}
             // img={producto.img}
