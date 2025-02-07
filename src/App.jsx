@@ -20,6 +20,7 @@ import Verificacion from './pages/Verificacion'
 import PasswordRecovery from './pages/PasswordRecovery'
 import CodeVerification from './pages/CodeVerification'
 import Layout from './components/Layout'
+import Publish from './pages/Publish'
 
 import apiService from './services/apiService'
 import getUserFromLocalStorage from './utils/getUser'
@@ -66,6 +67,7 @@ const App = () => {
         />
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
+        <Route path="publish" element={<Publish />} />
         <Route path="productRating" element={<ProductRating />} />
       </Route>
     </Routes>
