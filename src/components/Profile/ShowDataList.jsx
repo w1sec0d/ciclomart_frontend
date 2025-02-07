@@ -11,7 +11,7 @@ const showDataList = ({ data, type, activeButton }) => {
       <DataList
         data={data}
         typeContent={type}
-        onShowModal={() => setActiveModal(typeContent)}
+        onShowModal={() => setActiveModal(type)}
       ></DataList>
     </div>
   )
