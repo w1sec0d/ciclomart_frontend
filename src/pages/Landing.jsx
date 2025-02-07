@@ -26,13 +26,15 @@ import { getProducts } from '../services/productService'
 
 const LandingPage = () => {
   // const queryClient = useQueryClient()
+
+  // Carga productos con react-query
   const {
     data: productos,
     isLoading,
     error,
   } = useQuery('productos', getProducts)
+  console.log('productos', productos[0])
 
-  console.log('productos', productos)
   const landingCarousel = {
     // superLargeDesktop: {
     //   // the naming can be any, depends on you.
@@ -91,22 +93,11 @@ const LandingPage = () => {
         <LocalFireDepartment fontSize="large" /> Lo más vendido
       </h2>
       <Carousel responsive={itemContainer} className="pl-7 pb-10">
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-          freeShipping={true}
-        />
         {productos.map((producto) => (
           <ItemContainer
-            id={producto.idProducto}
+            {...producto}
             key={producto.idProducto}
-            name={producto.nombre}
-            // img={producto.img}
-            // fullPrice={producto.fullPrice}
-            price={producto.precio}
-            // freeShipping={producto.freeShipping}
+            freeShipping={producto['método de envio'] === 'gratis'}
           />
         ))}
       </Carousel>

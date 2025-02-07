@@ -3,24 +3,26 @@ import { LocalShipping, PedalBike } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 
 const ItemContainer = ({
-  id,
-  img,
-  name,
-  price,
-  fullPrice,
+  idProducto,
+  imagen,
+  nombre,
+  precio,
+  precioCompleto,
   freeShipping = false,
 }) => {
-  const discountPercentage = ((fullPrice - price) / fullPrice) * 100
+  const discountPercentage = Math.floor(
+    ((precioCompleto - precio) / precioCompleto) * 100
+  )
 
   return (
     <Link
       className="flex flex-col justify-evenly w-[225px] h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a"
-      to={`/product/${id}`}
+      to={`/product/${idProducto}`}
     >
       {/* Seccion de imágenes y nombre */}
       <div className="w-[200px] h-[200px] mx-auto flex items-center justify-center">
-        {img ? (
-          <img src={img} className="object-contain" />
+        {imagen ? (
+          <img src={imagen} className="object-contain" />
         ) : (
           <PedalBike fontSize="large" color="disabled" />
         )}
@@ -28,16 +30,16 @@ const ItemContainer = ({
       {/* Seccion de precios y nombre */}
       <div className="flex flex-wrap text-xl font-bold relative items-center mt-2">
         <p className="group-hover:text-primary font-medium text-base w-full">
-          {name}
+          {nombre}
         </p>
-        <div className="relative mt-3">
-          {fullPrice && (
+        <div className={`relative ${precioCompleto ? 'mt-3' : ''}`}>
+          {precioCompleto && (
             <span className="absolute text-red-500 line-through text-sm text-left -top-3">
-              ${fullPrice}
+              ${precioCompleto}
             </span>
           )}
-          ${price}
-          {fullPrice && (
+          ${precio}
+          {precioCompleto && (
             <span className="text-sm text-primary ml-2">
               {discountPercentage}% OFF
             </span>
@@ -57,10 +59,10 @@ const ItemContainer = ({
   )
 }
 ItemContainer.propTypes = {
-  img: PropTypes.string.isRequired,
+  imagen: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  fullPrice: PropTypes.number,
+  precio: PropTypes.number.isRequired,
+  precioCompleto: PropTypes.number,
   freeShipping: PropTypes.bool,
 }
 
