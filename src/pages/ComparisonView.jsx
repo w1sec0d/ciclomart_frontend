@@ -69,9 +69,10 @@ const ComparisonView = () => {
   const propertiesProduct1 = Object.keys(product1)
   const propertiesProduct2 = Object.keys(product2)
   const properties = propertiesProduct1.concat(propertiesProduct2)
+  const uniqProperties = [...new Set(properties)]
 
   //Captura las coindencias entre los productos y retorna las keys sin duplicados
-  const coincidences = properties.filter((property) => {
+  const coincidences = uniqProperties.filter((property) => {
     if (property != 'idProducto') {
       return (
         propertiesProduct2.includes(property) &&
@@ -80,14 +81,13 @@ const ComparisonView = () => {
     }
   })
 
-  const uniqCoincidences = [...new Set(coincidences)]
-
   //Captura las discrepancias entre los productos
-  const discrepancies = properties.filter(
+  const discrepancies = uniqProperties.filter(
     (property) =>
       !propertiesProduct2.includes(property) ||
       !propertiesProduct1.includes(property)
   )
+
   return (
     <div className="h-auto flex flex-col">
       <div className="h-auto w-auto mx-10 mb-8 my-10 rounded-3xl bg-white drop-shadow-lg flex flex-col">
@@ -103,7 +103,7 @@ const ComparisonView = () => {
           title={'Elementos Compartidos'}
           product1={product1}
           product2={product2}
-          coincidences={uniqCoincidences}
+          coincidences={coincidences}
         />
         {/*Sección elementos Agregados */}
         <ComparisionSection

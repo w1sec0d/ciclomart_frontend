@@ -16,6 +16,7 @@ const ComparisionSection = ({
   const filteredCoincidences2 = coincidences.filter(
     (property) => product2[property]
   )
+
   return (
     <div>
       <div
