@@ -44,20 +44,6 @@ const App = () => {
     console.log('request.results', request.results)
   }
 
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const user = await getUserFromLocalStorage()
-      if (user) {
-        dispatch(setAuthUser(user))
-      } else {
-        dispatch(clearAuth())
-      }
-    }
-    fetchUser()
-  }, [dispatch])
-
   return (
     <Routes>
       <Route

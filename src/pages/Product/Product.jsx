@@ -1,10 +1,9 @@
-import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 // componentes
 import Loading from '../../components/Loading'
-import MercadoPagoWallet from '../../components/Payments/MercadoPagoWallet'
 import Button from '../../components/Button'
 import Img from '../../components/Img'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
@@ -14,10 +13,12 @@ import { getProductById } from '../../services/productService'
 import mercadoPago from '../../services/mercadoPago'
 // utils
 import colombianPrice from '../../utils/colombianPrice'
+import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
   const { id } = useParams()
+  const dispatch = useDispatch()
   // Hace fetch del producto con react-query
   const {
     data: producto,
@@ -26,13 +27,17 @@ const ProductPage = () => {
   } = useQuery(['productos', id], () => getProductById(id))
 
   const handleBuy = async () => {
+    dispatch(setLoading())
     const { paymentURL } = await mercadoPago.sendBuyRequest(producto)
-    console.log('paymentUrL', paymentURL)
     window.location.href = paymentURL
+    setTimeout(() => {
+      dispatch(clearLoading())
+    }, 5000)
   }
 
   if (isLoading) return <Loading />
   if (isError) return <p>Error: {isError.message}</p>
+
   return (
     <section className="px-10">
       <div className="flex justify-evenly items-center py-10">
