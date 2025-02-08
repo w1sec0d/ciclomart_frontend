@@ -6,7 +6,6 @@ import Checkbox from './Checkbox'
 import Button from './Button'
 import loginService from '../services/loginService'
 import { useNavigate } from 'react-router-dom'
-import Loading from './Loading'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 
 const RegisterForm = () => {
@@ -38,14 +37,21 @@ const RegisterForm = () => {
         navigate(`/verificationCode/${validateEmail.token}`)
       }
     } catch (error) {
+      dispatch(clearLoading())
       // check error http response
       if (error.status === 400) {
-        dispatch(clearLoading())
-
         dispatch(
           setNotification({
             title: '¡Error!',
             text: error.response.data.message ?? 'ha ocurrido un error',
+            icon: 'error',
+          })
+        )
+      } else if (error.status === 500) {
+        dispatch(
+          setNotification({
+            title: '¡Error!',
+            text: 'Error en el servidor, intentalo más tarde',
             icon: 'error',
           })
         )

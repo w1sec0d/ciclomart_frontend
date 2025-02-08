@@ -1,31 +1,47 @@
 /*Utils*/
 import PropTypes from 'prop-types'
-import { data } from 'react-router-dom'
 
 /*typeContent = 1 = Puchases
 typeContent = 2 = Sales
 typeContent = 3 = Stores*/
-const DataList = ({
-  data = [],
-  typeContent = 1,
-  firstExpression,
-  secondExpression,
-  modal = () => {},
-}) => {
+
+const Title = ({ typeContent }) => {
+  return (
+    <div className="w-full flex justify-center">
+      <b className="text-primary border-b border-lgray">
+        {typeContent === 1
+          ? 'Tus Compras'
+          : typeContent === 2
+            ? 'Tus Ventas'
+            : 'Nuestras Tiendas'}
+      </b>
+    </div>
+  )
+}
+
+const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
+  //Obtiene las instrucciones para mostrar datos en los botones del sidebar
+  const getInstructions = () => {
+    if (typeContent === 3) {
+      return { firstKey: 'nombre', secondKey: 'telefono' }
+    }
+    return { firstKey: 'fecha', secondKey: 'monto' }
+  }
+
+  //Formatea la fecha para mostrar un formato más abreviado
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString()
+  }
+
+  const { firstKey, secondKey } = getInstructions()
+
+  if (!data) return <p>No hay datos que mostrar</p>
   return (
     <div className="w-full h-full overflow-auto">
-      <div className="w-full flex justify-center">
-        <b className="text-primary border-b border-lgray">
-          {typeContent === 1
-            ? 'Tus Compras'
-            : typeContent === 2
-              ? 'Tus Ventas'
-              : 'Nuestras Tiendas'}
-        </b>
-      </div>
+      <Title typeContent={typeContent} />
       <div>
         {data.length != 0 ? (
-          data.map((data, index) => {
+          data.map((item, index) => {
             return (
               <div
                 className={`pl-1 pt-2 flex flex-row  items-center border-b border-lgray ${index === 0 ? 'mt-2' : ''}`}
@@ -33,21 +49,19 @@ const DataList = ({
               >
                 <b
                   className="text-secondary mr-2 break-all line-clamp-1 w-2/3 hover:cursor-pointer hover:underline"
-                  title={eval(firstExpression)}
-                  onClick={() => modal(true)}
+                  title={item[firstKey]}
+                  onClick={onShowModal}
                 >
-                  {eval(firstExpression)}
+                  {typeContent < 3
+                    ? formatDate(item[firstKey])
+                    : item[firstKey]}
                 </b>
-                <p className="text-sm ml-auto break-all">
-                  {eval(secondExpression)}
-                </p>
+                <p className="text-sm ml-auto break-all">{item[secondKey]}</p>
               </div>
             )
           })
-        ) : typeContent === 1 || typeContent === 2 ? (
-          <p>No hay datos que mostrar</p>
         ) : (
-          <p>Loading...</p>
+          <p>No hay datos que mostrar</p>
         )}
       </div>
     </div>
@@ -55,10 +69,7 @@ const DataList = ({
 }
 
 DataList.propTypes = {
-  data: PropTypes.array.isRequired,
   typeContent: PropTypes.number,
-  firstExpression: PropTypes.string.isRequired,
-  secondExpression: PropTypes.string.isRequired,
 }
 
 export default DataList

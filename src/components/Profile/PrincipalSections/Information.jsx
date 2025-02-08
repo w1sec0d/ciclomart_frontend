@@ -1,19 +1,24 @@
-//-> Utils
-import { useState } from 'react'
+//-> Utilidades
 import { useSelector } from 'react-redux'
 
-//-> Images
-import Photo from '../../assets/userPhoto.png'
+//-> Imagenes
+import Photo from '../../../assets/userPhoto.png'
 
-//->Components
-import ImageUpload from './ImageUpload'
-import Loading from '../Loading'
+//-> Componentes
+import ImageUpload from '../ImageUpload'
+import Loading from '../../Loading'
 
 const Information = () => {
   const authUser = useSelector((state) => state.auth.authUser)
-  if (!authUser || !authUser.nombre) return <Loading />
+
+  /*Verifica que exista el nombre del usuario */
+  if (!authUser.nombre) return <Loading />
+
+  /*Formatea la fecha a dd/mm/aa y toma el primer nombre de usuario*/
   const firstName = authUser.nombre.split(' ')[0]
   const formattedDate = new Date(authUser.fechaRegistro).toLocaleDateString()
+
+  /*Renderiza el componente teniendo en cuenta las constantes anteriores*/
   return (
     <div
       className="flex items-center mt-8 mx-[170px] bg-lgray h-44 w-auto 

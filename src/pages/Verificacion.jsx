@@ -28,6 +28,15 @@ const Verificacion = () => {
             icon: 'success',
           })
         )
+        reset()
+      } else if (request.status === 401) {
+        dispatch(
+          setNotification({
+            title: '¡ups!',
+            text: 'El correo debe ser el que registraste en la app.',
+            icon: 'error',
+          })
+        )
       }
     } catch (error) {
       dispatch(clearLoading(true))
@@ -51,7 +60,6 @@ const Verificacion = () => {
         )
       }
     }
-    reset()
   }
 
   return (
