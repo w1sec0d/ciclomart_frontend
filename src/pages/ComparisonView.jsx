@@ -61,7 +61,7 @@ const ComparisonView = () => {
     'tipo de frenos': 'Caliper',
     velocidades: 21,
     transmision: 'Shimano Ultegra',
-    lol: 'xd',
+    'método de envio': 'Domicilio',
     peso: 8,
   }
 
@@ -121,12 +121,11 @@ const ComparisonView = () => {
         <SouthIcon style={{ fontSize: '9rem', opacity: 0.1 }}></SouthIcon>
       </div>
       <div className="h-auto w-auto mx-10 mb-8 my-10 rounded-bl-3xl rounded-br-3xl bg-white drop-shadow-lg flex flex-col">
-        <ComparisionSection
-          title={'Información del vendedor'}
-          className1={'rounded-bl-3xl'}
-          className2={'rounded-br-3xl'}
-          className3={'bg-primary rounded-t-3xl h-14 text-black'}
-        />
+        <div className="text-black h-10 border-y border-y-lgray w-full flex flex-row items-center justify-center  text-xl bg-lblue opacity-80">
+          {/*Muestra un botón para resaltar diferencias */}
+          <b>Información vendedores</b>
+        </div>
+        <div className="w-1/2 h-auto"></div>
       </div>
     </div>
   )

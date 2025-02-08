@@ -4,8 +4,8 @@ import { useState } from 'react'
 const DiffsButton = ({ onClick }) => {
   return (
     <button
-      className=" bg-tertiary rounded-xl 
-   drop-shadow-2xl hover:bg-tertiary absolute right-4 px-4"
+      className="transition bg-tertiary rounded-xl 
+   drop-shadow-2xl hover:bg-tertiary absolute right-4 px-4  duration-200 ease-in-out hover:scale-105"
       onClick={onClick}
     >
       <b className="text-xl">Resaltar diferencias</b>
@@ -62,13 +62,13 @@ const ComparisionSection = ({
         ) : null}
       </div>
       <div className="h-auto max-h-72 flex flex-row w-full overflow-auto pr-0">
-        <div className={twMerge('w-1/2 bg-white h-auto', className1)}>
+        <div className={twMerge('w-1/2 bg-white h-auto ', className1)}>
           {/*Muestra todas las coincidencias/discrepancias entre productos y elimina aqueellas sin valor */}
           {filteredCoincidences1.map((property, index) => {
             return (
               <div
                 className={`h-12 ${index === filteredCoincidences1.length - 1 ? '' : 'border-b'} 
-                ${differences && differences.includes(property) ? 'bg-red-100' : 'bg-white'}
+                ${differences && differences.includes(property) ? 'bg-tertiary bg-opacity-35  border-b-tertiary' : 'bg-white'}
                 flex items-center pl-3 border-lgray border-r `}
                 key={index}
               >
@@ -85,7 +85,9 @@ const ComparisionSection = ({
           {filteredCoincidences2.map((property, index) => {
             return (
               <div
-                className={`h-12 ${index === filteredCoincidences2.length - 1 ? '' : 'border-b'} flex items-center pl-3 border-lgray border-r`}
+                className={`h-12 ${index === filteredCoincidences2.length - 1 ? '' : 'border-b'} 
+                ${differences && differences.includes(property) ? 'bg-tertiary bg-opacity-35 border-b-tertiary' : 'bg-white'}
+                flex items-center pl-3 border-lgray border-r`}
                 key={index}
               >
                 <p>
