@@ -19,7 +19,7 @@ const sendBuyRequest = async (producto) => {
       title: producto.nombre,
       unit_price: producto.precio,
       quantity: 1,
-      currency: "COP"
+      currency: 'COP',
     })
     return request
   } catch (error) {
