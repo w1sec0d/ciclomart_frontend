@@ -3,6 +3,7 @@ import notificationReducer from './slices/notificationSlice'
 import authReducer from './slices/authSlice'
 import loadingReducer from './slices/loadingSlice'
 import showModalReducer from './slices/showModalSlice'
+import comparisonReducer from './slices/comparisonSlice'
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     auth: authReducer,
     loading: loadingReducer,
     showModal: showModalReducer,
+    comparison: comparisonReducer,
   },
 })

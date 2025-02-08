@@ -19,9 +19,18 @@ const ItemContainer = ({
     ((precioCompleto - precio) / precioCompleto) * 100
   )
 
+  const [selected, setSelected] = useState(false)
+
+  const handleComparison = (event) => {
+    event.stopPropagation()
+    event.preventDefault()
+    setSelected(!selected)
+  }
+
   return (
     <Link
-      className={`flex flex-col justify-evenly w-[225px] h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative`}
+      className={`flex flex-col justify-evenly w-[225px] h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative 
+        ${selected ? 'border-4 border-secondary border-dashed' : ''}`}
       to={`/product/${idProducto}`}
     >
       {/* Seccion de imágenes y nombre */}
@@ -30,7 +39,7 @@ const ItemContainer = ({
       </div>
 
       {/*Botón de comparación en hover*/}
-      <ComparisonButton />
+      <ComparisonButton onClick={handleComparison} />
 
       {/* Seccion de precios y nombre */}
       <div className="flex flex-wrap text-xl font-bold relative items-center justify-start mt-2">
