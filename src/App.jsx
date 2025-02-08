@@ -1,7 +1,5 @@
 // React and state logic
-import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { clearAuth, setAuthUser } from './store/slices/authSlice'
+import { useState } from 'react'
 
 // Routing
 import { Route, Routes } from 'react-router-dom'
@@ -11,7 +9,6 @@ import Landing from './pages/Landing'
 import Register from './pages/Register'
 import Search from './pages/Search'
 import Profile from './pages/Profile'
-import UserInfo from './pages/UserInfo'
 import Login from './pages/Login'
 import Verificacion from './pages/Verificacion'
 import PasswordRecovery from './pages/PasswordRecovery'
@@ -20,18 +17,7 @@ import Layout from './components/Layout'
 
 // Services
 import apiService from './services/apiService'
-import getUserFromLocalStorage from './utils/getUser'
 import ProductPage from './pages/Product/Product'
-
-// MercadoPago
-import { initMercadoPago } from '@mercadopago/sdk-react'
-
-if (import.meta.env.VITE_MP_PUBLIC_KEY) {
-  console.log('VITE_MP_PUBLIC_KEY', typeof import.meta.env.VITE_MP_PUBLIC_KEY)
-  initMercadoPago(import.meta.env.VITE_MP_PUBLIC_KEY)
-} else {
-  console.error('VITE_MP_PUBLIC_KEY no está definida')
-}
 
 const App = () => {
   const [searchText, setSearchText] = useState('')
@@ -53,7 +39,6 @@ const App = () => {
         <Route index element={<Landing />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="userInfo" element={<UserInfo />} />
         <Route path="verificacion" element={<Verificacion />} />
         <Route path="verificationCode/:token?" element={<CodeVerification />} />
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
@@ -63,7 +48,6 @@ const App = () => {
           element={<Search searchResults={searchResults} name={searchText} />}
         />
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
-        <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
         <Route path="product/:id" element={<ProductPage />} />
       </Route>
     </Routes>

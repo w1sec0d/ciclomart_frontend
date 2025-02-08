@@ -130,6 +130,7 @@ const LandingPage = () => {
         </h2>
         <Carousel responsive={itemContainer} className="pl-7 pb-10">
           <ItemContainer
+            idProducto={123456}
             nombre="Repuesto"
             imagen={repuestos}
             precioCompleto={3000000}
@@ -137,6 +138,7 @@ const LandingPage = () => {
             envioGratis={true}
           />
           <ItemContainer
+            idProducto={123456}
             nombre="Repuesto"
             imagen={repuestos}
             precioCompleto={3000000}
@@ -144,6 +146,7 @@ const LandingPage = () => {
             envioGratis={true}
           />
           <ItemContainer
+            idProducto={123456}
             nombre="Repuesto"
             imagen={repuestos}
             precioCompleto={3000000}
@@ -151,6 +154,7 @@ const LandingPage = () => {
             envioGratis={true}
           />
           <ItemContainer
+            idProducto={123456}
             nombre="Repuesto"
             imagen={repuestos}
             precioCompleto={3000000}
@@ -158,6 +162,7 @@ const LandingPage = () => {
             envioGratis={true}
           />
           <ItemContainer
+            idProducto={123456}
             nombre="Repuesto"
             imagen={repuestos}
             precioCompleto={3000000}
