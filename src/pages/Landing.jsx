@@ -33,7 +33,6 @@ const LandingPage = () => {
     isLoading,
     error,
   } = useQuery('productos', getProducts)
-  console.log('productos', productos[0])
 
   const landingCarousel = {
     // superLargeDesktop: {
@@ -97,7 +96,7 @@ const LandingPage = () => {
           <ItemContainer
             {...producto}
             key={producto.idProducto}
-            freeShipping={producto['método de envio'] === 'gratis'}
+            envioGratis={producto['método de envio'] === 'gratis'}
           />
         ))}
       </Carousel>
@@ -131,43 +130,39 @@ const LandingPage = () => {
         </h2>
         <Carousel responsive={itemContainer} className="pl-7 pb-10">
           <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
-            freeShipping={true}
+            nombre="Repuesto"
+            imagen={repuestos}
+            precioCompleto={3000000}
+            precio={2250000}
+            envioGratis={true}
           />
           <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
-            freeShipping={true}
+            nombre="Repuesto"
+            imagen={repuestos}
+            precioCompleto={3000000}
+            precio={2250000}
+            envioGratis={true}
           />
           <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
+            nombre="Repuesto"
+            imagen={repuestos}
+            precioCompleto={3000000}
+            precio={2250000}
+            envioGratis={true}
           />
           <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
+            nombre="Repuesto"
+            imagen={repuestos}
+            precioCompleto={3000000}
+            precio={2250000}
+            envioGratis={true}
           />
           <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
-          />
-          <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
-            freeShipping={true}
+            nombre="Repuesto"
+            imagen={repuestos}
+            precioCompleto={3000000}
+            precio={2250000}
+            envioGratis={true}
           />
         </Carousel>
       </section>

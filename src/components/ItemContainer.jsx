@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
-import { LocalShipping, PedalBike } from '@mui/icons-material'
+import { LocalShipping } from '@mui/icons-material'
+import colombianPrice from '../utils/colombianPrice'
 import { Link } from 'react-router-dom'
+import Img from './Img'
 
 const ItemContainer = ({
   idProducto,
@@ -8,7 +10,7 @@ const ItemContainer = ({
   nombre,
   precio,
   precioCompleto,
-  freeShipping = false,
+  envioGratis = false,
 }) => {
   const discountPercentage = Math.floor(
     ((precioCompleto - precio) / precioCompleto) * 100
@@ -21,34 +23,30 @@ const ItemContainer = ({
     >
       {/* Seccion de imágenes y nombre */}
       <div className="w-[200px] h-[200px] mx-auto flex items-center justify-center">
-        {imagen ? (
-          <img src={imagen} className="object-contain" />
-        ) : (
-          <PedalBike fontSize="large" color="disabled" />
-        )}
+        <Img src={imagen} />
       </div>
       {/* Seccion de precios y nombre */}
-      <div className="flex flex-wrap text-xl font-bold relative items-center mt-2">
+      <div className="flex flex-wrap text-xl font-bold relative items-center justify-start mt-2">
         <p className="group-hover:text-primary font-medium text-base w-full">
           {nombre}
         </p>
         <div className={`relative ${precioCompleto ? 'mt-3' : ''}`}>
           {precioCompleto && (
             <span className="absolute text-red-500 line-through text-sm text-left -top-3">
-              ${precioCompleto}
+              {colombianPrice(precioCompleto)}
             </span>
           )}
-          ${precio}
+          {colombianPrice(precio)}
           {precioCompleto && (
             <span className="text-sm text-primary ml-2">
               {discountPercentage}% OFF
             </span>
           )}
         </div>
-      </div>
-      {/* Seccion de envio gratis y etiquetas extra */}
-      <div>
-        {freeShipping && (
+
+        {/* Seccion de envio gratis y etiquetas extra */}
+
+        {envioGratis && (
           <p className="text-sm text-white bg-green-600 py-1 px-2 rounded-md font-semibold w-fit my-2">
             <LocalShipping fontSize="small" className="mr-2" />
             Envío gratis
@@ -59,11 +57,12 @@ const ItemContainer = ({
   )
 }
 ItemContainer.propTypes = {
-  imagen: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  idProducto: PropTypes.number.isRequired,
+  imagen: PropTypes.string,
+  nombre: PropTypes.string.isRequired,
   precio: PropTypes.number.isRequired,
   precioCompleto: PropTypes.number,
-  freeShipping: PropTypes.bool,
+  envioGratis: PropTypes.bool,
 }
 
 export default ItemContainer

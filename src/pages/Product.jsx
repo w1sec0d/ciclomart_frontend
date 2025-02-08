@@ -5,8 +5,9 @@ import { useQuery } from 'react-query'
 import Loading from '../components/Loading'
 import MercadoPagoWallet from '../components/Payments/MercadoPagoWallet'
 import mercadoPago from '../services/mercadoPago'
+import Img from '../components/Img'
 
-const ProductPage = ({ product }) => {
+const ProductPage = () => {
   // get product id from URL
   const { id } = useParams()
   // fetch product data from API using react query
@@ -36,11 +37,10 @@ const ProductPage = ({ product }) => {
   if (isError) return <p>Error: {isError.message}</p>
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-      {/* <img
-        className="w-full h-64 object-cover"
-        // src={product.image}
-        // alt={product.name}
-      /> */}
+      <Img
+        src={producto.imagen}
+        alt={'imagen del productoo: ' + producto.nombre}
+      />
       <div className="p-4">
         <h1 className="text-2xl font-bold">{producto.nombre}</h1>
         <p className="text-xl text-gray-700">${producto.precio}</p>
