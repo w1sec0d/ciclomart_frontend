@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 // componentes
@@ -12,7 +12,6 @@ import { Favorite, FavoriteBorder } from '@mui/icons-material'
 // servicios
 import { getProductById } from '../../services/productService'
 import mercadoPago from '../../services/mercadoPago'
-
 // utils
 import colombianPrice from '../../utils/colombianPrice'
 
@@ -25,21 +24,11 @@ const ProductPage = () => {
     isLoading,
     isError,
   } = useQuery(['productos', id], () => getProductById(id))
-  const [preferenceId, setPreferenceId] = React.useState(null)
 
   const handleBuy = async () => {
-    try {
-      const retrievedId = await mercadoPago.createPreference({
-        title: producto.nombre,
-        quantity: 1,
-        price: producto.precio,
-      })
-      console.log('retrievedId', retrievedId)
-
-      setPreferenceId(retrievedId)
-    } catch (error) {
-      console.error('Error creando la preferencia de MercadoPago:', error)
-    }
+    const { paymentURL } = await mercadoPago.sendBuyRequest(producto)
+    console.log('paymentUrL', paymentURL)
+    window.location.href = paymentURL
   }
 
   if (isLoading) return <Loading />
@@ -86,7 +75,6 @@ const ProductPage = () => {
             </p>
           </div>
           <Button onClick={handleBuy}>Comprar</Button>
-          {preferenceId && <MercadoPagoWallet preferenceId={preferenceId} />}
         </div>
       </div>
       <div className="py-4">
