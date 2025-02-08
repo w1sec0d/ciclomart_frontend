@@ -6,6 +6,12 @@ import Img from './Img'
 
 import ComparisonButton from './Comparison/ComparisonButton'
 import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  setComparisonItem,
+  cleanComparison,
+  removeComparisonItem,
+} from '../store/slices/comparisonSlice'
 
 const ItemContainer = ({
   idProducto,
@@ -20,11 +26,27 @@ const ItemContainer = ({
   )
 
   const [selected, setSelected] = useState(false)
+  const dispatch = useDispatch()
+  const idProduct1 = useSelector((state) => state.comparison.idProduct1)
+  const idProduct2 = useSelector((state) => state.comparison.idProduct2)
 
   const handleComparison = (event) => {
     event.stopPropagation()
     event.preventDefault()
-    setSelected(!selected)
+
+    if (idProduct1 === idProducto) {
+      dispatch(removeComparisonItem('idProduct1'))
+      setSelected(false)
+    } else if (idProduct2 === idProducto) {
+      dispatch(removeComparisonItem('idProduct2'))
+      setSelected(false)
+    } else if (idProduct1 === 0) {
+      dispatch(setComparisonItem({ key: 'idProduct1', value: idProducto }))
+      setSelected(true)
+    } else if (idProduct2 === 0) {
+      dispatch(setComparisonItem({ key: 'idProduct2', value: idProducto }))
+      setSelected(true)
+    }
   }
 
   return (
