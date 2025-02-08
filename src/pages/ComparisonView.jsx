@@ -61,17 +61,33 @@ const ComparisonView = () => {
     'tipo de frenos': 'Caliper',
     velocidades: 22,
     transmision: 'Shimano Ultegra',
+    lol: 'xd',
     peso: 8,
   }
 
+  //Captura las keys de cada uno de los productos
   const propertiesProduct1 = Object.keys(product1)
   const propertiesProduct2 = Object.keys(product2)
+  const properties = propertiesProduct1.concat(propertiesProduct2)
 
-  const coincidences = propertiesProduct1.filter((property, i) => {
+  //Captura las coindencias entre los productos y retorna las keys sin duplicados
+  const coincidences = properties.filter((property) => {
     if (property != 'idProducto') {
-      return propertiesProduct2.includes(property)
+      return (
+        propertiesProduct2.includes(property) &&
+        propertiesProduct1.includes(property)
+      )
     }
   })
+
+  const uniqCoincidences = [...new Set(coincidences)]
+
+  //Captura las discrepancias entre los productos
+  const discrepancies = properties.filter(
+    (property) =>
+      !propertiesProduct2.includes(property) ||
+      !propertiesProduct1.includes(property)
+  )
 
   console.log('Renderizando Comparación')
   return (
@@ -89,13 +105,16 @@ const ComparisonView = () => {
           title={'Elementos Compartidos'}
           product1={product1}
           product2={product2}
-          coincidences={coincidences}
+          coincidences={uniqCoincidences}
         />
         {/*Sección elementos Agregados */}
         <ComparisionSection
           title={'Agregados'}
           className1={'rounded-bl-3xl'}
           className2={'rounded-br-3xl'}
+          product1={product1}
+          product2={product2}
+          coincidences={discrepancies}
         />
       </div>
       <button className="mx-10 mb-10 bg-tertiary bg-opacity-45 rounded-xl h-12 drop-shadow-2xl hover:bg-tertiary">
