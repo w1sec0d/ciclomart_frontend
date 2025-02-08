@@ -1,20 +1,14 @@
 // React and state logic
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { setAuthUser } from './store/slices/authSlice'
+import { useState } from 'react'
 
 // Routing
 import { Route, Routes } from 'react-router-dom'
-
-//State
-import { useState } from 'react'
 
 // Pages
 import Landing from './pages/Landing'
 import Register from './pages/Register'
 import Search from './pages/Search'
 import Profile from './pages/Profile'
-import UserInfo from './pages/UserInfo'
 import Login from './pages/Login'
 import Verificacion from './pages/Verificacion'
 import PasswordRecovery from './pages/PasswordRecovery'
@@ -22,8 +16,9 @@ import CodeVerification from './pages/CodeVerification'
 import Layout from './components/Layout'
 import ComparisonView from './pages/ComparisonView'
 
+// Services
 import apiService from './services/apiService'
-import getUserFromLocalStorage from './utils/getUser'
+import ProductPage from './pages/Product/Product'
 
 const App = () => {
   const [searchText, setSearchText] = useState('')
@@ -36,16 +31,6 @@ const App = () => {
     console.log('request.results', request.results)
   }
 
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const user = await getUserFromLocalStorage()
-      dispatch(setAuthUser(user))
-    }
-    fetchUser()
-  }, [dispatch])
-
   return (
     <Routes>
       <Route
@@ -55,7 +40,6 @@ const App = () => {
         <Route index element={<Landing />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="userInfo" element={<UserInfo />} />
         <Route path="verificacion" element={<Verificacion />} />
         <Route path="verificationCode/:token?" element={<CodeVerification />} />
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
@@ -65,7 +49,7 @@ const App = () => {
           element={<Search searchResults={searchResults} name={searchText} />}
         />
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
-        <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
+        <Route path="product/:id" element={<ProductPage />} />
         <Route path="comparison" element={<ComparisonView />} />
       </Route>
     </Routes>
