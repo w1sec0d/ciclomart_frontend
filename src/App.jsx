@@ -18,6 +18,7 @@ import Layout from './components/Layout'
 // Services
 import apiService from './services/apiService'
 import ProductPage from './pages/Product/Product'
+import RequestResult from './pages/RequestResult'
 
 const App = () => {
   const [searchText, setSearchText] = useState('')
@@ -49,6 +50,10 @@ const App = () => {
         />
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
         <Route path="product/:id" element={<ProductPage />} />
+        <Route
+          path="requestResult/:type"
+          element={<RequestResult message="Compra exitosa" />}
+        />
       </Route>
     </Routes>
   )
