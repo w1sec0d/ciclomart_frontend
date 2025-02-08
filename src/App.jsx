@@ -21,7 +21,7 @@ import Layout from './components/Layout'
 // Services
 import apiService from './services/apiService'
 import getUserFromLocalStorage from './utils/getUser'
-import ProductPage from './pages/Product'
+import ProductPage from './pages/Product/Product'
 
 // MercadoPago
 import { initMercadoPago } from '@mercadopago/sdk-react'
