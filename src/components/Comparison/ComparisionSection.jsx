@@ -1,4 +1,17 @@
 import { twMerge } from 'tailwind-merge'
+import { useState } from 'react'
+
+const DiffsButton = ({ onClick }) => {
+  return (
+    <button
+      className=" bg-tertiary rounded-xl 
+   drop-shadow-2xl hover:bg-tertiary absolute right-4 px-4"
+      onClick={onClick}
+    >
+      <b className="text-xl">Resaltar diferencias</b>
+    </button>
+  )
+}
 
 const ComparisionSection = ({
   title,
@@ -8,7 +21,24 @@ const ComparisionSection = ({
   coincidences = [],
   product1,
   product2,
+  highlightDiffs = false,
 }) => {
+  const [differences, setDifferences] = useState()
+
+  //Establece las diferencias, este handle Diffs es utilizado
+  //Solo en la sección de elementos compartidos, por ello se usa la misma coincidence
+  //En caso de que un valor sea diferente se devuelven las keys en las que lo es
+  const handleDiffs = (coincidences) => {
+    if (differences) {
+      setDifferences()
+    } else {
+      const newDifferences = coincidences.filter(
+        (coincidence) => product1[coincidence] != product2[coincidence]
+      )
+      setDifferences(newDifferences)
+    }
+  }
+
   // Filtra las propiedades que existen en product1 y product2 para imprimir solo lo existente en cada producto
   const filteredCoincidences1 = coincidences.filter(
     (property) => product1[property]
@@ -21,11 +51,15 @@ const ComparisionSection = ({
     <div>
       <div
         className={twMerge(
-          'text-zinc-500 h-10 border-y border-y-lgray w-full flex items-center justify-center  text-xl',
+          'text-black h-10 border-y border-y-lgray w-full flex flex-row items-center justify-center  text-xl bg-lblue opacity-80 relative',
           className3
         )}
       >
+        {/*Muestra un botón para resaltar diferencias */}
         <b>{title}</b>
+        {highlightDiffs ? (
+          <DiffsButton onClick={() => handleDiffs(filteredCoincidences1)} />
+        ) : null}
       </div>
       <div className="h-auto max-h-72 flex flex-row w-full overflow-auto pr-0">
         <div className={twMerge('w-1/2 bg-white h-auto', className1)}>
@@ -33,7 +67,9 @@ const ComparisionSection = ({
           {filteredCoincidences1.map((property, index) => {
             return (
               <div
-                className={`h-12 ${index === filteredCoincidences1.length - 1 ? '' : 'border-b'} flex items-center pl-3 border-lgray border-r`}
+                className={`h-12 ${index === filteredCoincidences1.length - 1 ? '' : 'border-b'} 
+                ${differences && differences.includes(property) ? 'bg-red-100' : 'bg-white'}
+                flex items-center pl-3 border-lgray border-r `}
                 key={index}
               >
                 <p>

@@ -59,7 +59,7 @@ const ComparisonView = () => {
     'material del marco': 'Carbono',
     'tamaño de rueda': '700C',
     'tipo de frenos': 'Caliper',
-    velocidades: 22,
+    velocidades: 21,
     transmision: 'Shimano Ultegra',
     lol: 'xd',
     peso: 8,
@@ -104,6 +104,7 @@ const ComparisonView = () => {
           product1={product1}
           product2={product2}
           coincidences={coincidences}
+          highlightDiffs={true}
         />
         {/*Sección elementos Agregados */}
         <ComparisionSection
@@ -115,9 +116,6 @@ const ComparisonView = () => {
           coincidences={discrepancies}
         />
       </div>
-      <button className="mx-10 mb-10 bg-tertiary bg-opacity-45 rounded-xl h-12 drop-shadow-2xl hover:bg-tertiary">
-        <b className="text-xl">Resaltar Diferencias</b>
-      </button>
 
       <div className="flex justify-center">
         <SouthIcon style={{ fontSize: '9rem', opacity: 0.1 }}></SouthIcon>
