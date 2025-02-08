@@ -24,6 +24,56 @@ const Header = () => {
 }
 
 const ComparisonView = () => {
+  const product1 = {
+    idProducto: 1,
+    tipo: 'Bicicleta',
+    nombre: 'MTB X1',
+    precio: 1400000,
+    marca: 'Trek',
+    disponibilidad: 'En stock',
+    'método de envio': 'Domicilio',
+    fechaPublicacion: '2025-02-07',
+    condición: 'Nueva',
+    'tipo de bicicleta': 'Montaña',
+    'tamaño del marco': 'M',
+    'material del marco': 'Aluminio',
+    'tamaño de rueda': '29 pulgadas',
+    'tipo de frenos': 'Disco hidráulico',
+    velocidades: 21,
+    suspensión: 'Doble',
+    transmision: 'Shimano Deore',
+    color: 'Negro y rojo',
+  }
+
+  const product2 = {
+    idProducto: 2,
+    tipo: 'Bicicleta',
+    nombre: 'Speedster 500',
+    precio: 2800000,
+    marca: 'Scott',
+    disponibilidad: 'Agotado',
+    fechaPublicacion: '2025-01-15',
+    condición: 'Nueva',
+    'tipo de bicicleta': 'Ruta',
+    'tamaño del marco': 'L',
+    'material del marco': 'Carbono',
+    'tamaño de rueda': '700C',
+    'tipo de frenos': 'Caliper',
+    velocidades: 22,
+    transmision: 'Shimano Ultegra',
+    peso: 8,
+  }
+
+  const propertiesProduct1 = Object.keys(product1)
+  const propertiesProduct2 = Object.keys(product2)
+
+  const coincidences = propertiesProduct1.filter((property, i) => {
+    if (property != 'idProducto') {
+      return propertiesProduct2.includes(property)
+    }
+  })
+
+  console.log('Renderizando Comparación')
   return (
     <div className="h-auto flex flex-col">
       <div className="h-auto w-auto mx-10 mb-8 my-10 rounded-3xl bg-white drop-shadow-lg flex flex-col">
@@ -35,7 +85,12 @@ const ComparisonView = () => {
           <div className="w-1/2 h-full bg-white  "> </div>
         </div>
         {/*Sección elementos compartidos producto 1 y 2 respectviamente */}
-        <ComparisionSection title={'Elementos Compartidos'} />
+        <ComparisionSection
+          title={'Elementos Compartidos'}
+          product1={product1}
+          product2={product2}
+          coincidences={coincidences}
+        />
         {/*Sección elementos Agregados */}
         <ComparisionSection
           title={'Agregados'}
