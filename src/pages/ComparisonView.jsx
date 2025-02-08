@@ -88,8 +88,6 @@ const ComparisonView = () => {
       !propertiesProduct2.includes(property) ||
       !propertiesProduct1.includes(property)
   )
-
-  console.log('Renderizando Comparación')
   return (
     <div className="h-auto flex flex-col">
       <div className="h-auto w-auto mx-10 mb-8 my-10 rounded-3xl bg-white drop-shadow-lg flex flex-col">
