@@ -26,7 +26,7 @@ const ProductRating = (props) => {
 
   //el id del Documento producto es necesario pasarlo por la prop
 
-  const idDoc = 1
+  const idDoc = 2;
 
   //Obteniendo el id del usuario logueado
 
@@ -241,7 +241,7 @@ const ProductRating = (props) => {
         <div className="flex  items-start space-x-12">
           <div className="flex space-x-5 items-center">
             <div className="text-7xl font-bold text-blue-500">
-              {avgRating.toFixed(1)}
+              {(avgRating || 0).toFixed(1)}
             </div>
             <div className="flex flex-col">
               {!avgRating ? (
