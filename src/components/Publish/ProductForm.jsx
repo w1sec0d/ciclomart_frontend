@@ -17,7 +17,11 @@ const ProductForm = ({ type, onSubmit }) => {
     price: '',
     images: [],
     brand: '',
-    model: ''
+    model: '',
+    availability: '',
+    retire: false,
+    sendPrice: '',
+    state: '',
   });
   
   const [imagePreviews, setImagePreviews] = useState([]);
@@ -57,10 +61,10 @@ const ProductForm = ({ type, onSubmit }) => {
             
             {step === 1 && (
               <GeneralInfo 
-              product={product}
-              handleChange={handleChange}
-              handleImageChange={handleImageChange}
-              imagePreviews={imagePreviews}/>
+                product={product}
+                handleChange={handleChange}
+                handleImageChange={handleImageChange}
+                imagePreviews={imagePreviews}/>
             )}
             
             {step === 2 && (
@@ -71,7 +75,9 @@ const ProductForm = ({ type, onSubmit }) => {
             )}
             
             {step === 3 && (
-              <AvailabilityForm />
+              <AvailabilityForm 
+                product={product}
+                handleChange={handleChange}/>
             )}
             {/* {type === 'bicicleta' && <BycicleForm onSubmit={onSubmit} />}
             {type === 'repuesto' && <SparePartForm onSubmit={onSubmit} />} */}
