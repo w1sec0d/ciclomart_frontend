@@ -105,9 +105,29 @@ const filters = {
         }
 
     ,
-    componente: [
+    componente: {
+        compatibilidad:{
+            label: 'Compatibilidad',
+            options: [
+                { value: 'montaña', label: 'Montaña' },
+                { value: 'ruta', label: 'Ruta' },
+                { value: 'bmx', label: 'BMX' },
+                { value: 'electrica', label: 'Electrica' },
+            ]
+        },
 
-    ],
+        categoria:{
+            label: 'Categoria',
+            options: [
+                { value: 'ruedas', label: 'Ruedas' },
+                { value: 'transmision', label: 'Transmisión' },
+                { value: 'frenos', label: 'Frenos' },
+                { value: 'suspension', label: 'Suspensión' },
+                { value: 'manubrio', label: 'Manubrio' },
+                { value: 'pedales', label: 'Pedales' },
+            ]
+        },
+    },
 }
 
 export default filters
