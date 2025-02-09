@@ -6,41 +6,7 @@ import TextArea from '../TextArea'
 import Button from '../Button'
 import Select from './Select'
 
-const BycicleForm = ({ onSubmit }) => {
-  const [bycicle, setBycicle] = useState({
-    tipo: '',
-    color: '',
-    genero: '',
-    edad: '',
-    tamanoMarco: '',
-    materialMarco: '',
-    modeloMarco: '',
-    modeloRuedas: '',
-    tamanoRuedas: '',
-    tipoFrenos: '',
-    modeloFrenos: '',
-    tipoManubrio: '',
-    modeloManubrio: '',
-    tipoSuspension: '',
-    velocidades: '',
-    transmision: '',
-    tipoPedales: '',
-    modeloPedales: '',
-    modeloCassette: '',
-    modeloSillin: '',
-    modeloCadena: '',
-    extras: '',
-  })
-
-  const handleChange = (event) => {
-    const { id, value } = event.target
-    setBycicle({ ...bycicle, [id]: value })
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    onSubmit(bycicle)
-  }
+const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
 
   return (
     <>

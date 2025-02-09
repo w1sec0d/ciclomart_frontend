@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ProductForm from '../components/Publish/ProductForm'
 import ProductSelection from '../components/Publish/ProductSelection'
 import Verification from '../components/Publish/Verification'
+import publicationService from '../services/publicationService'
 
 const Publish = () => {
   const [step, setStep] = useState('selection')
@@ -13,14 +14,17 @@ const Publish = () => {
     setStep('form')
   }
 
-  const handleFormSubmit = (data) => {
-    setProductData(data)
-    if (productType === 'bicycle') {
-      setStep('verification')
-    } else {
-      setStep('complete')
+  const handleFormSubmit = (general, product) => {
+    const finalProduct = { ...general, ...product }
+    setProductData(finalProduct)
+    console.log('Final Product:', finalProduct)
+    setStep('complete')
+    publicationService.publishProduct(finalProduct).then((data) => {
       console.log('Product Data:', data)
-    }
+    }).catch((error) => {
+      console.log('Error:', error)
+    })
+    
   }
 
   const handleVerification = (code) => {

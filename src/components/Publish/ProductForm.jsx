@@ -12,6 +12,7 @@ const ProductForm = ({ type, onSubmit }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [product, setProduct] = useState({
+    type: type,
     title: '',
     description: '',
     price: '',
@@ -23,12 +24,49 @@ const ProductForm = ({ type, onSubmit }) => {
     sendPrice: '',
     state: '',
   });
+
+  const [bycicle, setBycicle] = useState({
+    tipo: '',
+    color: '',
+    genero: '',
+    edad: '',
+    tamanoMarco: '',
+    materialMarco: '',
+    modeloMarco: '',
+    modeloRuedas: '',
+    tamanoRuedas: '',
+    tipoFrenos: '',
+    modeloFrenos: '',
+    tipoManubrio: '',
+    modeloManubrio: '',
+    tipoSuspension: '',
+    velocidades: '',
+    transmision: '',
+    tipoPedales: '',
+    modeloPedales: '',
+    modeloCassette: '',
+    modeloSillin: '',
+    modeloCadena: '',
+    extras: '',
+  })
+
+  const [componentData, setComponentData] = useState({
+    compatibilidad: '',
+    modelo:'',
+    categoria: '',
+    marca: '',
+  })
   
   const [imagePreviews, setImagePreviews] = useState([]);
 
-  const handleSubmit = (e, data) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    onSubmit(data)
+    if (type === 'bicicleta') {
+      onSubmit(product, bycicle)
+    }
+    else if (type === 'repuesto') {
+      onSubmit(product, componentData)
+    }
   }
 
   const handleChange = (e) => {
@@ -43,6 +81,16 @@ const ProductForm = ({ type, onSubmit }) => {
     const previews = files.map(file => URL.createObjectURL(file));
     setImagePreviews(previews);
   };
+
+  const handleComponentChange = (e) => {
+    const { name, value } = e.target
+    setComponentData({ ...formData, [name]: value })
+  }
+
+  const handleBycicleChange = (event) => {
+    const { id, value } = event.target
+    setBycicle({ ...bycicle, [id]: value })
+  }
 
   const handleNext = () => {
     setStep(step + 1);
@@ -69,8 +117,14 @@ const ProductForm = ({ type, onSubmit }) => {
             
             {step === 2 && (
               <>
-              {type === 'bicicleta' && <BycicleForm />}
-              {type === 'repuesto' && <SparePartForm />}
+              {type === 'bicicleta' && 
+                <BycicleForm 
+                  bycicle={bycicle}
+                  handleChange={handleBycicleChange}/>}
+              {type === 'repuesto' && 
+                <SparePartForm 
+                  componentData={componentData}
+                  handleChange={handleComponentChange}/>}
               </>
             )}
             

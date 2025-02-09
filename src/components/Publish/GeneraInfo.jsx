@@ -61,9 +61,7 @@ const GeneralInfo = ({ product, handleChange, handleImageChange, imagePreviews})
                     id="brand"
                     label="Marca"
                     value={product.brand}
-                    onChange={handleImageChange}
-                    multiple
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                    onChange={handleChange}
                 />
             </div>
             <div>
@@ -72,9 +70,7 @@ const GeneralInfo = ({ product, handleChange, handleImageChange, imagePreviews})
                     id="model"
                     label="Modelo"
                     value={product.model}
-                    onChange={handleImageChange}
-                    multiple
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                    onChange={handleChange}
                 />
             </div>
           </div>
