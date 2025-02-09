@@ -14,6 +14,7 @@ import mercadoPago from '../../services/mercadoPago'
 // utils
 import colombianPrice from '../../utils/colombianPrice'
 import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
+import ProductRating from '../ProductRating'
 
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
@@ -89,6 +90,9 @@ const ProductPage = () => {
           eos nesciunt, laborum nemo ratione neque doloribus ut earum. Odio illo
           ullam totam corrupti sint omnis quas, asperiores ipsam?
         </p>
+      </div>
+      <div>
+        <ProductRating />
       </div>
     </section>
   )

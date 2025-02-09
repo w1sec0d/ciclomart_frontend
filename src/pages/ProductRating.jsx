@@ -1,8 +1,7 @@
 import RatingView from '../components/RatingView'
 import Button from '../components/Button'
-import { get, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { FaStar, FaUpload } from 'react-icons/fa'
-import Input from '../components/Input'
 import { useState, useRef, useEffect } from 'react'
 import StarRating from '../components/StarRating'
 import { setNotification } from '../store/slices/notificationSlice'
@@ -11,13 +10,15 @@ import { useSelector } from 'react-redux'
 import ratingService from '../services/ratingService'
 import axios from 'axios'
 import Loading from '../components/Loading'
+import { useParams } from 'react-router-dom'
 
 const ProductRating = (props) => {
+  const { id } = useParams()
+
   const { register, handleSubmit, reset } = useForm()
   const [rating, setRating] = useState(null)
   const [hover, setHover] = useState(null)
   const [image, setImage] = useState(null)
-  const [error, setError] = useState('')
   const [commentList, setCommentList] = useState([])
   const [newCommentAdded, setNewCommentAdded] = useState(false)
   const [avgRating, setAvgRating] = useState(0)
@@ -26,7 +27,7 @@ const ProductRating = (props) => {
 
   //el id del Documento producto es necesario pasarlo por la prop
 
-  const idDoc = 2;
+  const idDoc = id
 
   //Obteniendo el id del usuario logueado
 
@@ -35,8 +36,6 @@ const ProductRating = (props) => {
   //Verifica si un usuario ya ha realizado un compra del producto
   const checkPurchase = async () => {
     try {
-      if (!authUser || !authUser.idUsuario) return <Loading />
-
       const idUsuario = authUser.idUsuario
 
       const request = await ratingService.checkUserPurchase({
@@ -82,7 +81,6 @@ const ProductRating = (props) => {
     const file = e.target.files[0]
     if (file && file.type.startsWith('image/')) {
       setImage(file)
-      setError('')
     } else {
       dispatch(
         setNotification({
@@ -235,7 +233,7 @@ const ProductRating = (props) => {
   }
 
   return (
-    <div className="flex flex-col h-screen-minus-navbar px-8 py-12 overflow-auto">
+    <div className="flex flex-col px-8 py-12">
       <h2 className="font-black text-2xl"> Opiniones del producto</h2>
       <div className="mt-4">
         <div className="flex  items-start space-x-12">
