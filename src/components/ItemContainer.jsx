@@ -5,13 +5,7 @@ import { Link } from 'react-router-dom'
 import Img from './Img'
 
 import ComparisonButton from './Comparison/ComparisonButton'
-import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  setComparisonItem,
-  cleanComparison,
-  removeComparisonItem,
-} from '../store/slices/comparisonSlice'
+import { useSelector } from 'react-redux'
 
 const ItemContainer = ({
   idProducto,
@@ -25,34 +19,19 @@ const ItemContainer = ({
     ((precioCompleto - precio) / precioCompleto) * 100
   )
 
-  const [selected, setSelected] = useState(false)
-  const dispatch = useDispatch()
   const idProduct1 = useSelector((state) => state.comparison.idProduct1)
   const idProduct2 = useSelector((state) => state.comparison.idProduct2)
-
-  const handleComparison = (event) => {
-    event.stopPropagation()
-    event.preventDefault()
-
-    if (idProduct1 === idProducto) {
-      dispatch(removeComparisonItem('idProduct1'))
-      setSelected(false)
-    } else if (idProduct2 === idProducto) {
-      dispatch(removeComparisonItem('idProduct2'))
-      setSelected(false)
-    } else if (idProduct1 === 0) {
-      dispatch(setComparisonItem({ key: 'idProduct1', value: idProducto }))
-      setSelected(true)
-    } else if (idProduct2 === 0) {
-      dispatch(setComparisonItem({ key: 'idProduct2', value: idProducto }))
-      setSelected(true)
-    }
-  }
+  const selectedClass =
+    idProduct1 === idProducto
+      ? 'border-4 border-secondary border-dashed'
+      : idProduct2 === idProducto
+        ? 'border-4 border-tertiary border-dashed'
+        : ''
 
   return (
     <Link
       className={`flex flex-col justify-evenly w-[225px] h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative 
-        ${selected ? 'border-4 border-secondary border-dashed' : ''}`}
+        ${selectedClass}`}
       to={`/product/${idProducto}`}
     >
       {/* Seccion de imágenes y nombre */}
@@ -61,7 +40,7 @@ const ItemContainer = ({
       </div>
 
       {/*Botón de comparación en hover*/}
-      <ComparisonButton onClick={handleComparison} />
+      <ComparisonButton idProducto={idProducto} />
 
       {/* Seccion de precios y nombre */}
       <div className="flex flex-wrap text-xl font-bold relative items-center justify-start mt-2">
