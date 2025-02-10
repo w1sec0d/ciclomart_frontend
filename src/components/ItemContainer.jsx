@@ -13,7 +13,7 @@ const ItemContainer = ({
   nombre,
   precio,
   precioCompleto,
-  envioGratis = false,
+  costoEnvio,
 }) => {
   const discountPercentage = Math.floor(
     ((precioCompleto - precio) / precioCompleto) * 100
@@ -47,8 +47,7 @@ const ItemContainer = ({
         <p className="group-hover:text-primary font-medium text-base w-full">
           {nombre}
         </p>
-
-        <div className={`relative ${precioCompleto ? 'mt-3' : ''}`}>
+        <div className={`relative ${precioCompleto ? 'mt-3' : ''} w-full`}>
           {precioCompleto && (
             <span className="absolute text-red-500 line-through text-sm text-left -top-3">
               {colombianPrice(precioCompleto)}
@@ -64,7 +63,7 @@ const ItemContainer = ({
 
         {/* Seccion de envio gratis y etiquetas extra */}
 
-        {envioGratis && (
+        {costoEnvio === 0 && (
           <p className="text-sm text-white bg-green-600 py-1 px-2 rounded-md font-semibold w-fit my-2">
             <LocalShipping fontSize="small" className="mr-2" />
             Envío gratis

@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
@@ -7,19 +7,22 @@ import Loading from '../../components/Loading'
 import Button from '../../components/Button'
 import Img from '../../components/Img'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
+import ProductRating from '../ProductRating'
 
 // servicios
 import { getProductById } from '../../services/productService'
 import mercadoPago from '../../services/mercadoPago'
+
 // utils
 import colombianPrice from '../../utils/colombianPrice'
 import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
-import ProductRating from '../ProductRating'
+import capitalize from '../../utils/capitalize'
 
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
   const { id } = useParams()
   const dispatch = useDispatch()
+  const authUser = useSelector((state) => state.auth.authUser)
   // Hace fetch del producto con react-query
   const {
     data: producto,
@@ -29,7 +32,10 @@ const ProductPage = () => {
 
   const handleBuy = async () => {
     dispatch(setLoading())
-    const { paymentURL } = await mercadoPago.sendBuyRequest(producto)
+    const { paymentURL } = await mercadoPago.sendBuyRequest(
+      producto,
+      authUser.idUsuario
+    )
     window.location.href = paymentURL
     setTimeout(() => {
       dispatch(clearLoading())
@@ -64,16 +70,16 @@ const ProductPage = () => {
           {/* Detalles del producto */}
           <div className="my-2 tracking-wide">
             <p>
-              <b>Marca</b>: {producto.nombreMarca}
+              <b>Marca</b>: {producto.nombreMarca ?? 'Genérica'}
             </p>
             <p>
-              <b>Tipo</b>: {producto.tipo}
+              <b>Tipo</b>: {capitalize(producto.tipo)}
             </p>
             <p>
               <b>Estado</b>:{' '}
-              {producto.disponibilidad === 'inmediata'
+              {producto.disponibilidad === 'disponible'
                 ? 'Disponible'
-                : 'No disponible'}
+                : 'No Disponible'}
             </p>
             <p>
               <b>Publicado el: </b>
@@ -86,9 +92,8 @@ const ProductPage = () => {
       <div className="py-4">
         <b>Descripción:</b>
         <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. A quos est
-          eos nesciunt, laborum nemo ratione neque doloribus ut earum. Odio illo
-          ullam totam corrupti sint omnis quas, asperiores ipsam?
+          {producto.descripcionModelo ||
+            'Este producto no tiene descripción aún.'}
         </p>
       </div>
       <div>

@@ -134,7 +134,7 @@ const LandingPage = () => {
         </h2>
         <Carousel responsive={itemContainer} className="pl-7 pb-10">
           {productos.map((producto) => {
-            if (producto.categoría !== 'componente') return null
+            if (producto.tipo !== 'componente') return null
             return (
               <ItemContainer
                 {...producto}
