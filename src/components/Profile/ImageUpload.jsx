@@ -45,7 +45,6 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
       await axios.put(`${API_URL}/updateUsuarioFoto/${authUser.idUsuario}`, {
         photoUrl: response.data.secure_url,
       })
-      dispatch(setAuthUser({ ...authUser, foto: response.data.secure_url }))
       setUrl(response.data.secure_url)
       setLoading(false)
       setImage(null) // Reset the image state after successful upload

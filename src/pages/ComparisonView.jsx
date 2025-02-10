@@ -2,7 +2,6 @@
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { getProductById } from '../services/productService'
-
 // Componentes
 import BuyButton from '../components/Comparison/BuyButton'
 import ComparisionSection from '../components/Comparison/ComparisionSection'
@@ -34,20 +33,21 @@ const ComparisonView = () => {
   const { id1, id2 } = useParams()
 
   const {
-    data: product1,
-    isLoading: isLoading1,
-    isError: isError1,
-  } = useQuery(['productos', id1], () => getProductById(id1))
+    data: products,
+    isLoading,
+    isError,
+  } = useQuery(['productos', id1, id2], async () => {
+    const [product1, product2] = await Promise.all([
+      getProductById(id1),
+      getProductById(id2),
+    ])
+    return { product1, product2 }
+  })
 
-  const {
-    data: product2,
-    isLoading: isLoading2,
-    isError: isError2,
-  } = useQuery(['productos', id2], () => getProductById(id2))
+  if (isLoading) return <Loading />
+  if (isError) return <p>{isError.message}</p>
 
-  if (isLoading1 || isLoading2) return <Loading />
-  if (isError1) return <p>{isError1.message}</p>
-  if (isError2) return <p>{isError2.message}</p>
+  const { product1, product2 } = products
 
   //Captura las keys de cada uno de los productos
   const propertiesProduct1 = Object.keys(product1)
