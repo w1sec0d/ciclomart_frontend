@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types'
+import ComparisonButton from './Comparison/ComparisonButton'
 
 //This component is used to display each product row in the table display of search page.
 
 const ProductRow = (props) => {
+  console.log('Aquí', props)
   return (
-    <div className="grid grid-cols-4 border-b py-4 px-4 items-center">
+    <div className="grid grid-cols-4 border-b py-4 px-4 items-center group relative h-auto">
+      <ComparisonButton />
       <div className="flex items-center">
         <img src={props.image} alt={props.title} className="h-20 w-20 mr-4" />
       </div>

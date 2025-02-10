@@ -50,7 +50,7 @@ const App = () => {
         />
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
         <Route path="product/:id" element={<ProductPage />} />
-        <Route path="comparison" element={<ComparisonView />} />
+        <Route path="comparison/:id1/:id2" element={<ComparisonView />} />
       </Route>
     </Routes>
   )
