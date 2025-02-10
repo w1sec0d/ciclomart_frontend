@@ -14,7 +14,6 @@ const createPreference = async (item) => {
 
 const sendBuyRequest = async (producto) => {
   try {
-    console.log('unitPRice', producto.precio)
     const request = await createPreference({
       title: producto.nombre,
       unit_price: producto.precio,

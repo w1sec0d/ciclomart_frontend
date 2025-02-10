@@ -1,8 +1,8 @@
 import RatingView from '../components/RatingView'
 import Button from '../components/Button'
-import { useForm } from 'react-hook-form'
+import { get, useForm } from 'react-hook-form'
 import { FaStar, FaUpload } from 'react-icons/fa'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import StarRating from '../components/StarRating'
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
@@ -20,14 +20,13 @@ const ProductRating = (props) => {
   const [hover, setHover] = useState(null)
   const [image, setImage] = useState(null)
   const [commentList, setCommentList] = useState([])
-  const [newCommentAdded, setNewCommentAdded] = useState(false)
   const [avgRating, setAvgRating] = useState(0)
   const fileInputRef = useRef(null)
   const dispatch = useDispatch()
 
   //el id del Documento producto es necesario pasarlo por la prop
 
-  const idDoc = id
+  const idDoc = Number(id)
 
   //Obteniendo el id del usuario logueado
 
@@ -36,27 +35,36 @@ const ProductRating = (props) => {
   //Verifica si un usuario ya ha realizado un compra del producto
   const checkPurchase = async () => {
     try {
+      if (!authUser || !authUser.idUsuario) {
+        dispatch(
+          setNotification({
+            title: '¡UPS!',
+            text: 'Debes iniciar sesión primero para poder calificar el producto',
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+        return
+      }
       const idUsuario = authUser.idUsuario
 
       const request = await ratingService.checkUserPurchase({
         idComprador: idUsuario,
-        idDocProducto: idDoc,
+        idProducto: idDoc,
       })
 
-      if (request.results.length > 0) {
-        return { success: true, idVendedor: request.results[0].idVendedor }
-      }
-      dispatch(
-        setNotification({
-          title: '¡UPS!',
-          text: 'Todavia no has adquirido el producto para poder calificarlo',
-          icon: 'error',
-          timer: 3000,
-        })
-      )
-      return { success: false }
+      return { success: true, idVendedor: request.results[0].idVendedor }
     } catch (error) {
-      console.error('Ocurrio un error ', error)
+      if (error.status === 404) {
+        dispatch(
+          setNotification({
+            title: '¡UPS!',
+            text: 'No has adquirido el producto para poder calificarlo',
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+      }
     }
   }
 
@@ -94,41 +102,77 @@ const ProductRating = (props) => {
   }
 
   // Obtiene todos las calificaciones del producto es necesario cambiar el valor por la prop
-  const getProductRating = async () => {
+  const getProductRating = useCallback(async () => {
+    const getAvgRating = async () => {
+      try {
+        const request = await ratingService.getAvgRatingProduct(idDoc)
+        setAvgRating(request.results[0].avg_calificacion)
+      } catch (error) {
+        console.error(
+          'Error al obtener el promedio de las calificaciones',
+          error
+        )
+      }
+    }
     try {
       const request = await ratingService.getRatingProduct(idDoc)
+      console.log('request', request)
       setCommentList(request.results)
       getAvgRating()
     } catch (error) {
       console.error('Error al obtener las calificaciones', error)
     }
-  }
+  }, [idDoc])
 
   //Actualiza el componente cada vez que se agrega un comentario
   useEffect(() => {
     getProductRating()
-  }, [newCommentAdded])
+  }, [getProductRating])
 
   // Envia la calificación al backend
   const onSubmit = async (data) => {
     try {
-      const isPurcharse = await checkPurchase()
+      const isPurchase = await checkPurchase()
+      if (isPurchase.error === 'login') {
+        dispatch(
+          setNotification({
+            title: '¡UPS!',
+            text: 'Debes iniciar sesión primero para poder calificar el producto',
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+        return
+      }
+
+      if (isPurchase.error === 'user') {
+        dispatch(
+          setNotification({
+            title: '¡UPS!',
+            text: 'Todavia no has adquirido el producto para poder calificarlo',
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+        return
+      }
       const idUsuario = authUser.idUsuario
 
       if (
         validateFields(data.calificacion, rating) === 0 &&
-        isPurcharse.success === true
+        isPurchase.success
       ) {
         if (!image) {
           const request = await ratingService.createRating({
             idUsuarioComprador: idUsuario,
             idDocumentoProducto: idDoc,
-            idUsuarioVendedor: isPurcharse.idVendedor,
+            idUsuarioVendedor: isPurchase.idVendedor,
             comentario: data.calificacion,
             nota: rating,
           })
 
-          setNewCommentAdded(true)
+          getProductRating()
+
           dispatch(
             setNotification({
               title: 'Comentario',
@@ -152,13 +196,13 @@ const ProductRating = (props) => {
         const request = await ratingService.createRating({
           idUsuarioComprador: idUsuario,
           idDocumentoProducto: idDoc,
-          idUsuarioVendedor: isPurcharse.idVendedor,
+          idUsuarioVendedor: isPurchase.idVendedor,
           comentario: data.calificacion,
           foto: response.data.secure_url,
           nota: rating,
         })
 
-        setNewCommentAdded(true)
+        getProductRating()
 
         dispatch(
           setNotification({
@@ -170,16 +214,17 @@ const ProductRating = (props) => {
         )
       }
     } catch (error) {
-      console.error(error.response.data)
-      setNewCommentAdded(false)
-      dispatch(
-        setNotification({
-          title: '¡UPS!',
-          text: 'Ocurrio un error. Vuelve a intentarlo',
-          icon: 'error',
-          timer: 3000,
-        })
-      )
+      console.log('error', error)
+      if (error.status === 404) {
+        dispatch(
+          setNotification({
+            title: '¡UPS!',
+            text: 'Ocurrio un error. Vuelve a intentarlo',
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+      }
     } finally {
       setImage(null)
       setRating(null)
@@ -258,9 +303,9 @@ const ProductRating = (props) => {
                 <div key={val.idCalificacion}>
                   <RatingView
                     description={val.comentario}
-                    date={new Date(val.fecha).toLocaleDateString()}
-                    rating={val.nota}
-                    image={val.foto}
+                    date={new Date(val.fechaCalificacion).toLocaleDateString()}
+                    rating={val.puntuacion}
+                    // image={val.foto}
                   />
                 </div>
               ))

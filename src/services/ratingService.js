@@ -18,8 +18,9 @@ const createRating = async (data) => {
 }
 
 const checkUserPurchase = async (data) => {
-  const request = await axios.get(
-    API_URL + `/checkUserPurchase/${data.idComprador}/${data.idDocProducto}`,
+  console.log('data', data)
+  const request = await axios.post(
+    API_URL + `/checkUserPurchase/`,
     data
   )
   return request.data
