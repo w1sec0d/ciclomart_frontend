@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 
 const ItemContainer = ({
   idProducto,
-  imagen,
+  imagenURL,
   nombre,
   precio,
   precioCompleto,
@@ -35,8 +35,8 @@ const ItemContainer = ({
       to={`/product/${idProducto}`}
     >
       {/* Seccion de imágenes y nombre */}
-      <div className="w-[200px] h-[200px] mx-auto flex items-center justify-center opac">
-        <Img src={imagen} />
+      <div className="w-[200px] h-[200px] mx-auto flex items-center justify-center">
+        <Img src={imagenURL} />
       </div>
 
       {/*Botón de comparación en hover*/}
@@ -76,7 +76,7 @@ const ItemContainer = ({
 }
 ItemContainer.propTypes = {
   idProducto: PropTypes.number.isRequired,
-  imagen: PropTypes.string,
+  imagenURL: PropTypes.string,
   nombre: PropTypes.string.isRequired,
   precio: PropTypes.number.isRequired,
   precioCompleto: PropTypes.number,

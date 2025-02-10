@@ -14,6 +14,7 @@ import mercadoPago from '../../services/mercadoPago'
 // utils
 import colombianPrice from '../../utils/colombianPrice'
 import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
+import ProductRating from '../ProductRating'
 
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
@@ -42,7 +43,7 @@ const ProductPage = () => {
     <section className="px-10">
       <div className="flex justify-evenly items-center py-10">
         <Img
-          src={producto.imagen}
+          src={producto.imagenURL}
           alt={'Imagen del producto: ' + producto.nombre}
           className="max-w-[500px] max-h-[500px]"
         />
@@ -63,7 +64,7 @@ const ProductPage = () => {
           {/* Detalles del producto */}
           <div className="my-2 tracking-wide">
             <p>
-              <b>Marca</b>: {producto.marca}
+              <b>Marca</b>: {producto.nombreMarca}
             </p>
             <p>
               <b>Tipo</b>: {producto.tipo}
@@ -89,6 +90,9 @@ const ProductPage = () => {
           eos nesciunt, laborum nemo ratione neque doloribus ut earum. Odio illo
           ullam totam corrupti sint omnis quas, asperiores ipsam?
         </p>
+      </div>
+      <div>
+        <ProductRating />
       </div>
     </section>
   )
