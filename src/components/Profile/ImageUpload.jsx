@@ -1,13 +1,14 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
-import { setAuthUser } from '../../store/slices/authSlice'
+import apiService from '../../services/apiService'
 import { useDispatch } from 'react-redux'
 
 const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
   const dispatch = useDispatch()
   const authUser = useSelector((state) => state.auth.authUser)
+  const [photo, setPhoto] = useState('')
   const [hoverPhoto, setHoverPhoto] = useState(false)
   const [image, setImage] = useState(null)
   const [url, setUrl] = useState('')
@@ -55,6 +56,19 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
     }
   }
 
+  useEffect(() => {
+    const fetchUserPhoto = async () => {
+      try {
+        const photo = await apiService.getUsuarioPhoto(authUser.idUsuario)
+        setPhoto(photo)
+      } catch (error) {
+        console.error('Error fetching user photo:', error)
+      }
+    }
+
+    fetchUserPhoto()
+  }, [url])
+
   return (
     <div className="h-full">
       <form
@@ -70,7 +84,7 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
               src={
                 image
                   ? URL.createObjectURL(image)
-                  : authUser.foto || defaultPhoto
+                  : photo.photoUrl || defaultPhoto
               }
               className="transition duration-200 ease-in-out hover:scale-110 hover:opacity-80 hover:cursor-pointer w-36 h-36 rounded-full"
               onMouseEnter={() => setHoverPhoto(true)}
