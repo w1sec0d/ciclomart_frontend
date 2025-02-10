@@ -95,7 +95,6 @@ const LandingPage = () => {
       </h2>
       <Carousel responsive={itemContainer} className="pl-7 pb-10">
         {productos.map((producto) => {
-          console.log('producto', producto)
           return (
             <ItemContainer
               {...producto}

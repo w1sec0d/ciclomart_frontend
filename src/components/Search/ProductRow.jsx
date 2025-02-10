@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import ComparisonButton from './Comparison/ComparisonButton'
+import ComparisonButton from '../Comparison/ComparisonButton'
 
 //This component is used to display each product row in the table display of search page.
 

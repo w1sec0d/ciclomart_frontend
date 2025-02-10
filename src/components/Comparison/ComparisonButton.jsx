@@ -24,7 +24,7 @@ const ComparisonButton = ({ idProducto, className }) => {
       dispatch(removeComparisonItem('idProduct2'))
     } else if (idProduct1 === 0) {
       dispatch(setComparisonItem({ key: 'idProduct1', value: idProducto }))
-    } else if (idProduct2 === 0) {
+    } else if (idProduct2 === 0 || idProduct2 > 0) {
       dispatch(setComparisonItem({ key: 'idProduct2', value: idProducto }))
     }
   }
@@ -32,8 +32,8 @@ const ComparisonButton = ({ idProducto, className }) => {
     //Modifica el color del botón de acuerdo al número del producto seleccionado
     <button
       className={twMerge(
-        `${idProduct1 === idProducto ? 'bg-secondary opacity-100' : idProduct2 === idProducto ? 'bg-tertiary opacity-100' : 'bg-secondary'} 
-      px-4 rounded-bl-full absolute top-0 right-0 flex flex-row duration-200 ease-in-out hover:scale-105 opacity-0 group-hover:opacity-100`,
+        `px-4 rounded-bl-full absolute top-0 right-0 flex flex-row duration-200 ease-in-out hover:scale-105 opacity-0 group-hover:opacity-100
+        ${idProduct1 === idProducto ? 'bg-secondary opacity-100' : idProduct2 === idProducto ? 'bg-tertiary opacity-100' : 'bg-secondary'}`,
         className
       )}
       onClick={handleComparison}

@@ -19,6 +19,8 @@ const ItemContainer = ({
     ((precioCompleto - precio) / precioCompleto) * 100
   )
 
+  console.log('idProducto', idProducto)
+
   const idProduct1 = useSelector((state) => state.comparison.idProduct1)
   const idProduct2 = useSelector((state) => state.comparison.idProduct2)
   const selectedClass =
