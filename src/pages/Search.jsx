@@ -31,7 +31,6 @@ const SearchPage = (params) => {
   const [showAllFilters, setShowAllFilters] = useState(false)
   const [filterValues, setFilterValues] = useState({ tipo: tipo })
 
-  console.log(searchResults)
   //pagination variables
   const itemsPerPage = 15
   const [currentPage, setCurrentPage] = useState(1)
@@ -41,7 +40,6 @@ const SearchPage = (params) => {
       ? searchResults.results.slice(startIndex, startIndex + itemsPerPage)
       : []
 
-  console.log(currentItems)
   //State change functions
   const handleShowAllFilters = () => {
     setShowAllFilters(!showAllFilters)

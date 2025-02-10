@@ -1,7 +1,6 @@
 import ProductRow from './ProductRow'
 
 const Results = (items) => {
-  console.log('Items', items)
   return items.map((result, index) => (
     <ProductRow
       key={result.idProducto}

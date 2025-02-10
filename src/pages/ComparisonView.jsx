@@ -10,11 +10,12 @@ import DisplayImg from '../components/Comparison/DisplayImg'
 
 // Iconos
 import SouthIcon from '@mui/icons-material/South'
+import Photo from '../assets/userPhoto.png'
 
-const Header = ({ value1, value2 }) => {
+const Header = ({ product1, product2 }) => {
   return (
     <div className="h-[50px] flex flex-row relative">
-      <BuyButton>{value1}</BuyButton>
+      <BuyButton producto={product1}>{product1.precio}</BuyButton>
       <div className="z-10 h-5/6 bg-lblue w-full absolute top-0 left-0 rounded-t-3xl flex justify-center items-center">
         <b className="text-xl mx-4">Comparación</b>
       </div>
@@ -22,8 +23,9 @@ const Header = ({ value1, value2 }) => {
         className={
           'ml-auto rounded-tl-none rounded-br-none rounded-bl-[3rem] rounded-tr-3xl bg-secondary'
         }
+        producto={product2}
       >
-        {value2}
+        {product2.precio}
       </BuyButton>
     </div>
   )
@@ -93,7 +95,7 @@ const ComparisonView = () => {
     <div className="h-auto flex flex-col">
       <div className="h-auto w-auto mx-10 mb-8 my-10 rounded-3xl bg-white drop-shadow-lg flex flex-col">
         {/*Header */}
-        <Header value1={product1.precio} value2={product2.precio} />
+        <Header product1={product1} product2={product2} />
         {/*Sección nombre y foto producto 1 y 2 respectivamente*/}
         <div className="h-72 flex flex-row w-full">
           <DisplayImg product={product1} />
@@ -108,14 +110,16 @@ const ComparisonView = () => {
           highlightDiffs={true}
         />
         {/*Sección elementos Agregados */}
-        <ComparisionSection
-          title={'Agregados'}
-          className1={'rounded-bl-3xl'}
-          className2={'rounded-br-3xl'}
-          product1={product1}
-          product2={product2}
-          coincidences={discrepancies}
-        />
+        {discrepancies ? (
+          <ComparisionSection
+            title={'Agregados'}
+            className1={'rounded-bl-3xl'}
+            className2={'rounded-br-3xl'}
+            product1={product1}
+            product2={product2}
+            coincidences={discrepancies}
+          />
+        ) : null}
       </div>
 
       <div className="flex justify-center">
@@ -126,7 +130,26 @@ const ComparisonView = () => {
           {/*Muestra un botón para resaltar diferencias */}
           <b>Información vendedores</b>
         </div>
-        <div className="w-1/2 h-auto"></div>
+        <div className="flex flex-row items-center">
+          <div className="w-1/2 h-auto border-r border-lgray flex flex-row items-center justify-center">
+            <img src={Photo} className="h-24 w-24 ml-2 my-2" />
+            <div className="flex flex-col ml-4">
+              <b>
+                {product1.nombreVendedor} {product1.apellidoVendedor}
+              </b>
+              <p>{product1.correoVendedor}</p>
+            </div>
+          </div>
+          <div className="w-1/2 h-auto border-r border-lgray flex flex-row items-center justify-center">
+            <img src={Photo} className="h-24 w-24 ml-2 my-2" />
+            <div className="flex flex-col ml-4">
+              <b>
+                {product2.nombreVendedor} {product2.apellidoVendedor}
+              </b>
+              <p>{product2.correoVendedor}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
