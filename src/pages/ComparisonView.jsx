@@ -51,21 +51,39 @@ const ComparisonView = () => {
   //Captura las keys de cada uno de los productos
   const propertiesProduct1 = Object.keys(product1)
   const propertiesProduct2 = Object.keys(product2)
-  const properties = propertiesProduct1.concat(propertiesProduct2)
+
+  // Filtra las propiedades que existen en product1 y product2 para imprimir solo lo existente en cada producto
+  const filteredProperties1 = propertiesProduct1.filter(
+    (property) =>
+      product1[property] &&
+      !property.startsWith('id') &&
+      !property.startsWith('imagen')
+  )
+
+  const filteredProperties2 = propertiesProduct2.filter(
+    (property) =>
+      product2[property] &&
+      !property.startsWith('id') &&
+      !property.startsWith('imagen')
+  )
+
+  //Elimina keys duplicadas
+  const properties = filteredProperties1.concat(filteredProperties2)
   const uniqProperties = [...new Set(properties)]
 
   //Captura las coindencias entre los productos y retorna las keys sin duplicados
   const coincidences = uniqProperties.filter((property) => {
-    if (property != 'idProducto') {
-      return properties.includes(property) && !property.startsWith('id')
-    }
+    return (
+      filteredProperties1.includes(property) &&
+      filteredProperties2.includes(property)
+    )
   })
 
   //Captura las discrepancias entre los productos
   const discrepancies = uniqProperties.filter(
     (property) =>
-      !propertiesProduct2.includes(property) ||
-      !propertiesProduct1.includes(property)
+      !filteredProperties2.includes(property) ||
+      !filteredProperties1.includes(property)
   )
 
   return (
