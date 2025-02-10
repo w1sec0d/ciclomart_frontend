@@ -30,15 +30,17 @@ const SearchPage = (params) => {
   const [showAllFilters, setShowAllFilters] = useState(false)
   const [filterValues, setFilterValues] = useState({ tipo: tipo })
 
+  console.log(searchResults)
   //pagination variables
   const itemsPerPage = 15
   const [currentPage, setCurrentPage] = useState(1)
   const startIndex = (currentPage - 1) * itemsPerPage
-  const currentItems = searchResults.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  )
+  const currentItems =
+    searchResults && searchResults.results
+      ? searchResults.results.slice(startIndex, startIndex + itemsPerPage)
+      : []
 
+  console.log(currentItems)
   //State change functions
   const handleShowAllFilters = () => {
     setShowAllFilters(!showAllFilters)
@@ -116,7 +118,7 @@ const SearchPage = (params) => {
   }, [params.searchResults, dispatch, params.name, tipo])
 
   useEffect(() => {
-    if (searchInput) {
+    if (searchInput || searchInput === '') {
       dispatch(fetchSearchResults({ nombre: searchInput, tipo: tipo }))
     }
   }, [searchInput, tipo, dispatch])
@@ -170,7 +172,7 @@ const SearchPage = (params) => {
         <div>
           {searchStatus === 'loading' ? (
             <p>Loading...</p>
-          ) : searchResults.length > 0 ? (
+          ) : searchResults.results ? (
             Results(currentItems)
           ) : (
             <p>No hay resultados para los filtros ingresados</p>

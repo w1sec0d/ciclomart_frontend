@@ -7,14 +7,15 @@ import { getProductById } from '../services/productService'
 import BuyButton from '../components/Comparison/BuyButton'
 import ComparisionSection from '../components/Comparison/ComparisionSection'
 import Loading from '../components/Loading'
+import DisplayImg from '../components/Comparison/DisplayImg'
 
 // Iconos
 import SouthIcon from '@mui/icons-material/South'
 
-const Header = () => {
+const Header = ({ value1, value2 }) => {
   return (
     <div className="h-[50px] flex flex-row relative">
-      <BuyButton>4.000.000</BuyButton>
+      <BuyButton>{value1}</BuyButton>
       <div className="z-10 h-5/6 bg-lblue w-full absolute top-0 left-0 rounded-t-3xl flex justify-center items-center">
         <b className="text-xl mx-4">Comparación</b>
       </div>
@@ -23,7 +24,7 @@ const Header = () => {
           'ml-auto rounded-tl-none rounded-br-none rounded-bl-[3rem] rounded-tr-3xl bg-secondary'
         }
       >
-        4.000.000
+        {value2}
       </BuyButton>
     </div>
   )
@@ -57,14 +58,16 @@ const ComparisonView = () => {
     (property) =>
       product1[property] &&
       !property.startsWith('id') &&
-      !property.startsWith('imagen')
+      !property.startsWith('imagen') &&
+      !property.startsWith('nombre')
   )
 
   const filteredProperties2 = propertiesProduct2.filter(
     (property) =>
       product2[property] &&
       !property.startsWith('id') &&
-      !property.startsWith('imagen')
+      !property.startsWith('imagen') &&
+      !property.startsWith('nombre')
   )
 
   //Elimina keys duplicadas
@@ -90,11 +93,11 @@ const ComparisonView = () => {
     <div className="h-auto flex flex-col">
       <div className="h-auto w-auto mx-10 mb-8 my-10 rounded-3xl bg-white drop-shadow-lg flex flex-col">
         {/*Header */}
-        <Header />
+        <Header value1={product1.precio} value2={product2.precio} />
         {/*Sección nombre y foto producto 1 y 2 respectivamente*/}
         <div className="h-72 flex flex-row w-full">
-          <div className="w-1/2 bg-white h-full  border-r border-r-lgray   "></div>
-          <div className="w-1/2 h-full bg-white  "> </div>
+          <DisplayImg product={product1} />
+          <DisplayImg product={product2} />
         </div>
         {/*Sección elementos compartidos producto 1 y 2 respectviamente */}
         <ComparisionSection
