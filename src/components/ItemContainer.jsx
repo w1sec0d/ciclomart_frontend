@@ -30,7 +30,7 @@ const ItemContainer = ({
         <p className="group-hover:text-primary font-medium text-base w-full">
           {nombre}
         </p>
-        <div className={`relative ${precioCompleto ? 'mt-3' : ''}`}>
+        <div className={`relative ${precioCompleto ? 'mt-3' : ''} w-full`}>
           {precioCompleto && (
             <span className="absolute text-red-500 line-through text-sm text-left -top-3">
               {colombianPrice(precioCompleto)}
