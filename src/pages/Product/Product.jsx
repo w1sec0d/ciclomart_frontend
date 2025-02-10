@@ -43,7 +43,7 @@ const ProductPage = () => {
     <section className="px-10">
       <div className="flex justify-evenly items-center py-10">
         <Img
-          src={producto.imagen}
+          src={producto.imagenURL}
           alt={'Imagen del producto: ' + producto.nombre}
           className="max-w-[500px] max-h-[500px]"
         />
@@ -64,7 +64,7 @@ const ProductPage = () => {
           {/* Detalles del producto */}
           <div className="my-2 tracking-wide">
             <p>
-              <b>Marca</b>: {producto.marca}
+              <b>Marca</b>: {producto.nombreMarca}
             </p>
             <p>
               <b>Tipo</b>: {producto.tipo}

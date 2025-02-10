@@ -6,7 +6,7 @@ import Img from './Img'
 
 const ItemContainer = ({
   idProducto,
-  imagen,
+  imagenURL,
   nombre,
   precio,
   precioCompleto,
@@ -23,7 +23,7 @@ const ItemContainer = ({
     >
       {/* Seccion de imágenes y nombre */}
       <div className="w-[200px] h-[200px] mx-auto flex items-center justify-center">
-        <Img src={imagen} />
+        <Img src={imagenURL} />
       </div>
       {/* Seccion de precios y nombre */}
       <div className="flex flex-wrap text-xl font-bold relative items-center justify-start mt-2">
@@ -58,7 +58,7 @@ const ItemContainer = ({
 }
 ItemContainer.propTypes = {
   idProducto: PropTypes.number.isRequired,
-  imagen: PropTypes.string,
+  imagenURL: PropTypes.string,
   nombre: PropTypes.string.isRequired,
   precio: PropTypes.number.isRequired,
   precioCompleto: PropTypes.number,

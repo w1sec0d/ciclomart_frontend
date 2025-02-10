@@ -92,13 +92,16 @@ const LandingPage = () => {
         <LocalFireDepartment fontSize="large" /> Lo más vendido
       </h2>
       <Carousel responsive={itemContainer} className="pl-7 pb-10">
-        {productos.map((producto) => (
-          <ItemContainer
-            {...producto}
-            key={producto.idProducto}
-            envioGratis={producto['método de envio'] === 'gratis'}
-          />
-        ))}
+        {productos.map((producto) => {
+          console.log('producto', producto)
+          return (
+            <ItemContainer
+              {...producto}
+              key={producto.idProducto}
+              envioGratis={producto['método de envio'] === 'gratis'}
+            />
+          )
+        })}
       </Carousel>
       <h2 className="text-3xl text-center font-bold my-10">
         <PedalBike fontSize="large" /> Explora tu mundo bici
@@ -129,46 +132,16 @@ const LandingPage = () => {
           <span className="italic">ese repuesto</span> que necesitas
         </h2>
         <Carousel responsive={itemContainer} className="pl-7 pb-10">
-          <ItemContainer
-            idProducto={123456}
-            nombre="Repuesto"
-            imagen={repuestos}
-            precioCompleto={3000000}
-            precio={2250000}
-            envioGratis={true}
-          />
-          <ItemContainer
-            idProducto={123456}
-            nombre="Repuesto"
-            imagen={repuestos}
-            precioCompleto={3000000}
-            precio={2250000}
-            envioGratis={true}
-          />
-          <ItemContainer
-            idProducto={123456}
-            nombre="Repuesto"
-            imagen={repuestos}
-            precioCompleto={3000000}
-            precio={2250000}
-            envioGratis={true}
-          />
-          <ItemContainer
-            idProducto={123456}
-            nombre="Repuesto"
-            imagen={repuestos}
-            precioCompleto={3000000}
-            precio={2250000}
-            envioGratis={true}
-          />
-          <ItemContainer
-            idProducto={123456}
-            nombre="Repuesto"
-            imagen={repuestos}
-            precioCompleto={3000000}
-            precio={2250000}
-            envioGratis={true}
-          />
+          {productos.map((producto) => {
+            if (producto.categoría !== 'componente') return null
+            return (
+              <ItemContainer
+                {...producto}
+                key={producto.idProducto}
+                envioGratis={producto['método de envio'] === 'gratis'}
+              />
+            )
+          })}
         </Carousel>
       </section>
     </section>
