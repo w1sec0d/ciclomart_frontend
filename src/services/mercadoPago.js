@@ -12,13 +12,16 @@ const createPreference = async (item) => {
   }
 }
 
-const sendBuyRequest = async (producto) => {
+const sendBuyRequest = async (producto, idComprador) => {
+  console.log('producto', producto)
   try {
     const request = await createPreference({
       title: producto.nombre,
       unit_price: producto.precio,
       quantity: 1,
       currency: 'COP',
+      idComprador: idComprador,
+      idProducto: producto.idProducto,
     })
     return request
   } catch (error) {

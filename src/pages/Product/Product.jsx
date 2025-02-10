@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
@@ -22,6 +22,7 @@ const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
   const { id } = useParams()
   const dispatch = useDispatch()
+  const authUser = useSelector((state) => state.auth.authUser)
   // Hace fetch del producto con react-query
   const {
     data: producto,
@@ -31,7 +32,10 @@ const ProductPage = () => {
 
   const handleBuy = async () => {
     dispatch(setLoading())
-    const { paymentURL } = await mercadoPago.sendBuyRequest(producto)
+    const { paymentURL } = await mercadoPago.sendBuyRequest(
+      producto,
+      authUser.idUsuario
+    )
     window.location.href = paymentURL
     setTimeout(() => {
       dispatch(clearLoading())

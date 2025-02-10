@@ -74,7 +74,7 @@ const ProductRating = (props) => {
       dispatch(
         setNotification({
           title: '¡UPS!',
-          text: 'Califica con algúna estrella',
+          text: 'Debes calificar con algúna estrella y dejar un comentario',
           icon: 'error',
           timer: 3000,
         })
@@ -165,8 +165,7 @@ const ProductRating = (props) => {
         if (!image) {
           const request = await ratingService.createRating({
             idUsuarioComprador: idUsuario,
-            idDocumentoProducto: idDoc,
-            idUsuarioVendedor: isPurchase.idVendedor,
+            idProducto: idDoc,
             comentario: data.calificacion,
             nota: rating,
           })
