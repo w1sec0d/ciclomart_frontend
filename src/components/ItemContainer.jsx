@@ -4,6 +4,9 @@ import colombianPrice from '../utils/colombianPrice'
 import { Link } from 'react-router-dom'
 import Img from './Img'
 
+import ComparisonButton from './Comparison/ComparisonButton'
+import { useSelector } from 'react-redux'
+
 const ItemContainer = ({
   idProducto,
   imagenURL,
@@ -16,15 +19,29 @@ const ItemContainer = ({
     ((precioCompleto - precio) / precioCompleto) * 100
   )
 
+  const idProduct1 = useSelector((state) => state.comparison.idProduct1)
+  const idProduct2 = useSelector((state) => state.comparison.idProduct2)
+  const selectedClass =
+    idProduct1 === idProducto
+      ? 'border-4 border-secondary border-dashed'
+      : idProduct2 === idProducto
+        ? 'border-4 border-tertiary border-dashed'
+        : ''
+
   return (
     <Link
-      className="flex flex-col justify-evenly w-[225px] h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a"
+      className={`flex flex-col justify-evenly w-[225px] h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative 
+        ${selectedClass}`}
       to={`/product/${idProducto}`}
     >
       {/* Seccion de imágenes y nombre */}
       <div className="w-[200px] h-[200px] mx-auto flex items-center justify-center">
         <Img src={imagenURL} />
       </div>
+
+      {/*Botón de comparación en hover*/}
+      <ComparisonButton idProducto={idProducto} />
+
       {/* Seccion de precios y nombre */}
       <div className="flex flex-wrap text-xl font-bold relative items-center justify-start mt-2">
         <p className="group-hover:text-primary font-medium text-base w-full">

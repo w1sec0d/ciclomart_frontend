@@ -14,6 +14,7 @@ import Verificacion from './pages/Verificacion'
 import PasswordRecovery from './pages/PasswordRecovery'
 import CodeVerification from './pages/CodeVerification'
 import Layout from './components/Layout'
+import ComparisonView from './pages/ComparisonView'
 import Publish from './pages/Publish'
 
 // Services
@@ -53,6 +54,7 @@ const App = () => {
         />
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
         <Route path="product/:id" element={<ProductPage />} />
+        <Route path="comparison/:id1/:id2" element={<ComparisonView />} />
         <Route
           path="requestResult/:type"
           element={<RequestResult message="Compra exitosa" />}

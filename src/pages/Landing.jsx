@@ -17,6 +17,7 @@ import {
 // Components
 import ItemContainer from '../components/ItemContainer'
 import Loading from '../components/Loading'
+import ComparisonBar from '../components/Comparison/ComparisonBar'
 
 // React Query
 import { useQuery } from 'react-query'
@@ -88,6 +89,7 @@ const LandingPage = () => {
           />
         </div>
       </Carousel>
+      <ComparisonBar />
       <h2 className="text-3xl text-center font-bold my-10">
         <LocalFireDepartment fontSize="large" /> Lo más vendido
       </h2>

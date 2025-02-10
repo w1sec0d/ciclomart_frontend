@@ -12,6 +12,7 @@ import Filters from '../components/Search/Filters'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import Button from '../components/Button'
+import ComparisonBar from '../components/Comparison/ComparisonBar'
 
 //import filters
 import filters from '../utils/filters'
@@ -34,10 +35,10 @@ const SearchPage = (params) => {
   const itemsPerPage = 15
   const [currentPage, setCurrentPage] = useState(1)
   const startIndex = (currentPage - 1) * itemsPerPage
-  const currentItems = searchResults.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  )
+  const currentItems =
+    searchResults && searchResults.results
+      ? searchResults.results.slice(startIndex, startIndex + itemsPerPage)
+      : []
 
   //State change functions
   const handleShowAllFilters = () => {
@@ -116,80 +117,83 @@ const SearchPage = (params) => {
   }, [params.searchResults, dispatch, params.name, tipo])
 
   useEffect(() => {
-    if (searchInput) {
+    if (searchInput || searchInput === '') {
       dispatch(fetchSearchResults({ nombre: searchInput, tipo: tipo }))
     }
   }, [searchInput, tipo, dispatch])
 
   return (
-    <div className="flex">
-      <div className="w-1/4 p-4 mt-border-r hidden md:block bg-primaryDark">
-        <h2 className="text-xl font-semibold mt-20 mb-4 text-zinc-100">
-          Filtros
-        </h2>
-        <div className="flex flex-col items-start">
-          <label className="text-sm font-semibold text-zinc-100 600 mb-1">
-            Tipo
-          </label>
-          <Select
-            closeMenuOnSelect={true}
-            components={animatedComponents}
-            defaultValue={''}
-            options={[
-              { value: 'bicicleta', label: 'Bicicleta' },
-              { value: 'repuesto', label: 'Repuesto' },
-            ]}
-            onChange={(selected) => handleFilterChange('tipo', selected)}
-            className="px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300 w-full"
-            isClearable={false}
-          />
-        </div>
-        <Filters
-          filters={filters}
-          tipo={tipo}
-          handleShowAllFilters={handleShowAllFilters}
-          showAllFilters={showAllFilters}
-          handleFilterChange={handleFilterChange}
-        />
-      </div>
-      <div className="flex-1 max-w-5xl mx-3 py-8">
-        <h1 className="text-3xl font-bold text-center mb-6">
-          Busca Bicicletas y Repuestos
-        </h1>
-        <div className="bg-white shadow rounded-lg overflow-hidden mb-4">
-          <div className="flex items-center border-b px-4 py-3">
-            <input
-              type="text"
-              placeholder="Búsqueda"
-              className="flex-grow px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-              value={searchInput}
-              onChange={handleSearchInputChange}
+    <div>
+      <ComparisonBar />
+      <div className="flex">
+        <div className="w-1/4 p-4 mt-border-r hidden md:block bg-primaryDark">
+          <h2 className="text-xl font-semibold mt-20 mb-4 text-zinc-100">
+            Filtros
+          </h2>
+          <div className="flex flex-col items-start">
+            <label className="text-sm font-semibold text-zinc-100 600 mb-1">
+              Tipo
+            </label>
+            <Select
+              closeMenuOnSelect={true}
+              components={animatedComponents}
+              defaultValue={''}
+              options={[
+                { value: 'bicicleta', label: 'Bicicleta' },
+                { value: 'repuesto', label: 'Repuesto' },
+              ]}
+              onChange={(selected) => handleFilterChange('tipo', selected)}
+              className="px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300 w-full"
+              isClearable={false}
             />
           </div>
+          <Filters
+            filters={filters}
+            tipo={tipo}
+            handleShowAllFilters={handleShowAllFilters}
+            showAllFilters={showAllFilters}
+            handleFilterChange={handleFilterChange}
+          />
         </div>
-        <div>
-          {searchStatus === 'loading' ? (
-            <p>Loading...</p>
-          ) : searchResults.length > 0 ? (
-            Results(currentItems)
-          ) : (
-            <p>No hay resultados para los filtros ingresados</p>
-          )}
+        <div className="flex-1 max-w-5xl mx-3 py-8">
+          <h1 className="text-3xl font-bold text-center mb-6">
+            Busca Bicicletas y Repuestos
+          </h1>
+          <div className="bg-white shadow rounded-lg overflow-hidden mb-4">
+            <div className="flex items-center border-b px-4 py-3">
+              <input
+                type="text"
+                placeholder="Búsqueda"
+                className="flex-grow px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                value={searchInput}
+                onChange={handleSearchInputChange}
+              />
+            </div>
+          </div>
+          <div>
+            {searchStatus === 'loading' ? (
+              <p>Loading...</p>
+            ) : searchResults.results ? (
+              Results(currentItems)
+            ) : (
+              <p>No hay resultados para los filtros ingresados</p>
+            )}
+          </div>
+          <Button
+            to="/publish"
+            className="sticky bottom-10 right-10 bg-primaryDark text-zinc-100"
+          >
+            Publicar
+          </Button>
+          <PaginationControls
+            currentPage={currentPage}
+            handlePreviousPage={handlePreviousPage}
+            handleNextPage={handleNextPage}
+            startIndex={startIndex}
+            itemsPerPage={itemsPerPage}
+            filterResultsLength={searchResults.length}
+          />
         </div>
-        <Button
-          to="/publish"
-          className="sticky bottom-10 right-10 bg-primaryDark text-zinc-100"
-        >
-          Publicar
-        </Button>
-        <PaginationControls
-          currentPage={currentPage}
-          handlePreviousPage={handlePreviousPage}
-          handleNextPage={handleNextPage}
-          startIndex={startIndex}
-          itemsPerPage={itemsPerPage}
-          filterResultsLength={searchResults.length}
-        />
       </div>
     </div>
   )
