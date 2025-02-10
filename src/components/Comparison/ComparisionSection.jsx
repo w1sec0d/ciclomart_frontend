@@ -43,10 +43,10 @@ const ComparisionSection = ({
   const filteredCoincidences1 = coincidences.filter(
     (property) => product1[property]
   )
+
   const filteredCoincidences2 = coincidences.filter(
     (property) => product2[property]
   )
-
   return (
     <div>
       <div
@@ -69,7 +69,7 @@ const ComparisionSection = ({
               <div
                 className={`h-12 ${index === filteredCoincidences1.length - 1 ? '' : 'border-b'} 
                 ${differences && differences.includes(property) ? 'bg-tertiary bg-opacity-35  border-b-tertiary' : 'bg-white'}
-                flex items-center pl-3 border-lgray border-r `}
+                flex items-center pl-3 border-lgray border-r  `}
                 key={index}
               >
                 <p>

@@ -1,6 +1,12 @@
+// Utilidades
+import { useQuery } from 'react-query'
+import { useParams } from 'react-router-dom'
+import { getProductById } from '../services/productService'
+
 // Componentes
 import BuyButton from '../components/Comparison/BuyButton'
 import ComparisionSection from '../components/Comparison/ComparisionSection'
+import Loading from '../components/Loading'
 
 // Iconos
 import SouthIcon from '@mui/icons-material/South'
@@ -24,46 +30,23 @@ const Header = () => {
 }
 
 const ComparisonView = () => {
-  const product1 = {
-    idProducto: 1,
-    tipo: 'Bicicleta',
-    nombre: 'MTB X1',
-    precio: 1400000,
-    marca: 'Trek',
-    disponibilidad: 'En stock',
-    'método de envio': 'Domicilio',
-    fechaPublicacion: '2025-02-07',
-    condición: 'Nueva',
-    'tipo de bicicleta': 'Montaña',
-    'tamaño del marco': 'M',
-    'material del marco': 'Aluminio',
-    'tamaño de rueda': '29 pulgadas',
-    'tipo de frenos': 'Disco hidráulico',
-    velocidades: 21,
-    suspensión: 'Doble',
-    transmision: 'Shimano Deore',
-    color: 'Negro y rojo',
-  }
+  const { id1, id2 } = useParams()
 
-  const product2 = {
-    idProducto: 2,
-    tipo: 'Bicicleta',
-    nombre: 'Speedster 500',
-    precio: 2800000,
-    marca: 'Scott',
-    disponibilidad: 'Agotado',
-    fechaPublicacion: '2025-01-15',
-    condición: 'Nueva',
-    'tipo de bicicleta': 'Ruta',
-    'tamaño del marco': 'L',
-    'material del marco': 'Carbono',
-    'tamaño de rueda': '700C',
-    'tipo de frenos': 'Caliper',
-    velocidades: 21,
-    transmision: 'Shimano Ultegra',
-    'método de envio': 'Domicilio',
-    peso: 8,
-  }
+  const {
+    data: product1,
+    isLoading: isLoading1,
+    isError: isError1,
+  } = useQuery(['productos', id1], () => getProductById(id1))
+
+  const {
+    data: product2,
+    isLoading: isLoading2,
+    isError: isError2,
+  } = useQuery(['productos', id2], () => getProductById(id2))
+
+  if (isLoading1 || isLoading2) return <Loading />
+  if (isError1) return <p>{isError1.message}</p>
+  if (isError2) return <p>{isError2.message}</p>
 
   //Captura las keys de cada uno de los productos
   const propertiesProduct1 = Object.keys(product1)
@@ -74,10 +57,7 @@ const ComparisonView = () => {
   //Captura las coindencias entre los productos y retorna las keys sin duplicados
   const coincidences = uniqProperties.filter((property) => {
     if (property != 'idProducto') {
-      return (
-        propertiesProduct2.includes(property) &&
-        propertiesProduct1.includes(property)
-      )
+      return properties.includes(property) && !property.startsWith('id')
     }
   })
 
