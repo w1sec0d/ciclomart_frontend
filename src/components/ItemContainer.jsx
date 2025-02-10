@@ -10,7 +10,7 @@ const ItemContainer = ({
   nombre,
   precio,
   precioCompleto,
-  envioGratis = false,
+  costoEnvio,
 }) => {
   const discountPercentage = Math.floor(
     ((precioCompleto - precio) / precioCompleto) * 100
@@ -46,7 +46,7 @@ const ItemContainer = ({
 
         {/* Seccion de envio gratis y etiquetas extra */}
 
-        {envioGratis && (
+        {costoEnvio === 0 && (
           <p className="text-sm text-white bg-green-600 py-1 px-2 rounded-md font-semibold w-fit my-2">
             <LocalShipping fontSize="small" className="mr-2" />
             Envío gratis
