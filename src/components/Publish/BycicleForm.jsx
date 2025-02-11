@@ -7,15 +7,14 @@ import Button from '../Button'
 import Select from './Select'
 
 const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
-
   return (
     <>
-      <div className='grid grid-cols-2 gap-4'>
+      <div className="grid grid-cols-2 gap-4">
         <CustomSelect
-          name="tipo"
+          name="tipoBicicleta"
           label="Tipo"
           options={filters['bicicleta'].tipo}
-          value={bycicle.tipo}
+          value={bycicle.tipoBicicleta}
           onChange={handleChange}
         />
         <CustomSelect
@@ -41,17 +40,18 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
         />
       </div>
 
-      <h3 className='text-xl mt-8 text-primary justify-self-stretch'>Detalles del marco</h3>
-      
-      <div className='grid grid-cols-2 gap-4'>
-        
-        <Input
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles del marco
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4">
+        {/* <Input
           type="number"
           id="modeloMarco"
           label="Modelo del marco"
           value={bycicle.modeloMarco}
           onChange={handleChange}
-        />
+        /> */}
 
         <Input
           type="number"
@@ -69,34 +69,36 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           onChange={handleChange}
         />
       </div>
-      
-      <h3 className='text-xl mt-8 text-primary justify-self-stretch'>Detalles de las ruedas</h3>
-      
-      <div className='grid grid-cols-2 gap-4'>
-        <Input
+
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles de las ruedas
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4">
+        {/* <Input
           type="number"
           id="modeloRuedas"
           label="Modelo de las ruedas"
           value={bycicle.modeloRuedas}
           onChange={handleChange}
-        />
+        /> */}
 
         <Input
           type="number"
-          id="tamanoRuedas"
+          id="tamañoRueda"
           label="Tamaño de las ruedas"
-          value={bycicle.tamanoRuedas}
+          value={bycicle.tamañoRueda}
           onChange={handleChange}
         />
-
       </div>
 
-      <h3 className='text-xl mt-8 text-primary justify-self-stretch'>Detalles de transmisión</h3>
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles de transmisión
+      </h3>
 
-      <div className='grid grid-cols-2 gap-4'>
-
+      <div className="grid grid-cols-2 gap-4">
         <CustomSelect
-          name="tipoTransmision"
+          name="transmision"
           label="Transmisión"
           options={filters['bicicleta'].transmision}
           value={bycicle.transmision}
@@ -114,12 +116,12 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
         <Input
           type="number"
           id="velocidades"
-          label="Número de velocidades"	
+          label="Número de velocidades"
           value={bycicle.velocidades}
           onChange={handleChange}
         />
 
-        <Input
+        {/* <Input
           type="number"
           id="modeloPedales"
           label="Modelo de pedales"	
@@ -141,14 +143,14 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           label="Modelo de cadena"	
           value={bycicle.modeloCadena}
           onChange={handleChange}
-        />
-
+        /> */}
       </div>
 
-      <h3 className='text-xl mt-8 text-primary justify-self-stretch'>Detalles de suspensión</h3>
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles de suspensión
+      </h3>
 
-      <div className='grid grid-cols-2 gap-4'>
-
+      <div className="grid grid-cols-2 gap-4">
         <CustomSelect
           name="tipoSuspension"
           label="Suspensión"
@@ -156,13 +158,13 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           value={bycicle.tipoSuspension}
           onChange={handleChange}
         />
-
       </div>
 
-      <h3 className='text-xl mt-8 text-primary justify-self-stretch'>Detalles de los frenos</h3>
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles de los frenos
+      </h3>
 
-      <div className='grid grid-cols-2 gap-4'>
-
+      <div className="grid grid-cols-2 gap-4">
         <CustomSelect
           name="tipoFrenos"
           label="Tipo de frenos"
@@ -171,43 +173,44 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           onChange={handleChange}
         />
 
-        <Input
+        {/* <Input
           type="number"
           id="modeloFrenos"
           label="Modelo de los frenos"	
           value={bycicle.modeloFrenos}
           onChange={handleChange}
           className='col-span-2'
-        />
-
+        /> */}
       </div>
 
-      <h3 className='text-xl mt-8 text-primary justify-self-stretch'>Detalles de peso</h3>
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles de peso
+      </h3>
 
-      <div className='grid grid-cols-2 gap-4'>
-          
+      <div className="grid grid-cols-2 gap-4">
         <Input
           type="number"
-          id="peso"
+          id="pesoBicicleta"
           label="Peso de la bicicleta (kg)"
-          value={bycicle.peso}
+          value={bycicle.pesoBicicleta}
           onChange={handleChange}
         />
 
         <Input
           type="number"
           id="pesoMaximo"
-          label="Peso máximo soportado (kg)"	
+          label="Peso máximo soportado (kg)"
           value={bycicle.pesoMaximo}
           onChange={handleChange}
         />
       </div>
 
-      <h3 className='text-xl mt-8 text-primary justify-self-stretch'>Detalles del manubrio</h3>
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles del manubrio
+      </h3>
 
-      <div className='grid grid-cols-2 gap-4'>
-
-      <CustomSelect
+      <div className="grid grid-cols-2 gap-4">
+        <CustomSelect
           name="tipoManubrio"
           label="Tipo de Manubrio"
           options={filters['bicicleta'].manubrio}
@@ -215,28 +218,29 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           onChange={handleChange}
         />
 
-        <Input
+        {/* <Input
           type="number"
           id="modeloManubrio"
           label="Modelo del manubrio"	
           value={bycicle.modeloManubrio}
           onChange={handleChange}
           className='col-span-2'
-        />
-
+        /> */}
       </div>
 
-      <h3 className='text-xl mt-8 text-primary justify-self-stretch'>Adicionales</h3>
-      
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Adicionales
+      </h3>
+      {/*       
       <Input
           type="number"
           id="modeloSillin"
           label="Modelo del sillin"	
           value={bycicle.modeloSillin}
           onChange={handleChange}
-      />
+      /> */}
 
-      <TextArea 
+      <TextArea
         id="extras"
         label="Extras"
         value={bycicle.extras}
@@ -244,6 +248,6 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
       />
     </>
   )
-};
+}
 
 export default BycicleForm

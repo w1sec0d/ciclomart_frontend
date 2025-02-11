@@ -16,15 +16,20 @@ const CustomSelect = ({ name, label, options, value, onChange, required }) => {
       target: {
         name,
         value: selectedOption ? selectedOption.value : '',
+        id: selectedOption
+          ? selectedOption.id
+            ? selectedOption.id
+            : null
+          : null,
       },
     })
   }
 
   const formattedOptions = options.options.map((option) => ({
+    id: option.id ? option.id : null,
     label: option.label,
     value: option.value,
-  })
-  ) 
+  }))
 
   const formatOptionLabel = ({ value, label }) => (
     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -39,7 +44,7 @@ const CustomSelect = ({ name, label, options, value, onChange, required }) => {
       />
       <span>{label}</span>
     </div>
-  );
+  )
 
   return (
     <div className="mt-5">
@@ -55,8 +60,8 @@ const CustomSelect = ({ name, label, options, value, onChange, required }) => {
         styles={customStyles}
         isClearable={!required}
         placeholder={`Selecciona un ${label}`}
-        formatOptionLabel={name=== 'color'?formatOptionLabel:null}
-        className='py-2'
+        formatOptionLabel={name === 'color' ? formatOptionLabel : null}
+        className="py-2"
       />
     </div>
   )

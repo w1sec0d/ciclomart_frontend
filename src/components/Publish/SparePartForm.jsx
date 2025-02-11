@@ -4,19 +4,7 @@ import Input from '../Input'
 import CustomSelect from './Select'
 import TextArea from '../TextArea'
 
-const SparePartForm = ({ onSubmit }) => {
-  const [componentData, setComponentData] = useState({
-    compatibilidad: '',
-    modelo:'',
-    categoria: '',
-    marca: '',
-  })
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setComponentData({ ...formData, [name]: value })
-  }
-
+const SparePartForm = ({ onSubmit, componentData, handleChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     try {
@@ -28,7 +16,7 @@ const SparePartForm = ({ onSubmit }) => {
 
   return (
     <>
-      <div className='grid grid-cols-2 gap-4'>
+      <div className="grid grid-cols-2 gap-4">
         <CustomSelect
           name="compatibility"
           label="Compatibilidad"

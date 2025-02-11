@@ -6,35 +6,32 @@ import GeneralInfo from './GeneraInfo'
 import AvailabilityForm from './AvailabilityForm'
 import Button from '../Button'
 
-const ProductForm = ({ type, onSubmit }) => {
-  console.log(type)
+const ProductForm = ({ type, onSubmit, models, brands }) => {
   const [step, setStep] = useState(1)
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
   const [product, setProduct] = useState({
-    type: type,
-    title: '',
-    description: '',
-    price: '',
-    images: [],
-    brand: '',
-    model: '',
-    availability: '',
-    retire: false,
-    sendPrice: '',
-    state: '',
-  });
+    nombre: '',
+    tipo: type,
+    descripcion: '',
+    precio: '',
+    imagenes: [],
+    idMarca: '',
+    modelo: '',
+    disponibilidad: '',
+    retiro: false,
+    costoEnvio: '',
+    estado: '',
+  })
 
   const [bycicle, setBycicle] = useState({
-    tipo: '',
+    tipoBicicleta: '',
     color: '',
     genero: '',
     edad: '',
-    tamanoMarco: '',
+    tamañoMarco: '',
     materialMarco: '',
     modeloMarco: '',
     modeloRuedas: '',
-    tamanoRuedas: '',
+    tamañoRueda: '',
     tipoFrenos: '',
     modeloFrenos: '',
     tipoManubrio: '',
@@ -43,6 +40,8 @@ const ProductForm = ({ type, onSubmit }) => {
     velocidades: '',
     transmision: '',
     tipoPedales: '',
+    pesoBicicleta: '',
+    pesoMaximo: '',
     modeloPedales: '',
     modeloCassette: '',
     modeloSillin: '',
@@ -52,39 +51,52 @@ const ProductForm = ({ type, onSubmit }) => {
 
   const [componentData, setComponentData] = useState({
     compatibilidad: '',
-    modelo:'',
+    modelo: '',
     categoria: '',
     marca: '',
   })
-  
-  const [imagePreviews, setImagePreviews] = useState([]);
+
+  const [imagePreviews, setImagePreviews] = useState([])
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (type === 'bicicleta') {
       onSubmit(product, bycicle)
-    }
-    else if (type === 'repuesto') {
+    } else if (type === 'componente') {
       onSubmit(product, componentData)
     }
   }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  };
+    console.log(product)
+    const { name, value } = e.target
+    setProduct({ ...product, [name]: value })
+  }
+
+  const handleBCchange = (e) => {
+    const { name, value } = e.target
+    if (type === 'bicicleta') setBycicle({ ...bycicle, [name]: value })
+    else setComponentData({ ...componentData, [name]: value })
+  }
+
+  const handleBrandChange = (e) => {
+    console.log(product)
+    const { value, id } = e.target
+    setProduct({ ...product, idMarca: id })
+    //getModels(type, id)
+  }
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    setProduct({ ...product, images: files });
+    const files = Array.from(e.target.files)
+    setProduct({ ...product, images: files })
 
-    const previews = files.map(file => URL.createObjectURL(file));
-    setImagePreviews(previews);
-  };
+    const previews = files.map((file) => URL.createObjectURL(file))
+    setImagePreviews(previews)
+  }
 
   const handleComponentChange = (e) => {
     const { name, value } = e.target
-    setComponentData({ ...formData, [name]: value })
+    setComponentData({ ...componentData, [name]: value })
   }
 
   const handleBycicleChange = (event) => {
@@ -93,12 +105,12 @@ const ProductForm = ({ type, onSubmit }) => {
   }
 
   const handleNext = () => {
-    setStep(step + 1);
-  };
+    setStep(step + 1)
+  }
 
   const handlePrevious = () => {
-    setStep(step - 1);
-  };
+    setStep(step - 1)
+  }
 
   return (
     <div className="flex items-center justify-center w-full min-h-screen bg-gray-100">
@@ -106,32 +118,36 @@ const ProductForm = ({ type, onSubmit }) => {
         <h1 className="text-2xl font-bold mb-4">Publicar {type}</h1>
         <div className="w-full m-15 px-20 ">
           <form onSubmit={handleSubmit} className="w-full space-y-5 p-4">
-            
             {step === 1 && (
-              <GeneralInfo 
+              <GeneralInfo
                 product={product}
                 handleChange={handleChange}
                 handleImageChange={handleImageChange}
-                imagePreviews={imagePreviews}/>
+                handleBrandChange={handleBrandChange}
+                imagePreviews={imagePreviews}
+                brands={brands}
+              />
             )}
-            
+
             {step === 2 && (
               <>
-              {type === 'bicicleta' && 
-                <BycicleForm 
-                  bycicle={bycicle}
-                  handleChange={handleBycicleChange}/>}
-              {type === 'repuesto' && 
-                <SparePartForm 
-                  componentData={componentData}
-                  handleChange={handleComponentChange}/>}
+                {type === 'bicicleta' && (
+                  <BycicleForm
+                    bycicle={bycicle}
+                    handleChange={handleBCchange}
+                  />
+                )}
+                {type === 'componente' && (
+                  <SparePartForm
+                    componentData={componentData}
+                    handleChange={handleComponentChange}
+                  />
+                )}
               </>
             )}
-            
+
             {step === 3 && (
-              <AvailabilityForm 
-                product={product}
-                handleChange={handleChange}/>
+              <AvailabilityForm product={product} handleChange={handleChange} />
             )}
             {/* {type === 'bicicleta' && <BycicleForm onSubmit={onSubmit} />}
             {type === 'repuesto' && <SparePartForm onSubmit={onSubmit} />} */}
@@ -140,7 +156,7 @@ const ProductForm = ({ type, onSubmit }) => {
             <Button
               type="button"
               onClick={handlePrevious}
-              className='justify-center'
+              className="justify-center"
             >
               Anterior
             </Button>
@@ -150,20 +166,19 @@ const ProductForm = ({ type, onSubmit }) => {
             <Button
               type="button"
               onClick={handleNext}
-              className='justify-center'
+              className="justify-center"
             >
               Siguiente
             </Button>
-          ): (
+          ) : (
             <Button
               type="submit"
               onClick={handleSubmit}
-              className='justify-center'
+              className="justify-center"
             >
               Publicar
             </Button>
-          )}  
-
+          )}
         </div>
       </div>
     </div>
