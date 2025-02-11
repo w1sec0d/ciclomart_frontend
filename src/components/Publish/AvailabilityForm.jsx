@@ -1,7 +1,5 @@
 import Input from '../Input'
-import Textarea from '../Textarea'
 import CustomSelect from './Select'
-import Select from './Select'
 
 const AvailabilityForm = ({ product, handleChange }) => {
   return (
