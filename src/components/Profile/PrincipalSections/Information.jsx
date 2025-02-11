@@ -12,7 +12,7 @@ const Information = () => {
   const authUser = useSelector((state) => state.auth.authUser)
 
   /*Verifica que exista el nombre del usuario */
-  if (!authUser.nombre) return <Loading />
+  if (!authUser || !authUser.nombre) return <Loading />
 
   /*Formatea la fecha a dd/mm/aa y toma el primer nombre de usuario*/
   const firstName = authUser.nombre.split(' ')[0]
@@ -22,7 +22,7 @@ const Information = () => {
   return (
     <div
       className="flex items-center mt-8 mx-[170px] bg-lgray h-44 w-auto 
-              rounded-l-[16rem]  rounded-r-[16rem] shadow-sm pl-5 on"
+              rounded-l-[16rem]  rounded-r-[16rem] shadow-lg pl-5 on"
     >
       <ImageUpload defaultPhoto={Photo}></ImageUpload>
       <div className="flex flex-col items-center lg:ml-[132px]">

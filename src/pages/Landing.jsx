@@ -17,8 +17,24 @@ import {
 // Components
 import ItemContainer from '../components/ItemContainer'
 import Loading from '../components/Loading'
+import ComparisonBar from '../components/Comparison/ComparisonBar'
+
+// React Query
+import { useQuery } from 'react-query'
+
+// Services
+import { getProducts } from '../services/productService'
 
 const LandingPage = () => {
+  // const queryClient = useQueryClient()
+
+  // Carga productos con react-query
+  const {
+    data: productos,
+    isLoading,
+    error,
+  } = useQuery('productos', getProducts)
+
   const landingCarousel = {
     // superLargeDesktop: {
     //   // the naming can be any, depends on you.
@@ -57,6 +73,10 @@ const LandingPage = () => {
       items: 5,
     },
   }
+
+  if (isLoading) return <Loading />
+  if (error) return <p>Error: {error.message}</p>
+
   return (
     <section>
       <Carousel responsive={landingCarousel} className="hover:cursor-pointer">
@@ -69,53 +89,20 @@ const LandingPage = () => {
           />
         </div>
       </Carousel>
+      <ComparisonBar />
       <h2 className="text-3xl text-center font-bold my-10">
         <LocalFireDepartment fontSize="large" /> Lo más vendido
       </h2>
       <Carousel responsive={itemContainer} className="pl-7 pb-10">
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-          freeShipping={true}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
-        <ItemContainer
-          name="Bicicleta de carbono S-Works Ruta"
-          img={bike1}
-          fullPrice={3000000}
-          price={2250000}
-        />
+        {productos.map((producto) => {
+          return (
+            <ItemContainer
+              {...producto}
+              key={producto.idProducto}
+              envioGratis={producto['método de envio'] === 'gratis'}
+            />
+          )
+        })}
       </Carousel>
       <h2 className="text-3xl text-center font-bold my-10">
         <PedalBike fontSize="large" /> Explora tu mundo bici
@@ -146,45 +133,16 @@ const LandingPage = () => {
           <span className="italic">ese repuesto</span> que necesitas
         </h2>
         <Carousel responsive={itemContainer} className="pl-7 pb-10">
-          <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
-            freeShipping={true}
-          />
-          <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
-            freeShipping={true}
-          />
-          <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
-          />
-          <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
-          />
-          <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
-          />
-          <ItemContainer
-            name="Repuesto"
-            img={repuestos}
-            fullPrice={3000000}
-            price={2250000}
-            freeShipping={true}
-          />
+          {productos.map((producto) => {
+            if (producto.tipo !== 'componente') return null
+            return (
+              <ItemContainer
+                {...producto}
+                key={producto.idProducto}
+                envioGratis={producto['método de envio'] === 'gratis'}
+              />
+            )
+          })}
         </Carousel>
       </section>
     </section>

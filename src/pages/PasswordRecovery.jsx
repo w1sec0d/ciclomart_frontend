@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import Button from '../components/Button'
 
 import { setNotification } from '../store/slices/notificationSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import loginService from '../services/loginService'
@@ -12,6 +12,7 @@ const PasswordRecovery = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { token } = useParams()
+  const authUser = useSelector((state) => state.auth.authUser)
 
   const { register, handleSubmit, reset } = useForm()
 
@@ -33,7 +34,7 @@ const PasswordRecovery = () => {
           )
 
           setTimeout(() => {
-            navigate('/login')
+            authUser ? navigate('/profile') : navigate('/login')
           }, 2000)
         } else {
           dispatch(
@@ -43,7 +44,8 @@ const PasswordRecovery = () => {
               icon: 'error',
             })
           )
-          navigate('/login')
+
+          authUser ? navigate('/profile') : navigate('/login')
         }
       } else {
         dispatch(
@@ -64,7 +66,7 @@ const PasswordRecovery = () => {
           icon: 'error',
         })
       )
-      navigate('/login')
+      authUser ? navigate('/profile') : navigate('/login')
     }
   }
 
