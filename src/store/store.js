@@ -4,6 +4,7 @@ import authReducer from './slices/authSlice'
 import loadingReducer from './slices/loadingSlice'
 import searchReducer from './slices/searchSlice'
 import showModalReducer from './slices/showModalSlice'
+import comparisonReducer from './slices/comparisonSlice'
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     loading: loadingReducer,
     search: searchReducer,
     showModal: showModalReducer,
+    comparison: comparisonReducer,
   },
 })

@@ -1,3 +1,5 @@
+import { lightBlue } from '@mui/material/colors'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -13,6 +15,7 @@ export default {
         lgray: '#D9D9D9',
         dgray: '#C0C0C0',
         white: '#FBFBFB',
+        lblue: '#4FA2C5',
       },
       fontFamily: {
         sans: ['Raleway', 'sans-serif'], // Add Raleway as the default font family

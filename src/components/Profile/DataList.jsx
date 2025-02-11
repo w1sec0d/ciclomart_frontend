@@ -25,7 +25,7 @@ const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
     if (typeContent === 3) {
       return { firstKey: 'nombre', secondKey: 'telefono' }
     }
-    return { firstKey: 'fecha', secondKey: 'monto' }
+    return { firstKey: 'fecha', secondKey: 'precio_unitario' }
   }
 
   //Formatea la fecha para mostrar un formato más abreviado

@@ -2,8 +2,7 @@ import RatingView from '../components/RatingView'
 import Button from '../components/Button'
 import { get, useForm } from 'react-hook-form'
 import { FaStar, FaUpload } from 'react-icons/fa'
-import Input from '../components/Input'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import StarRating from '../components/StarRating'
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
@@ -11,22 +10,23 @@ import { useSelector } from 'react-redux'
 import ratingService from '../services/ratingService'
 import axios from 'axios'
 import Loading from '../components/Loading'
+import { useParams } from 'react-router-dom'
 
 const ProductRating = (props) => {
+  const { id } = useParams()
+
   const { register, handleSubmit, reset } = useForm()
   const [rating, setRating] = useState(null)
   const [hover, setHover] = useState(null)
   const [image, setImage] = useState(null)
-  const [error, setError] = useState('')
   const [commentList, setCommentList] = useState([])
-  const [newCommentAdded, setNewCommentAdded] = useState(false)
   const [avgRating, setAvgRating] = useState(0)
   const fileInputRef = useRef(null)
   const dispatch = useDispatch()
 
   //el id del Documento producto es necesario pasarlo por la prop
 
-  const idDoc = 1
+  const idDoc = Number(id)
 
   //Obteniendo el id del usuario logueado
 
@@ -35,29 +35,36 @@ const ProductRating = (props) => {
   //Verifica si un usuario ya ha realizado un compra del producto
   const checkPurchase = async () => {
     try {
-      if (!authUser || !authUser.idUsuario) return <Loading />
-
+      if (!authUser || !authUser.idUsuario) {
+        dispatch(
+          setNotification({
+            title: '¡UPS!',
+            text: 'Debes iniciar sesión primero para poder calificar el producto',
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+        return
+      }
       const idUsuario = authUser.idUsuario
 
       const request = await ratingService.checkUserPurchase({
         idComprador: idUsuario,
-        idDocProducto: idDoc,
+        idProducto: idDoc,
       })
 
-      if (request.results.length > 0) {
-        return { success: true, idVendedor: request.results[0].idVendedor }
-      }
-      dispatch(
-        setNotification({
-          title: '¡UPS!',
-          text: 'Todavia no has adquirido el producto para poder calificarlo',
-          icon: 'error',
-          timer: 3000,
-        })
-      )
-      return { success: false }
+      return { success: true, idVendedor: request.results[0].idVendedor }
     } catch (error) {
-      console.error('Ocurrio un error ', error)
+      if (error.status === 404) {
+        dispatch(
+          setNotification({
+            title: '¡UPS!',
+            text: 'No has adquirido el producto para poder calificarlo',
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+      }
     }
   }
 
@@ -67,7 +74,7 @@ const ProductRating = (props) => {
       dispatch(
         setNotification({
           title: '¡UPS!',
-          text: 'Califica con algúna estrella',
+          text: 'Debes calificar con algúna estrella y dejar un comentario',
           icon: 'error',
           timer: 3000,
         })
@@ -82,7 +89,6 @@ const ProductRating = (props) => {
     const file = e.target.files[0]
     if (file && file.type.startsWith('image/')) {
       setImage(file)
-      setError('')
     } else {
       dispatch(
         setNotification({
@@ -96,41 +102,76 @@ const ProductRating = (props) => {
   }
 
   // Obtiene todos las calificaciones del producto es necesario cambiar el valor por la prop
-  const getProductRating = async () => {
+  const getProductRating = useCallback(async () => {
+    const getAvgRating = async () => {
+      try {
+        const request = await ratingService.getAvgRatingProduct(idDoc)
+        setAvgRating(request.results[0].avg_calificacion)
+      } catch (error) {
+        console.error(
+          'Error al obtener el promedio de las calificaciones',
+          error
+        )
+      }
+    }
     try {
       const request = await ratingService.getRatingProduct(idDoc)
+      console.log('request', request)
       setCommentList(request.results)
       getAvgRating()
     } catch (error) {
       console.error('Error al obtener las calificaciones', error)
     }
-  }
+  }, [idDoc])
 
   //Actualiza el componente cada vez que se agrega un comentario
   useEffect(() => {
     getProductRating()
-  }, [newCommentAdded])
+  }, [getProductRating])
 
   // Envia la calificación al backend
   const onSubmit = async (data) => {
     try {
-      const isPurcharse = await checkPurchase()
+      const isPurchase = await checkPurchase()
+      if (isPurchase.error === 'login') {
+        dispatch(
+          setNotification({
+            title: '¡UPS!',
+            text: 'Debes iniciar sesión primero para poder calificar el producto',
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+        return
+      }
+
+      if (isPurchase.error === 'user') {
+        dispatch(
+          setNotification({
+            title: '¡UPS!',
+            text: 'Todavia no has adquirido el producto para poder calificarlo',
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+        return
+      }
       const idUsuario = authUser.idUsuario
 
       if (
         validateFields(data.calificacion, rating) === 0 &&
-        isPurcharse.success === true
+        isPurchase.success
       ) {
         if (!image) {
           const request = await ratingService.createRating({
             idUsuarioComprador: idUsuario,
-            idDocumentoProducto: idDoc,
-            idUsuarioVendedor: isPurcharse.idVendedor,
+            idProducto: idDoc,
             comentario: data.calificacion,
             nota: rating,
           })
 
-          setNewCommentAdded(true)
+          getProductRating()
+
           dispatch(
             setNotification({
               title: 'Comentario',
@@ -154,13 +195,13 @@ const ProductRating = (props) => {
         const request = await ratingService.createRating({
           idUsuarioComprador: idUsuario,
           idDocumentoProducto: idDoc,
-          idUsuarioVendedor: isPurcharse.idVendedor,
+          idUsuarioVendedor: isPurchase.idVendedor,
           comentario: data.calificacion,
           foto: response.data.secure_url,
           nota: rating,
         })
 
-        setNewCommentAdded(true)
+        getProductRating()
 
         dispatch(
           setNotification({
@@ -172,16 +213,17 @@ const ProductRating = (props) => {
         )
       }
     } catch (error) {
-      console.error(error.response.data)
-      setNewCommentAdded(false)
-      dispatch(
-        setNotification({
-          title: '¡UPS!',
-          text: 'Ocurrio un error. Vuelve a intentarlo',
-          icon: 'error',
-          timer: 3000,
-        })
-      )
+      console.log('error', error)
+      if (error.status === 404) {
+        dispatch(
+          setNotification({
+            title: '¡UPS!',
+            text: 'Ocurrio un error. Vuelve a intentarlo',
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+      }
     } finally {
       setImage(null)
       setRating(null)
@@ -235,13 +277,13 @@ const ProductRating = (props) => {
   }
 
   return (
-    <div className="flex flex-col h-screen-minus-navbar px-8 py-12 overflow-auto">
+    <div className="flex flex-col px-8 py-12">
       <h2 className="font-black text-2xl"> Opiniones del producto</h2>
       <div className="mt-4">
         <div className="flex  items-start space-x-12">
           <div className="flex space-x-5 items-center">
             <div className="text-7xl font-bold text-blue-500">
-              {avgRating.toFixed(1)}
+              {(avgRating || 0).toFixed(1)}
             </div>
             <div className="flex flex-col">
               {!avgRating ? (
@@ -260,9 +302,9 @@ const ProductRating = (props) => {
                 <div key={val.idCalificacion}>
                   <RatingView
                     description={val.comentario}
-                    date={new Date(val.fecha).toLocaleDateString()}
-                    rating={val.nota}
-                    image={val.foto}
+                    date={new Date(val.fechaCalificacion).toLocaleDateString()}
+                    rating={val.puntuacion}
+                    // image={val.foto}
                   />
                 </div>
               ))

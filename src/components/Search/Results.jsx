@@ -3,7 +3,8 @@ import ProductRow from './ProductRow'
 const Results = (items) => {
   return items.map((result, index) => (
     <ProductRow
-      key={index}
+      key={result.idProducto}
+      id={result.idProducto}
       image="https://bicistore.com.co/wp-content/uploads/2020/11/imagen-5.jpg"
       alt={result.nombre}
       description={result.nombre}

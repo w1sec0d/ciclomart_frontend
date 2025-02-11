@@ -8,6 +8,11 @@ const getUsuario = async () => {
   return request.data
 }
 
+const getUsuarioPhoto = async (id) => {
+  const request = await axios.get(`${API_URL}/getUsuarioPhoto/${id}`)
+  return request.data
+}
+
 const createUsuario = async (usuario) => {
   const request = await axios.post(API_URL + '/usuarios', usuario)
   return request.data
@@ -25,4 +30,10 @@ const searchProducts = async (params) => {
   return request.data
 }
 
-export default { getUsuario, createUsuario, searchProducts, getTiendas }
+export default {
+  getUsuario,
+  getUsuarioPhoto,
+  createUsuario,
+  searchProducts,
+  getTiendas,
+}

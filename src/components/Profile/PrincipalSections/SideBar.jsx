@@ -35,12 +35,12 @@ const SideBar = () => {
       setSalesData(salesData.results)
       setStoresData(storesData.results)
     } catch (error) {
-      console.error('Error obteniendo datos de la sidebarxd', error)
+      console.error('Error obteniendo datos de la sidebar', error)
     }
   }
 
   useEffect(() => {
-    if (authUser.idUsuario) {
+    if (authUser && authUser.idUsuario) {
       fetchInitialData()
     }
   }, [authUser])

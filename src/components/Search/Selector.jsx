@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 //This component is used to display the selector of each filter in the search page.
 
 const Selector = (props) => {
-  console.log(props)
   const handleChange = (event) => {
     if (props.onFilterChange) {
       props.onFilterChange(props.label, event.target.value)
