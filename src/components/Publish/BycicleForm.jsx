@@ -1,206 +1,252 @@
 import { useState } from 'react'
-import filters from '../../utils/filters'
+import filters from '../../utils/newFilters'
 import Input from '../Input'
+import CustomSelect from './Select'
+import TextArea from '../TextArea'
 import Button from '../Button'
 import Select from './Select'
 
-const BycicleForm = ({ onSubmit }) => {
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    price: '',
-    brand: '',
-    bikeType: '',
-    frameSize: '',
-    frameMaterial: '',
-    wheelSize: '',
-    brakeType: '',
-    speeds: '',
-    suspension: '',
-    transmission: '',
-    weight: '',
-    color: '',
-    extras: '',
-    condition: '',
-    availability: '',
-    shippingMethod: '',
-    sellerLocation: '',
-  })
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    onSubmit(formData)
-  }
-
+const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full p-6 shadow-lg bg-white rounded-lg"
-    >
-      <Input
-        id="title"
-        label="Título"
-        name="title"
-        value={formData.title}
-        onChange={handleChange}
-        required
-      />
-      <label className="block text-sm font-medium mb-1">Descripcion</label>
-      <textarea
-        name="description"
-        value={formData.description}
-        onChange={handleChange}
-        className="flex-1 w-full px-3 py-2 border rounded-lg"
-        required
-      />
-      <Input
-        id="price"
-        label="Precio"
-        name="price"
-        type="number"
-        value={formData.price}
-        onChange={handleChange}
-        required
-      />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-10">
-        <Select
-          name="brand"
-          label="Marca"
-          options={filters.bicicleta[1].options}
-          value={formData.brand}
+    <>
+      <div className="grid grid-cols-2 gap-4">
+        <CustomSelect
+          name="tipoBicicleta"
+          label="Tipo"
+          options={filters['bicicleta'].tipo}
+          value={bycicle.tipoBicicleta}
           onChange={handleChange}
-          required
         />
-        <Select
-          name="bikeType"
-          label="Tipo de bicicleta"
-          options={filters.bicicleta[2].options}
-          value={formData.bikeType}
-          onChange={handleChange}
-          required
-        />
-        <Select
-          name="frameSize"
-          label="Tamaño del marco"
-          options={filters.bicicleta[3].options}
-          value={formData.frameSize}
-          onChange={handleChange}
-          required
-        />
-        <Select
-          name="frameMaterial"
-          label="Material del marco"
-          options={filters.bicicleta[4].options}
-          value={formData.frameMaterial}
-          onChange={handleChange}
-          required
-        />
-        <Select
-          name="wheelSize"
-          label="Tamaño de rueda"
-          options={filters.bicicleta[5].options}
-          value={formData.wheelSize}
-          onChange={handleChange}
-          required
-        />
-        <Select
-          name="brakeType"
-          label="Tipo de frenos"
-          options={filters.bicicleta[6].options}
-          value={formData.brakeType}
-          onChange={handleChange}
-          required
-        />
-        <Select
-          name="speeds"
-          label="Velocidades"
-          options={filters.bicicleta[7].options}
-          value={formData.speeds}
-          onChange={handleChange}
-          required
-        />
-        <Select
-          name="suspension"
-          label="Suspensión"
-          options={filters.bicicleta[8].options}
-          value={formData.suspension}
-          onChange={handleChange}
-          required
-        />
-        <Select
-          name="transmission"
-          label="Transmisión"
-          options={filters.bicicleta[9].options}
-          value={formData.transmission}
-          onChange={handleChange}
-          required
-        />
-        <Select
-          name="weight"
-          label="Peso"
-          options={filters.bicicleta[10].options}
-          value={formData.weight}
-          onChange={handleChange}
-          required
-        />
-        <Select
+        <CustomSelect
           name="color"
           label="Color"
-          options={filters.bicicleta[11].options}
-          value={formData.color}
+          options={filters['bicicleta'].color}
+          value={bycicle.color}
           onChange={handleChange}
-          required
         />
-        <Select
-          name="extras"
-          label="Extras"
-          options={filters.bicicleta[12].options}
-          value={formData.extras}
+        <CustomSelect
+          name="genero"
+          label="Genero"
+          options={filters['bicicleta'].genero}
+          value={bycicle.genero}
           onChange={handleChange}
-          required
         />
-        <Select
-          name="condition"
-          label="Condición"
-          options={filters.bicicleta[13].options}
-          value={formData.condition}
+        <CustomSelect
+          name="edad"
+          label="Edad"
+          options={filters['bicicleta'].edad}
+          value={bycicle.edad}
           onChange={handleChange}
-          required
-        />
-        <Select
-          name="availability"
-          label="Disponibilidad"
-          options={filters.bicicleta[14].options}
-          value={formData.availability}
-          onChange={handleChange}
-          required
-        />
-        <Select
-          name="shippingMethod"
-          label="Método de envío"
-          options={filters.bicicleta[15].options}
-          value={formData.shippingMethod}
-          onChange={handleChange}
-          required
-        />
-        <Select
-          name="sellerLocation"
-          label="Ubicación del vendedor"
-          options={filters.bicicleta[16].options}
-          value={formData.sellerLocation}
-          onChange={handleChange}
-          required
         />
       </div>
-      <Button type="submit" className="mt-4 w-full">
-        Publicar
-      </Button>
-    </form>
+
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles del marco
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4">
+        {/* <Input
+          type="number"
+          id="modeloMarco"
+          label="Modelo del marco"
+          value={bycicle.modeloMarco}
+          onChange={handleChange}
+        /> */}
+
+        <Input
+          type="number"
+          id="tamañoMarco"
+          label="Tamaño del marco (cm)"
+          value={bycicle.material}
+          onChange={handleChange}
+        />
+
+        <CustomSelect
+          name="materialMarco"
+          label="Material del marco"
+          options={filters['bicicleta'].materialMarco}
+          value={bycicle.materialMarco}
+          onChange={handleChange}
+        />
+      </div>
+
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles de las ruedas
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4">
+        {/* <Input
+          type="number"
+          id="modeloRuedas"
+          label="Modelo de las ruedas"
+          value={bycicle.modeloRuedas}
+          onChange={handleChange}
+        /> */}
+
+        <Input
+          type="number"
+          id="tamañoRueda"
+          label="Tamaño de las ruedas"
+          value={bycicle.tamañoRueda}
+          onChange={handleChange}
+        />
+      </div>
+
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles de transmisión
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4">
+        <CustomSelect
+          name="transmision"
+          label="Transmisión"
+          options={filters['bicicleta'].transmision}
+          value={bycicle.transmision}
+          onChange={handleChange}
+        />
+
+        <CustomSelect
+          name="tipoPedales"
+          label="Pedales"
+          options={filters['bicicleta'].pedales}
+          value={bycicle.tipoPedales}
+          onChange={handleChange}
+        />
+
+        <Input
+          type="number"
+          id="velocidades"
+          label="Número de velocidades"
+          value={bycicle.velocidades}
+          onChange={handleChange}
+        />
+
+        {/* <Input
+          type="number"
+          id="modeloPedales"
+          label="Modelo de pedales"	
+          value={bycicle.modeloPedales}
+          onChange={handleChange}
+        />
+
+        <Input
+          type="number"
+          id="modeloCasstte"
+          label="Modelo de cassette"	
+          value={bycicle.modeloCassette}
+          onChange={handleChange}
+        />
+
+        <Input
+          type="number"
+          id="modeloCadena"
+          label="Modelo de cadena"	
+          value={bycicle.modeloCadena}
+          onChange={handleChange}
+        /> */}
+      </div>
+
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles de suspensión
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4">
+        <CustomSelect
+          name="tipoSuspension"
+          label="Suspensión"
+          options={filters['bicicleta'].suspension}
+          value={bycicle.tipoSuspension}
+          onChange={handleChange}
+        />
+      </div>
+
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles de los frenos
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4">
+        <CustomSelect
+          name="tipoFrenos"
+          label="Tipo de frenos"
+          options={filters['bicicleta'].frenos}
+          value={bycicle.tipoFrenos}
+          onChange={handleChange}
+        />
+
+        {/* <Input
+          type="number"
+          id="modeloFrenos"
+          label="Modelo de los frenos"	
+          value={bycicle.modeloFrenos}
+          onChange={handleChange}
+          className='col-span-2'
+        /> */}
+      </div>
+
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles de peso
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4">
+        <Input
+          type="number"
+          id="pesoBicicleta"
+          label="Peso de la bicicleta (kg)"
+          value={bycicle.pesoBicicleta}
+          onChange={handleChange}
+        />
+
+        <Input
+          type="number"
+          id="pesoMaximo"
+          label="Peso máximo soportado (kg)"
+          value={bycicle.pesoMaximo}
+          onChange={handleChange}
+        />
+      </div>
+
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Detalles del manubrio
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4">
+        <CustomSelect
+          name="tipoManubrio"
+          label="Tipo de Manubrio"
+          options={filters['bicicleta'].manubrio}
+          value={bycicle.tipoManubrio}
+          onChange={handleChange}
+        />
+
+        {/* <Input
+          type="number"
+          id="modeloManubrio"
+          label="Modelo del manubrio"	
+          value={bycicle.modeloManubrio}
+          onChange={handleChange}
+          className='col-span-2'
+        /> */}
+      </div>
+
+      <h3 className="text-xl mt-8 text-primary justify-self-stretch">
+        Adicionales
+      </h3>
+      {/*       
+      <Input
+          type="number"
+          id="modeloSillin"
+          label="Modelo del sillin"	
+          value={bycicle.modeloSillin}
+          onChange={handleChange}
+      /> */}
+
+      <TextArea
+        id="extras"
+        label="Extras"
+        value={bycicle.extras}
+        onChange={handleChange}
+      />
+    </>
   )
 }
 

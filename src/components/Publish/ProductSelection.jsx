@@ -22,7 +22,7 @@ const ProductSelect = ({ onSelect }) => {
           Bicicleta
         </Button>
         <Button
-          onClick={() => onSelect('repuesto')}
+          onClick={() => onSelect('componente')}
           className="flex items-center justify-center bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600"
         >
           <img
