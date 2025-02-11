@@ -37,7 +37,7 @@ const Publish = () => {
       .getBrands()
       .then((data) => {
         console.log('Brands:', data)
-        const brandNames = data.brands.map((brand) => ({
+        const brandNames = data.results.map((brand) => ({
           id: brand.idMarca,
           value: brand.nombre,
           label: brand.nombre,
