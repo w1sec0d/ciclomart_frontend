@@ -1,42 +1,74 @@
 import React from 'react';
+import { useState } from 'react';
 import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { MaterialReactTable } from 'material-react-table';
+import { SiEac } from 'react-icons/si';
 
 const ShoppingCart = () => {
-  const columns = [
-    {
-      accessorKey: 'producto',
-      header: 'Producto',
-    },
-    {
-      accessorKey: 'precio',
-      header: 'Precio',
-    },
-    {
-      accessorKey: 'cantidad',
-      header: 'Cantidad',
-    },
-    {
-      accessorKey: 'total',
-      header: 'Total',
-    },
-  ];
+    
+    const columns = [
+        {
+        accessorKey: 'producto',
+        header: 'Producto',
+        },
+        {
+        accessorKey: 'precio',
+        header: 'Precio',
+        Cell: ({ cell }) =>  {return formatCurrency(cell.getValue())},
+        },
+        {
+        accessorKey: 'cantidad',
+        header: 'Cantidad',
+        },
+        {
+        accessorKey: 'total',
+        header: 'Total',
+        Cell: ({ cell }) =>  {return formatCurrency(cell.getValue())},
+        }
+    ];
 
-  const data = [
-    {
-      producto: 'Bicicleta de Ruta Poca Everest Carbono 11V',
-      precio: '$5990.000',
-      cantidad: 1,
-      total: '$5990.000',
-    },
-    {
-      producto: 'Pacha Shimano Mitzgo - 7 Velocidades Rosca - 14-28t',
-      precio: '$42.000',
-      cantidad: '',
-      total: '',
-    },
-  ];
+    const data = [
+        {
+        producto: 'Bicicleta de Ruta Poca Everest Carbono 11V',
+        precio: 5990000,
+        cantidad: 2,
+        envio: 20000,
+        },
+        {
+        producto: 'Pacha Shimano Mitzgo - 7 Velocidades Rosca - 14-28t',
+        precio: 42000,
+        cantidad: 1,
+        envio: 0
+        },
+    ];
 
+    // Calcular el total para cada producto
+    const calculateTotal = (precio, cantidad) => {
+        return precio * cantidad;
+    };
+
+    // Añadir el total calculado a cada producto en data
+    const dataWithTotal = data.map(item => ({
+        ...item,
+        total: calculateTotal(item.precio, item.cantidad),
+    }));
+
+    const formatCurrency = (value) => {
+        return value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
+    };
+
+    //Calcular el subtotal
+    const subtotal = dataWithTotal.reduce((acc, item) => {
+        return acc + item.total;
+    }, 0);
+    
+    const envio = dataWithTotal.reduce((acc, item) => {
+        return acc + item.envio;
+    }, 0);
+    
+    const impuestos = 253200;
+
+    const total = subtotal + envio + impuestos;
   return (
     <>
         <h1 className="font-black text-5xl text-center mt-20">
@@ -47,11 +79,15 @@ const ShoppingCart = () => {
             <div className = "flex flex-col w-full">
                 <MaterialReactTable
                     columns={columns}
-                    data={data}
+                    data={dataWithTotal}
                     enablePagination={false}
                     enableSorting={false}
                     enableColumnActions={false}
                     enableBottomToolbar={false}
+                    enableCellActions={false}
+                    enableColumnFilters={false}
+                    enableHiding={false}
+                    enableTopToolbar={false}
                     muiTableContainerProps={{ sx: { boxShadow: 'none' } }}
                 />
                 
@@ -71,15 +107,15 @@ const ShoppingCart = () => {
                         <TableBody>
                         <TableRow>
                             <TableCell>Subtotal</TableCell>
-                            <TableCell align="right">$6.074.000</TableCell>
+                            <TableCell align="right">{formatCurrency(subtotal)}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Envío</TableCell>
-                            <TableCell align="right">$0</TableCell>
+                            <TableCell align="right">{formatCurrency(envio)}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Impuestos</TableCell>
-                            <TableCell align="right">$253.200</TableCell>
+                            <TableCell align="right">{formatCurrency(impuestos)}</TableCell>
                         </TableRow>
                         </TableBody>
                     </Table>
@@ -90,7 +126,7 @@ const ShoppingCart = () => {
                     <Typography variant="h5" gutterBottom>
                     Total
                     </Typography>
-                    <Typography variant="h4">$6.327.200</Typography>
+                    <Typography variant="h4">{formatCurrency(total)}</Typography>
                     <Button variant="contained" color="primary" sx={{ marginTop: 2 }}>
                     Continuar al pago
                     </Button>
