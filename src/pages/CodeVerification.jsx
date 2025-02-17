@@ -9,7 +9,10 @@ import apiService from '../services/apiService'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import background1 from '../assets/background1.webp'
 
+
+
 const CodeVerification = () => {
+  
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -18,7 +21,10 @@ const CodeVerification = () => {
   const { token } = useParams()
   const { register, handleSubmit, reset } = useForm()
 
+
+
   const onSubmit = async (data) => {
+  
     try {
       dispatch(setLoading())
       const request = await loginService.validateCode(data, token)
@@ -66,10 +72,12 @@ const CodeVerification = () => {
     }
   }
 
-  if (code) {
+  /*if (code) {
     // Si el usuario hizo click en el link de verificación
     onSubmit({ code }) // Llamar a la función onSubmit con el código
-  }
+  }*/
+
+
 
   return (
     <div className="flex items-center justify-center h-screen-minus-navbar">

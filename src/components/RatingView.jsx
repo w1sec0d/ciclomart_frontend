@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import StarRating from './StarRating'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const RatingView = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false)

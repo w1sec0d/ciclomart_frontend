@@ -26,9 +26,16 @@ const checkUserPurchase = async (data) => {
   return request.data
 }
 
+//Obtiene todas las calificaciones de un vendedor
+const getRatingSeller = async (data) => {
+  const request = await axios.get(API_URL + `/ratingSeller/${data}`)
+  return request.data.results
+}
+
 export default {
   getRatingProduct,
   getAvgRatingProduct,
   createRating,
   checkUserPurchase,
+  getRatingSeller,
 }

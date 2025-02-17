@@ -304,7 +304,6 @@ const ProductRating = (props) => {
                     description={val.comentario}
                     date={new Date(val.fechaCalificacion).toLocaleDateString()}
                     rating={val.puntuacion}
-                    // image={val.foto}
                   />
                 </div>
               ))
