@@ -12,8 +12,7 @@ const getUserFromLocalStorage = async () => {
     return response.user ? response.user : null
   } catch (error) {
     window.localStorage.removeItem('token')
-    console.log(error)
-
+    console.error(error)
     return null
   }
 }
