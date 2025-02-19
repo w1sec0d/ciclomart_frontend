@@ -1,6 +1,6 @@
 # CicloMart_front
 
-Proyecto del curso Ingeniería de Software II de la Universidad Nacional de Colombia. Grupo de trabajo: JUDACA
+Proyecto del curso Ingeniería de Software II de la Universidad Nacional de Colombia. Grupo de trabajo: CICLOMART
 
 ## Descripción
 
@@ -8,14 +8,14 @@ CicloMart es una aplicación web de compra-venta de bicicletas y repuestos de ci
 
 ## Nombre del equipo
 
-**JUDACA**
+**CICLOMART**
 
 ## Miembros del equipo
 
-- **Juan David Madrid Contreras** - JuMad-SE
-- **Carlos David Ramirez Muñoz** - wlsec0d
-- **Johan David Rodriguez Gutierrez** - Homeros0
-- **Ronald Daniel Jacanamejoy Mutumbajoy** - RonaldDaniel20
+- **Juan David Madrid Contreras** - [JuMad-SE](https://github.com/JuMad-SE)
+- **Carlos David Ramirez Muñoz** - [w1sec0d](https://github.com/w1sec0d)
+- **Johan David Rodriguez Gutierrez** - [Homeroso](https://github.com/Homeroso)
+- **Ronald Daniel Jacanamejoy Mutumbajoy** - [RonaldDaniel20](https://github.com/RonaldDaniel20)
 
 ## Instalación para desarrolladores
 
@@ -99,3 +99,7 @@ Esto formateara todos los archivos de forma estándar y evitará conflictos inne
   Para debuggear el estado global se puede instalar la extensión de [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) en el navegador, esta extensión permite ver el estado global en tiempo real y ver las acciones que se están ejecutando.
 
   Esta extensión agrega una ventana en el navegador que muestra el estado global y las acciones que se están ejecutando, permitiendo ver el estado global en tiempo real y debuggear la aplicación de forma más sencilla.
+
+## Licencia
+Es posible usar el proyecto con fines educativos y no-comerciales únicamente. Ver más detalles a continuación:
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
