@@ -1,3 +1,4 @@
+import { useEffect, useCallback } from 'react'
 import Input from '../components/Input'
 import { useForm } from 'react-hook-form'
 import Button from '../components/Button'
@@ -16,12 +17,12 @@ const CodeVerification = () => {
   const code = searchParams.get('code') // Get the 'code' query parameter
 
   const { token } = useParams()
-  const { register, handleSubmit, reset } = useForm()
+  const { register, handleSubmit } = useForm()
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async () => {
     try {
       dispatch(setLoading())
-      const request = await loginService.validateCode(data, token)
+      const request = await loginService.validateCode({ code }, token)
       if (request.status === 200) {
         const registro = await apiService.createUsuario({
           nombre: request.data.nombre,
@@ -64,12 +65,13 @@ const CodeVerification = () => {
         )
       }
     }
-  }
+  }, [code, token, dispatch, navigate])
 
-  if (code) {
-    // Si el usuario hizo click en el link de verificación
-    onSubmit({ code }) // Llamar a la función onSubmit con el código
-  }
+  useEffect(() => {
+    if (code) {
+      onSubmit()
+    }
+  }, [code, onSubmit])
 
   return (
     <div className="flex items-center justify-center h-screen-minus-navbar">
