@@ -14,64 +14,69 @@ const CodeVerification = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const code = searchParams.get('code') // Get the 'code' query parameter
+  const codeFromUrl = searchParams.get('code')
 
   const { token } = useParams()
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, setValue } = useForm()
 
-  const onSubmit = useCallback(async () => {
-    try {
-      dispatch(setLoading())
-      const request = await loginService.validateCode({ code }, token)
-      if (request.status === 200) {
-        const registro = await apiService.createUsuario({
-          nombre: request.data.nombre,
-          apellido: request.data.apellido,
-          email: request.data.correo,
-          password: request.data.password,
-        })
+  const onSubmit = useCallback(
+    async (data) => {
+      const { code } = data
+      try {
+        dispatch(setLoading())
+        const request = await loginService.validateCode({ code }, token)
+        if (request.status === 200) {
+          const registro = await apiService.createUsuario({
+            nombre: request.data.nombre,
+            apellido: request.data.apellido,
+            email: request.data.correo,
+            password: request.data.password,
+          })
 
-        if (registro) {
-          dispatch(clearLoading())
+          if (registro) {
+            dispatch(clearLoading())
+            dispatch(
+              setNotification({
+                title: 'Usuario creado',
+                text: `El usuario ha sido creado`,
+                icon: 'success',
+              })
+            )
+
+            navigate('/login')
+          }
+        }
+      } catch (error) {
+        dispatch(clearLoading())
+        if (error.response && error.response.status === 400) {
           dispatch(
             setNotification({
-              title: 'Usuario creado',
-              text: `El usuario ha sido creado`,
-              icon: 'success',
+              title: '¡ups!',
+              text: 'No coinciden los códigos',
+              icon: 'error',
             })
           )
-
-          navigate('/login')
+        } else {
+          console.error('Error:', error.message)
+          dispatch(
+            setNotification({
+              title: 'Error',
+              text: `Ocurrió un error: ${error.message}`,
+              icon: 'error',
+            })
+          )
         }
       }
-    } catch (error) {
-      dispatch(clearLoading())
-      if (error.response && error.response.status === 400) {
-        dispatch(
-          setNotification({
-            title: '¡ups!',
-            text: 'No coinciden los códigos',
-            icon: 'error',
-          })
-        )
-      } else {
-        console.error('Error:', error.message)
-        dispatch(
-          setNotification({
-            title: 'Error',
-            text: `Ocurrió un error: ${error.message}`,
-            icon: 'error',
-          })
-        )
-      }
-    }
-  }, [code, token, dispatch, navigate])
+    },
+    [token, dispatch, navigate]
+  )
 
   useEffect(() => {
-    if (code) {
-      onSubmit()
+    if (codeFromUrl) {
+      setValue('code', codeFromUrl)
+      handleSubmit(onSubmit)({ code: codeFromUrl })
     }
-  }, [code, onSubmit])
+  }, [codeFromUrl, setValue, handleSubmit, onSubmit])
 
   return (
     <div className="flex items-center justify-center h-screen-minus-navbar">
