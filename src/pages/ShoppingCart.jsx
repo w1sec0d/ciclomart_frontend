@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { MaterialReactTable } from 'material-react-table';
+import cartService from '../services/cartService' 
+import { useSelector } from 'react-redux';
 import { SiEac } from 'react-icons/si';
 
 const ShoppingCart = () => {
     
+    const authUser = useSelector((state) => state.auth.authUser)
+    const [cart, setCart] = useState([]);
+    const [dataWithTotal, setDataWithTotal] = useState([]);
+    const [subtotal, setSubtotal] = useState(0);
+    const [envio, setEnvio] = useState(0);
+    const [total, setTotal] = useState(0);
+
+    const getCartElements = async (id) => {
+        const elements = await cartService.getCart(id);
+        setCart(elements.results)
+    }
+    
+    useEffect(() => {
+        getCartElements(authUser.idUsuario);
+    }, [authUser.idUsuario]);
+
+    console.log('cart: ', cart);
+    // Definir los impuestos
+    const impuestos = 253200;
+
     const columns = [
         {
-        accessorKey: 'producto',
+        accessorKey: 'nombre',
         header: 'Producto',
         },
         {
-        accessorKey: 'precio',
+        accessorKey: 'precio_unitario',
         header: 'Precio',
         Cell: ({ cell }) =>  {return formatCurrency(cell.getValue())},
         },
@@ -27,50 +49,42 @@ const ShoppingCart = () => {
         }
     ];
 
-    const data = [
-        {
-        producto: 'Bicicleta de Ruta Poca Everest Carbono 11V',
-        precio: 5990000,
-        cantidad: 4,
-        envio: 20000,
-        },
-        {
-        producto: 'Pacha Shimano Mitzgo - 7 Velocidades Rosca - 14-28t',
-        precio: 42000,
-        cantidad: 1,
-        envio: 0
-        },
-    ];
+    useEffect(() => {
+        // Calcular el total para cada producto
+        const calculateTotal = (precio, cantidad) => {
+            return precio * cantidad;
+        };
 
-    // Calcular el total para cada producto
-    const calculateTotal = (precio, cantidad) => {
-        return precio * cantidad;
-    };
+        // Añadir el total calculado a cada producto en el carrito
+        const updatedDataWithTotal = cart.map(item => ({
+            ...item,
+            total: calculateTotal(item.precio_unitario, item.cantidad),
+        }));
 
-    // Añadir el total calculado a cada producto en data
-    const dataWithTotal = data.map(item => ({
-        ...item,
-        total: calculateTotal(item.precio, item.cantidad),
-    }));
+        setDataWithTotal(updatedDataWithTotal);
 
+        // Calcular el subtotal
+        const updatedSubtotal = updatedDataWithTotal.reduce((acc, item) => acc + item.total, 0);
+        setSubtotal(updatedSubtotal);
+
+        // Calcular el envío
+        const updatedEnvio = updatedDataWithTotal.reduce((acc, item) => acc + item.costoEnvio, 0);
+        setEnvio(updatedEnvio);
+
+        // Calcular el total
+        const updatedTotal = updatedSubtotal + updatedEnvio + impuestos;
+        setTotal(updatedTotal);
+    }, [cart]);
+
+    // Función para formatear números como moneda
     const formatCurrency = (value) => {
         return value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
     };
 
-    //Calcular el subtotal
-    const subtotal = dataWithTotal.reduce((acc, item) => {
-        return acc + item.total;
-    }, 0);
-    
-    const envio = dataWithTotal.reduce((acc, item) => {
-        return acc + item.envio;
-    }, 0);
-    
-    const impuestos = 253200;
-
-    const total = subtotal + envio + impuestos;
   return (
     <>
+    {cart.length === 0 ? <label>No hay productos en el carrito</label> :
+        <div>
         <h1 className="font-black text-5xl text-center mt-20">
             Tu carrito de compras
         </h1>
@@ -134,6 +148,8 @@ const ShoppingCart = () => {
                 
             </div>
         </div>
+        </div>
+    }
     </>
   );
 };

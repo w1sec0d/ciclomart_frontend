@@ -14,6 +14,18 @@ const addProductToCart = async (idUsuario, idProducto) => {
   }
 }
 
+const getCart = async (idUsuario) => {
+  try {
+    console.log('idUsuario', idUsuario)
+    const response = await axios.get(API_URL + '/shoppingCart/' + idUsuario)
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.error('Error obteniendo carrito:', error)
+  }
+}
+
 export default {
   addProductToCart,
+  getCart
 }
