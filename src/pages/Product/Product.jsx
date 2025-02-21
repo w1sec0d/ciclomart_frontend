@@ -17,6 +17,7 @@ import mercadoPago from '../../services/mercadoPago'
 import colombianPrice from '../../utils/colombianPrice'
 import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import capitalize from '../../utils/capitalize'
+import { setNotification } from '../../store/slices/notificationSlice'
 
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
@@ -32,6 +33,16 @@ const ProductPage = () => {
 
   const handleBuy = async () => {
     dispatch(setLoading())
+    if (!authUser) {
+      dispatch(
+        setNotification({
+          title: 'Debes iniciar sesión para comprar',
+          icon: 'error',
+        })
+      )
+      dispatch(clearLoading())
+      return
+    }
     const { paymentURL } = await mercadoPago.sendBuyRequest(
       producto,
       authUser.idUsuario
