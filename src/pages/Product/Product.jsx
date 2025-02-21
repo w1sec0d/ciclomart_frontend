@@ -8,6 +8,7 @@ import Button from '../../components/Button'
 import Img from '../../components/Img'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
 import ProductRating from '../ProductRating'
+import { setNotification } from '../../store/slices/notificationSlice'
 
 // servicios
 import { getProductById } from '../../services/productService'
@@ -23,6 +24,8 @@ const ProductPage = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const authUser = useSelector((state) => state.auth.authUser)
+  
+
   // Hace fetch del producto con react-query
   const {
     data: producto,
@@ -40,6 +43,23 @@ const ProductPage = () => {
     setTimeout(() => {
       dispatch(clearLoading())
     }, 5000)
+  }
+
+  const handleAddToCart = () => {
+    console.log(producto)
+    if (!authUser) {
+      dispatch(
+        setNotification({
+          title: '¡UPS!',
+          text: 'Debes iniciar sesión primero para poder agregar al carrito',
+          icon: 'error',
+          timer: 3000,
+        })
+      )
+
+      const idUsuario = authUser.idUsuario
+      const idProducto = producto.idProducto
+    }
   }
 
   if (isLoading) return <Loading />
@@ -86,6 +106,7 @@ const ProductPage = () => {
               {new Date(producto.fechaPublicacion).toLocaleDateString()}
             </p>
           </div>
+          <Button className="mx-3" onClick={handleAddToCart}>Agregar al Carrito 🛒</Button>
           <Button onClick={handleBuy}>Comprar</Button>
         </div>
       </div>

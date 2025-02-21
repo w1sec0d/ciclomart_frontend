@@ -31,7 +31,7 @@ const ShoppingCart = () => {
         {
         producto: 'Bicicleta de Ruta Poca Everest Carbono 11V',
         precio: 5990000,
-        cantidad: 2,
+        cantidad: 4,
         envio: 20000,
         },
         {
