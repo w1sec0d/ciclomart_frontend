@@ -57,9 +57,11 @@ const ProductPage = () => {
         })
       )
 
-      const idUsuario = authUser.idUsuario
-      const idProducto = producto.idProducto
+      return
     }
+
+    const idUsuario = authUser.idUsuario
+    const idProducto = producto.idProducto
   }
 
   if (isLoading) return <Loading />
