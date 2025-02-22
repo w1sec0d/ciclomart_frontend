@@ -8,6 +8,7 @@ import Modal from 'react-modal'
 
 Modal.setAppElement('#root')
 
+//Navbar para las opciones de filtrado
 const Navbar = ({setFilter}) => {
   const buttonClasses = 'rounded-full p-1 bg-lgray hover:bg-blue-500 hover:text-white transition-all duration-300';
 
@@ -35,9 +36,12 @@ const Vendedor = () => {
   const [positivas, setPositivas] = useState([])
   const [neutras, setNeutras] = useState([])
   const [negativas, setNegativas] = useState([])
+  const [conFoto, setConFoto] = useState([])
+  const [recientes, setRecientes] = useState([])
   const [filter, setFilter] = useState('Positivas')
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
+  //Obtine todas las calificaciones del vendedor
   const getRatingSeller = async () => {
     try {
       const results = await ratingService.getRatingSeller(id)
@@ -47,6 +51,10 @@ const Vendedor = () => {
       const positivas = results.filter(({ nota }) => nota >= 4)
       const neutras = results.filter(({ nota }) => nota === 3)
       const negativas = results.filter(({ nota }) => nota < 3)
+      const conFoto = results.filter(({ foto }) => foto !==null && foto !== "")
+      const recientes = results.sort((a, b) => new Date(a.fecha) - new Date(b.fecha)).slice(0,2)
+
+
 
       setResults(results[0])
       setPromedio(promedio)
@@ -54,6 +62,9 @@ const Vendedor = () => {
       setPositivas(positivas)
       setNeutras(neutras)
       setNegativas(negativas)
+      setConFoto(conFoto)
+      setRecientes(recientes)
+
     } catch (error) {
       console.error(error)
     }
@@ -63,19 +74,22 @@ const Vendedor = () => {
     getRatingSeller()
   }, [id])
 
+  //Aplica filtros con base en la elección del usuario
   const filterResults = (() => {
     switch (filter) {
       case 'Positivas': return positivas
       case 'Neutrales': return neutras
       case 'Negativas': return negativas
+      case 'Con Fotos': return conFoto
+      case 'Recientes': return recientes
       default: return positivas
     }
   })()
 
   return (
-    <div className="relative flex items-center justify-center h-screen">
+    <div className="relative flex items-center bg-lgray justify-center h-screen">
       <div className="flex flex-col w-[100%] h-full">
-        <div className="flex items-center mt-8 mx-[170px] h-44 w-auto shadow-lg pl-20">
+        <div className="flex items-center bg-white rounded-3xl mt-8 mx-[170px] h-44 w-auto shadow-lg pl-20">
           <div className='flex relative ml-4'>
             <img src={results.imagenVendedor || Photo} className='w-36 h-36 rounded-full' alt='Foto de perfil' />
           </div>
@@ -92,7 +106,7 @@ const Vendedor = () => {
             </div>
           </div>
         </div>
-        <div className='flex flex-col mt-10 mx-[170px] w-auto shadow-lg overflow-auto pl-2 p-2'>
+        <div className='flex flex-col mt-10 bg-white rounded-3xl mx-[170px] w-auto shadow-lg overflow-auto pl-2 p-2'>
           <Navbar setFilter={setFilter} />
           <div className='flex flex-col px-6'>
             {filterResults.slice(0, 1).map((review, index) => (
@@ -116,6 +130,13 @@ const Vendedor = () => {
                 >
                   Ver más
                 </button>
+              )}
+            </div>
+            <div>
+              {filterResults.length === 0 && (
+                <p className='text-center text-2xl mt-8'>
+                  No hay reseñas para mostrar
+                </p>
               )}
             </div>
           </div>
