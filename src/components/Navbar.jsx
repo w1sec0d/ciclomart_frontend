@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Button from './Button'
 import logo from '../assets/logo.png'
-import { Person } from '@mui/icons-material'
+import { Person, ShoppingCart } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 
 const Navbar = (params) => {
@@ -56,6 +56,12 @@ const Navbar = (params) => {
         </li>
         {user ? (
           <li className="mx-4 hover:font-bold flex items-center">
+            <Button
+              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+              to="/shoppingCart"
+            >
+              <ShoppingCart />
+            </Button>
             <Button
               className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
               to="/profile"
