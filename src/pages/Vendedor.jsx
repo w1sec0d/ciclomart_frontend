@@ -77,7 +77,7 @@ const Vendedor = () => {
       <div className="flex flex-col w-[100%] h-full">
         <div className="flex items-center mt-8 mx-[170px] h-44 w-auto shadow-lg pl-20">
           <div className='flex relative ml-4'>
-            <img src={Photo} className='w-36 h-36 rounded-full' alt='Foto de perfil' />
+            <img src={results.imagenVendedor || Photo} className='w-36 h-36 rounded-full' alt='Foto de perfil' />
           </div>
           <div className='flex flex-col lg:ml-[50px]'>
             <div className='flex flex-row'>
@@ -105,12 +105,13 @@ const Vendedor = () => {
                 idProducto={review.idProducto}
                 nombreComprador={review.nombreComprador}
                 apellidoComprador={review.apellidoComprador}
+                imageCom={review.imagenComprador}
               />
             ))}
             <div className='flex items-center justify-center'>
               {filterResults.length > 1 && (
                 <button
-                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-full"
+                  className="px-4 py-1 bg-blue-500 text-white rounded-full"
                   onClick={() => setModalIsOpen(true)}
                 >
                   Ver más

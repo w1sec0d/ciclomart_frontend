@@ -1,9 +1,10 @@
 import { FaStar } from "react-icons/fa";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
+import Photo from '../../assets/userPhoto.png'
 
 
-const RatingSeller = ({ description, date, rating, image, idProducto, nombreComprador, apellidoComprador }) => {
+const RatingSeller = ({ description, date, rating, image, idProducto, nombreComprador, apellidoComprador, imageCom }) => {
 
     const formattedDate = new Date(date).toLocaleDateString()
 
@@ -24,13 +25,13 @@ const RatingSeller = ({ description, date, rating, image, idProducto, nombreComp
                 </div>
             </div>
             <div className="flex flex-row mt-2">
-                <img src={image} alt="Foto Comprador" className="w-28 h-28 rounded-full flex-shrink-0" />
+                <img src={imageCom || Photo} alt="Foto Comprador" className="w-28 h-28 rounded-full flex-shrink-0" />
                 <div className="flex-grow mx-10 space-y-2">
                     <p className="whitespace-normal break-words">{description}</p>
                     <Link className="text-sm text-blue-500" to={`/product/${idProducto}`}>Ver producto</Link>
                     <p className="font-bold italic">-{nombreComprador} {apellidoComprador}</p>
                 </div>
-                <img src={image} alt="Foto Producto" className="w-28 h-28 flex-shrink-0"/>
+                {image && <img src={image} alt="Foto Producto" className="w-28 h-28 flex-shrink-0"/> }
             </div>
         </div>
     )
