@@ -1,15 +1,15 @@
 //Componentes
 import ExposurePrice from '../components/Exposure/ExposurePrice'
+import GradeInformation from '../components/Exposure/GradeInformation'
 
 const ExposureInfo = () => {
   return (
     <div className="w-full h-auto flex flex-col">
-      <div className="bg-secondary h-14 w-full mt-10 flex items-center justify-center drop-shadow-lg">
+      <div className="bg-secondary h-14 w-full  flex items-center justify-center drop-shadow-lg">
         <h1 className="text-xl font-bold">
           Elije un nivel de exposición para resaltar tus productos
         </h1>
       </div>
-
       <div className="flex flex-col h-auto w-full mt-8 mb-8">
         <div>
           <h2 className="font-bold bg-tertiary py-3 px-3  rounded-tr-xl w-64 drop-shadow-lg">
@@ -35,7 +35,7 @@ const ExposureInfo = () => {
       {/* Grados de exposición y selección */}
       <div className=" bg-lgray/[.37] w-full h-auto ">
         <div className="mb-20">
-          <h2 className="bg-primary inline-block opacity-100 py-3 px-3 font-bold rounded-tr-xl w-64 drop-shadow-lg ">
+          <h2 className="bg-primary  py-3 px-3 font-bold rounded-tr-xl w-64 drop-shadow-lg ">
             FORMAS DE PAGO
           </h2>
         </div>
@@ -45,6 +45,18 @@ const ExposureInfo = () => {
           <ExposurePrice grade={3} percentage={6} />
           <ExposurePrice grade={4} percentage={8} />
         </div>
+      </div>
+
+      <div className="flex flex-col">
+        <div className="mb-4">
+          <h2 className="bg-tertiary w-64 rounded-tr-xl mt-5 py-3 px-3 font-bold drop-shadow-lg">
+            ¿COMO FUNCIONA?
+          </h2>
+        </div>
+        <GradeInformation grade={1} />
+        <GradeInformation grade={2} />
+        <GradeInformation grade={3} />
+        <GradeInformation grade={4} />
       </div>
     </div>
   )
