@@ -2,12 +2,12 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 import axios from 'axios'
 
-const addProductToCart = async (idUsuario, idProducto) => {
+const addProductToCart = async (idUsuario, idProducto, cantidad) => {
   try {
     const response = await axios.post(API_URL + '/addToShoppingCart', {
       idUsuario,
       idProducto,
-      cantidad : 1
+      cantidad
     })
     return response.data
   } catch (error) {

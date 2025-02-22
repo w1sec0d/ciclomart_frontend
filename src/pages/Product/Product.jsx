@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { useState } from 'react'
 
 // componentes
 import Loading from '../../components/Loading'
@@ -9,6 +10,7 @@ import Img from '../../components/Img'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
 import ProductRating from '../ProductRating'
 import { setNotification } from '../../store/slices/notificationSlice'
+import Input from '../../components/Input'
 
 // servicios
 import { getProductById } from '../../services/productService'
@@ -20,13 +22,14 @@ import colombianPrice from '../../utils/colombianPrice'
 import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import capitalize from '../../utils/capitalize'
 import { IoMdPower } from 'react-icons/io'
+import React from 'react'
 
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
   const { id } = useParams()
   const dispatch = useDispatch()
   const authUser = useSelector((state) => state.auth.authUser)
-  
+  const [cantidad, setCantidad] = useState(1);
 
   // Hace fetch del producto con react-query
   const {
@@ -64,7 +67,6 @@ const ProductPage = () => {
 
     const idUsuario = authUser.idUsuario
     const idProducto = producto.idProducto
-    const cantidad = 1
 
     await shoppingCart.addProductToCart(idUsuario, idProducto, cantidad)
 
@@ -114,8 +116,21 @@ const ProductPage = () => {
               {new Date(producto.fechaPublicacion).toLocaleDateString()}
             </p>
           </div>
-          <Button className="mx-3" onClick={handleAddToCart}>Agregar al Carrito 🛒</Button>
-          <Button onClick={handleBuy}>Comprar</Button>
+          <div className="flex items-center flex-row">
+            <Input
+              type="number"
+              label="Cantidad"
+              id="cantidad"
+              name="cantidad"
+              value={cantidad}
+              onChange={(e) => setCantidad(Number(e.target.value))}
+              min="1"
+              max={producto.cantidad}
+              className="mt-1 my-4 block w-1/3"
+            />
+            <Button className="mx-3" onClick={handleAddToCart}>🛒+ </Button>
+            <Button className= "mx-3" onClick={handleBuy}>Comprar</Button>
+          </div>
         </div>
       </div>
       <div className="py-4">

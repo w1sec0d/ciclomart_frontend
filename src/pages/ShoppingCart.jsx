@@ -126,7 +126,7 @@ const ShoppingCart = () => {
                 />
                 
                 <Box sx={{ marginTop: 2 }}> 
-                    <Button href="/" color="primary">
+                    <Button to="/" color="primary">
                     ← Volver a la tienda
                     </Button>
                 </Box>
