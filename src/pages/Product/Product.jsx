@@ -23,6 +23,7 @@ import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import capitalize from '../../utils/capitalize'
 import { IoMdPower } from 'react-icons/io'
 import React from 'react'
+import { addItem } from '../../store/slices/cartSlice'
 
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
@@ -68,6 +69,14 @@ const ProductPage = () => {
     const idUsuario = authUser.idUsuario
     const idProducto = producto.idProducto
 
+    const item = {
+      id: producto.idProducto,
+      nombre: producto.nombre,
+      cantidad: cantidad,
+      precio_unitario: producto.precio,
+    }
+
+    dispatch(addItem(item))
     await shoppingCart.addProductToCart(idUsuario, idProducto, cantidad)
 
   }

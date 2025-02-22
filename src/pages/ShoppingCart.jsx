@@ -4,12 +4,14 @@ import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead
 import { MaterialReactTable } from 'material-react-table';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import cartService from '../services/cartService' 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { SiEac } from 'react-icons/si';
 import Button from '../components/Button';
+import { removeItem } from '../store/slices/cartSlice';
+
 
 const ShoppingCart = () => {
-    
+    const dispatch = useDispatch();
     const authUser = useSelector((state) => state.auth.authUser)
     const [cart, setCart] = useState([]);
     const [dataWithTotal, setDataWithTotal] = useState([]);
@@ -19,12 +21,13 @@ const ShoppingCart = () => {
 
     const getCartElements = async (id) => {
         const elements = await cartService.getCart(id);
-        setCart(elements.results)
+        dispatch(setCart(elements.results))
+        setCart(elements.results);
     }
     
     const removeFromCart = async (index) => {
         const element = cart[index];
-        console.log('element: ', element);
+        dispatch(removeItem(element.idProducto));
         await cartService.removeFromCart(authUser.idUsuario, element.idProducto);
         const updated = await cartService.getCart(authUser.idUsuario);
         setCart(updated.results);
