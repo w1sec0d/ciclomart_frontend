@@ -52,7 +52,7 @@ const Vendedor = () => {
       const neutras = results.filter(({ nota }) => nota === 3 && nota !== null)
       const negativas = results.filter(({ nota }) => nota < 3 && nota !== null)
       const conFoto = results.filter(({ foto }) => foto !==null && foto !== "")
-      const recientes = results.filter(({ fecha }) => fecha !==null ).sort((a, b) => new Date(a.fecha) - new Date(b.fecha)).slice(0,2)
+      const recientes = results.filter(({ fecha }) => fecha !==null ).sort((a, b) => new Date(b.fecha) - new Date(a.fecha)).slice(0,2)
 
       setResults(results[0])
       setPromedio(promedio)

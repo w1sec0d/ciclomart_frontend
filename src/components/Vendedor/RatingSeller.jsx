@@ -2,11 +2,21 @@ import { FaStar } from "react-icons/fa";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import Photo from '../../assets/userPhoto.png'
+import { useState } from "react";
 
 
 const RatingSeller = ({ description, date, rating, image, idProducto, nombreComprador, apellidoComprador, imageCom }) => {
 
     const formattedDate = new Date(date).toLocaleDateString()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const handleImageClick = () => {
+        setIsModalOpen(true)
+    } 
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
+    }
 
     return (
         <div className='flex  flex-col space-y-4 w-full mt-3'>
@@ -31,7 +41,28 @@ const RatingSeller = ({ description, date, rating, image, idProducto, nombreComp
                     <Link className="text-sm text-blue-500" to={`/product/${idProducto}`}>Ver producto</Link>
                     <p className="font-bold italic">-{nombreComprador} {apellidoComprador}</p>
                 </div>
-                {image && <img src={image} alt="Foto Producto" className="w-28 h-28 flex-shrink-0"/> }
+                {image && (
+                    <img 
+                        src={image} 
+                        alt="Foto Producto" 
+                        className="w-28 h-28 flex-shrink-0 object-cover cursor-pointer"
+                        onClick={handleImageClick}
+                    /> 
+                )}
+                {isModalOpen && (
+                    <div> 
+                        <div className="fixed inset-0 flex items-center justify-center z-50">
+                            <div className="absolute inset-0 bg-black opacity-70" onClick={handleCloseModal}></div>
+                            <div className="relative p-2 rounded-lg shadow-lg max-w-3xl max-h-full">
+                                <img 
+                                    src={image} 
+                                    alt="Imagen de un producto ampliada" 
+                                    className="w-full h-full object-contain max-h-[80vh] max-w-full"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     )

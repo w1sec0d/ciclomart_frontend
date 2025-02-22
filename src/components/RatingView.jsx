@@ -32,7 +32,7 @@ const RatingView = (props) => {
             className="absolute inset-0 bg-black opacity-70"
             onClick={handleCloseModal}
           ></div>
-          <div className="relative bg-white p-4 rounded-lg shadow-lg max-w-3xl max-h-full">
+          <div className="relative p-4 rounded-lg shadow-lg max-w-3xl max-h-full">
             <img
               src={props.image}
               alt="Imagen de un producto ampliada"
