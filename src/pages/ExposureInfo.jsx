@@ -1,3 +1,6 @@
+//Componentes
+import ExposurePrice from '../components/Exposure/ExposurePrice'
+
 const ExposureInfo = () => {
   return (
     <div className="w-full h-auto flex flex-col">
@@ -29,30 +32,18 @@ const ExposureInfo = () => {
         </div>
       </div>
 
+      {/* Grados de exposición y selección */}
       <div className=" bg-lgray/[.37] w-full h-auto ">
         <div className="mb-20">
           <h2 className="bg-primary inline-block opacity-100 py-3 px-3 font-bold rounded-tr-xl w-64 drop-shadow-lg ">
             FORMAS DE PAGO
           </h2>
         </div>
-        <div className="grid grid-cols-2 gap-8 pb-8 px-8">
-          <div className="bg-white h-60 w-full rounded-xl flex flex-col items-center shadow-xl">
-            <div className="w-full bg-primary h-16 rounded-t-xl flex items-center justify-center mb-4 drop-shadow-lg">
-              <h3 className="font-bold">Grado 1</h3>
-            </div>
-            <b className="text-primary text-2xl">3% del valor de tu producto</b>
-            <div className="h-full w-full flex justify-center px-8">
-              <ul className="list-disc">
-                <li>
-                  Nivel de exposición grado 1 para bicicletas y repuestos en
-                  publicaciones y búsquedas.
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="bg-white h-60 w-full"></div>
-          <div className="bg-white h-60 w-full"></div>
-          <div className="bg-white h-60 w-full"></div>
+        <div className="grid grid-cols-2 gap-16 pb-8 px-8">
+          <ExposurePrice grade={1} percentage={3} />
+          <ExposurePrice grade={2} percentage={4.5} />
+          <ExposurePrice grade={3} percentage={6} />
+          <ExposurePrice grade={4} percentage={8} />
         </div>
       </div>
     </div>
