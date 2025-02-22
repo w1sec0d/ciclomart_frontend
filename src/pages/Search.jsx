@@ -15,6 +15,7 @@ import Button from '../components/Button'
 import ComparisonBar from '../components/Comparison/ComparisonBar'
 import { MaterialReactTable } from 'material-react-table'
 import capitalize from '../utils/capitalize'
+import ComparisonButton from '../components/Comparison/ComparisonButton'
 
 //import filters
 import filters from '../utils/newFilters'
@@ -45,14 +46,22 @@ const columns = [
   {
     accessorKey: 'precio',
     header: 'Precio',
+    Cell: ({ row }) => (
+      <div className="relative ">
+        <span>{row.original.precio}</span>
+        <ComparisonButton idProducto={row.original.id} />
+      </div>
+    ),
   },
-];
+]
 
 const SearchPage = (params) => {
   const dispatch = useDispatch()
   const searchResults = useSelector((state) => state.search.results)
   const searchStatus = useSelector((state) => state.search.status)
   const searchInput = useSelector((state) => state.search.searchInput)
+  const idProduct1 = useSelector((state) => state.comparison.idProduct1)
+  const idProduct2 = useSelector((state) => state.comparison.idProduct2)
   let tableResults = {}
   //State
   const [tipo, setTipo] = useState('bicicleta')
@@ -126,7 +135,6 @@ const SearchPage = (params) => {
       }
     }
 
-    
     dispatch(fetchSearchResults(newFilters))
   }
 
@@ -151,16 +159,13 @@ const SearchPage = (params) => {
     }
   }, [searchInput, tipo, dispatch])
 
-  console.log(searchResults)
-
-  const resultKeys = searchResults && searchResults.results && searchResults.results.length > 0
-    ? Object.keys(searchResults.results[0])
-    : []
-
-  console.log(resultKeys)
+  const resultKeys =
+    searchResults && searchResults.results && searchResults.results.length > 0
+      ? Object.keys(searchResults.results[0])
+      : []
 
   return (
-    <div className='flex'>
+    <div className="flex">
       <div className="w-1/5 p-4 bg-primary">
         <label className="text-slate-50 text-lg font-bold">Filtros</label>
         {resultKeys.map((key) => (
@@ -168,33 +173,39 @@ const SearchPage = (params) => {
             key={key}
             label={key}
             results={Object.values(searchResults.results)}
-            onChange={(selectedValue) =>
-              handleFilterChange(key, selectedValue)
-            }
+            onChange={(selectedValue) => handleFilterChange(key, selectedValue)}
           />
         ))}
       </div>
       <div className="w-4/5 p-4">
         <ComparisonBar />
         <MaterialReactTable
-        columns={columns}
-        data={searchResults && Array.isArray(searchResults.results)
-          ? searchResults.results.map((result) => ({
-              imagen: result.imagenURL,
-              modelo: result.nombre,
-              tipo: capitalize(result.tipo),
-              precio: result.precio,
-            }))
-          : []}
-        enableCellActions={false}
-        enableColumnFilters={false}
-        enablePagination
-        enableHiding={false}
-        enableSorting={false}
-        enableBottomToolbar
-        enableTopToolbar={false}
-        muiTableContainerProps={{ sx: { maxHeight: '2000px' } }}
-      />
+          columns={columns}
+          data={
+            searchResults && Array.isArray(searchResults.results)
+              ? searchResults.results.map((result) => ({
+                  imagen: result.imagenURL,
+                  modelo: result.nombre,
+                  tipo: capitalize(result.tipo),
+                  precio: result.precio,
+                  id: result.idProducto,
+                }))
+              : []
+          }
+          enableCellActions={false}
+          enableColumnFilters={false}
+          enablePagination
+          enableHiding={false}
+          enableSorting={false}
+          enableBottomToolbar
+          enableTopToolbar={false}
+          muiTableContainerProps={{ sx: { maxHeight: '2000px' } }}
+          muiTableBodyRowProps={({ row }) => {
+            return {
+              className: 'group',
+            }
+          }}
+        />
       </div>
     </div>
   )

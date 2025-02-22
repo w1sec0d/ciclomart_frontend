@@ -68,7 +68,6 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
   }
 
   const handleChange = (e) => {
-    console.log(product)
     const { name, value } = e.target
     setProduct({ ...product, [name]: value })
   }
@@ -80,7 +79,6 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
   }
 
   const handleBrandChange = (e) => {
-    console.log(product)
     const { value, id } = e.target
     setProduct({ ...product, idMarca: id })
     //getModels(type, id)

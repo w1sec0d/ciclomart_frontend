@@ -14,7 +14,6 @@ const Publish = () => {
 
   const handleSelect = async (type) => {
     await getBrand()
-    console.log(brands)
     setProductType(type)
     setStep('form')
   }
