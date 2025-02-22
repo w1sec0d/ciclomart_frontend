@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { MaterialReactTable } from 'material-react-table';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import cartService from '../services/cartService' 
 import { useSelector } from 'react-redux';
 import { SiEac } from 'react-icons/si';
+import Button from '../components/Button';
 
 const ShoppingCart = () => {
     
@@ -20,6 +22,14 @@ const ShoppingCart = () => {
         setCart(elements.results)
     }
     
+    const removeFromCart = async (index) => {
+        const element = cart[index];
+        console.log('element: ', element);
+        await cartService.removeFromCart(authUser.idUsuario, element.idProducto);
+        const updated = await cartService.getCart(authUser.idUsuario);
+        setCart(updated.results);
+    }
+
     useEffect(() => {
         getCartElements(authUser.idUsuario);
     }, [authUser.idUsuario]);
@@ -27,27 +37,6 @@ const ShoppingCart = () => {
     console.log('cart: ', cart);
     // Definir los impuestos
     const impuestos = 253200;
-
-    const columns = [
-        {
-        accessorKey: 'nombre',
-        header: 'Producto',
-        },
-        {
-        accessorKey: 'precio_unitario',
-        header: 'Precio',
-        Cell: ({ cell }) =>  {return formatCurrency(cell.getValue())},
-        },
-        {
-        accessorKey: 'cantidad',
-        header: 'Cantidad',
-        },
-        {
-        accessorKey: 'total',
-        header: 'Total',
-        Cell: ({ cell }) =>  {return formatCurrency(cell.getValue())},
-        }
-    ];
 
     useEffect(() => {
         // Calcular el total para cada producto
@@ -60,6 +49,7 @@ const ShoppingCart = () => {
             ...item,
             total: calculateTotal(item.precio_unitario, item.cantidad),
         }));
+
 
         setDataWithTotal(updatedDataWithTotal);
 
@@ -80,6 +70,36 @@ const ShoppingCart = () => {
     const formatCurrency = (value) => {
         return value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
     };
+
+    const columns = [
+        {
+            accessorKey: 'nombre',
+            header: 'Producto',
+        },
+        {
+            accessorKey: 'precio_unitario',
+            header: 'Precio',
+            Cell: ({ cell }) => formatCurrency(cell.getValue()),
+        },
+        {
+            accessorKey: 'cantidad',
+            header: 'Cantidad',
+        },
+        {
+            accessorKey: 'total',
+            header: 'Total',
+            Cell: ({ cell }) => formatCurrency(cell.getValue()),
+        },
+        {
+            accessorKey: 'delete',
+            header: '',
+            Cell: ({ row }) => (
+                <Button color="secondary" onClick={() => removeFromCart(row.index)}>
+                    <RemoveCircleOutlineIcon />
+                </Button>
+            ),
+        },
+    ];
 
   return (
     <>

@@ -26,7 +26,19 @@ const getCart = async (idUsuario) => {
   }
 }
 
+const removeFromCart = async (idUsuario, idProducto) => {
+  console.log('idUsuario', idUsuario)
+  console.log('idProducto', idProducto)
+  try {
+    const response = await axios.delete(API_URL + '/removeFromShoppingCart' + '/' + idUsuario + '/' + idProducto)
+    return response.data
+  } catch (error) {
+    console.error('Error eliminando producto del carrito:', error)
+  }
+}
+
 export default {
   addProductToCart,
-  getCart
+  getCart,
+  removeFromCart
 }
