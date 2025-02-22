@@ -1,6 +1,6 @@
 import RatingView from '../components/RatingView'
 import Button from '../components/Button'
-import { get, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { FaStar, FaUpload } from 'react-icons/fa'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import StarRating from '../components/StarRating'
@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import ratingService from '../services/ratingService'
 import axios from 'axios'
-import Loading from '../components/Loading'
 import { useParams } from 'react-router-dom'
 
 const ProductRating = (props) => {
@@ -116,7 +115,6 @@ const ProductRating = (props) => {
     }
     try {
       const request = await ratingService.getRatingProduct(idDoc)
-      console.log('request', request)
       setCommentList(request.results)
       getAvgRating()
     } catch (error) {
@@ -158,6 +156,7 @@ const ProductRating = (props) => {
       }
       const idUsuario = authUser.idUsuario
 
+
       if (
         validateFields(data.calificacion, rating) === 0 &&
         isPurchase.success
@@ -165,9 +164,11 @@ const ProductRating = (props) => {
         if (!image) {
           const request = await ratingService.createRating({
             idUsuarioComprador: idUsuario,
+            idUsuarioVendedor: isPurchase.idVendedor,
             idProducto: idDoc,
             comentario: data.calificacion,
             nota: rating,
+            foto: null
           })
 
           getProductRating()
@@ -193,8 +194,8 @@ const ProductRating = (props) => {
         )
 
         const request = await ratingService.createRating({
+          idProducto: idDoc,
           idUsuarioComprador: idUsuario,
-          idDocumentoProducto: idDoc,
           idUsuarioVendedor: isPurchase.idVendedor,
           comentario: data.calificacion,
           foto: response.data.secure_url,
@@ -304,6 +305,8 @@ const ProductRating = (props) => {
                     description={val.comentario}
                     date={new Date(val.fechaCalificacion).toLocaleDateString()}
                     rating={val.puntuacion}
+                    image={val.foto}
+
                   />
                 </div>
               ))

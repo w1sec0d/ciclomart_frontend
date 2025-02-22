@@ -48,13 +48,11 @@ const Vendedor = () => {
       const sumaNotas = results.reduce((suma, { nota }) => suma + nota, 0)
       const promedio = results.length ? sumaNotas / results.length : 0
       const size = (results.length === 1 && results[0].nota === null) ? 0 : results.length
-      const positivas = results.filter(({ nota }) => nota >= 4)
-      const neutras = results.filter(({ nota }) => nota === 3)
-      const negativas = results.filter(({ nota }) => nota < 3)
+      const positivas = results.filter(({ nota }) => nota >= 4 && nota !== null)
+      const neutras = results.filter(({ nota }) => nota === 3 && nota !== null)
+      const negativas = results.filter(({ nota }) => nota < 3 && nota !== null)
       const conFoto = results.filter(({ foto }) => foto !==null && foto !== "")
-      const recientes = results.sort((a, b) => new Date(a.fecha) - new Date(b.fecha)).slice(0,2)
-
-
+      const recientes = results.filter(({ fecha }) => fecha !==null ).sort((a, b) => new Date(a.fecha) - new Date(b.fecha)).slice(0,2)
 
       setResults(results[0])
       setPromedio(promedio)
@@ -163,6 +161,7 @@ const Vendedor = () => {
                 idProducto={review.idProducto}
                 nombreComprador={review.nombreComprador}
                 apellidoComprador={review.apellidoComprador}
+                imageCom={review.imagenComprador}
               />
             ))}
           </div>
