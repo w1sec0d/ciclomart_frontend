@@ -13,11 +13,13 @@ import { setNotification } from '../../store/slices/notificationSlice'
 // servicios
 import { getProductById } from '../../services/productService'
 import mercadoPago from '../../services/mercadoPago'
+import shoppingCart from '../../services/cartService'
 
 // utils
 import colombianPrice from '../../utils/colombianPrice'
 import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import capitalize from '../../utils/capitalize'
+import { IoMdPower } from 'react-icons/io'
 
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
@@ -45,7 +47,7 @@ const ProductPage = () => {
     }, 5000)
   }
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     console.log(producto)
     if (!authUser) {
       dispatch(
@@ -62,6 +64,10 @@ const ProductPage = () => {
 
     const idUsuario = authUser.idUsuario
     const idProducto = producto.idProducto
+    const cantidad = 1
+
+    await shoppingCart.addProductToCart(idUsuario, idProducto, cantidad)
+
   }
 
   if (isLoading) return <Loading />

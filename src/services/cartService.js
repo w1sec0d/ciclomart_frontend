@@ -4,9 +4,10 @@ import axios from 'axios'
 
 const addProductToCart = async (idUsuario, idProducto) => {
   try {
-    const response = await axios.post(API_URL + '/cart/add', {
+    const response = await axios.post(API_URL + '/addToShoppingCart', {
       idUsuario,
       idProducto,
+      cantidad : 1
     })
     return response.data
   } catch (error) {
