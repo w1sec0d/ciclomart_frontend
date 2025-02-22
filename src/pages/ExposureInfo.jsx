@@ -47,6 +47,7 @@ const ExposureInfo = () => {
         </div>
       </div>
 
+      {/*Como funciona? Información de grados para dar info al vendedor */}
       <div className="flex flex-col">
         <div className="mb-4">
           <h2 className="bg-tertiary w-64 rounded-tr-xl mt-5 py-3 px-3 font-bold drop-shadow-lg">
