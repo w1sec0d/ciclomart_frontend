@@ -111,9 +111,14 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
   }
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen bg-gray-100">
-      <div className="flex flex-col items-center justify-center w-full max-w-4xl p-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4">Publicar {type}</h1>
+    <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-t from-primary/95 to-zinc-100 from-50% to-50%">
+      <div
+        className=" flex flex-col items-center justify-center w-full max-w-4xl pb-6 bg-zinc-100
+        rounded-lg mt-4 mb-8 shadow-lg shadow-black/35"
+      >
+        <div className="w-full h-14 bg-primary rounded-t-lg flex items-center justify-center drop-shadow-lg">
+          <h1 className="text-2xl font-bold ">Publicar {type}</h1>
+        </div>
         <div className="w-full m-15 px-20 ">
           <form onSubmit={handleSubmit} className="w-full space-y-5 p-4">
             {step === 1 && (
@@ -149,18 +154,20 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
             )}
             {/* {type === 'bicicleta' && <BycicleForm onSubmit={onSubmit} />}
             {type === 'repuesto' && <SparePartForm onSubmit={onSubmit} />} */}
+
+            {step === 4 && <p> hola</p>}
           </form>
           {step > 1 && (
             <Button
               type="button"
               onClick={handlePrevious}
-              className="justify-center"
+              className="justify-center mr-2"
             >
               Anterior
             </Button>
           )}
 
-          {step < 3 ? (
+          {step < 4 ? (
             <Button
               type="button"
               onClick={handleNext}
