@@ -27,7 +27,7 @@ const ProductSelect = ({ onSelect }) => {
         </div>
         <div className="size-40 ">
           <Button
-            onClick={() => onSelect('bicicleta')}
+            onClick={() => onSelect('componente')}
             className="flex flex-col items-center justify-center bg-white text-black font-bold shadow-xl px-6 py-2 rounded-lg hover:bg-dgray h-full w-full"
           >
             <img

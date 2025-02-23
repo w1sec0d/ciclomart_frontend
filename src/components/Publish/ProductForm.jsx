@@ -5,6 +5,7 @@ import SparePartForm from './SparePartForm'
 import GeneralInfo from './GeneraInfo'
 import AvailabilityForm from './AvailabilityForm'
 import Button from '../Button'
+import ExposurePrice from '../Exposure/ExposurePrice'
 
 const ProductForm = ({ type, onSubmit, models, brands }) => {
   const [step, setStep] = useState(1)
@@ -155,7 +156,14 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
             {/* {type === 'bicicleta' && <BycicleForm onSubmit={onSubmit} />}
             {type === 'repuesto' && <SparePartForm onSubmit={onSubmit} />} */}
 
-            {step === 4 && <p> hola</p>}
+            {step === 4 && (
+              <div className="grid grid-cols-2 gap-4 ">
+                <ExposurePrice />
+                <ExposurePrice />
+                <ExposurePrice />
+                <ExposurePrice />
+              </div>
+            )}
           </form>
           {step > 1 && (
             <Button
