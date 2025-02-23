@@ -160,20 +160,14 @@ const ShoppingCart = () => {
               </TableRow>
             )}
 
-            <Box sx={{ marginTop: 2 }}>
+            <div className="flex justify-start mt-4">
               <Button to="/" color="primary">
                 ← Volver a la tienda
               </Button>
-            </Box>
+            </div>
           </div>
           <div className="flex flex-col w-full">
-            <Box
-              sx={{
-                marginTop: 4,
-                borderTop: '1px solid #e0e0e0',
-                paddingTop: 2,
-              }}
-            >
+            <div className="flex flex-col justify-between">
               <Typography variant="h5" gutterBottom>
                 Resumen de compra
               </Typography>
@@ -201,14 +195,9 @@ const ShoppingCart = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-            </Box>
+            </div>
 
-            <Box
-              sx={{
-                marginTop: 4,
-                borderTop: '1px solid #e0e0e0',
-                paddingTop: 2,
-              }}
+            <div className="flex flex-col justify-between mt-4"
             >
               <Typography variant="h5" gutterBottom>
                 Total
@@ -217,7 +206,7 @@ const ShoppingCart = () => {
               <Button variant="contained" color="primary" sx={{ marginTop: 2 }}>
                 Continuar al pago
               </Button>
-            </Box>
+            </div>
           </div>
         </div>
       </div>
