@@ -21,8 +21,6 @@ import shoppingCart from '../../services/cartService'
 import colombianPrice from '../../utils/colombianPrice'
 import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import capitalize from '../../utils/capitalize'
-import { IoMdPower } from 'react-icons/io'
-import React from 'react'
 import { addItem } from '../../store/slices/cartSlice'
 
 const ProductPage = () => {
@@ -30,6 +28,7 @@ const ProductPage = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const authUser = useSelector((state) => state.auth.authUser)
+  const cartItems = useSelector((state) => state.cart.items);
   const [cantidad, setCantidad] = useState(1);
 
   // Hace fetch del producto con react-query
@@ -52,7 +51,10 @@ const ProductPage = () => {
   }
 
   const handleAddToCart = async () => {
-    console.log(producto)
+    console.log('cantidad: ', cantidad)
+    
+    // Verificar si el usuario está autenticado
+    
     if (!authUser) {
       dispatch(
         setNotification({
@@ -69,6 +71,26 @@ const ProductPage = () => {
     const idUsuario = authUser.idUsuario
     const idProducto = producto.idProducto
 
+    //Verificar que la cantidad de producto en el carrito no exceda la cantidad disponible
+
+    const existingItem = cartItems.find(item => item.id === idProducto);
+    const existingQuantity = existingItem ? existingItem.cantidad : 0;
+    const totalQuantity = existingQuantity + cantidad;
+
+    if (totalQuantity > producto.cantidad) {
+      dispatch(
+        setNotification({
+          title: '¡UPS!',
+          text: `No puedes agregar más de ${producto.cantidad} unidades de este producto.`,
+          icon: 'error',
+          timer: 3000,
+        })
+      );
+      return;
+    }
+
+    // Agregar el producto al carrito
+
     const item = {
       id: producto.idProducto,
       nombre: producto.nombre,
@@ -78,6 +100,15 @@ const ProductPage = () => {
 
     dispatch(addItem(item))
     await shoppingCart.addProductToCart(idUsuario, idProducto, cantidad)
+
+    dispatch(
+      setNotification({
+        title: '¡Éxito!',
+        text: 'Producto agregado al carrito',
+        icon: 'success',
+        timer: 3000,
+      })
+    )
 
   }
 

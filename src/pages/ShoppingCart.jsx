@@ -106,7 +106,6 @@ const ShoppingCart = () => {
 
   return (
     <>
-    {cart.length === 0 ? <label>No hay productos en el carrito</label> :
         <div>
         <h1 className="font-black text-5xl text-center mt-20">
             Tu carrito de compras
@@ -126,7 +125,27 @@ const ShoppingCart = () => {
                     enableHiding={false}
                     enableTopToolbar={false}
                     muiTableContainerProps={{ sx: { boxShadow: 'none' } }}
+                    muiTableBodyProps={{
+                        sx: {
+                            '& .MuiTableBody-root': {
+                                '& .MuiTableRow-root.MuiTableRow-empty': {
+                                    '& .MuiTableCell-root': {
+                                        textAlign: 'center',
+                                        fontSize: '1.25rem',
+                                        color: 'gray',
+                                    },
+                                },
+                            },
+                        },
+                    }}
                 />
+                {dataWithTotal.length === 0 && (
+                            <TableRow className="MuiTableRow-empty">
+                                <TableCell colSpan={columns.length}>
+                                    No hay productos en el carrito
+                                </TableCell>
+                            </TableRow>
+                )}
                 
                 <Box sx={{ marginTop: 2 }}> 
                     <Button to="/" color="primary">
@@ -172,7 +191,6 @@ const ShoppingCart = () => {
             </div>
         </div>
         </div>
-    }
     </>
   );
 };
