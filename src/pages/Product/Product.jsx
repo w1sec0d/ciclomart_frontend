@@ -23,7 +23,6 @@ import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import capitalize from '../../utils/capitalize'
 
 import { addItem } from '../../store/slices/cartSlice'
-import { setNotification } from '../../store/slices/notificationSlice'
 
 
 const ProductPage = () => {
