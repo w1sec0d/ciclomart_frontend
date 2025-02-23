@@ -1,49 +1,26 @@
-import { useState } from 'react'
+import React from 'react'
 import filters from '../../utils/newFilters'
 import Input from '../Input'
 import CustomSelect from './Select'
-import TextArea from '../TextArea'
 
-const SparePartForm = ({ onSubmit, componentData, handleChange }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    try {
-      onSubmit(formData)
-    } catch (error) {
-      console.error('Error submitting form:', error)
-    }
-  }
-
+const SparePartForm = ({ componentData, register }) => {
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
         <CustomSelect
-          name="compatibility"
+          name="compatibilidad"
           label="Compatibilidad"
           options={filters['componente'].compatibilidad}
-          value={componentData.compatibilidad}
-          onChange={handleChange}
+          {...register('compatibilidad')}
         />
         <CustomSelect
-          name="category"
+          name="categoria"
           label="Categoria"
           options={filters['componente'].categoria}
-          value={componentData.categoria}
-          onChange={handleChange}
+          {...register('categoria')}
         />
-        <Input
-          type="number"
-          id="marca"
-          label="Marca"
-          value={componentData.marca}
-          onChange={handleChange}
-        />
-        <Input
-          id="modelo"
-          label="Modelo"
-          value={componentData.modelo}
-          onChange={handleChange}
-        />
+        <Input type="number" id="marca" label="Marca" {...register('marca')} />
+        <Input id="modelo" label="Modelo" {...register('modelo')} />
       </div>
     </>
   )
