@@ -19,10 +19,7 @@ const createRating = async (data) => {
 
 const checkUserPurchase = async (data) => {
   console.log('data', data)
-  const request = await axios.post(
-    API_URL + `/checkUserPurchase/`,
-    data
-  )
+  const request = await axios.post(API_URL + `/checkUserPurchase/`, data)
   return request.data
 }
 

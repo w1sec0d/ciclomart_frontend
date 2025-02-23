@@ -46,7 +46,7 @@ const columns = [
     accessorKey: 'precio',
     header: 'Precio',
   },
-];
+]
 
 const SearchPage = (params) => {
   const dispatch = useDispatch()
@@ -126,7 +126,6 @@ const SearchPage = (params) => {
       }
     }
 
-    
     dispatch(fetchSearchResults(newFilters))
   }
 
@@ -153,14 +152,15 @@ const SearchPage = (params) => {
 
   console.log(searchResults)
 
-  const resultKeys = searchResults && searchResults.results && searchResults.results.length > 0
-    ? Object.keys(searchResults.results[0])
-    : []
+  const resultKeys =
+    searchResults && searchResults.results && searchResults.results.length > 0
+      ? Object.keys(searchResults.results[0])
+      : []
 
   console.log(resultKeys)
 
   return (
-    <div className='flex'>
+    <div className="flex">
       <div className="w-1/5 p-4 bg-primary">
         <label className="text-slate-50 text-lg font-bold">Filtros</label>
         {resultKeys.map((key) => (
@@ -168,33 +168,33 @@ const SearchPage = (params) => {
             key={key}
             label={key}
             results={Object.values(searchResults.results)}
-            onChange={(selectedValue) =>
-              handleFilterChange(key, selectedValue)
-            }
+            onChange={(selectedValue) => handleFilterChange(key, selectedValue)}
           />
         ))}
       </div>
       <div className="w-4/5 p-4">
         <ComparisonBar />
         <MaterialReactTable
-        columns={columns}
-        data={searchResults && Array.isArray(searchResults.results)
-          ? searchResults.results.map((result) => ({
-              imagen: result.imagenURL,
-              modelo: result.nombre,
-              tipo: capitalize(result.tipo),
-              precio: result.precio,
-            }))
-          : []}
-        enableCellActions={false}
-        enableColumnFilters={false}
-        enablePagination
-        enableHiding={false}
-        enableSorting={false}
-        enableBottomToolbar
-        enableTopToolbar={false}
-        muiTableContainerProps={{ sx: { maxHeight: '2000px' } }}
-      />
+          columns={columns}
+          data={
+            searchResults && Array.isArray(searchResults.results)
+              ? searchResults.results.map((result) => ({
+                  imagen: result.imagenURL,
+                  modelo: result.nombre,
+                  tipo: capitalize(result.tipo),
+                  precio: result.precio,
+                }))
+              : []
+          }
+          enableCellActions={false}
+          enableColumnFilters={false}
+          enablePagination
+          enableHiding={false}
+          enableSorting={false}
+          enableBottomToolbar
+          enableTopToolbar={false}
+          muiTableContainerProps={{ sx: { maxHeight: '2000px' } }}
+        />
       </div>
     </div>
   )

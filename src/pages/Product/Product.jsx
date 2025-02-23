@@ -28,8 +28,8 @@ const ProductPage = () => {
   const { id } = useParams()
   const dispatch = useDispatch()
   const authUser = useSelector((state) => state.auth.authUser)
-  const cartItems = useSelector((state) => state.cart.items);
-  const [cantidad, setCantidad] = useState(1);
+  const cartItems = useSelector((state) => state.cart.items)
+  const [cantidad, setCantidad] = useState(1)
 
   // Hace fetch del producto con react-query
   const {
@@ -52,9 +52,9 @@ const ProductPage = () => {
 
   const handleAddToCart = async () => {
     console.log('cantidad: ', cantidad)
-    
+
     // Verificar si el usuario está autenticado
-    
+
     if (!authUser) {
       dispatch(
         setNotification({
@@ -73,9 +73,9 @@ const ProductPage = () => {
 
     //Verificar que la cantidad de producto en el carrito no exceda la cantidad disponible
 
-    const existingItem = cartItems.find(item => item.id === idProducto);
-    const existingQuantity = existingItem ? existingItem.cantidad : 0;
-    const totalQuantity = existingQuantity + cantidad;
+    const existingItem = cartItems.find((item) => item.id === idProducto)
+    const existingQuantity = existingItem ? existingItem.cantidad : 0
+    const totalQuantity = existingQuantity + cantidad
 
     if (totalQuantity > producto.cantidad) {
       dispatch(
@@ -85,8 +85,8 @@ const ProductPage = () => {
           icon: 'error',
           timer: 3000,
         })
-      );
-      return;
+      )
+      return
     }
 
     // Agregar el producto al carrito
@@ -109,7 +109,6 @@ const ProductPage = () => {
         timer: 3000,
       })
     )
-
   }
 
   if (isLoading) return <Loading />
@@ -168,8 +167,12 @@ const ProductPage = () => {
               max={producto.cantidad}
               className="mt-1 my-4 block w-1/3"
             />
-            <Button className="mx-3" onClick={handleAddToCart}>🛒+ </Button>
-            <Button className= "mx-3" onClick={handleBuy}>Comprar</Button>
+            <Button className="mx-3" onClick={handleAddToCart}>
+              🛒+{' '}
+            </Button>
+            <Button className="mx-3" onClick={handleBuy}>
+              Comprar
+            </Button>
           </div>
         </div>
       </div>
