@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useState } from 'react'
 import {
   Box,
@@ -28,11 +28,14 @@ const ShoppingCart = () => {
   const [envio, setEnvio] = useState(0)
   const [total, setTotal] = useState(0)
 
-  const getCartElements = async (id) => {
-    const elements = await cartService.getCart(id)
-    dispatch(setCart(elements.results))
-    setCart(elements.results)
-  }
+  const getCartElements = useCallback(
+    async (id) => {
+      const elements = await cartService.getCart(id)
+      dispatch(setCart(elements.results))
+      setCart(elements.results)
+    },
+    [dispatch]
+  )
 
   const removeFromCart = async (index) => {
     const element = cart[index]
@@ -43,8 +46,8 @@ const ShoppingCart = () => {
   }
 
   useEffect(() => {
-    getCartElements(authUser.idUsuario)
-  }, [authUser.idUsuario])
+    if (authUser) getCartElements(authUser.idUsuario)
+  }, [authUser, getCartElements])
 
   console.log('cart: ', cart)
   // Definir los impuestos
