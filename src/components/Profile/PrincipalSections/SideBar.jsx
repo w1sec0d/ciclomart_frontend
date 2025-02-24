@@ -6,6 +6,7 @@ import ShowDataList from '../ShowDataList.jsx'
 import ShoppingBag from '@mui/icons-material/LocalMallOutlined'
 import Store from '@mui/icons-material/StorefrontOutlined'
 import Tag from '@mui/icons-material/LocalOfferOutlined'
+import ReviewsIcon from '@mui/icons-material/Reviews'
 
 //-> Images
 import Logo from '../../../assets/logoVector.svg'
@@ -15,6 +16,7 @@ import apiService from '../../../services/apiService.js'
 import profileService from '../../../services/profileService.js'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const SideBar = () => {
   /*Estado global del usuario registrado*/
@@ -24,6 +26,8 @@ const SideBar = () => {
   const [purchaseData, setPurchaseData] = useState([])
   const [salesData, setSalesData] = useState([])
   const [storesData, setStoresData] = useState([])
+  /*Cambia de pegina a mis reseñas */
+  const navigate = useNavigate()
 
   //indexSection1 = Compras, indexSection2 = Ventas , indexSection3= Tiendas
   const fetchInitialData = async () => {
@@ -53,6 +57,10 @@ const SideBar = () => {
     } else {
       setActiveButton(index)
     }
+  }
+
+  const handleRedirect = () => {
+    navigate(`/vendedor/${authUser.idUsuario}`)
   }
 
   /* -> Contenido Visual -> */
@@ -104,6 +112,13 @@ const SideBar = () => {
             activeButton={activeButton}
           />
         </li>
+        <li>
+          <CardButton onClick={handleRedirect} arrow={0}>
+            <ReviewsIcon className="ml-2" />
+            <b className="flex flex-col w-full">Mis Reseñas</b>
+          </CardButton>
+        </li>
+        <hr />
       </ul>
       <div className="h-full flex justify-center">
         <img

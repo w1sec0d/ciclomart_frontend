@@ -156,7 +156,6 @@ const ProductRating = (props) => {
       }
       const idUsuario = authUser.idUsuario
 
-
       if (
         validateFields(data.calificacion, rating) === 0 &&
         isPurchase.success
@@ -168,7 +167,7 @@ const ProductRating = (props) => {
             idProducto: idDoc,
             comentario: data.calificacion,
             nota: rating,
-            foto: null
+            foto: null,
           })
 
           getProductRating()
@@ -306,7 +305,6 @@ const ProductRating = (props) => {
                     date={new Date(val.fechaCalificacion).toLocaleDateString()}
                     rating={val.puntuacion}
                     image={val.foto}
-
                   />
                 </div>
               ))
