@@ -6,9 +6,7 @@ const ExposureInfo = () => {
   return (
     <div className="w-full h-auto flex flex-col">
       <div className="bg-secondary h-14 w-full  flex items-center justify-center drop-shadow-lg">
-        <h1 className="text-xl font-bold">
-          Elije un nivel de exposición para resaltar tus productos
-        </h1>
+        <h1 className="text-xl font-bold">Grados de exposición en CicloMart</h1>
       </div>
       <div className="flex flex-col h-auto w-full mt-8 mb-8">
         <div>

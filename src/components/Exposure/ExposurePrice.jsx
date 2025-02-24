@@ -21,7 +21,7 @@ const ExposurePrice = ({ grade, children, price }) => {
       <div className="h-full w-full flex flex-col justify-center items-center pt-2">
         <b className="text-primary text-2xl mb-3">
           {price
-            ? `${colombianPrice((parseInt(price) * percentages[grade]) / 100)}`
+            ? `${colombianPrice((parseInt(price) * percentages[grade]) / 100)} COP`
             : `${percentages[grade]}% del valor de tu producto`}
         </b>
         <p className="text-center mb-2">

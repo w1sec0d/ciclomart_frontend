@@ -10,6 +10,7 @@ import ExposurePrice from '../Exposure/ExposurePrice'
 //Utils
 import { setNotification } from '../../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const ProductForm = ({ type, onSubmit, models, brands }) => {
   const dispatch = useDispatch()
@@ -117,6 +118,7 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
           icon: 'error',
         })
       )
+      setStep(1)
     } else {
       setStep(step + 1)
     }
@@ -135,6 +137,7 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
         <div className="w-full h-14 bg-primary rounded-t-lg flex items-center justify-center drop-shadow-lg">
           <h1 className="text-2xl font-bold ">Publicar {type}</h1>
         </div>
+
         <div className="w-full m-15 px-20 ">
           <form onSubmit={handleSubmit} className="w-full space-y-5 p-4">
             {step === 1 && (
@@ -173,11 +176,28 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
 
             {/*Página de exposición*/}
             {step === 4 && (
-              <div className="grid grid-cols-2 gap-4 ">
-                <ExposurePrice grade={1} price={product.precio} />
-                <ExposurePrice grade={2} price={product.precio} />
-                <ExposurePrice grade={3} price={product.precio} />
-                <ExposurePrice grade={4} price={product.precio} />
+              <div className="mb-6">
+                <p className="mb-6 mx-[-40px] text-center">
+                  {' '}
+                  Aquí podras seleccionar el nivel de exposición para tu
+                  producto, <b>por defecto se establecerá en 0</b>, sin embargo
+                  puedes utilizar alguna de las siguientes opciones, de acuerdo
+                  a tu necesidad.
+                  <Link
+                    className="inline-block text-primary font-bold"
+                    to={'/ExposureInfo'}
+                    target="_blank"
+                  >
+                    Click aquí para mayor información
+                  </Link>
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 ">
+                  <ExposurePrice grade={1} price={product.precio} />
+                  <ExposurePrice grade={2} price={product.precio} />
+                  <ExposurePrice grade={3} price={product.precio} />
+                  <ExposurePrice grade={4} price={product.precio} />
+                </div>
               </div>
             )}
           </form>
