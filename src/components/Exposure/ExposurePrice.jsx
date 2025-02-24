@@ -2,12 +2,14 @@
 import PropTypes from 'prop-types'
 import colombianPrice from '../../utils/colombianPrice'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 const Button = ({ onClick = () => {}, children }) => {
   return (
     <button
       type="button"
-      className="bg-primary w-2/3 mb-6 h-8 rounded-xl font-bold border-black hover:bg-primary/90 ease-in-out hover:scale-105 duration-100"
+      className="bg-primary w-2/3 mb-6 h-8 rounded-xl font-bold border-black
+       hover:bg-primary/90 ease-in-out hover:scale-105 duration-100"
       onClick={onClick}
     >
       {children}
@@ -15,7 +17,7 @@ const Button = ({ onClick = () => {}, children }) => {
   )
 }
 
-const ExposurePrice = ({ grade, children, price }) => {
+const ExposurePrice = ({ grade, children, price, setSelected, selected }) => {
   const navigate = useNavigate()
 
   //Porcentajes para mostrar en la ventana de información y para
@@ -27,8 +29,18 @@ const ExposurePrice = ({ grade, children, price }) => {
     4: 8,
   }
 
+  const handleSelect = () => {
+    if (grade === selected) {
+      setSelected(0)
+    } else {
+      setSelected(grade)
+    }
+  }
+
   return (
-    <div className="bg-white h-60 w-full rounded-xl flex flex-col items-center shadow-xl">
+    <div
+      className={`${selected === grade ? 'border-dashed border-2 border-primaryDark' : ''} bg-white h-60 w-full rounded-xl flex flex-col items-center shadow-xl`}
+    >
       <div className="w-full bg-primary h-28   rounded-t-xl flex items-center justify-center mb-4 drop-shadow-lg">
         <h3 className="font-bold">Grado {grade}</h3>
       </div>
@@ -47,7 +59,7 @@ const ExposurePrice = ({ grade, children, price }) => {
       </div>
       <div className="w-full flex justify-center">
         {price ? (
-          <Button>¡Adquierelo!</Button>
+          <Button onClick={handleSelect}>Seleccionalo</Button>
         ) : (
           <Button onClick={() => navigate('/publish')}>¡Pruebalo!</Button>
         )}
