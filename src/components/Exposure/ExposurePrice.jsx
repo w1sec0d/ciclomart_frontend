@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { setExposure, cleanExposure } from '../../store/slices/exposureSlice'
 import { useDispatch } from 'react-redux'
+import { parse } from 'postcss'
 
 const Button = ({ onClick = () => {}, children }) => {
   return (
@@ -30,11 +31,12 @@ const ExposurePrice = ({ grade, children, price, setSelected, selected }) => {
     3: 6,
     4: 8,
   }
-  const gradePrice = (parseInt(price) * percentages[grade]) / 100
+  const gradePrice = parseInt((parseInt(price) * percentages[grade]) / 100)
 
   const handleSelect = () => {
     if (grade === selected) {
       setSelected(0)
+      dispatch(cleanExposure())
     } else {
       dispatch(setExposure({ key: 'precio', value: gradePrice }))
       dispatch(setExposure({ key: 'grade', value: grade }))

@@ -45,9 +45,10 @@ const createExposurePreference = async (exposure) => {
 
 const sendBuyExposureRequest = async (exposure, idComprador) => {
   try {
-    const request = await createPreference({
-      title: exposure.grade,
-      unit_price: exposure.precio,
+    const request = await createExposurePreference({
+      grade: exposure.grade,
+      price: exposure.precio,
+      quantity: 1,
       currency: 'COP',
       idComprador: idComprador,
     })
@@ -57,4 +58,9 @@ const sendBuyExposureRequest = async (exposure, idComprador) => {
   }
 }
 
-export default { createPreference, sendBuyRequest }
+export default {
+  createPreference,
+  sendBuyRequest,
+  createExposurePreference,
+  sendBuyExposureRequest,
+}
