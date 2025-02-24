@@ -9,9 +9,10 @@ import ExpositionPage from '../Exposure/ExpositionPage'
 
 //Utils
 import { setNotification } from '../../store/slices/notificationSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ProductForm = ({ type, onSubmit, models, brands }) => {
+  const exposition = useSelector((state) => state.exposure)
   const dispatch = useDispatch()
   const [step, setStep] = useState(1)
   const [product, setProduct] = useState({

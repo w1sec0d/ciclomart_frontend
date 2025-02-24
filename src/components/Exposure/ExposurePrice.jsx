@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import colombianPrice from '../../utils/colombianPrice'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { setExposure, cleanExposure } from '../../store/slices/exposureSlice'
+import { useDispatch } from 'react-redux'
 
 const Button = ({ onClick = () => {}, children }) => {
   return (
@@ -19,7 +21,7 @@ const Button = ({ onClick = () => {}, children }) => {
 
 const ExposurePrice = ({ grade, children, price, setSelected, selected }) => {
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
   //Porcentajes para mostrar en la ventana de información y para
   //calcular precio final
   const percentages = {
@@ -28,11 +30,14 @@ const ExposurePrice = ({ grade, children, price, setSelected, selected }) => {
     3: 6,
     4: 8,
   }
+  const gradePrice = (parseInt(price) * percentages[grade]) / 100
 
   const handleSelect = () => {
     if (grade === selected) {
       setSelected(0)
     } else {
+      dispatch(setExposure({ key: 'precio', value: gradePrice }))
+      dispatch(setExposure({ key: 'grade', value: grade }))
       setSelected(grade)
     }
   }
@@ -48,7 +53,7 @@ const ExposurePrice = ({ grade, children, price, setSelected, selected }) => {
       <div className="h-full w-full flex flex-col justify-center items-center pt-2">
         <b className="text-primary text-2xl mb-3">
           {price
-            ? `${colombianPrice((parseInt(price) * percentages[grade]) / 100)} COP`
+            ? `${colombianPrice(gradePrice)} COP`
             : `${percentages[grade]}% del valor de tu producto`}
         </b>
         <p className="text-center mb-2">
