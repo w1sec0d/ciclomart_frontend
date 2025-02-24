@@ -1,3 +1,4 @@
+import { useEffect, useCallback } from 'react'
 import Input from '../components/Input'
 import { useForm } from 'react-hook-form'
 import Button from '../components/Button'
@@ -16,60 +17,69 @@ const CodeVerification = () => {
   const code = searchParams.get('code') // Get the 'code' query parameter
 
   const { token } = useParams()
-  const { register, handleSubmit, reset } = useForm()
+  const { register, handleSubmit } = useForm()
 
-  const onSubmit = async (data) => {
-    try {
-      dispatch(setLoading())
-      const request = await loginService.validateCode(data, token)
-      if (request.status === 200) {
-        const registro = await apiService.createUsuario({
-          nombre: request.data.nombre,
-          apellido: request.data.apellido,
-          email: request.data.correo,
-          password: request.data.password,
-        })
+  const onSubmit = useCallback(
+    async (data) => {
+      try {
+        dispatch(setLoading())
 
-        if (registro) {
-          dispatch(clearLoading())
+        const request = await loginService.validateCode(
+          { code: code ?? data.code },
+          token
+        )
+        if (request.status === 200) {
+          const registro = await apiService.createUsuario({
+            nombre: request.data.nombre,
+            apellido: request.data.apellido,
+            email: request.data.correo,
+            password: request.data.password,
+          })
+
+          if (registro) {
+            dispatch(clearLoading())
+            dispatch(
+              setNotification({
+                title: 'Usuario creado',
+                text: `El usuario ha sido creado`,
+                icon: 'success',
+              })
+            )
+
+            navigate('/login')
+          }
+        }
+      } catch (error) {
+        dispatch(clearLoading())
+        if (error.response && error.response.status === 400) {
           dispatch(
             setNotification({
-              title: 'Usuario creado',
-              text: `El usuario ha sido creado`,
-              icon: 'success',
+              title: '¡ups!',
+              text: 'No coinciden los códigos',
+              icon: 'error',
             })
           )
-
-          navigate('/login')
+        } else {
+          console.error('Error:', error.message)
+          dispatch(
+            setNotification({
+              title: 'Error',
+              text: `Ocurrió un error: ${error.message}`,
+              icon: 'error',
+            })
+          )
         }
       }
-    } catch (error) {
-      dispatch(clearLoading())
-      if (error.response && error.response.status === 400) {
-        dispatch(
-          setNotification({
-            title: '¡ups!',
-            text: 'No coinciden los códigos',
-            icon: 'error',
-          })
-        )
-      } else {
-        console.error('Error:', error.message)
-        dispatch(
-          setNotification({
-            title: 'Error',
-            text: `Ocurrió un error: ${error.message}`,
-            icon: 'error',
-          })
-        )
-      }
-    }
-  }
+    },
+    [code, token, dispatch, navigate]
+  )
 
-  /*if (code) {
-    // Si el usuario hizo click en el link de verificación
-    onSubmit({ code }) // Llamar a la función onSubmit con el código
-  }*/
+
+  useEffect(() => {
+    if (code) {
+      onSubmit()
+    }
+  }, [code, onSubmit])
 
   return (
     <div className="flex items-center justify-center h-screen-minus-navbar">

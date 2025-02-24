@@ -13,19 +13,47 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import Button from '../components/Button'
 import ComparisonBar from '../components/Comparison/ComparisonBar'
+import { MaterialReactTable } from 'material-react-table'
+import capitalize from '../utils/capitalize'
 
 //import filters
-import filters from '../utils/filters'
+import filters from '../utils/newFilters'
 import PaginationControls from '../components/Search/PaginationControls'
 
 const animatedComponents = makeAnimated()
+
+const columns = [
+  {
+    accessorKey: 'imagen',
+    header: '',
+    Cell: ({ cell }) => (
+      <img
+        src={cell.getValue()}
+        alt="Bicicleta"
+        style={{ width: 200, height: 200 }}
+      />
+    ),
+  },
+  {
+    accessorKey: 'modelo',
+    header: 'Modelo',
+  },
+  {
+    accessorKey: 'tipo',
+    header: 'Tipo',
+  },
+  {
+    accessorKey: 'precio',
+    header: 'Precio',
+  },
+]
 
 const SearchPage = (params) => {
   const dispatch = useDispatch()
   const searchResults = useSelector((state) => state.search.results)
   const searchStatus = useSelector((state) => state.search.status)
   const searchInput = useSelector((state) => state.search.searchInput)
-
+  let tableResults = {}
   //State
   const [tipo, setTipo] = useState('bicicleta')
   const [showAllFilters, setShowAllFilters] = useState(false)
@@ -64,7 +92,7 @@ const SearchPage = (params) => {
     if (filterLabel === 'tipo') {
       setTipo(selectedValue.value)
 
-      const types = ['bicicleta', 'repuesto']
+      const types = ['bicicleta', 'componente']
 
       for (const type of types) {
         filters[type].forEach((filter) => {
@@ -122,78 +150,51 @@ const SearchPage = (params) => {
     }
   }, [searchInput, tipo, dispatch])
 
+  console.log(searchResults)
+
+  const resultKeys =
+    searchResults && searchResults.results && searchResults.results.length > 0
+      ? Object.keys(searchResults.results[0])
+      : []
+
+  console.log(resultKeys)
+
   return (
-    <div>
-      <ComparisonBar />
-      <div className="flex">
-        <div className="w-1/4 p-4 mt-border-r hidden md:block bg-primaryDark">
-          <h2 className="text-xl font-semibold mt-20 mb-4 text-zinc-100">
-            Filtros
-          </h2>
-          <div className="flex flex-col items-start">
-            <label className="text-sm font-semibold text-zinc-100 600 mb-1">
-              Tipo
-            </label>
-            <Select
-              closeMenuOnSelect={true}
-              components={animatedComponents}
-              defaultValue={''}
-              options={[
-                { value: 'bicicleta', label: 'Bicicleta' },
-                { value: 'repuesto', label: 'Repuesto' },
-              ]}
-              onChange={(selected) => handleFilterChange('tipo', selected)}
-              className="px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300 w-full"
-              isClearable={false}
-            />
-          </div>
+    <div className="flex">
+      <div className="w-1/5 p-4 bg-primary">
+        <label className="text-slate-50 text-lg font-bold">Filtros</label>
+        {resultKeys.map((key) => (
           <Filters
-            filters={filters}
-            tipo={tipo}
-            handleShowAllFilters={handleShowAllFilters}
-            showAllFilters={showAllFilters}
-            handleFilterChange={handleFilterChange}
+            key={key}
+            label={key}
+            results={Object.values(searchResults.results)}
+            onChange={(selectedValue) => handleFilterChange(key, selectedValue)}
           />
-        </div>
-        <div className="flex-1 max-w-5xl mx-3 py-8">
-          <h1 className="text-3xl font-bold text-center mb-6">
-            Busca Bicicletas y Repuestos
-          </h1>
-          <div className="bg-white shadow rounded-lg overflow-hidden mb-4">
-            <div className="flex items-center border-b px-4 py-3">
-              <input
-                type="text"
-                placeholder="Búsqueda"
-                className="flex-grow px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-                value={searchInput}
-                onChange={handleSearchInputChange}
-              />
-            </div>
-          </div>
-          <div>
-            {searchStatus === 'loading' ? (
-              <p>Loading...</p>
-            ) : searchResults.results ? (
-              Results(currentItems)
-            ) : (
-              <p>No hay resultados para los filtros ingresados</p>
-            )}
-          </div>
-          <Button
-            to="/publish"
-            className="sticky bottom-10 right-10 bg-primaryDark text-zinc-100"
-          >
-            Publicar
-          </Button>
-          <PaginationControls
-            currentPage={currentPage}
-            handlePreviousPage={handlePreviousPage}
-            handleNextPage={handleNextPage}
-            startIndex={startIndex}
-            itemsPerPage={itemsPerPage}
-            filterResultsLength={searchResults.length}
-          />
-        </div>
+        ))}
+      </div>
+      <div className="w-4/5 p-4">
+        <ComparisonBar />
+        <MaterialReactTable
+          columns={columns}
+          data={
+            searchResults && Array.isArray(searchResults.results)
+              ? searchResults.results.map((result) => ({
+                  imagen: result.imagenURL,
+                  modelo: result.nombre,
+                  tipo: capitalize(result.tipo),
+                  precio: result.precio,
+                }))
+              : []
+          }
+          enableCellActions={false}
+          enableColumnFilters={false}
+          enablePagination
+          enableHiding={false}
+          enableSorting={false}
+          enableBottomToolbar
+          enableTopToolbar={false}
+          muiTableContainerProps={{ sx: { maxHeight: '2000px' } }}
+        />
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { useState } from 'react'
 
 // componentes
 import Loading from '../../components/Loading'
@@ -8,21 +9,30 @@ import Button from '../../components/Button'
 import Img from '../../components/Img'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
 import ProductRating from '../ProductRating'
+import { setNotification } from '../../store/slices/notificationSlice'
+import Input from '../../components/Input'
 
 // servicios
 import { getProductById } from '../../services/productService'
 import mercadoPago from '../../services/mercadoPago'
+import shoppingCart from '../../services/cartService'
 
 // utils
 import colombianPrice from '../../utils/colombianPrice'
 import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import capitalize from '../../utils/capitalize'
 
+import { addItem } from '../../store/slices/cartSlice'
+
+
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
   const { id } = useParams()
   const dispatch = useDispatch()
   const authUser = useSelector((state) => state.auth.authUser)
+  const cartItems = useSelector((state) => state.cart.items)
+  const [cantidad, setCantidad] = useState(1)
+
   // Hace fetch del producto con react-query
   const {
     data: producto,
@@ -32,6 +42,16 @@ const ProductPage = () => {
 
   const handleBuy = async () => {
     dispatch(setLoading())
+    if (!authUser) {
+      dispatch(
+        setNotification({
+          title: 'Debes iniciar sesión para comprar',
+          icon: 'error',
+        })
+      )
+      dispatch(clearLoading())
+      return
+    }
     const { paymentURL } = await mercadoPago.sendBuyRequest(
       producto,
       authUser.idUsuario
@@ -40,6 +60,67 @@ const ProductPage = () => {
     setTimeout(() => {
       dispatch(clearLoading())
     }, 5000)
+  }
+
+  const handleAddToCart = async () => {
+    console.log('cantidad: ', cantidad)
+
+    // Verificar si el usuario está autenticado
+
+    if (!authUser) {
+      dispatch(
+        setNotification({
+          title: '¡UPS!',
+          text: 'Debes iniciar sesión primero para poder agregar al carrito',
+          icon: 'error',
+          timer: 3000,
+        })
+      )
+
+      return
+    }
+
+    const idUsuario = authUser.idUsuario
+    const idProducto = producto.idProducto
+
+    //Verificar que la cantidad de producto en el carrito no exceda la cantidad disponible
+
+    const existingItem = cartItems.find((item) => item.id === idProducto)
+    const existingQuantity = existingItem ? existingItem.cantidad : 0
+    const totalQuantity = existingQuantity + cantidad
+
+    if (totalQuantity > producto.cantidad) {
+      dispatch(
+        setNotification({
+          title: '¡UPS!',
+          text: `No puedes agregar más de ${producto.cantidad} unidades de este producto.`,
+          icon: 'error',
+          timer: 3000,
+        })
+      )
+      return
+    }
+
+    // Agregar el producto al carrito
+
+    const item = {
+      id: producto.idProducto,
+      nombre: producto.nombre,
+      cantidad: cantidad,
+      precio_unitario: producto.precio,
+    }
+
+    dispatch(addItem(item))
+    await shoppingCart.addProductToCart(idUsuario, idProducto, cantidad)
+
+    dispatch(
+      setNotification({
+        title: '¡Éxito!',
+        text: 'Producto agregado al carrito',
+        icon: 'success',
+        timer: 3000,
+      })
+    )
   }
 
   if (isLoading) return <Loading />
@@ -86,7 +167,25 @@ const ProductPage = () => {
               {new Date(producto.fechaPublicacion).toLocaleDateString()}
             </p>
           </div>
-          <Button onClick={handleBuy}>Comprar</Button>
+          <div className="flex items-center flex-row">
+            <Input
+              type="number"
+              label="Cantidad"
+              id="cantidad"
+              name="cantidad"
+              value={cantidad}
+              onChange={(e) => setCantidad(Number(e.target.value))}
+              min="1"
+              max={producto.cantidad}
+              className="mt-1 my-4 block w-1/3"
+            />
+            <Button className="mx-3" onClick={handleAddToCart}>
+              🛒+{' '}
+            </Button>
+            <Button className="mx-3" onClick={handleBuy}>
+              Comprar
+            </Button>
+          </div>
         </div>
       </div>
       <div className="py-4">

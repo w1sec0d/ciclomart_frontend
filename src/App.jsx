@@ -17,6 +17,8 @@ import Layout from './components/Layout'
 import ComparisonView from './pages/ComparisonView'
 import Publish from './pages/Publish'
 import Vendedor from './pages/Vendedor'
+import ShoppingCart from './pages/ShoppingCart'
+
 
 // Services
 import apiService from './services/apiService'
@@ -64,6 +66,7 @@ const App = () => {
         <Route path="publish" element={<Publish />} />
         <Route path="productRating" element={<ProductRating />} />
         <Route path="vendedor/:id" element={<Vendedor />} />
+        <Route path="shoppingCart" element={<ShoppingCart />} />
       </Route>
     </Routes>
   )
