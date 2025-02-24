@@ -7,7 +7,12 @@ import AvailabilityForm from './AvailabilityForm'
 import Button from '../Button'
 import ExposurePrice from '../Exposure/ExposurePrice'
 
+//Utils
+import { setNotification } from '../../store/slices/notificationSlice'
+import { useDispatch } from 'react-redux'
+
 const ProductForm = ({ type, onSubmit, models, brands }) => {
+  const dispatch = useDispatch()
   const [step, setStep] = useState(1)
   const [product, setProduct] = useState({
     nombre: '',
@@ -104,7 +109,17 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
   }
 
   const handleNext = () => {
-    setStep(step + 1)
+    if (step === 3 && product.precio === '') {
+      dispatch(
+        setNotification({
+          title: 'Ingresa el precio del producto',
+          text: 'Debes ingresar el precio del producto para continuar',
+          icon: 'error',
+        })
+      )
+    } else {
+      setStep(step + 1)
+    }
   }
 
   const handlePrevious = () => {
@@ -156,6 +171,7 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
             {/* {type === 'bicicleta' && <BycicleForm onSubmit={onSubmit} />}
             {type === 'repuesto' && <SparePartForm onSubmit={onSubmit} />} */}
 
+            {/*Página de exposición*/}
             {step === 4 && (
               <div className="grid grid-cols-2 gap-4 ">
                 <ExposurePrice />
