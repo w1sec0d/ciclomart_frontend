@@ -74,6 +74,7 @@ const CodeVerification = () => {
     [code, token, dispatch, navigate]
   )
 
+
   useEffect(() => {
     if (code) {
       onSubmit()

@@ -2,6 +2,8 @@
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { getProductById } from '../services/productService'
+import { Link } from 'react-router-dom'
+
 // Componentes
 import BuyButton from '../components/Comparison/BuyButton'
 import ComparisionSection from '../components/Comparison/ComparisionSection'
@@ -138,6 +140,12 @@ const ComparisonView = () => {
                 {product1.nombreVendedor} {product1.apellidoVendedor}
               </b>
               <p>{product1.correoVendedor}</p>
+              <Link
+                className="text-sm text-blue-500"
+                to={`/vendedor/${product1.idVendedor}`}
+              >
+                Ver reseñas vendedor
+              </Link>
             </div>
           </div>
           <div className="w-1/2 h-auto border-r border-lgray flex flex-row items-center justify-center">
@@ -147,6 +155,12 @@ const ComparisonView = () => {
                 {product2.nombreVendedor} {product2.apellidoVendedor}
               </b>
               <p>{product2.correoVendedor}</p>
+              <Link
+                className="text-sm text-blue-500"
+                to={`/vendedor/${product2.idVendedor}`}
+              >
+                Ver reseñas vendedor
+              </Link>
             </div>
           </div>
         </div>
