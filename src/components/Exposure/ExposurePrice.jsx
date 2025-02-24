@@ -1,8 +1,23 @@
 //Utilidades
 import PropTypes from 'prop-types'
 import colombianPrice from '../../utils/colombianPrice'
+import { useNavigate } from 'react-router-dom'
+
+const Button = ({ onClick = () => {}, children }) => {
+  return (
+    <button
+      type="button"
+      className="bg-primary w-2/3 mb-6 h-8 rounded-xl font-bold border-black hover:bg-primary/90 ease-in-out hover:scale-105 duration-100"
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  )
+}
 
 const ExposurePrice = ({ grade, children, price }) => {
+  const navigate = useNavigate()
+
   //Porcentajes para mostrar en la ventana de información y para
   //calcular precio final
   const percentages = {
@@ -31,9 +46,11 @@ const ExposurePrice = ({ grade, children, price }) => {
         {children}
       </div>
       <div className="w-full flex justify-center">
-        <button className="bg-primary w-2/3 mb-6 h-8 rounded-xl font-bold border-black">
-          ¡Pruebalo!
-        </button>
+        {price ? (
+          <Button>¡Adquierelo!</Button>
+        ) : (
+          <Button onClick={() => navigate('/publish')}>¡Pruebalo!</Button>
+        )}
       </div>
     </div>
   )
