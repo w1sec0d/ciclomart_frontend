@@ -42,7 +42,6 @@ const CodeVerification = () => {
                 icon: 'success',
               })
             )
-
             navigate('/login')
           }
         }
@@ -70,6 +69,7 @@ const CodeVerification = () => {
     },
     [token, dispatch, navigate]
   )
+
 
   useEffect(() => {
     if (codeFromUrl) {
