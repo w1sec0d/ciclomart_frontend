@@ -81,7 +81,6 @@ const Vendedor = () => {
   const getRatingSeller = async () => {
     try {
       const results = await ratingService.getRatingSeller(id)
-      console.log(results)
       establecerDatos(results)
     } catch (error) {
       console.error(error)

@@ -19,7 +19,6 @@ import Publish from './pages/Publish'
 import Vendedor from './pages/Vendedor'
 import ShoppingCart from './pages/ShoppingCart'
 
-
 // Services
 import apiService from './services/apiService'
 import ProductPage from './pages/Product/Product'
@@ -35,7 +34,6 @@ const App = () => {
     setSearchText(text)
     const request = await apiService.searchProducts({ nombre: text })
     setSearchResults(request.results)
-    console.log('request.results', request.results)
   }
 
   return (

@@ -54,7 +54,6 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
   const product = watch()
 
   const onFormSubmit = (data) => {
-    console.log('data', data)
     if (type === 'bicicleta') {
       onSubmit(data, {
         tipoBicicleta: data.tipoBicicleta,
