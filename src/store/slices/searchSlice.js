@@ -20,6 +20,8 @@ const searchSlice = createSlice({
   reducers: {
     clearSearchResults: (state) => {
       state.results = []
+      state.status = 'idle'
+      state.searchInput = ''
     },
     setSearchInput: (state, action) => {
       state.searchInput = action.payload
