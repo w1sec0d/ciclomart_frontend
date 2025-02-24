@@ -38,6 +38,7 @@ const ProductPage = () => {
     isError,
   } = useQuery(['productos', id], () => getProductById(id))
 
+  console.log('producto', producto)
   const handleBuy = async () => {
     dispatch(setLoading())
     if (!authUser) {
