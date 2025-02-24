@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useState } from 'react'
 import {
   Box,
@@ -7,7 +7,6 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Paper,
 } from '@mui/material'
@@ -15,9 +14,9 @@ import { MaterialReactTable } from 'material-react-table'
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
 import cartService from '../services/cartService'
 import { useSelector, useDispatch } from 'react-redux'
-import { SiEac } from 'react-icons/si'
 import Button from '../components/Button'
 import { removeItem } from '../store/slices/cartSlice'
+import colombianPrice from '../utils/colombianPrice'
 
 const ShoppingCart = () => {
   const dispatch = useDispatch()
@@ -86,11 +85,6 @@ const ShoppingCart = () => {
     setTotal(updatedTotal)
   }, [cart])
 
-  // Función para formatear números como moneda
-  const formatCurrency = (value) => {
-    return value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })
-  }
-
   const columns = [
     {
       accessorKey: 'nombre',
@@ -99,7 +93,7 @@ const ShoppingCart = () => {
     {
       accessorKey: 'precio_unitario',
       header: 'Precio',
-      Cell: ({ cell }) => formatCurrency(cell.getValue()),
+      Cell: ({ cell }) => colombianPrice(cell.getValue()),
     },
     {
       accessorKey: 'cantidad',
@@ -108,7 +102,7 @@ const ShoppingCart = () => {
     {
       accessorKey: 'total',
       header: 'Total',
-      Cell: ({ cell }) => formatCurrency(cell.getValue()),
+      Cell: ({ cell }) => colombianPrice(cell.getValue()),
     },
     {
       accessorKey: 'delete',
@@ -156,11 +150,17 @@ const ShoppingCart = () => {
               }}
             />
             {dataWithTotal.length === 0 && (
-              <TableRow className="MuiTableRow-empty">
-                <TableCell colSpan={columns.length}>
-                  No hay productos en el carrito
-                </TableCell>
-              </TableRow>
+              <TableContainer component={Paper} elevation={0}>
+                <Table>
+                  <TableBody>
+                    <TableRow className="MuiTableRow-empty">
+                      <TableCell colSpan={columns.length}>
+                        No hay productos en el carrito
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             )}
 
             <Box sx={{ marginTop: 2 }}>
@@ -186,19 +186,19 @@ const ShoppingCart = () => {
                     <TableRow>
                       <TableCell>Subtotal</TableCell>
                       <TableCell align="right">
-                        {formatCurrency(subtotal)}
+                        {colombianPrice(subtotal)}
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Envío</TableCell>
                       <TableCell align="right">
-                        {formatCurrency(envio)}
+                        {colombianPrice(envio)}
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Impuestos</TableCell>
                       <TableCell align="right">
-                        {formatCurrency(impuestos)}
+                        {colombianPrice(impuestos)}
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -216,7 +216,7 @@ const ShoppingCart = () => {
               <Typography variant="h5" gutterBottom>
                 Total
               </Typography>
-              <Typography variant="h4">{formatCurrency(total)}</Typography>
+              <Typography variant="h4">{colombianPrice(total)}</Typography>
               <Button variant="contained" color="primary" sx={{ marginTop: 2 }}>
                 Continuar al pago
               </Button>
