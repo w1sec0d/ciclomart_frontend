@@ -1,12 +1,10 @@
-import { useState } from 'react'
+import React from 'react'
 import filters from '../../utils/newFilters'
 import Input from '../Input'
 import CustomSelect from './Select'
 import TextArea from '../TextArea'
-import Button from '../Button'
-import Select from './Select'
 
-const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
+const BycicleForm = ({ bycicle, register }) => {
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
@@ -14,29 +12,25 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           name="tipoBicicleta"
           label="Tipo"
           options={filters['bicicleta'].tipo}
-          value={bycicle.tipoBicicleta}
-          onChange={handleChange}
+          {...register('tipoBicicleta')}
         />
         <CustomSelect
           name="color"
           label="Color"
           options={filters['bicicleta'].color}
-          value={bycicle.color}
-          onChange={handleChange}
+          {...register('color')}
         />
         <CustomSelect
           name="genero"
           label="Genero"
           options={filters['bicicleta'].genero}
-          value={bycicle.genero}
-          onChange={handleChange}
+          {...register('genero')}
         />
         <CustomSelect
           name="edad"
           label="Edad"
           options={filters['bicicleta'].edad}
-          value={bycicle.edad}
-          onChange={handleChange}
+          {...register('edad')}
         />
       </div>
 
@@ -45,28 +39,17 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
       </h3>
 
       <div className="grid grid-cols-2 gap-4">
-        {/* <Input
-          type="number"
-          id="modeloMarco"
-          label="Modelo del marco"
-          value={bycicle.modeloMarco}
-          onChange={handleChange}
-        /> */}
-
         <Input
           type="number"
           id="tamañoMarco"
           label="Tamaño del marco (cm)"
-          value={bycicle.material}
-          onChange={handleChange}
+          {...register('tamañoMarco')}
         />
-
         <CustomSelect
           name="materialMarco"
           label="Material del marco"
           options={filters['bicicleta'].materialMarco}
-          value={bycicle.materialMarco}
-          onChange={handleChange}
+          {...register('materialMarco')}
         />
       </div>
 
@@ -75,20 +58,11 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
       </h3>
 
       <div className="grid grid-cols-2 gap-4">
-        {/* <Input
-          type="number"
-          id="modeloRuedas"
-          label="Modelo de las ruedas"
-          value={bycicle.modeloRuedas}
-          onChange={handleChange}
-        /> */}
-
         <Input
           type="number"
           id="tamañoRueda"
           label="Tamaño de las ruedas"
-          value={bycicle.tamañoRueda}
-          onChange={handleChange}
+          {...register('tamañoRueda')}
         />
       </div>
 
@@ -101,49 +75,20 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           name="transmision"
           label="Transmisión"
           options={filters['bicicleta'].transmision}
-          value={bycicle.transmision}
-          onChange={handleChange}
+          {...register('transmision')}
         />
-
         <CustomSelect
           name="tipoPedales"
           label="Pedales"
           options={filters['bicicleta'].pedales}
-          value={bycicle.tipoPedales}
-          onChange={handleChange}
+          {...register('tipoPedales')}
         />
-
         <Input
           type="number"
           id="velocidades"
           label="Número de velocidades"
-          value={bycicle.velocidades}
-          onChange={handleChange}
+          {...register('velocidades')}
         />
-
-        {/* <Input
-          type="number"
-          id="modeloPedales"
-          label="Modelo de pedales"	
-          value={bycicle.modeloPedales}
-          onChange={handleChange}
-        />
-
-        <Input
-          type="number"
-          id="modeloCasstte"
-          label="Modelo de cassette"	
-          value={bycicle.modeloCassette}
-          onChange={handleChange}
-        />
-
-        <Input
-          type="number"
-          id="modeloCadena"
-          label="Modelo de cadena"	
-          value={bycicle.modeloCadena}
-          onChange={handleChange}
-        /> */}
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
@@ -155,8 +100,7 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           name="tipoSuspension"
           label="Suspensión"
           options={filters['bicicleta'].suspension}
-          value={bycicle.tipoSuspension}
-          onChange={handleChange}
+          {...register('tipoSuspension')}
         />
       </div>
 
@@ -169,18 +113,8 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           name="tipoFrenos"
           label="Tipo de frenos"
           options={filters['bicicleta'].frenos}
-          value={bycicle.tipoFrenos}
-          onChange={handleChange}
+          {...register('tipoFrenos')}
         />
-
-        {/* <Input
-          type="number"
-          id="modeloFrenos"
-          label="Modelo de los frenos"	
-          value={bycicle.modeloFrenos}
-          onChange={handleChange}
-          className='col-span-2'
-        /> */}
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
@@ -192,16 +126,13 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           type="number"
           id="pesoBicicleta"
           label="Peso de la bicicleta (kg)"
-          value={bycicle.pesoBicicleta}
-          onChange={handleChange}
+          {...register('pesoBicicleta')}
         />
-
         <Input
           type="number"
           id="pesoMaximo"
           label="Peso máximo soportado (kg)"
-          value={bycicle.pesoMaximo}
-          onChange={handleChange}
+          {...register('pesoMaximo')}
         />
       </div>
 
@@ -214,38 +145,15 @@ const BycicleForm = ({ onSubmit, bycicle, handleChange }) => {
           name="tipoManubrio"
           label="Tipo de Manubrio"
           options={filters['bicicleta'].manubrio}
-          value={bycicle.tipoManubrio}
-          onChange={handleChange}
+          {...register('tipoManubrio')}
         />
-
-        {/* <Input
-          type="number"
-          id="modeloManubrio"
-          label="Modelo del manubrio"	
-          value={bycicle.modeloManubrio}
-          onChange={handleChange}
-          className='col-span-2'
-        /> */}
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
         Adicionales
       </h3>
-      {/*       
-      <Input
-          type="number"
-          id="modeloSillin"
-          label="Modelo del sillin"	
-          value={bycicle.modeloSillin}
-          onChange={handleChange}
-      /> */}
 
-      <TextArea
-        id="extras"
-        label="Extras"
-        value={bycicle.extras}
-        onChange={handleChange}
-      />
+      <TextArea id="extras" label="Extras" {...register('extras')} />
     </>
   )
 }

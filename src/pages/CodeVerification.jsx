@@ -14,20 +14,17 @@ const CodeVerification = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const code = searchParams.get('code') // Get the 'code' query parameter
+  const codeFromUrl = searchParams.get('code')
 
   const { token } = useParams()
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, setValue } = useForm()
 
   const onSubmit = useCallback(
     async (data) => {
+      const { code } = data
       try {
         dispatch(setLoading())
-
-        const request = await loginService.validateCode(
-          { code: code ?? data.code },
-          token
-        )
+        const request = await loginService.validateCode({ code }, token)
         if (request.status === 200) {
           const registro = await apiService.createUsuario({
             nombre: request.data.nombre,
@@ -45,7 +42,6 @@ const CodeVerification = () => {
                 icon: 'success',
               })
             )
-
             navigate('/login')
           }
         }
@@ -71,15 +67,16 @@ const CodeVerification = () => {
         }
       }
     },
-    [code, token, dispatch, navigate]
+    [token, dispatch, navigate]
   )
 
 
   useEffect(() => {
-    if (code) {
-      onSubmit()
+    if (codeFromUrl) {
+      setValue('code', codeFromUrl)
+      handleSubmit(onSubmit)({ code: codeFromUrl })
     }
-  }, [code, onSubmit])
+  }, [codeFromUrl, setValue, handleSubmit, onSubmit])
 
   return (
     <div className="flex items-center justify-center h-screen-minus-navbar">
