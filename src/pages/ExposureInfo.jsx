@@ -40,10 +40,10 @@ const ExposureInfo = () => {
           </h2>
         </div>
         <div className="grid grid-cols-2 gap-16 pb-8 px-8">
-          <ExposurePrice grade={1} percentage={3} />
-          <ExposurePrice grade={2} percentage={4.5} />
-          <ExposurePrice grade={3} percentage={6} />
-          <ExposurePrice grade={4} percentage={8} />
+          <ExposurePrice grade={1} />
+          <ExposurePrice grade={2} />
+          <ExposurePrice grade={3} />
+          <ExposurePrice grade={4} />
         </div>
       </div>
 

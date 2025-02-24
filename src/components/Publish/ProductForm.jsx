@@ -174,10 +174,10 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
             {/*Página de exposición*/}
             {step === 4 && (
               <div className="grid grid-cols-2 gap-4 ">
-                <ExposurePrice />
-                <ExposurePrice />
-                <ExposurePrice />
-                <ExposurePrice />
+                <ExposurePrice grade={1} price={product.precio} />
+                <ExposurePrice grade={2} price={product.precio} />
+                <ExposurePrice grade={3} price={product.precio} />
+                <ExposurePrice grade={4} price={product.precio} />
               </div>
             )}
           </form>
