@@ -18,12 +18,12 @@ import ComparisonView from './pages/ComparisonView'
 import Publish from './pages/Publish'
 import Vendedor from './pages/Vendedor'
 import ShoppingCart from './pages/ShoppingCart'
+import Purchases from './pages/Purchases'
 
 // Services
 import apiService from './services/apiService'
 import ProductPage from './pages/Product/Product'
 import RequestResult from './pages/RequestResult'
-import getUserFromLocalStorage from './utils/getUser'
 import ProductRating from './pages/ProductRating'
 
 const App = () => {
@@ -65,6 +65,7 @@ const App = () => {
         <Route path="productRating" element={<ProductRating />} />
         <Route path="vendedor/:id" element={<Vendedor />} />
         <Route path="shoppingCart" element={<ShoppingCart />} />
+        <Route path="purchases/:idComprador" element={<Purchases />} />
       </Route>
     </Routes>
   )

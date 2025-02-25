@@ -48,6 +48,7 @@ const ProductPage = () => {
           icon: 'error',
         })
       )
+      dispatch(clearLoading())
       return
     }
     console.log('producto', producto)
