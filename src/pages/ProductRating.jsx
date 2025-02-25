@@ -213,7 +213,7 @@ const ProductRating = (props) => {
         )
       }
     } catch (error) {
-      console.log('error', error)
+      console.error('error', error)
       if (error.status === 404) {
         dispatch(
           setNotification({

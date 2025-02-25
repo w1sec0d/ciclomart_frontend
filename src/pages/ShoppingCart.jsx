@@ -66,8 +66,13 @@ const ShoppingCart = () => {
 
   const getCartElements = useCallback(
     async (id) => {
-      const elements = await cartService.getCart(id)
-      dispatch(setCart(elements.results))
+      const storedCart = localStorage.getItem('cart')
+      if (storedCart) {
+        dispatch(setCart(JSON.parse(storedCart)))
+      } else {
+        const elements = await cartService.getCart(id)
+        dispatch(setCart(elements.results))
+      }
     },
     [dispatch]
   )

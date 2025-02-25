@@ -16,7 +16,7 @@ import apiService from '../../../services/apiService.js'
 import profileService from '../../../services/profileService.js'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SideBar = () => {
   /*Estado global del usuario registrado*/
@@ -30,20 +30,22 @@ const SideBar = () => {
   const navigate = useNavigate()
 
   //indexSection1 = Compras, indexSection2 = Ventas , indexSection3= Tiendas
-  const fetchInitialData = async () => {
-    try {
-      const purchaseData = await profileService.getPurchases(authUser.idUsuario)
-      const salesData = await profileService.getSales(authUser.idUsuario)
-      const storesData = await apiService.getTiendas()
-      setPurchaseData(purchaseData.results)
-      setSalesData(salesData.results)
-      setStoresData(storesData.results)
-    } catch (error) {
-      console.error('Error obteniendo datos de la sidebar', error)
-    }
-  }
-
   useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        const purchaseData = await profileService.getPurchases(
+          authUser.idUsuario
+        )
+        const salesData = await profileService.getSales(authUser.idUsuario)
+        const storesData = await apiService.getTiendas()
+        setPurchaseData(purchaseData.results)
+        setSalesData(salesData.results)
+        setStoresData(storesData.results)
+      } catch (error) {
+        console.error('Error obteniendo datos de la sidebar', error)
+      }
+    }
+
     if (authUser && authUser.idUsuario) {
       fetchInitialData()
     }
@@ -63,26 +65,22 @@ const SideBar = () => {
     navigate(`/vendedor/${authUser.idUsuario}`)
   }
 
+  const purchasesUrl = authUser
+    ? `/purchases/${authUser.idUsuario}`
+    : '/purchases'
+
   /* -> Contenido Visual -> */
   return (
     <div className="bg-lgray w-[20%] h-full shadow-2xl flex flex-col">
       <ul>
         <li>
-          <CardButton
-            onClick={() => {
-              handleShowData(1)
-            }}
-          >
-            <ShoppingBag className="ml-2" />
-            <b className="flex flex-col w-full">Compras</b>
-          </CardButton>
+          <Link to={purchasesUrl}>
+            <CardButton arrow={null}>
+              <ShoppingBag className="ml-2" />
+              <b className="flex flex-col w-full">Compras</b>
+            </CardButton>
+          </Link>
           <hr />
-          {/*Muestra contenido condicional*/}
-          <ShowDataList
-            data={purchaseData}
-            type={1}
-            activeButton={activeButton}
-          />
         </li>
         <li>
           <CardButton
