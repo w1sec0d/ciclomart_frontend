@@ -70,7 +70,6 @@ const CodeVerification = () => {
     [token, dispatch, navigate]
   )
 
-
   useEffect(() => {
     if (codeFromUrl) {
       setValue('code', codeFromUrl)
