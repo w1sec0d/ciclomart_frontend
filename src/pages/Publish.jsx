@@ -3,9 +3,13 @@ import ProductForm from '../components/Publish/ProductForm'
 import ProductSelection from '../components/Publish/ProductSelection'
 import Verification from '../components/Publish/Verification'
 import publicationService from '../services/publicationService'
-import { get } from 'react-hook-form'
+import ExpositionPage from '../components/Exposure/ExpositionPage'
+
+import { useDispatch } from 'react-redux'
+import { setNotification } from '../store/slices/notificationSlice'
 
 const Publish = () => {
+  const dispatch = useDispatch()
   const [step, setStep] = useState('selection')
   const [productType, setProductType] = useState('')
   const [productData, setProductData] = useState(null)
@@ -56,14 +60,20 @@ const Publish = () => {
     const finalProduct = { ...general, ...product }
     setProductData(finalProduct)
     console.log('Final Product:', finalProduct)
-    setStep('complete')
     publicationService
       .publishProduct(finalProduct)
       .then((data) => {
         console.log('Product Data:', data)
+        setStep('complete')
       })
       .catch((error) => {
-        console.log('Error:', error)
+        dispatch(
+          setNotification({
+            title: 'Ingresa todos los datos',
+            icon: 'error',
+          })
+        ),
+          console.log('Error:', error)
       })
   }
 
@@ -71,7 +81,7 @@ const Publish = () => {
     console.log('Verification Code:', code)
     setStep('complete')
   }
-
+  console.log('step', step)
   return (
     <div>
       {step === 'selection' && <ProductSelection onSelect={handleSelect} />}
@@ -86,15 +96,7 @@ const Publish = () => {
       {step === 'verification' && (
         <Verification onVerify={handleVerification} />
       )}
-      {step === 'complete' && (
-        <div className="flex flex-col w-full items-center justify-center h-screen bg-gray-100">
-          <h1 className="text-2xl font-bold mb-4">Publicación Completada!</h1>
-          <p className="text-gray-700">
-            Tu {productType} {productData?.title} ha sido publicado
-            correctamente.
-          </p>
-        </div>
-      )}
+      {step === 'complete' && <ExpositionPage product={productData} />}
     </div>
   )
 }

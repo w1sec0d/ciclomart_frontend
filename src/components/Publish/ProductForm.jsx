@@ -7,16 +7,7 @@ import AvailabilityForm from './AvailabilityForm'
 import Button from '../Button'
 import ExpositionPage from '../Exposure/ExpositionPage'
 
-//Utils
-import { setNotification } from '../../store/slices/notificationSlice'
-import { setLoading, clearLoading } from '../../store/slices/loadingSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import mercadoPago from '../../services/mercadoPago'
-
 const ProductForm = ({ type, onSubmit, models, brands }) => {
-  const exposure = useSelector((state) => state.exposure)
-  const authUser = useSelector((state) => state.auth.authUser)
-  const dispatch = useDispatch()
   const [step, setStep] = useState(1)
   const [product, setProduct] = useState({
     nombre: '',
@@ -68,38 +59,13 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
   })
 
   const [imagePreviews, setImagePreviews] = useState([])
-  console.log('exposicion', product.exposicion)
-  const handleBuy = async () => {
-    dispatch(setLoading())
-    if (!authUser) {
-      dispatch(
-        setNotification({
-          title: 'Debes iniciar sesión para comprar',
-          icon: 'error',
-        })
-      )
-      dispatch(clearLoading())
-      return
-    }
-    const { paymentURL } = await mercadoPago.sendBuyExposureRequest(
-      exposure,
-      authUser.idUsuario
-    )
-    window.location.href = paymentURL
-    setTimeout(() => {
-      dispatch(clearLoading())
-    }, 5000)
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (type === 'bicicleta') {
-      {
-        product.exposicion != 0 && handleBuy()
-      }
-      // onSubmit(product, bycicle)
+      onSubmit(product, bycicle)
     } else if (type === 'componente') {
-      // onSubmit(product, componentData)
+      onSubmit(product, componentData)
     }
   }
 
@@ -139,27 +105,12 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
   }
 
   const handleNext = () => {
-    if (step === 3 && product.precio === '') {
-      dispatch(
-        setNotification({
-          title: 'Ingresa el precio del producto',
-          text: 'Debes ingresar el precio del producto para continuar',
-          icon: 'error',
-        })
-      )
-      setStep(1)
-    } else {
-      setStep(step + 1)
-    }
+    setStep(step + 1)
   }
 
   const handlePrevious = () => {
     setStep(step - 1)
   }
-
-  useEffect(() => {
-    setProduct({ ...product, exposicion: exposure.grade })
-  }, [exposure.grade])
 
   return (
     <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-t from-primary/95 to-zinc-100 from-50% to-50%">
@@ -206,9 +157,6 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
             )}
             {/* {type === 'bicicleta' && <BycicleForm onSubmit={onSubmit} />}
             {type === 'repuesto' && <SparePartForm onSubmit={onSubmit} />} */}
-
-            {/*Página de exposición*/}
-            {step === 4 && <ExpositionPage product={product} />}
           </form>
           {step > 1 && (
             <Button
@@ -220,7 +168,7 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
             </Button>
           )}
 
-          {step < 4 ? (
+          {step < 3 ? (
             <Button
               type="button"
               onClick={handleNext}
