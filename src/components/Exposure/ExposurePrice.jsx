@@ -77,7 +77,7 @@ const ExposurePrice = ({ grade, children, price, setSelected, selected }) => {
 
 ExposurePrice.propTypes = {
   grade: PropTypes.number.isRequired,
-  price: PropTypes.string,
+  price: PropTypes.number,
 }
 
 export default ExposurePrice

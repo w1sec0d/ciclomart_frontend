@@ -1,14 +1,30 @@
 //Componentes
 import ExposurePrice from './ExposurePrice'
-import { setLoading, clearLoading } from '../../store/slices/loadingSlice'
+import Button from '../Button'
 
 //Utilidades
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import mercadoPago from '../../services/mercadoPago'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setLoading, clearLoading } from '../../store/slices/loadingSlice'
+import { setNotification } from '../../store/slices/notificationSlice'
+import { getProductById } from '../../services/productService'
+import { useQuery } from 'react-query'
+import Loading from '../Loading'
+import { useNavigate } from 'react-router-dom'
 
-const ExpositionPage = ({ product }) => {
+const ExpositionPage = ({ idProduct }) => {
+  const navigate = useNavigate()
+
+  console.log('IdProduct', idProduct)
+  const {
+    data: producto,
+    isLoading,
+    isError,
+  } = useQuery(['productos', idProduct], () => getProductById(idProduct))
+  console.log(producto)
+  const dispatch = useDispatch()
   const [selected, setSelected] = useState()
   const exposure = useSelector((state) => state.exposure)
   const authUser = useSelector((state) => state.auth.authUser)
@@ -34,6 +50,17 @@ const ExpositionPage = ({ product }) => {
       dispatch(clearLoading())
     }, 5000)
   }
+
+  const handleContinue = () => {
+    if (exposure.grade != 0) {
+      handleBuy()
+    } else {
+      navigate('/')
+    }
+  }
+
+  if (isLoading) return <Loading />
+  if (isError) return <p>Error: {isError.message}</p>
 
   return (
     <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-t from-primary/95 to-zinc-100 from-50% to-50% mt-[64px]">
@@ -66,32 +93,36 @@ const ExpositionPage = ({ product }) => {
             <div className="grid grid-cols-2 gap-4 ">
               <ExposurePrice
                 grade={1}
-                price={product.precio}
+                price={producto.precio}
                 setSelected={setSelected}
                 selected={selected}
               />
               <ExposurePrice
                 grade={2}
-                price={product.precio}
+                price={producto.precio}
                 setSelected={setSelected}
                 selected={selected}
               />
               <ExposurePrice
                 grade={3}
-                price={product.precio}
+                price={producto.precio}
                 setSelected={setSelected}
                 selected={selected}
               />
               <ExposurePrice
                 grade={4}
-                price={product.precio}
+                price={producto.precio}
                 setSelected={setSelected}
                 selected={selected}
               />
             </div>
-            <p className="mt-4 text-center text-tertiary font-bold">
-              Solo se te cobrara una vez publiques el producto
-            </p>
+
+            <Button
+              className="w-full mt-4 hover:bg-primary/90"
+              onClick={handleContinue}
+            >
+              Continuar
+            </Button>
           </div>
         </div>
       </div>

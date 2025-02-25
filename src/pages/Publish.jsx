@@ -11,6 +11,7 @@ import { setNotification } from '../store/slices/notificationSlice'
 const Publish = () => {
   const dispatch = useDispatch()
   const [step, setStep] = useState('selection')
+  const [idProducto, setIdProducto] = useState()
   const [productType, setProductType] = useState('')
   const [productData, setProductData] = useState(null)
   const [models, setModels] = useState([])
@@ -64,6 +65,7 @@ const Publish = () => {
       .publishProduct(finalProduct)
       .then((data) => {
         console.log('Product Data:', data)
+        setIdProducto(data.idProducto)
         setStep('complete')
       })
       .catch((error) => {
@@ -96,7 +98,7 @@ const Publish = () => {
       {step === 'verification' && (
         <Verification onVerify={handleVerification} />
       )}
-      {step === 'complete' && <ExpositionPage product={productData} />}
+      {step === 'complete' && <ExpositionPage idProduct={idProducto} />}
     </div>
   )
 }
