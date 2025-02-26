@@ -6,7 +6,7 @@ const Philosophy = ({ name, Icon, children }) => {
       </div>
       <div className="flex flex-row h-full w-full ">
         <div className="border-r h-full border-primary flex items-center justify-center p-10">
-          <Icon style={{ fontSize: '9rem' }} />
+          <Icon style={{ fontSize: '8rem', color: '#F28A19', opacity: 0.7 }} />
         </div>
         <div className="flex items-center p-4 text-2xl">{children}</div>
       </div>
