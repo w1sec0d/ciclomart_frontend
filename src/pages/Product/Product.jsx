@@ -156,11 +156,15 @@ const ProductPage = () => {
     await questionService.addQuestions(idUsuario, idProducto, pregunta)
   }
 
+  const setDefaultQuestion = (question) => {
+    document.getElementById('pregunta').value = question;
+  };
+
   useEffect(() => {
     if (producto) {
       getQuestions(producto.idProducto)
     }
-  }, [producto, getQuestions])
+  }, [producto, getQuestions, preguntas])
   
   if (isLoading) return <Loading />
   if (isError) return <p>Error: {isError.message}</p>
@@ -241,12 +245,22 @@ const ProductPage = () => {
               
               <div className= "flex flex-row gap-4">
                 <Button
-                  className='bg-slate-100 border-primary text-primary hover:bg-slate-50'>
+                  className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
+                  onClick={() => setDefaultQuestion('¿Cuál es la garantía del producto?')}
+                >
                   Garantía
                 </Button>
                 <Button
-                  className='bg-slate-100 border-primary text-primary hover:bg-slate-50'>
+                  className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
+                  onClick={() => setDefaultQuestion('¿Cómo funcionan las devoluciones gratis?')}
+                >
                   Devoluciones gratis
+                </Button>
+                <Button
+                  className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
+                  onClick={() => setDefaultQuestion('¿El precio es negociable?')}
+                >
+                  Precio
                 </Button>
               </div>
         
