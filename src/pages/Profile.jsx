@@ -15,6 +15,9 @@ const Profile = () => {
 
         {/*Settings*/}
         <Settings />
+        <a href="https://auth.mercadopago.com/authorization?client_id=APP_ID&response_type=code&platform_id=mp&state=RANDOM_ID&redirect_uri=https://www.redirect-url.com">
+          registrarme como vendedor
+        </a>
       </div>
     </section>
   )
