@@ -54,7 +54,6 @@ const columns = [
     ),
   },
 ]
-]
 
 const SearchPage = (params) => {
   const dispatch = useDispatch()
@@ -135,7 +134,6 @@ const SearchPage = (params) => {
         setFilterValues(newFilters)
       }
     }
-
 
     dispatch(fetchSearchResults(newFilters))
   }
