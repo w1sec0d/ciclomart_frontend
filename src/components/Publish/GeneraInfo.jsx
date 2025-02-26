@@ -1,50 +1,27 @@
-import { useState, useEffect } from 'react'
-import Button from '../Button'
+import React from 'react'
 import Input from '../Input'
 import Textarea from '../TextArea'
 import CustomSelect from './Select'
 
-// const ModelSelect = ({ models, brand, product, handleChange }) => {
-
-//   return (
-//     <CustomSelect
-//       name="model"
-//       label="Modelo"
-//       options={ models.length > 0 ? models : { options:[{value: 'No hay modelos', label: 'No hay modelos'}] } }
-//       value={product.model}
-//       onChange={handleChange}
-//     />
-//   )
-// }
-
 const GeneralInfo = ({
   product,
-  handleChange,
+  register,
   handleImageChange,
-  imagePreviews,
-  models,
+  imagePreviews = [],
   brands,
   handleBrandChange,
 }) => {
-  const [localModels, setLocalModels] = useState([])
-
   return (
     <>
       <div>
-        <Input
-          id="nombre"
-          label="Título"
-          value={product.nombre}
-          onChange={handleChange}
-        />
+        <Input id="nombre" label="Título" {...register('nombre')} />
       </div>
 
       <div className="">
         <Textarea
           id="descripcion"
           label="Descripción"
-          value={product.descripcion}
-          onChange={handleChange}
+          {...register('descripcion')}
         />
       </div>
 
@@ -53,8 +30,7 @@ const GeneralInfo = ({
           type="number"
           id="precio"
           label="Precio"
-          value={product.precio}
-          onChange={handleChange}
+          {...register('precio')}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
         />
       </div>
@@ -92,17 +68,9 @@ const GeneralInfo = ({
             name="marca"
             label="Marca"
             options={brands}
-            value={product.marca}
+            {...register('marca')}
             onChange={handleBrandChange}
           />
-        </div>
-        <div>
-          {/* <ModelSelect
-                  models={localModels}
-                  brand={product.modelo}
-                  product={product}
-                  handleChange={handleChange}
-                /> */}
         </div>
       </div>
     </>

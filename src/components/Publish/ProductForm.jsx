@@ -1,5 +1,5 @@
-// src/components/ProductForm.js
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import BycicleForm from './BycicleForm'
 import SparePartForm from './SparePartForm'
 import GeneralInfo from './GeneraInfo'
@@ -8,100 +8,100 @@ import Button from '../Button'
 
 const ProductForm = ({ type, onSubmit, models, brands }) => {
   const [step, setStep] = useState(1)
-  const [product, setProduct] = useState({
-    nombre: '',
-    tipo: type,
-    descripcion: '',
-    precio: '',
-    imagenes: [],
-    idMarca: '',
-    modelo: '',
-    disponibilidad: '',
-    retiro: false,
-    costoEnvio: '',
-    estado: '',
+  const { register, handleSubmit, setValue, watch } = useForm({
+    defaultValues: {
+      nombre: '',
+      tipo: type,
+      descripcion: '',
+      precio: '',
+      imagenes: [],
+      idMarca: '',
+      modelo: '',
+      disponibilidad: '',
+      retiro: false,
+      costoEnvio: '',
+      estado: '',
+      tipoBicicleta: '',
+      color: '',
+      genero: '',
+      edad: '',
+      tamañoMarco: '',
+      materialMarco: '',
+      modeloMarco: '',
+      modeloRuedas: '',
+      tamañoRueda: '',
+      tipoFrenos: '',
+      modeloFrenos: '',
+      tipoManubrio: '',
+      modeloManubrio: '',
+      tipoSuspension: '',
+      velocidades: '',
+      transmision: '',
+      tipoPedales: '',
+      pesoBicicleta: '',
+      pesoMaximo: '',
+      modeloPedales: '',
+      modeloCassette: '',
+      modeloSillin: '',
+      modeloCadena: '',
+      extras: '',
+      compatibilidad: '',
+      categoria: '',
+      marca: '',
+    },
   })
 
-  const [bycicle, setBycicle] = useState({
-    tipoBicicleta: '',
-    color: '',
-    genero: '',
-    edad: '',
-    tamañoMarco: '',
-    materialMarco: '',
-    modeloMarco: '',
-    modeloRuedas: '',
-    tamañoRueda: '',
-    tipoFrenos: '',
-    modeloFrenos: '',
-    tipoManubrio: '',
-    modeloManubrio: '',
-    tipoSuspension: '',
-    velocidades: '',
-    transmision: '',
-    tipoPedales: '',
-    pesoBicicleta: '',
-    pesoMaximo: '',
-    modeloPedales: '',
-    modeloCassette: '',
-    modeloSillin: '',
-    modeloCadena: '',
-    extras: '',
-  })
+  const product = watch()
 
-  const [componentData, setComponentData] = useState({
-    compatibilidad: '',
-    modelo: '',
-    categoria: '',
-    marca: '',
-  })
-
-  const [imagePreviews, setImagePreviews] = useState([])
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const onFormSubmit = (data) => {
     if (type === 'bicicleta') {
-      onSubmit(product, bycicle)
+      onSubmit(data, {
+        tipoBicicleta: data.tipoBicicleta,
+        color: data.color,
+        genero: data.genero,
+        edad: data.edad,
+        tamañoMarco: data.tamañoMarco,
+        materialMarco: data.materialMarco,
+        modeloMarco: data.modeloMarco,
+        modeloRuedas: data.modeloRuedas,
+        tamañoRueda: data.tamañoRueda,
+        tipoFrenos: data.tipoFrenos,
+        modeloFrenos: data.modeloFrenos,
+        tipoManubrio: data.tipoManubrio,
+        modeloManubrio: data.modeloManubrio,
+        tipoSuspension: data.tipoSuspension,
+        velocidades: data.velocidades,
+        transmision: data.transmision,
+        tipoPedales: data.tipoPedales,
+        pesoBicicleta: data.pesoBicicleta,
+        pesoMaximo: data.pesoMaximo,
+        modeloPedales: data.modeloPedales,
+        modeloCassette: data.modeloCassette,
+        modeloSillin: data.modeloSillin,
+        modeloCadena: data.modeloCadena,
+        extras: data.extras,
+      })
     } else if (type === 'componente') {
-      onSubmit(product, componentData)
+      onSubmit(data, {
+        compatibilidad: data.compatibilidad,
+        modelo: data.modelo,
+        categoria: data.categoria,
+        marca: data.marca,
+      })
     }
-  }
-
-  const handleChange = (e) => {
-    console.log(product)
-    const { name, value } = e.target
-    setProduct({ ...product, [name]: value })
-  }
-
-  const handleBCchange = (e) => {
-    const { name, value } = e.target
-    if (type === 'bicicleta') setBycicle({ ...bycicle, [name]: value })
-    else setComponentData({ ...componentData, [name]: value })
-  }
-
-  const handleBrandChange = (e) => {
-    console.log(product)
-    const { value, id } = e.target
-    setProduct({ ...product, idMarca: id })
-    //getModels(type, id)
   }
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files)
-    setProduct({ ...product, images: files })
+    setValue('imagenes', files)
 
     const previews = files.map((file) => URL.createObjectURL(file))
-    setImagePreviews(previews)
+    setValue('imagePreviews', previews)
   }
 
-  const handleComponentChange = (e) => {
-    const { name, value } = e.target
-    setComponentData({ ...componentData, [name]: value })
-  }
-
-  const handleBycicleChange = (event) => {
-    const { id, value } = event.target
-    setBycicle({ ...bycicle, [id]: value })
+  const handleBrandChange = (e) => {
+    setValue('marca', e.target.value)
+    setValue('idMarca', e.target.id)
   }
 
   const handleNext = () => {
@@ -117,40 +117,34 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
       <div className="flex flex-col items-center justify-center w-full max-w-4xl p-6 bg-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">Publicar {type}</h1>
         <div className="w-full m-15 px-20 ">
-          <form onSubmit={handleSubmit} className="w-full space-y-5 p-4">
+          <form
+            onSubmit={handleSubmit(onFormSubmit)}
+            className="w-full space-y-5 p-4"
+          >
             {step === 1 && (
               <GeneralInfo
                 product={product}
-                handleChange={handleChange}
+                register={register}
                 handleImageChange={handleImageChange}
-                handleBrandChange={handleBrandChange}
-                imagePreviews={imagePreviews}
                 brands={brands}
+                handleBrandChange={handleBrandChange}
               />
             )}
 
             {step === 2 && (
               <>
                 {type === 'bicicleta' && (
-                  <BycicleForm
-                    bycicle={bycicle}
-                    handleChange={handleBCchange}
-                  />
+                  <BycicleForm bycicle={product} register={register} />
                 )}
                 {type === 'componente' && (
-                  <SparePartForm
-                    componentData={componentData}
-                    handleChange={handleComponentChange}
-                  />
+                  <SparePartForm componentData={product} register={register} />
                 )}
               </>
             )}
 
             {step === 3 && (
-              <AvailabilityForm product={product} handleChange={handleChange} />
+              <AvailabilityForm product={product} register={register} />
             )}
-            {/* {type === 'bicicleta' && <BycicleForm onSubmit={onSubmit} />}
-            {type === 'repuesto' && <SparePartForm onSubmit={onSubmit} />} */}
           </form>
           {step > 1 && (
             <Button
@@ -173,7 +167,7 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
           ) : (
             <Button
               type="submit"
-              onClick={handleSubmit}
+              onClick={handleSubmit(onFormSubmit)}
               className="justify-center"
             >
               Publicar

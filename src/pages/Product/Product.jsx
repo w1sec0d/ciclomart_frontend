@@ -60,6 +60,7 @@ const ProductPage = () => {
       dispatch(clearLoading())
       return
     }
+    console.log('producto', producto)
     const { paymentURL } = await mercadoPago.sendBuyRequest(
       producto,
       authUser.idUsuario
@@ -71,8 +72,6 @@ const ProductPage = () => {
   }
 
   const handleAddToCart = async () => {
-    console.log('cantidad: ', cantidad)
-
     // Verificar si el usuario está autenticado
 
     if (!authUser) {
@@ -120,6 +119,10 @@ const ProductPage = () => {
 
     dispatch(addItem(item))
     await shoppingCart.addProductToCart(idUsuario, idProducto, cantidad)
+
+    // Sync the cart with localStorage
+    const updatedCart = [...cartItems, item]
+    localStorage.setItem('cart', JSON.stringify(updatedCart))
 
     dispatch(
       setNotification({

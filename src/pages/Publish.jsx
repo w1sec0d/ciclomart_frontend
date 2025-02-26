@@ -14,7 +14,6 @@ const Publish = () => {
 
   const handleSelect = async (type) => {
     await getBrand()
-    console.log(brands)
     setProductType(type)
     setStep('form')
   }
@@ -36,7 +35,6 @@ const Publish = () => {
     await publicationService
       .getBrands()
       .then((data) => {
-        console.log('Brands:', data)
         const brandNames = data.results.map((brand) => ({
           id: brand.idMarca,
           value: brand.nombre,
@@ -45,7 +43,7 @@ const Publish = () => {
         setBrands({ options: brandNames })
       })
       .catch((error) => {
-        console.log('Error:', error)
+        console.error('Error:', error)
       })
   }
 
@@ -56,7 +54,6 @@ const Publish = () => {
   const handleFormSubmit = (general, product) => {
     const finalProduct = { ...general, ...product }
     setProductData(finalProduct)
-    console.log('Final Product:', finalProduct)
     setStep('complete')
     publicationService
       .publishProduct(finalProduct)

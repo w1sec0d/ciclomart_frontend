@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
 import {
   Box,
   Typography,
@@ -7,48 +9,85 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Paper,
 } from '@mui/material'
 import { MaterialReactTable } from 'material-react-table'
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
-import cartService from '../services/cartService'
-import { useSelector, useDispatch } from 'react-redux'
-import { SiEac } from 'react-icons/si'
+
 import Button from '../components/Button'
+import cartService from '../services/cartService'
+import { setCart } from '../store/slices/cartSlice'
+import { setLoading } from '../store/slices/loadingSlice'
 import { removeItem } from '../store/slices/cartSlice'
+import colombianPrice from '../utils/colombianPrice'
 
 const ShoppingCart = () => {
   const dispatch = useDispatch()
   const authUser = useSelector((state) => state.auth.authUser)
-  const [cart, setCart] = useState([])
+  const cart = useSelector((state) => state.cart.items)
   const [dataWithTotal, setDataWithTotal] = useState([])
   const [subtotal, setSubtotal] = useState(0)
   const [envio, setEnvio] = useState(0)
   const [total, setTotal] = useState(0)
 
-  const getCartElements = async (id) => {
-    const elements = await cartService.getCart(id)
-    dispatch(setCart(elements.results))
-    setCart(elements.results)
-  }
+  // Definir los impuestos
+  const impuestos = 0
+
+  const columns = [
+    {
+      accessorKey: 'nombre',
+      header: 'Producto',
+    },
+    {
+      accessorKey: 'precio_unitario',
+      header: 'Precio',
+      Cell: ({ cell }) => colombianPrice(cell.getValue()),
+    },
+    {
+      accessorKey: 'cantidad',
+      header: 'Cantidad',
+    },
+    {
+      accessorKey: 'total',
+      header: 'Total',
+      Cell: ({ cell }) => colombianPrice(cell.getValue()),
+    },
+    {
+      accessorKey: 'delete',
+      header: '',
+      Cell: ({ row }) => (
+        <Button color="secondary" onClick={() => removeFromCart(row.index)}>
+          <RemoveCircleOutlineIcon />
+        </Button>
+      ),
+    },
+  ]
+
+  const getCartElements = useCallback(
+    async (id) => {
+      const storedCart = localStorage.getItem('cart')
+      if (storedCart) {
+        dispatch(setCart(JSON.parse(storedCart)))
+      } else {
+        const elements = await cartService.getCart(id)
+        dispatch(setCart(elements.results))
+      }
+    },
+    [dispatch]
+  )
 
   const removeFromCart = async (index) => {
     const element = cart[index]
     dispatch(removeItem(element.idProducto))
     await cartService.removeFromCart(authUser.idUsuario, element.idProducto)
     const updated = await cartService.getCart(authUser.idUsuario)
-    setCart(updated.results)
+    dispatch(setCart(updated.results))
   }
 
   useEffect(() => {
-    getCartElements(authUser.idUsuario)
-  }, [authUser.idUsuario])
-
-  console.log('cart: ', cart)
-  // Definir los impuestos
-  const impuestos = 253200
+    if (authUser) getCartElements(authUser.idUsuario)
+  }, [authUser, getCartElements])
 
   useEffect(() => {
     // Calcular el total para cada producto
@@ -83,40 +122,11 @@ const ShoppingCart = () => {
     setTotal(updatedTotal)
   }, [cart])
 
-  // Función para formatear números como moneda
-  const formatCurrency = (value) => {
-    return value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })
+  if (!cart) {
+    // Si no está cargado el carrito, mostrar pantalla de carga
+    dispatch(setLoading())
+    return
   }
-
-  const columns = [
-    {
-      accessorKey: 'nombre',
-      header: 'Producto',
-    },
-    {
-      accessorKey: 'precio_unitario',
-      header: 'Precio',
-      Cell: ({ cell }) => formatCurrency(cell.getValue()),
-    },
-    {
-      accessorKey: 'cantidad',
-      header: 'Cantidad',
-    },
-    {
-      accessorKey: 'total',
-      header: 'Total',
-      Cell: ({ cell }) => formatCurrency(cell.getValue()),
-    },
-    {
-      accessorKey: 'delete',
-      header: '',
-      Cell: ({ row }) => (
-        <Button color="secondary" onClick={() => removeFromCart(row.index)}>
-          <RemoveCircleOutlineIcon />
-        </Button>
-      ),
-    },
-  ]
 
   return (
     <>
@@ -153,11 +163,17 @@ const ShoppingCart = () => {
               }}
             />
             {dataWithTotal.length === 0 && (
-              <TableRow className="MuiTableRow-empty">
-                <TableCell colSpan={columns.length}>
-                  No hay productos en el carrito
-                </TableCell>
-              </TableRow>
+              <TableContainer component={Paper} elevation={0}>
+                <Table>
+                  <TableBody>
+                    <TableRow className="MuiTableRow-empty">
+                      <TableCell colSpan={columns.length}>
+                        No hay productos en el carrito
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             )}
 
             <div className="flex justify-start mt-4">
@@ -177,19 +193,19 @@ const ShoppingCart = () => {
                     <TableRow>
                       <TableCell>Subtotal</TableCell>
                       <TableCell align="right">
-                        {formatCurrency(subtotal)}
+                        {colombianPrice(subtotal)}
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Envío</TableCell>
                       <TableCell align="right">
-                        {formatCurrency(envio)}
+                        {colombianPrice(envio)}
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Impuestos</TableCell>
                       <TableCell align="right">
-                        {formatCurrency(impuestos)}
+                        {colombianPrice(impuestos)}
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -201,7 +217,7 @@ const ShoppingCart = () => {
               <Typography variant="h5" gutterBottom>
                 Total
               </Typography>
-              <Typography variant="h4">{formatCurrency(total)}</Typography>
+              <Typography variant="h4">{colombianPrice(total)}</Typography>
               <Button variant="contained" color="primary" sx={{ marginTop: 2 }}>
                 Continuar al pago
               </Button>
