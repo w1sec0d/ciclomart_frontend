@@ -39,12 +39,12 @@ const CardButton = ({
       {children}
       {arrow == 1 ? (
         <ArrowDown className="ml-auto mr-2" />
-      ) : (
+      ) : arrow == 2 ? (
         <ArrowRight
           className="ml-auto mr-2 text-2xl"
           style={{ fontSize: '3rem' }}
         />
-      )}
+      ) : null}
     </button>
   )
 }

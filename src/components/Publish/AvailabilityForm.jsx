@@ -1,7 +1,8 @@
+import React from 'react'
 import Input from '../Input'
 import CustomSelect from './Select'
 
-const AvailabilityForm = ({ product, handleChange }) => {
+const AvailabilityForm = ({ product, register }) => {
   return (
     <>
       <div className="mt-2 grid grid-cols-2 gap-2">
@@ -16,7 +17,7 @@ const AvailabilityForm = ({ product, handleChange }) => {
             ],
           }}
           value={product.disponibilidad}
-          onChange={handleChange}
+          {...register('disponibilidad')}
         />
 
         <CustomSelect
@@ -29,7 +30,7 @@ const AvailabilityForm = ({ product, handleChange }) => {
             ],
           }}
           value={product.retiro}
-          onChange={handleChange}
+          {...register('retiro')}
         />
 
         <CustomSelect
@@ -39,11 +40,10 @@ const AvailabilityForm = ({ product, handleChange }) => {
             options: [
               { label: 'Nuevo', value: 'nuevo' },
               { label: 'Usado', value: 'usado' },
-              // {label:'Reacondicionado',value:'reacondicionado'}]
             ],
           }}
           value={product.estado}
-          onChange={handleChange}
+          {...register('estado')}
         />
       </div>
       <Input
@@ -51,7 +51,7 @@ const AvailabilityForm = ({ product, handleChange }) => {
         id="costoEnvio"
         label="Precio de envio"
         value={product.costoEnvio}
-        onChange={handleChange}
+        {...register('costoEnvio')}
       />
     </>
   )

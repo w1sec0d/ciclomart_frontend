@@ -40,7 +40,6 @@ const Publish = () => {
     await publicationService
       .getBrands()
       .then((data) => {
-        console.log('Brands:', data)
         const brandNames = data.results.map((brand) => ({
           id: brand.idMarca,
           value: brand.nombre,
@@ -49,7 +48,7 @@ const Publish = () => {
         setBrands({ options: brandNames })
       })
       .catch((error) => {
-        console.log('Error:', error)
+        console.error('Error:', error)
       })
   }
 

@@ -54,6 +54,7 @@ const columns = [
     ),
   },
 ]
+]
 
 const SearchPage = (params) => {
   const dispatch = useDispatch()
@@ -135,6 +136,7 @@ const SearchPage = (params) => {
       }
     }
 
+
     dispatch(fetchSearchResults(newFilters))
   }
 
@@ -173,6 +175,7 @@ const SearchPage = (params) => {
             key={key}
             label={key}
             results={Object.values(searchResults.results)}
+            onChange={(selectedValue) => handleFilterChange(key, selectedValue)}
             onChange={(selectedValue) => handleFilterChange(key, selectedValue)}
           />
         ))}

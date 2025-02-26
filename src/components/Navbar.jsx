@@ -1,18 +1,34 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Button from './Button'
 import logo from '../assets/logo.png'
+import { Badge } from '@mui/material'
 import { Person, ShoppingCart } from '@mui/icons-material'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import cartService from '../services/cartService'
+import { setCart } from '../store/slices/cartSlice'
 
 const Navbar = (params) => {
+  const dispatch = useDispatch()
   // load user info to check if user is logged in
   const user = useSelector((state) => state.auth.authUser)
+  const cartItemsCount = useSelector((state) => state.cart.items.length)
 
   const [inputText, setInputText] = useState('')
 
   const handleInputChange = (e) => {
     setInputText(e.target.value)
   }
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      if (user) {
+        const elements = await cartService.getCart(user.idUsuario)
+        dispatch(setCart(elements.results))
+      }
+    }
+
+    fetchCartItems()
+  }, [dispatch, user])
 
   return (
     <nav className="bg-white p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-lg">
@@ -61,6 +77,7 @@ const Navbar = (params) => {
               to="/shoppingCart"
             >
               <ShoppingCart />
+              <Badge badgeContent={cartItemsCount} color="secondary" />
             </Button>
             <Button
               className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
