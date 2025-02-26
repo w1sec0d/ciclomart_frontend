@@ -197,8 +197,7 @@ const ShoppingCart = () => {
               </TableContainer>
             </div>
 
-            <div className="flex flex-col justify-between mt-4"
-            >
+            <div className="flex flex-col justify-between mt-4">
               <Typography variant="h5" gutterBottom>
                 Total
               </Typography>

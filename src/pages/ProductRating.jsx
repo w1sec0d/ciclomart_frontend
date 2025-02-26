@@ -31,7 +31,7 @@ const ProductRating = (props) => {
   //Obteniendo el id del usuario logueado
 
   const authUser = useSelector((state) => state.auth.authUser)
-  
+
   //Verifica si un usuario ya ha realizado un compra del producto
   const checkPurchase = async () => {
     try {
@@ -312,9 +312,11 @@ const ProductRating = (props) => {
           </div>
         </div>
       </div>
-      
-      <p className="py-2 pt-5 font-secondary text-xl">Puedes iniciar un chat con el vendedor</p>
-      
+
+      <p className="py-2 pt-5 font-secondary text-xl">
+        Puedes iniciar un chat con el vendedor
+      </p>
+
       <div className="py-4">
         <Button
           type="button"

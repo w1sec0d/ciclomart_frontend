@@ -25,7 +25,6 @@ import capitalize from '../../utils/capitalize'
 
 import { addItem } from '../../store/slices/cartSlice'
 
-
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
   const { id } = useParams()
@@ -43,7 +42,7 @@ const ProductPage = () => {
   } = useQuery(['productos', id], () => getProductById(id))
 
   const getQuestions = useCallback(async (id) => {
-    const preguntasObtenidas =  await questionService.getQuestions(id)
+    const preguntasObtenidas = await questionService.getQuestions(id)
     console.log('preguntasObtenidas', preguntasObtenidas.results)
     setPreguntas(preguntasObtenidas.results)
     return preguntasObtenidas
@@ -133,7 +132,7 @@ const ProductPage = () => {
   }
 
   const handleQuestion = async () => {
-    event.preventDefault();
+    event.preventDefault()
 
     if (!authUser) {
       dispatch(
@@ -157,15 +156,15 @@ const ProductPage = () => {
   }
 
   const setDefaultQuestion = (question) => {
-    document.getElementById('pregunta').value = question;
-  };
+    document.getElementById('pregunta').value = question
+  }
 
   useEffect(() => {
     if (producto) {
       getQuestions(producto.idProducto)
     }
   }, [producto, getQuestions, preguntas])
-  
+
   if (isLoading) return <Loading />
   if (isError) return <p>Error: {isError.message}</p>
 
@@ -240,68 +239,77 @@ const ProductPage = () => {
       </div>
       <div>
         <h2 className="py-2 pt-10 font-black text-2xl">Preguntas</h2>
-              
-              <p className="py-2 font-secondary text-xl">¿Qué quieres saber?</p>
-              
-              <div className= "flex flex-row gap-4">
-                <Button
-                  className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
-                  onClick={() => setDefaultQuestion('¿Cuál es la garantía del producto?')}
-                >
-                  Garantía
-                </Button>
-                <Button
-                  className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
-                  onClick={() => setDefaultQuestion('¿Cómo funcionan las devoluciones gratis?')}
-                >
-                  Devoluciones gratis
-                </Button>
-                <Button
-                  className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
-                  onClick={() => setDefaultQuestion('¿El precio es negociable?')}
-                >
-                  Precio
-                </Button>
+
+        <p className="py-2 font-secondary text-xl">¿Qué quieres saber?</p>
+
+        <div className="flex flex-row gap-4">
+          <Button
+            className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
+            onClick={() =>
+              setDefaultQuestion('¿Cuál es la garantía del producto?')
+            }
+          >
+            Garantía
+          </Button>
+          <Button
+            className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
+            onClick={() =>
+              setDefaultQuestion('¿Cómo funcionan las devoluciones gratis?')
+            }
+          >
+            Devoluciones gratis
+          </Button>
+          <Button
+            className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
+            onClick={() => setDefaultQuestion('¿El precio es negociable?')}
+          >
+            Precio
+          </Button>
+        </div>
+
+        <p className="py-2 pt-5 font-secondary text-xl">
+          Pregúntale al vendedor
+        </p>
+
+        <div className="flex flex-row gap-4">
+          <form
+            onSubmit={handleQuestion}
+            className="flex flex-col w-full max-w-4xl gap-3"
+          >
+            <div className="flex flex-row gap-2 justify-start">
+              <textarea
+                id="pregunta"
+                placeholder="Escribe aquí tu pregunta"
+                rows="1"
+                maxLength="45"
+                className="mt-1 block w-full p-2 border border-blue-500 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              <Button
+                type="submit"
+                className="text-center bg-blue-500 text-white py-2 px-7  rounded-full"
+              >
+                Preguntar
+              </Button>
+            </div>
+          </form>
+        </div>
+
+        <p className="py-2 pt-5 font-secondary text-xl"> Últimas realizadas </p>
+
+        <div className="flex flex-col gap-4">
+          {preguntas.length > 0 ? (
+            preguntas.map((pregunta, index) => (
+              <div key={index} className="flex flex-col gap-2">
+                <p className="font-bold from-neutral-400">
+                  {pregunta.descripcion}
+                </p>
+                <p>{pregunta.respuesta}</p>
               </div>
-        
-              <p className="py-2 pt-5 font-secondary text-xl">Pregúntale al vendedor</p>
-
-              <div className= "flex flex-row gap-4">
-                <form
-                    onSubmit={handleQuestion}
-                    className="flex flex-col w-full max-w-4xl gap-3"
-                >
-                  <div className="flex flex-row gap-2 justify-start">
-                    <textarea
-                            id="pregunta"
-                            placeholder="Escribe aquí tu pregunta"
-                            rows="1"
-                            maxLength="45"
-                            className="mt-1 block w-full p-2 border border-blue-500 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    />
-                    <Button
-                      type="submit"
-                      className="text-center bg-blue-500 text-white py-2 px-7  rounded-full"
-                    >
-                      Preguntar
-                    </Button>
-                  </div>
-                  
-                </form>
-
-                
-              </div> 
-
-              <p className="py-2 pt-5 font-secondary text-xl"> Últimas realizadas </p>
-
-              <div className="flex flex-col gap-4">
-                {preguntas.length > 0? preguntas.map((pregunta, index) => (
-                  <div key={index} className="flex flex-col gap-2">
-                    <p className="font-bold from-neutral-400">{pregunta.descripcion}</p>
-                    <p>{pregunta.respuesta}</p>
-                  </div>
-                )): <p>No hay preguntas aún</p>}
-              </div>
+            ))
+          ) : (
+            <p>No hay preguntas aún</p>
+          )}
+        </div>
 
         <ProductRating />
       </div>
