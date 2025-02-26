@@ -1,5 +1,11 @@
+//Componentes
+import Philosophy from '../components/Conocenos/Philosophy'
+
+//Iconos
+import Security from '@mui/icons-material/GppGoodOutlined'
 //Logo
 import Logo from '../assets/logoVector.svg'
+
 const Conocenos = () => {
   return (
     <div className="h-auto w-full flex flex-col px-20">
@@ -35,12 +41,22 @@ const Conocenos = () => {
       </div>
 
       {/*Misión */}
-      <div className="h-80 bg-lgray w-full mt-8 rounded-3xl">
-        <div className="h-14 w-full bg-primary rounded-t-3xl shadow">
-          <h1 className="text">Visión</h1>
-        </div>
-      </div>
-      <div className="h-80 bg-lgray w-full mt-8"></div>
+      <Philosophy name={'Vision'} Icon={Security}>
+        <p>
+          Para el 2028 “Ciclomart” busca ser la plataforma preferida en Colombia
+          para la compra y venta de artículos de ciclismo de forma ágil,
+          informada, legal, especializada y segura.
+        </p>
+      </Philosophy>
+      {/*Visión */}
+      <Philosophy name={'Mision'} Icon={Security}>
+        <p>
+          CicloMart facilita la venta y compra de artículos de ciclismo de forma
+          segura, mediante la documentación legal de cada artículo publicado y,
+          teniendo en cuenta, las necesidades más específicas en la búsqueda y
+          adquisición de artículos para nuestros usuarios.
+        </p>
+      </Philosophy>
     </div>
   )
 }
