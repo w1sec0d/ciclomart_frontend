@@ -1,6 +1,7 @@
 //Componentes
 import ItemContainer from '../components/ItemContainer'
 import ComparisonBar from '../components/Comparison/ComparisonBar'
+import Input from '../components/Input'
 
 //Utilidades
 import { useQuery } from 'react-query'
@@ -20,7 +21,7 @@ import { getBicicletas, getProducts } from '../services/productService'
 
 const Bicicleta = () => {
   const dispatch = useDispatch()
-  const itemsPerPage = 5
+  const itemsPerPage = 10
   const [currentPage, setCurrentPage] = useState(0)
 
   //Trae bicicletas
@@ -44,13 +45,11 @@ const Bicicleta = () => {
   }, [isLoading, dispatch])
 
   if (isLoading) return null
-  if (isError) return <p>Error: {error.message}</p>
+  if (isError) return <p>Error: {isError.message}</p>
   // Calcula que elementos mostrar
 
   const offset = currentPage * itemsPerPage
   const currentItems = bicicletas.slice(offset, offset + itemsPerPage)
-
-  console.log(currentItems)
 
   return (
     <div className="bg-lgray pb-8 ">
@@ -59,6 +58,17 @@ const Bicicleta = () => {
         <h1 className="font-bold text-3xl bg-primary w-full h-20 mb-10 shadow-xl flex items-center justify-center">
           ¡Encuentra tu próxima bicicleta!
         </h1>
+      </div>
+      <div className="flex items-end justify-center mb-10 ">
+        <div className="w-40 bg-secondary flex items-center justify-center rounded-l-xl  h-10 border-black/50 border font-bold shadow-xl">
+          <h2>Busca</h2>
+        </div>
+        <Input
+          id={1}
+          className={'bg-white mt-2 w-[900px] shadow-xl rounded-r-xl '}
+          inputClassName={' border px-2 rounded-r-xl '}
+          label=""
+        />
       </div>
       <div className="px-9 mb-10">
         <div className="grid grid-cols-5">

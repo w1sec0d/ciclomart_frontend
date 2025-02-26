@@ -124,7 +124,10 @@ const LandingPage = () => {
             Ofertas
           </h3>
         </a>
-        <a href="/ofertas" className="p-4 shadow-a bg-white rounded-md group">
+        <a
+          href="/bicicletas"
+          className="p-4 shadow-a bg-white rounded-md group"
+        >
           <img src={bike2} className="w-[200px] h-[200px] object-contain" />
           <h3 className="font-semibold text-center my-2 text-xl group-hover:text-primary">
             Bicicletas

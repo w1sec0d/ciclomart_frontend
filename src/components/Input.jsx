@@ -10,6 +10,7 @@ const Input = forwardRef(
       type = 'text',
       id,
       className = '', // custom class for container
+      inputClassName = '',
       required = true,
       ...props
     },
@@ -33,7 +34,10 @@ const Input = forwardRef(
           id={id}
           type={type}
           name={id}
-          className="peer h-10 w-full border-b-[1.5px] border-gray border-opacity-75 text-gray-900 placeholder-transparent focus:border-primary focus:outline-none bg-inherit"
+          className={twMerge(
+            'peer h-10 w-full border-b-[1.5px] border-gray border-opacity-75 text-gray-900 placeholder-transparent focus:border-primary focus:outline-none bg-inherit',
+            inputClassName
+          )}
           placeholder={label}
           required={required}
           ref={internalRef}
@@ -70,6 +74,7 @@ Input.propTypes = {
   type: PropTypes.string,
   id: PropTypes.string.isRequired,
   className: PropTypes.string,
+  inputClassName: PropTypes.string,
   required: PropTypes.bool,
 }
 
