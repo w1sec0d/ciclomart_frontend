@@ -61,7 +61,9 @@ const Navbar = (params) => {
           </Button>
         </div>
 
-        <li className="text-center mx-auto my-auto">
+        <li
+          className={`text-center mx-auto my-auto w-auto ${!user && 'max-w-64'}`}
+        >
           {' '}
           <h1 className="w-full text-center text-sm my-auto">
             ¡Bienvenido a <span className="text-tertiary font-bold">Ciclo</span>
@@ -88,7 +90,7 @@ const Navbar = (params) => {
             </Button>
           </li>
         ) : (
-          <li className="hover:font-bold flex items-center ml-auto">
+          <li className="hover:font-bold flex items-center">
             <Button
               className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
               to="/login"
@@ -100,6 +102,12 @@ const Navbar = (params) => {
               to="/register"
             >
               Regístrate
+            </Button>
+            <Button
+              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+              to="/conocenos"
+            >
+              Conocenos
             </Button>
           </li>
         )}
