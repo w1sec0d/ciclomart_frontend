@@ -19,6 +19,7 @@ import Publish from './pages/Publish'
 import Vendedor from './pages/Vendedor'
 import ShoppingCart from './pages/ShoppingCart'
 import Purchases from './pages/Purchases'
+import Conocenos from './pages/Conocenos'
 
 // Services
 import apiService from './services/apiService'
@@ -66,6 +67,7 @@ const App = () => {
         <Route path="vendedor/:id" element={<Vendedor />} />
         <Route path="shoppingCart" element={<ShoppingCart />} />
         <Route path="purchases/:idComprador" element={<Purchases />} />
+        <Route path="/conocenos" element={<Conocenos />} />
       </Route>
     </Routes>
   )
