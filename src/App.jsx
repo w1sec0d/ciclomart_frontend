@@ -16,8 +16,10 @@ import CodeVerification from './pages/CodeVerification'
 import Layout from './components/Layout'
 import ComparisonView from './pages/ComparisonView'
 import Publish from './pages/Publish'
+import ExposureInfo from './pages/ExposureInfo'
 import Vendedor from './pages/Vendedor'
 import ShoppingCart from './pages/ShoppingCart'
+import ExposurePage from './components/Exposure/ExpositionPage'
 import Purchases from './pages/Purchases'
 
 // Services
@@ -63,6 +65,8 @@ const App = () => {
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
         <Route path="publish" element={<Publish />} />
         <Route path="productRating" element={<ProductRating />} />
+        <Route path="exposureInfo" element={<ExposureInfo />} />
+        <Route path="exposurePayment" element={<ExposurePage />} />
         <Route path="vendedor/:id" element={<Vendedor />} />
         <Route path="shoppingCart" element={<ShoppingCart />} />
         <Route path="purchases/:idComprador" element={<Purchases />} />
