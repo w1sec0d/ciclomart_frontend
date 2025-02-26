@@ -71,7 +71,15 @@ const Navbar = (params) => {
           </h1>
         </li>
         {user ? (
-          <li className="bg-white mx-4 hover:font-bold flex items-center">
+          <li className= "mx-4 hover:font-bold flex items-center">
+            {user.rol == 'vendedor' ? (
+              <Button
+              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+              to="/publish"
+              >Publicar
+              </Button>
+            ): null
+            }
             <Button
               className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
               to="/shoppingCart"
