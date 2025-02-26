@@ -9,6 +9,7 @@ import Button from '../../components/Button'
 import Img from '../../components/Img'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
 import ProductRating from '../ProductRating'
+import { setNotification } from '../../store/slices/notificationSlice'
 import Input from '../../components/Input'
 
 // servicios
