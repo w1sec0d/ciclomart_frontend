@@ -5,6 +5,7 @@ import loadingReducer from './slices/loadingSlice'
 import searchReducer from './slices/searchSlice'
 import showModalReducer from './slices/showModalSlice'
 import comparisonReducer from './slices/comparisonSlice'
+import exposureReducer from './slices/exposureSlice'
 import cartReducer from './slices/cartSlice'
 
 export default configureStore({
@@ -16,5 +17,6 @@ export default configureStore({
     search: searchReducer,
     showModal: showModalReducer,
     comparison: comparisonReducer,
+    exposure: exposureReducer,
   },
 })

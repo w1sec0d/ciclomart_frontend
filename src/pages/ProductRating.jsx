@@ -312,8 +312,11 @@ const ProductRating = (props) => {
           </div>
         </div>
       </div>
-      <h2 className="py-2 font-black text-2xl">¿Tienes dudas del producto?</h2>
-      <p>Puedes iniciar chat con el vendedor</p>
+
+      <p className="py-2 pt-5 font-secondary text-xl">
+        Puedes iniciar un chat con el vendedor
+      </p>
+
       <div className="py-4">
         <Button
           type="button"
