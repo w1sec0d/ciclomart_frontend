@@ -1,5 +1,5 @@
 //Componentes
-import Loading from '../components/Loading'
+import ItemContainer from '../components/ItemContainer'
 
 //Utilidades
 import { useQuery } from 'react-query'
@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { setLoading, clearLoading } from '../store/slices/loadingSlice'
 
 //Servicios
-import { getBicicletas } from '../services/productService'
+import { getBicicletas, getProducts } from '../services/productService'
 
 const Bicicleta = () => {
   const dispatch = useDispatch()
@@ -15,7 +15,7 @@ const Bicicleta = () => {
     data: bicicletas,
     isError,
     isLoading,
-  } = useQuery(['bicicletas'], getBicicletas)
+  } = useQuery(['productos'], getProducts)
 
   if (isLoading) {
     dispatch(setLoading())
@@ -26,10 +26,24 @@ const Bicicleta = () => {
   if (isError) return <p>Error: {isError.message}</p>
 
   return (
-    <div>
-      {bicicletas.map((bicicleta) => (
-        <p key={bicicleta.idBicicleta}>{bicicleta.precio}</p>
-      ))}
+    <div className="bg-lgray pb-8">
+      <div>
+        <h1 className="font-bold text-3xl bg-secondary w-full h-20 mb-10 shadow-xl flex items-center justify-center">
+          ¡Encuentra tu próxima bicicleta!
+        </h1>
+      </div>
+      <div className="px-9">
+        <div className="grid grid-cols-5">
+          {bicicletas.map((bicicleta) => (
+            <ItemContainer
+              {...bicicleta}
+              key={bicicleta.idBicicleta}
+              className={'mt-2'}
+              envioGratis={bicicleta['método de envio'] === 'gratis'}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
