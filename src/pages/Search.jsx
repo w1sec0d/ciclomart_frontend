@@ -174,7 +174,6 @@ const SearchPage = (params) => {
             label={key}
             results={Object.values(searchResults.results)}
             onChange={(selectedValue) => handleFilterChange(key, selectedValue)}
-            onChange={(selectedValue) => handleFilterChange(key, selectedValue)}
           />
         ))}
       </div>
