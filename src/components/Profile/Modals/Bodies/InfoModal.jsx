@@ -1,7 +1,14 @@
 // -> Componentes
+import Button from '../../../Button'
 import UserData from '../UserData'
+import randomId from '../../../../utils/randomId'
 
 const InfoModal = ({ data }) => {
+  // Parametros de la aplicacion en Mercado Pago
+  const client_id = import.meta.env.VITE_MP_CLIENT_ID
+  const redirect_uri = import.meta.env.VITE_MP_REDIRECT_URI
+  const state = randomId()
+  // Datos del usuario
   const { nombre, apellido, edad, rol, telefono, username, correo, direccion } =
     data
 
@@ -21,6 +28,11 @@ const InfoModal = ({ data }) => {
             title="Dirección:"
             dataItem={direccion}
           />
+          <Button
+            to={`https://auth.mercadopago.com/authorization?client_id=${client_id}&response_type=code&platform_id=mp&state=${state}&redirect_uri=${redirect_uri}`}
+          >
+            Registrarme como vendedor
+          </Button>
         </div>
       ) : null}
     </>
