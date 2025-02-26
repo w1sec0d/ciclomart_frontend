@@ -1,5 +1,6 @@
 //Componentes
 import Philosophy from '../components/Conocenos/Philosophy'
+import ValueCard from '../components/Conocenos/ValueCard'
 
 //Iconos
 import Security from '@mui/icons-material/GppGoodOutlined'
@@ -57,6 +58,34 @@ const Conocenos = () => {
           adquisición de artículos para nuestros usuarios.
         </p>
       </Philosophy>
+
+      <div className="h-12 w-full bg-primary flex items-center justify-center mt-8 rounded-xl">
+        <h2 className="font-bold text-2xl">Valores</h2>
+      </div>
+
+      {/*Valores */}
+      <div className="grid grid-cols-5 gap-6 h-80 mt-10 mb-20">
+        <ValueCard title={'Transparencia'} Icon={Security}>
+          Facilitamos la compra y venta de bicicletas y repuestos con
+          información clara y detallada
+        </ValueCard>
+        <ValueCard title={'Accesibilidad'} Icon={Security}>
+          Proporcionamos un servicio abierto y útil para todos nuestros
+          usuarios. Experimentados o no
+        </ValueCard>
+        <ValueCard title={'Compromiso ambiental'} Icon={Security}>
+          Brindamos un servicio que fomenta la adopción de un medio de
+          transporte alternativo
+        </ValueCard>
+        <ValueCard title={'Confianza'} Icon={Security}>
+          Facilitamos una comunicación efectiva en el proceso de adquisición de
+          uno de los productos publicados
+        </ValueCard>
+        <ValueCard title={'Seguridad'} Icon={Security}>
+          Promovemos una compra y venta segura y protegemos la información de
+          los usuarios que utilizan nuestros servicios
+        </ValueCard>
+      </div>
     </div>
   )
 }
