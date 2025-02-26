@@ -7,7 +7,7 @@ const addProductToCart = async (idUsuario, idProducto, cantidad) => {
     const response = await axios.post(API_URL + '/addToShoppingCart', {
       idUsuario,
       idProducto,
-      cantidad
+      cantidad,
     })
     return response.data
   } catch (error) {
@@ -30,7 +30,9 @@ const removeFromCart = async (idUsuario, idProducto) => {
   console.log('idUsuario', idUsuario)
   console.log('idProducto', idProducto)
   try {
-    const response = await axios.delete(API_URL + '/removeFromShoppingCart' + '/' + idUsuario + '/' + idProducto)
+    const response = await axios.delete(
+      API_URL + '/removeFromShoppingCart' + '/' + idUsuario + '/' + idProducto
+    )
     return response.data
   } catch (error) {
     console.error('Error eliminando producto del carrito:', error)
@@ -40,5 +42,5 @@ const removeFromCart = async (idUsuario, idProducto) => {
 export default {
   addProductToCart,
   getCart,
-  removeFromCart
+  removeFromCart,
 }
