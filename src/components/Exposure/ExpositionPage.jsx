@@ -11,7 +11,6 @@ import { setLoading, clearLoading } from '../../store/slices/loadingSlice'
 import { setNotification } from '../../store/slices/notificationSlice'
 import { getProductById } from '../../services/productService'
 import { useQuery } from 'react-query'
-import Loading from '../Loading'
 import { useNavigate } from 'react-router-dom'
 
 const ExpositionPage = ({ idProduct }) => {
@@ -59,7 +58,12 @@ const ExpositionPage = ({ idProduct }) => {
     }
   }
 
-  if (isLoading) return <Loading />
+  if (isLoading) {
+    dispatch(setLoading())
+    return
+  } else if (producto) {
+    dispatch(clearLoading())
+  }
   if (isError) return <p>Error: {isError.message}</p>
 
   return (
