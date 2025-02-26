@@ -9,6 +9,12 @@ import { useDispatch } from 'react-redux'
 import { setLoading, clearLoading } from '../store/slices/loadingSlice'
 import ReactPaginate from 'react-paginate'
 
+//Icons
+import { IoIosArrowForward } from 'react-icons/io'
+import { IoIosArrowBack } from 'react-icons/io'
+
+import Back from '@mui/icons-material/ArrowBackIos'
+
 //Servicios
 import { getBicicletas, getProducts } from '../services/productService'
 
@@ -54,7 +60,7 @@ const Bicicleta = () => {
           ¡Encuentra tu próxima bicicleta!
         </h1>
       </div>
-      <div className="px-9 mb-4">
+      <div className="px-9 mb-10">
         <div className="grid grid-cols-5">
           {currentItems.map((bicicleta) => (
             <ItemContainer
@@ -68,15 +74,24 @@ const Bicicleta = () => {
       </div>
       <div className="flex items-center justify-center">
         <ReactPaginate
-          previousLabel={'← Anterior'}
-          nextLabel={'Siguiente →'}
-          breakLabel={'...'}
+          previousLabel={
+            <span className="bg-secondary flex items-center justify-center w-10 h-10 rounded-md">
+              <IoIosArrowBack className="size-6" />
+            </span>
+          }
+          nextLabel={
+            <span className="bg-secondary flex items-center justify-center w-10 h-10 rounded-md">
+              <IoIosArrowForward className="size-6" />
+            </span>
+          }
+          breakLabel={<span className="mr-2">...</span>}
           pageCount={Math.ceil(bicicletas.length / itemsPerPage)}
           marginPagesDisplayed={2}
           pageRangeDisplayed={3}
           onPageChange={handlePageClick}
-          containerClassName={'pagination'}
-          activeClassName={'active'}
+          containerClassName={'flex items-center justify-center'}
+          pageClassName="border border-lgray hover:bg-stone-400/35 w-10 h-10 flex items-center justify-center rounded-xl ml-2 mr-2 "
+          activeClassName={'bg-tertiary/50'}
         />
       </div>
     </div>
