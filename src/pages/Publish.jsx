@@ -56,7 +56,16 @@ const Publish = () => {
     getBrand()
   }, [])
 
-  const handleFormSubmit = (general, product) => {
+  const handleProductSubmit = (general, product) => {
+    if(productType === 'bicicleta') {
+      setStep('verification')
+    }
+    else{
+      handleFinalSubmit(general, product)
+    }
+  }
+
+  const handleFinalSubmit = (general, product) => {
     const finalProduct = { ...general, ...product }
     setProductData(finalProduct)
     console.log('Final Product:', finalProduct)
@@ -64,8 +73,17 @@ const Publish = () => {
       .publishProduct(finalProduct)
       .then((data) => {
         console.log('Product Data:', data)
-        setIdProducto(data.idProducto)
-        setStep('complete')
+        const id = data.dProducto
+        setIdProducto(id)
+        publicationService
+          .uploadImage(id, finalProduct.imagenes[0])
+          .then((data) => {
+            console.log('Image Data:', data)
+            setStep('complete')
+          })
+          .catch((error) => {
+            console.error('Error:', error)
+          })
       })
       .catch((error) => {
         dispatch(
@@ -78,9 +96,9 @@ const Publish = () => {
       })
   }
 
-  const handleVerification = (code) => {
-    console.log('Verification Code:', code)
-    setStep('complete')
+  const handleVerification = (general, product) => {
+    console.log('Verification Code:')
+    handleFinalSubmit(general, product)
   }
   console.log('step', step)
   return (
@@ -89,7 +107,7 @@ const Publish = () => {
       {step === 'form' && (
         <ProductForm
           type={productType}
-          onSubmit={handleFormSubmit}
+          onSubmit={handleProductSubmit}
           models={models}
           brands={brands}
         />

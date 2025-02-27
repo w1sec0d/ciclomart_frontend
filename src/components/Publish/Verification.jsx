@@ -1,11 +1,19 @@
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import Button from '../Button'	
 
 const Verification = ({ onVerify }) => {
   const [verificationCode, setVerificationCode] = useState('')
+  const [document, setDocument] = useState(null)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onVerify(verificationCode)
+    onVerify()
+  }
+
+  const handleImageChange = (e) => {
+    e.preventDefault()
+    setDocument(e.target.files[0])
   }
 
   return (
@@ -16,22 +24,22 @@ const Verification = ({ onVerify }) => {
       <form onSubmit={handleSubmit} className="w-80">
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">
-            Código de verificación
+            Por favor sube aquí la tarjeta de propiedad de la bicicleta
           </label>
           <input
-            type="text"
-            value={verificationCode}
-            onChange={(e) => setVerificationCode(e.target.value)}
-            className="w-full px-3 py-2 border rounded-lg"
-            required
+          type="file"
+          id="imagenes"
+          onChange={handleImageChange}
+          multiple
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
           />
         </div>
-        <button
+        <Button
           type="submit"
-          className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+          className="w-full"
         >
           Enviar
-        </button>
+        </Button>
       </form>
     </div>
   )
