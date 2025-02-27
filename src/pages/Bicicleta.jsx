@@ -9,20 +9,20 @@ import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setLoading, clearLoading } from '../store/slices/loadingSlice'
 import ReactPaginate from 'react-paginate'
+import Fuse from 'fuse.js'
 
 //Icons
 import { IoIosArrowForward } from 'react-icons/io'
 import { IoIosArrowBack } from 'react-icons/io'
-
-import Back from '@mui/icons-material/ArrowBackIos'
 
 //Servicios
 import { getBicicletas, getProducts } from '../services/productService'
 
 const Bicicleta = () => {
   const dispatch = useDispatch()
-  const itemsPerPage = 10
+  const itemsPerPage = 5
   const [currentPage, setCurrentPage] = useState(0)
+  const [query, setQuery] = useState('')
 
   //Trae bicicletas
   const {
@@ -46,10 +46,23 @@ const Bicicleta = () => {
 
   if (isLoading) return null
   if (isError) return <p>Error: {isError.message}</p>
+
+  const fuse = new Fuse(bicicletas, {
+    keys: ['nombre', 'precio'],
+    includeScore: true,
+  })
+
+  const handleOnSearch = ({ currentTarget = {} }) => {
+    const { value } = currentTarget
+    setQuery(value)
+  }
+
   // Calcula que elementos mostrar
+  const results = fuse.search(query)
+  const matchResults = query ? results.map((result) => result.item) : bicicletas
 
   const offset = currentPage * itemsPerPage
-  const currentItems = bicicletas.slice(offset, offset + itemsPerPage)
+  const currentItems = matchResults.slice(offset, offset + itemsPerPage)
 
   return (
     <div className="bg-lgray pb-8 ">
@@ -64,10 +77,12 @@ const Bicicleta = () => {
           <h2>Busca</h2>
         </div>
         <Input
-          id={1}
+          id={'busqueda'}
           className={'bg-white mt-2 w-[900px] shadow-xl rounded-r-xl '}
           inputClassName={' border px-2 rounded-r-xl '}
           label=""
+          value={query}
+          onChange={handleOnSearch}
         />
       </div>
       <div className="px-9 mb-10">
@@ -95,7 +110,7 @@ const Bicicleta = () => {
             </span>
           }
           breakLabel={<span className="mr-2">...</span>}
-          pageCount={Math.ceil(bicicletas.length / itemsPerPage)}
+          pageCount={Math.ceil(matchResults.length / itemsPerPage)}
           marginPagesDisplayed={2}
           pageRangeDisplayed={3}
           onPageChange={handlePageClick}
