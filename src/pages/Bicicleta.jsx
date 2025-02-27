@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 import { setLoading, clearLoading } from '../store/slices/loadingSlice'
 
 //Servicios
-import { getBicicletas, getProducts } from '../services/productService'
+import { getBicicletas } from '../services/productService'
 
 const Bicicleta = () => {
   const dispatch = useDispatch()
@@ -18,7 +18,7 @@ const Bicicleta = () => {
     data: bicicletas,
     isError,
     isLoading,
-  } = useQuery(['productos'], getProducts)
+  } = useQuery(['productos'], getBicicletas)
 
   useEffect(() => {
     if (isLoading) {

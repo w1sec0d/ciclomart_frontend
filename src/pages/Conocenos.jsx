@@ -11,15 +11,15 @@ import Information from '@mui/icons-material/HelpOutlineOutlined'
 import Mision from '@mui/icons-material/ShoppingCartOutlined'
 import Vision from '@mui/icons-material/PedalBikeOutlined'
 //Logo
-import Logo from '../assets/logoVector.svg'
+import Logo from '../assets/Logo.svg'
 
 const Conocenos = () => {
   return (
     <div className="h-auto w-full flex flex-col px-20">
       {/*Propuesta valor */}
       <div className="h-72 bg-white shadow-xl w-full mt-8 mb-12 rounded-full flex items-center py-4 pl-4 pr-32 border border-primary/60">
-        <div className="mx-4 p-10 w-1/3 h-full bg-primary shadow-2xl rounded-full flex items-center justify-center mr-4">
-          <img src={Logo} className="h-full w-full" />
+        <div className="rounded-full h-full w-1/3 bg-white shadow-xl mr-8 ">
+          <img src={Logo} className="h-full object-fill w-full " />
         </div>
         <div className="flex flex-col h-full items-center justify-center w-full relative px-5">
           <div className="w-full">

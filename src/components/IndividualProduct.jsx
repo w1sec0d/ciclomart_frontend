@@ -13,7 +13,7 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { IoIosArrowBack } from 'react-icons/io'
 
 const IndividualProduct = ({ products, title }) => {
-  const itemsPerPage = 5
+  const itemsPerPage = 10
   const [currentPage, setCurrentPage] = useState(0)
   const [query, setQuery] = useState('')
 
