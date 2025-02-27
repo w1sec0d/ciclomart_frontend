@@ -11,9 +11,14 @@ const getBicicletas = async () => {
   return request.data.results
 }
 
+const getComponentes = async () => {
+  const request = await axios.get(API_URL + '/componentes')
+  return request.data.results
+}
+
 const getProductById = async (id) => {
   const request = await axios.get(API_URL + '/productos/' + id)
   return request.data.results[0]
 }
 
-export { getProducts, getProductById, getBicicletas }
+export { getProducts, getProductById, getBicicletas, getComponentes }
