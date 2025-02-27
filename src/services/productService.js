@@ -16,9 +16,20 @@ const getComponentes = async () => {
   return request.data.results
 }
 
+const getOfertas = async () => {
+  const request = await axios.get(API_URL + '/ofertas')
+  return request.data.results
+}
+
 const getProductById = async (id) => {
   const request = await axios.get(API_URL + '/productos/' + id)
   return request.data.results[0]
 }
 
-export { getProducts, getProductById, getBicicletas, getComponentes }
+export {
+  getProducts,
+  getProductById,
+  getBicicletas,
+  getComponentes,
+  getOfertas,
+}

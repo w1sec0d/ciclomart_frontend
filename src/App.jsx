@@ -24,6 +24,7 @@ import Purchases from './pages/Purchases'
 import Conocenos from './pages/Conocenos'
 import Bicicleta from './pages/Bicicleta'
 import Componentes from './pages/Componentes'
+import Ofertas from './pages/Ofertas'
 
 // Services
 import apiService from './services/apiService'
@@ -76,6 +77,7 @@ const App = () => {
         <Route path="/conocenos" element={<Conocenos />} />
         <Route path="/bicicletas" element={<Bicicleta />} />
         <Route path="/componentes" element={<Componentes />} />
+        <Route path="/ofertas" element={<Ofertas />} />
       </Route>
     </Routes>
   )
