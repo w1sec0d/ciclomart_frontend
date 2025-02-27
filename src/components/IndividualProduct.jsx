@@ -44,7 +44,7 @@ const IndividualProduct = ({ products, title }) => {
     <div className="bg-lgray pb-8 ">
       <ComparisonBar />
       <div>
-        <h1 className="font-bold text-3xl bg-primary w-full h-20 mb-10 shadow-xl flex items-center justify-center">
+        <h1 className="font-bold text-3xl bg-secondary w-full h-20 mb-10 shadow-xl flex items-center justify-center">
           {title}
         </h1>
       </div>
