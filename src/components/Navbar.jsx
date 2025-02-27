@@ -64,7 +64,7 @@ const Navbar = (params) => {
           </Button>
         </div>
 
-        <li className={`text-center mx-auto my-auto w-auto `}>
+        <li className="text-center mx-auto my-auto">
           {' '}
           <h1 className="w-full text-center text-sm my-auto">
             ¡Bienvenido a <span className="text-tertiary font-bold">Ciclo</span>
