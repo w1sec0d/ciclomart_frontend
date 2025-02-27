@@ -21,6 +21,10 @@ import Vendedor from './pages/Vendedor'
 import ShoppingCart from './pages/ShoppingCart'
 import ExposurePage from './components/Exposure/ExpositionPage'
 import Purchases from './pages/Purchases'
+import Conocenos from './pages/Conocenos'
+import Bicicleta from './pages/Bicicleta'
+import Componentes from './pages/Componentes'
+import Ofertas from './pages/Ofertas'
 
 // Services
 import apiService from './services/apiService'
@@ -70,6 +74,10 @@ const App = () => {
         <Route path="vendedor/:id" element={<Vendedor />} />
         <Route path="shoppingCart" element={<ShoppingCart />} />
         <Route path="purchases/:idComprador" element={<Purchases />} />
+        <Route path="/conocenos" element={<Conocenos />} />
+        <Route path="/bicicletas" element={<Bicicleta />} />
+        <Route path="/componentes" element={<Componentes />} />
+        <Route path="/ofertas" element={<Ofertas />} />
       </Route>
     </Routes>
   )
