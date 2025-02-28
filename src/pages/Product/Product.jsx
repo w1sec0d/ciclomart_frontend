@@ -181,8 +181,10 @@ const ProductPage = () => {
           className="max-w-[500px] max-h-[500px]"
         /> */}
 
-        <GalleryImages />
-        <div className="p-4">
+        <div className="w-3/5 h-auto bg-wite shadow-xl border-primary border rounded-xl py-2 px-2">
+          <GalleryImages />
+        </div>
+        <div className="p-4 w-2/5">
           <div className="flex items-center">
             <div>
               <h1 className="text-2xl font-bold tracking-wide">

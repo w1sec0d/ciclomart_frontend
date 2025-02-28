@@ -22,6 +22,11 @@ const GalleryImages = () => {
       items={images}
       thumbnailPosition="left"
       slideOnThumbnailOver={true}
+      showFullscreenButton={false}
+      showNav={true}
+      slideDuration={0}
+      showPlayButton={false}
+      disableSwipe={false}
     />
   )
 }
