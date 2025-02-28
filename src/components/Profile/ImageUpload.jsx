@@ -57,16 +57,18 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
   }
 
   useEffect(() => {
-    const fetchUserPhoto = async () => {
-      try {
-        const photo = await apiService.getUsuarioPhoto(authUser.idUsuario)
-        setPhoto(photo)
-      } catch (error) {
-        console.error('Error fetching user photo:', error)
+    if (photo) {
+      const fetchUserPhoto = async () => {
+        try {
+          const photo = await apiService.getUsuarioPhoto(authUser.idUsuario)
+          setPhoto(photo)
+        } catch (error) {
+          console.error('Error fetching user photo:', error)
+        }
       }
-    }
 
-    fetchUserPhoto()
+      fetchUserPhoto()
+    }
   }, [url])
 
   return (

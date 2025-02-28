@@ -15,6 +15,7 @@ import Button from '../components/Button'
 import ComparisonBar from '../components/Comparison/ComparisonBar'
 import { MaterialReactTable } from 'material-react-table'
 import capitalize from '../utils/capitalize'
+import ComparisonButton from '../components/Comparison/ComparisonButton'
 
 //import filters
 import filters from '../utils/newFilters'
@@ -45,6 +46,12 @@ const columns = [
   {
     accessorKey: 'precio',
     header: 'Precio',
+    Cell: ({ row }) => (
+      <div className="relative ">
+        <span>{row.original.precio}</span>
+        <ComparisonButton idProducto={row.original.id} />
+      </div>
+    ),
   },
 ]
 
@@ -53,6 +60,8 @@ const SearchPage = (params) => {
   const searchResults = useSelector((state) => state.search.results)
   const searchStatus = useSelector((state) => state.search.status)
   const searchInput = useSelector((state) => state.search.searchInput)
+  const idProduct1 = useSelector((state) => state.comparison.idProduct1)
+  const idProduct2 = useSelector((state) => state.comparison.idProduct2)
   let tableResults = {}
   //State
   const [tipo, setTipo] = useState('bicicleta')
@@ -150,14 +159,10 @@ const SearchPage = (params) => {
     }
   }, [searchInput, tipo, dispatch])
 
-  console.log(searchResults)
-
   const resultKeys =
     searchResults && searchResults.results && searchResults.results.length > 0
       ? Object.keys(searchResults.results[0])
       : []
-
-  console.log(resultKeys)
 
   return (
     <div className="flex">
@@ -183,6 +188,7 @@ const SearchPage = (params) => {
                   modelo: result.nombre,
                   tipo: capitalize(result.tipo),
                   precio: result.precio,
+                  id: result.idProducto,
                 }))
               : []
           }
@@ -194,6 +200,11 @@ const SearchPage = (params) => {
           enableBottomToolbar
           enableTopToolbar={false}
           muiTableContainerProps={{ sx: { maxHeight: '2000px' } }}
+          muiTableBodyRowProps={({ row }) => {
+            return {
+              className: 'group',
+            }
+          }}
         />
       </div>
     </div>
