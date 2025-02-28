@@ -7,11 +7,7 @@ import {
 } from '../store/slices/searchSlice'
 
 //import components
-import Results from '../components/Search/Results'
 import Filters from '../components/Search/Filters'
-import Select from 'react-select'
-import makeAnimated from 'react-select/animated'
-import Button from '../components/Button'
 import ComparisonBar from '../components/Comparison/ComparisonBar'
 import { MaterialReactTable } from 'material-react-table'
 import capitalize from '../utils/capitalize'
@@ -19,9 +15,6 @@ import ComparisonButton from '../components/Comparison/ComparisonButton'
 
 //import filters
 import filters from '../utils/newFilters'
-import PaginationControls from '../components/Search/PaginationControls'
-
-const animatedComponents = makeAnimated()
 
 const columns = [
   {

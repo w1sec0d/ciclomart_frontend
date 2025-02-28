@@ -277,8 +277,10 @@ const ProductRating = (props) => {
   }
 
   return (
-    <div className="flex flex-col px-8 py-12">
-      <h2 className="font-black text-2xl"> Opiniones del producto</h2>
+    <div className="flex flex-col mt-8">
+      <div className="w-full h-auto border-y border-lgray py-2 flex items-center justify-center">
+        <h2 className="font-black text-2xl"> Opiniones del producto</h2>
+      </div>
       <div className="mt-4">
         <div className="flex  items-start space-x-12">
           <div className="flex space-x-5 items-center">
@@ -326,8 +328,10 @@ const ProductRating = (props) => {
           Iniciar chat
         </Button>
       </div>
-      <div className="py-1">
-        <h2 className="py-2 font-black text-2xl">Deja tú comentario</h2>
+      <div>
+        <div className="flex border-y h-auto border-lgray justify-center py-2 mb-4">
+          <h2 className="font-black text-2xl">Deja tú comentario</h2>
+        </div>
         <div className="flex flex-col justify-center items-center ">
           <form
             onSubmit={handleSubmit(onSubmit)}

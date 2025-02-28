@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Loading from '../../components/Loading'
 import Button from '../../components/Button'
 import Img from '../../components/Img'
-import { Favorite, FavoriteBorder } from '@mui/icons-material'
+import { FavoriteBorder } from '@mui/icons-material'
 import ProductRating from '../ProductRating'
 import { setNotification } from '../../store/slices/notificationSlice'
 import Input from '../../components/Input'
@@ -239,15 +239,17 @@ const ProductPage = () => {
             </div>
           </div>
         </div>
-        <div className="py-4">
-          <b>Descripción:</b>
+        <div className="border-t border-lgray py-4">
+          <b className="font-bold text-2xl">Descripción:</b>
           <p>
             {producto.descripcionModelo ||
               'Este producto no tiene descripción aún.'}
           </p>
         </div>
         <div>
-          <h2 className="py-2 pt-10 font-black text-2xl">Preguntas</h2>
+          <div className="w-full h-auto  flex justify-center items-center bg-white  border-y border-lgray">
+            <h2 className="py-2  font-black text-2xl">Preguntas</h2>
+          </div>
 
           <p className="py-2 font-secondary text-xl">¿Qué quieres saber?</p>
 
