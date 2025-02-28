@@ -167,7 +167,7 @@ const ProductPage = () => {
     if (producto) {
       getQuestions(producto.idProducto)
     }
-  }, [producto, getQuestions, preguntas])
+  }, [producto, getQuestions])
 
   if (isLoading) return <Loading />
   if (isError) return <p>Error: {isError.message}</p>
