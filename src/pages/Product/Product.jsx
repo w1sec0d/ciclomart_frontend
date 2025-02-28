@@ -11,6 +11,7 @@ import { Favorite, FavoriteBorder } from '@mui/icons-material'
 import ProductRating from '../ProductRating'
 import { setNotification } from '../../store/slices/notificationSlice'
 import Input from '../../components/Input'
+import GalleryImages from '../GalleryImages'
 
 // servicios
 import { getProductById } from '../../services/productService'
@@ -166,7 +167,7 @@ const ProductPage = () => {
     if (producto) {
       getQuestions(producto.idProducto)
     }
-  }, [producto, getQuestions, preguntas])
+  }, [producto, getQuestions])
 
   if (isLoading) return <Loading />
   if (isError) return <p>Error: {isError.message}</p>
@@ -174,11 +175,13 @@ const ProductPage = () => {
   return (
     <section className="px-10">
       <div className="flex justify-evenly items-center py-10">
-        <Img
+        {/* <Img
           src={producto.imagenURL}
           alt={'Imagen del producto: ' + producto.nombre}
           className="max-w-[500px] max-h-[500px]"
-        />
+        /> */}
+
+        <GalleryImages />
         <div className="p-4">
           <div className="flex items-center">
             <div>
