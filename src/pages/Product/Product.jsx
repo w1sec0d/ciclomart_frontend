@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { useCallback, useEffect, useState } from 'react'
+import { HashLink } from 'react-router-hash-link'
 
 // componentes
 import Loading from '../../components/Loading'
@@ -163,6 +164,13 @@ const ProductPage = () => {
     document.getElementById('pregunta').value = question
   }
 
+  //Para mover la página a una sección ignorando el navbar
+  const scrollOffset = (el) => {
+    const yCoordinate = el.getBoundingClientRect().top + window.scrollY
+    const yOffset = -80
+    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' })
+  }
+
   useEffect(() => {
     if (producto) {
       getQuestions(producto.idProducto)
@@ -223,9 +231,14 @@ const ProductPage = () => {
                     {new Date(producto.fechaPublicacion).toLocaleDateString()}
                   </p>
                   <p>
-                    <b className="border-b border-primary hover:cursor-pointer text-primary">
+                    <HashLink
+                      smooth
+                      to={`/product/${producto.idProducto}/#section1`}
+                      className="border-b border-primary hover:cursor-pointer text-primary font-bold"
+                      scroll={(el) => scrollOffset(el)}
+                    >
                       Más detalles
-                    </b>
+                    </HashLink>
                   </p>
                 </div>
                 <div className="w-1/2 px-4">
@@ -260,11 +273,18 @@ const ProductPage = () => {
               </div>
             </div>
           </div>
-          <div className="border-t border-lgray py-4">
-            <b className="font-bold text-2xl">Descripción:</b>
-            <p>
+
+          <div className="flex items-center justify-center w-full border-y border-lgray py-2">
+            <h2 className="font-black text-2xl" id="section1">
+              Detalles del producto
+            </h2>
+          </div>
+          <div className="flex flex-row items-center w-full py-2">
+            <b className="font-bold text-xl mr-2">Descripción:</b>
+
+            <p className="text-lg w-full overflow-hidden break-words">
               {producto.descripcionModelo ||
-                'Este producto no tiene descripción aún.'}
+                'Este producto no tiene descripción aún'}
             </p>
           </div>
           <div>
