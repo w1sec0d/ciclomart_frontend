@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { useCallback, useEffect, useState } from 'react'
-import { HashLink } from 'react-router-hash-link'
 
 // componentes
 import Loading from '../../components/Loading'
@@ -14,6 +13,7 @@ import { setNotification } from '../../store/slices/notificationSlice'
 import Input from '../../components/Input'
 import GalleryImages from '../GalleryImages'
 import ItemsTable from '../../components/ItemsTable'
+import Redirect from '../../components/Redirect'
 
 // servicios
 import { getProductById } from '../../services/productService'
@@ -36,6 +36,7 @@ const ProductPage = () => {
   const cartItems = useSelector((state) => state.cart.items)
   const [cantidad, setCantidad] = useState(1)
   const [preguntas, setPreguntas] = useState([])
+  const [showAll, setShowAll] = useState(true)
 
   // Hace fetch del producto con react-query
   const {
@@ -160,13 +161,6 @@ const ProductPage = () => {
     document.getElementById('pregunta').value = question
   }
 
-  //Para mover la página a una sección ignorando el navbar
-  const scrollOffset = (el) => {
-    const yCoordinate = el.getBoundingClientRect().top + window.scrollY
-    const yOffset = -80
-    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' })
-  }
-
   useEffect(() => {
     if (producto) {
       getQuestions(producto.idProducto)
@@ -227,14 +221,11 @@ const ProductPage = () => {
                     {new Date(producto.fechaPublicacion).toLocaleDateString()}
                   </p>
                   <p>
-                    <HashLink
-                      smooth
-                      to={`/product/${producto.idProducto}/#section1`}
-                      className="border-b border-primary hover:cursor-pointer text-primary font-bold"
-                      scroll={(el) => scrollOffset(el)}
-                    >
-                      Más detalles
-                    </HashLink>
+                    <Redirect
+                      section={'section1'}
+                      name={'Más detalles'}
+                      idProducto={producto.idProducto}
+                    />
                   </p>
                 </div>
                 <div className="w-1/2 px-4">
@@ -269,21 +260,44 @@ const ProductPage = () => {
               </div>
             </div>
           </div>
+          <div>
+            <div className="flex items-center justify-center w-full border-y border-lgray py-2">
+              <h2 className="font-black text-2xl" id="section1">
+                Detalles del producto
+              </h2>
+            </div>
+            <div className="flex flex-row items-center w-full pt-4 ">
+              <b className="font-bold text-xl mr-2 ">Descripción:</b>
 
-          <div className="flex items-center justify-center w-full border-y border-lgray py-2">
-            <h2 className="font-black text-2xl" id="section1">
-              Detalles del producto
-            </h2>
-          </div>
-          <div className="flex flex-row items-center w-full py-2">
-            <b className="font-bold text-xl mr-2">Descripción:</b>
+              <p className="text-lg w-full overflow-hidden break-words">
+                {producto.descripcionModelo ||
+                  'Este producto no tiene descripción aún'}
+              </p>
+            </div>
+            <div
+              className={`w-full h-full px-20 mb-4 ${showAll && 'max-h-[300px]'} overflow-hidden`}
+            >
+              <ItemsTable data={[producto]} />
+            </div>
 
-            <p className="text-lg w-full overflow-hidden break-words">
-              {producto.descripcionModelo ||
-                'Este producto no tiene descripción aún'}
-            </p>
+            <div className="flex items-center justify-center w-full mb-2">
+              <b
+                className="text-primary font-bold  flex items-center justify-center border-b hover:cursor-pointer"
+                onClick={() => setShowAll(!showAll)}
+              >
+                {showAll ? (
+                  'Mostrar completo'
+                ) : (
+                  <Redirect
+                    section={'section1'}
+                    name={'Mostrar menos'}
+                    idProducto={producto.idProducto}
+                  />
+                )}
+              </b>
+            </div>
           </div>
-          <ItemsTable data={[producto]} />
+
           <div>
             <div className="w-full h-auto  flex justify-center items-center bg-white  border-y border-lgray">
               <h2 className="py-2  font-black text-2xl  ">Preguntas</h2>

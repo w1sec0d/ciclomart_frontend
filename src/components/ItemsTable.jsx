@@ -62,13 +62,13 @@ const ItemsTable = ({ data }) => {
                   key={`${row.id}-${cell.id}`}
                   className={`${cellIndex % 2 != 0 ? 'bg-primary/20' : ''}`}
                 >
-                  <td className="px-6 py-3 whitespace-nowrap text-sm border font-bold">
+                  <td className="px-6 py-3 whitespace-nowrap text-sm border font-bold w-1/2">
                     {flexRender(
                       cell.column.columnDef.header,
                       cell.getContext()
                     )}
                   </td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm border font-medium">
+                  <td className="px-6 py-3 whitespace-nowrap text-sm border font-medium w-1/2">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 </tr>
