@@ -1,4 +1,5 @@
 import axios from 'axios'
+import questionService from './questionService'
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 const getProducts = async () => {
@@ -23,7 +24,11 @@ const getOfertas = async () => {
 
 const getProductById = async (id) => {
   const request = await axios.get(API_URL + '/productos/' + id)
-  return request.data.results[0]
+  const preguntas = await questionService.getQuestions(id)
+  return {
+    ...request.data.results[0],
+    preguntas
+  }
 }
 
 export {
