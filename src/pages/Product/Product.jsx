@@ -13,6 +13,7 @@ import ProductRating from '../ProductRating'
 import { setNotification } from '../../store/slices/notificationSlice'
 import Input from '../../components/Input'
 import GalleryImages from '../GalleryImages'
+import ItemsTable from '../../components/ItemsTable'
 
 // servicios
 import { getProductById } from '../../services/productService'
@@ -45,7 +46,6 @@ const ProductPage = () => {
 
   const getQuestions = useCallback(async (id) => {
     const preguntasObtenidas = await questionService.getQuestions(id)
-    console.log('preguntasObtenidas', preguntasObtenidas.results)
     setPreguntas(preguntasObtenidas.results)
     return preguntasObtenidas
   }, [])
@@ -62,7 +62,6 @@ const ProductPage = () => {
       dispatch(clearLoading())
       return
     }
-    console.log('producto', producto)
     const { paymentURL } = await mercadoPago.sendBuyRequest(
       producto,
       authUser.idUsuario
@@ -154,9 +153,6 @@ const ProductPage = () => {
     const idUsuario = authUser.idUsuario
     const idProducto = producto.idProducto
     const pregunta = document.getElementById('pregunta').value
-
-    console.log('pregunta', pregunta)
-
     await questionService.addQuestions(idUsuario, idProducto, pregunta)
   }
 
@@ -287,6 +283,7 @@ const ProductPage = () => {
                 'Este producto no tiene descripción aún'}
             </p>
           </div>
+          <ItemsTable data={[producto]} />
           <div>
             <div className="w-full h-auto  flex justify-center items-center bg-white  border-y border-lgray">
               <h2 className="py-2  font-black text-2xl  ">Preguntas</h2>
