@@ -179,7 +179,7 @@ const ProductPage = () => {
           <h1 className="font-bold text-2xl">Información del producto</h1>
         </div> */}
         <div className="px-6">
-          <div className="flex justify-evenly bg-primary/30 items-center my-10 border rounded-xl border-primary">
+          <div className="flex justify-evenly bg-lgray/30 items-center my-10 border rounded-xl border-primary">
             {/* <Img
           src={producto.imagenURL}
           alt={'Imagen del producto: ' + producto.nombre}
@@ -222,30 +222,39 @@ const ProductPage = () => {
                     <b>Publicado el: </b>
                     {new Date(producto.fechaPublicacion).toLocaleDateString()}
                   </p>
+                  <p>
+                    <b className="border-b border-primary hover:cursor-pointer text-primary">
+                      Más detalles
+                    </b>
+                  </p>
                 </div>
                 <div className="w-1/2 px-4">
                   <Input
                     type="number"
-                    label="Cantidad"
+                    label="Cantidad: "
                     id="cantidad"
                     name="cantidad"
                     value={cantidad}
                     onChange={(e) => setCantidad(Number(e.target.value))}
                     min="1"
                     max={producto.cantidad}
+                    onKeyDown={(e) => e.preventDefault()}
                     className="font-bold py-2"
-                    inputClassName="block w-full font-bold tracking-wide bg-lgray border-none"
+                    inputClassName="block w-full font-bold tracking-wide bg-lgray/20 rounded-lg px-2 border border-black/20   "
                   />
                 </div>
               </div>
-              <div className="flex items-center flex-col px-4">
+              <div className="flex items-center flex-col px-6  ">
                 <Button
-                  className="mx-3 h-full w-full mb-2 bg-white border-primary border text-black"
+                  className="h-full w-full mb-2 bg-white border-primary border text-black transition duration-100 ease-in-out hover:scale-105"
                   onClick={handleAddToCart}
                 >
                   Añade al carrito 🛒
                 </Button>
-                <Button className="mx-3 w-full mb-2" onClick={handleBuy}>
+                <Button
+                  className="w-full mb-2 ease-in-out duration-100 transition hover:scale-105"
+                  onClick={handleBuy}
+                >
                   Comprar
                 </Button>
               </div>
@@ -305,11 +314,11 @@ const ProductPage = () => {
                     placeholder="Escribe aquí tu pregunta"
                     rows="1"
                     maxLength="45"
-                    className=" block w-full p-2 border border-primary rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
+                    className=" block w-full p-2 border border-primary rounded-md shadow-sm  focus:border-secondary sm:text-sm resize-none outline-none"
                   />
                   <Button
                     type="submit"
-                    className="text-center bg-primary text-white py-2 px-7  rounded-xl h-full"
+                    className="text-center bg-primary text-white py-2 px-7  rounded-xl h-full "
                   >
                     Preguntar
                   </Button>

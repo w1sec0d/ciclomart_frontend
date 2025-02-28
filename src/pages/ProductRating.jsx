@@ -350,7 +350,7 @@ const ProductRating = (props) => {
                   {...register('calificacion', { required: false })}
                   rows="4"
                   maxLength="45"
-                  className=" block w-full p-2 border resize-none border-primary rounded-md shadow-sm focus:ring focus:ring-primary focus:border-primary sm:text-sm focus:outline-none"
+                  className=" block w-full p-2 border resize-none border-primary rounded-md shadow-sm focus:border-secondary sm:text-sm focus:outline-none"
                 />
               </div>
               <div className="relative flex items-center justify-center">
