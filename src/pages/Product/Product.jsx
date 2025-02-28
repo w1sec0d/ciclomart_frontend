@@ -60,15 +60,7 @@ const ProductPage = () => {
       !authUser.direccionNumero ||
       !authUser.codigoPostal
     ) {
-      dispatch(
-        setNotification({
-          title: '¡UPS!',
-          text: 'Debes completar tu dirección antes de continuar con la compra',
-          icon: 'error',
-          timer: 3000,
-        })
-      )
-      dispatch(setShowAddressModal(4))
+      dispatch(setShowAddressModal(4)) // Mostrar el mensaje inicial
       dispatch(clearLoading())
       return
     }

@@ -6,6 +6,7 @@ import Input from './Input'
 import direccionService from '../services/direccionService'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import { cleanShowModal } from '../store/slices/showModalSlice'
+import { setAuthUser } from '../store/slices/authSlice'
 
 const DireccionForm = () => {
   const dispatch = useDispatch()
@@ -22,6 +23,13 @@ const DireccionForm = () => {
       const response = await direccionService.updateDireccion(
         authUser.idUsuario,
         data
+      )
+      // Actualiza el usuario autenticado con la nueva dirección
+      dispatch(
+        setAuthUser({
+          ...authUser,
+          ...data,
+        })
       )
       dispatch(clearLoading())
       dispatch(
