@@ -281,7 +281,7 @@ const ProductRating = (props) => {
       <div className="w-full h-auto border-y border-lgray py-2 flex items-center justify-center">
         <h2 className="font-black text-2xl"> Opiniones del producto</h2>
       </div>
-      <div className="h-auto w-auto border border-primary mt-6 rounded-xl px-6 py-8 shadow-xl flex-row flex mb-6">
+      <div className="h-auto w-auto border border-primary mt-6 rounded-xl pl-6 py-8 shadow-xl flex-row flex mb-6">
         <div>
           <div className="flex  items-start space-x-12 border-lgray border-r pr-8">
             <div className="flex space-x-5 items-center ">

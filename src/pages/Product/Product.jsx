@@ -179,19 +179,19 @@ const ProductPage = () => {
           <h1 className="font-bold text-2xl">Información del producto</h1>
         </div> */}
         <div className="px-6">
-          <div className="flex justify-evenly items-center py-10">
+          <div className="flex justify-evenly bg-primary/30 items-center my-10 border rounded-xl border-primary">
             {/* <Img
           src={producto.imagenURL}
           alt={'Imagen del producto: ' + producto.nombre}
           className="max-w-[500px] max-h-[500px]"
           /> */}
 
-            <div className="w-3/5 h-auto bg-wite shadow-xl border-primary border rounded-xl py-2 px-2 ">
+            <div className="w-3/5 h-auto bg-white shadow-xl border-r border-primary rounded-xl  py-2 pl-2 pr-4 ">
               <GalleryImages />
             </div>
-            <div className="p-4 w-2/5 border rounded-xl  border-primary">
+            <div className="w-2/5   h-full bg-white shadow-xl border-y border-primary">
               <div className="flex items-center">
-                <div>
+                <div className="flex justify-center flex-col items-center w-full py-2 shadow-md  ">
                   <h1 className="text-2xl font-bold tracking-wide">
                     {producto.nombre}
                   </h1>
@@ -199,45 +199,53 @@ const ProductPage = () => {
                     {colombianPrice(producto.precio)}
                   </p>
                 </div>
-                <FavoriteBorder
+                {/* <FavoriteBorder
                   sx={{ fontSize: 40, color: 'gray', marginLeft: 4 }}
-                />
+                /> */}
               </div>
               {/* Detalles del producto */}
-              <div className="my-2 tracking-wide">
-                <p>
-                  <b>Marca</b>: {producto.nombreMarca ?? 'Genérica'}
-                </p>
-                <p>
-                  <b>Tipo</b>: {capitalize(producto.tipo)}
-                </p>
-                <p>
-                  <b>Estado</b>:{' '}
-                  {producto.disponibilidad === 'disponible'
-                    ? 'Disponible'
-                    : 'No Disponible'}
-                </p>
-                <p>
-                  <b>Publicado el: </b>
-                  {new Date(producto.fechaPublicacion).toLocaleDateString()}
-                </p>
+              <div className="tracking-wide px-4 py-4 w-full h-full flex flex-row">
+                <div className="w-1/2 border-lgray border-r">
+                  <p>
+                    <b>Marca</b>: {producto.nombreMarca ?? 'Genérica'}
+                  </p>
+                  <p>
+                    <b>Tipo</b>: {capitalize(producto.tipo)}
+                  </p>
+                  <p>
+                    <b>Estado</b>:{' '}
+                    {producto.disponibilidad === 'disponible'
+                      ? 'Disponible'
+                      : 'No Disponible'}
+                  </p>
+                  <p>
+                    <b>Publicado el: </b>
+                    {new Date(producto.fechaPublicacion).toLocaleDateString()}
+                  </p>
+                </div>
+                <div className="w-1/2 px-4">
+                  <Input
+                    type="number"
+                    label="Cantidad"
+                    id="cantidad"
+                    name="cantidad"
+                    value={cantidad}
+                    onChange={(e) => setCantidad(Number(e.target.value))}
+                    min="1"
+                    max={producto.cantidad}
+                    className="font-bold py-2"
+                    inputClassName="block w-full font-bold tracking-wide bg-lgray border-none"
+                  />
+                </div>
               </div>
-              <div className="flex items-center flex-row">
-                <Input
-                  type="number"
-                  label="Cantidad"
-                  id="cantidad"
-                  name="cantidad"
-                  value={cantidad}
-                  onChange={(e) => setCantidad(Number(e.target.value))}
-                  min="1"
-                  max={producto.cantidad}
-                  className="mt-1 my-4 block w-1/3"
-                />
-                <Button className="mx-3" onClick={handleAddToCart}>
-                  🛒+{' '}
+              <div className="flex items-center flex-col px-4">
+                <Button
+                  className="mx-3 h-full w-full mb-2 bg-white border-primary border text-black"
+                  onClick={handleAddToCart}
+                >
+                  Añade al carrito 🛒
                 </Button>
-                <Button className="mx-3" onClick={handleBuy}>
+                <Button className="mx-3 w-full mb-2" onClick={handleBuy}>
                   Comprar
                 </Button>
               </div>
