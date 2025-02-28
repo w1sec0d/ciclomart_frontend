@@ -61,8 +61,9 @@ const ProductPage = () => {
       return
     }
     console.log('producto', producto)
-    const { paymentURL } = await mercadoPago.sendBuyRequest(
+    const { paymentURL } = await mercadoPago.createPreference(
       producto,
+      1,
       authUser.idUsuario
     )
     window.location.href = paymentURL

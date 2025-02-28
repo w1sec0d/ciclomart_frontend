@@ -33,13 +33,16 @@ const Navbar = (params) => {
   return (
     <nav className="bg-primary p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-lg">
       <ul className="flex flex-col md:flex-row w-full">
-        <li className="mx-4 text-slate-50 hover:font-bold hover:cursor-pointer flex items-center">
+        <li className="mx-4 hover:font-bold hover:cursor-pointer flex items-center ">
           <img
             src={logo}
             alt="Logo de Ciclomart, un carrito de compras fusionado con una bicicleta"
             className="w-12 h-12 mr-4"
           />
           <a href="/">Inicio</a>
+        </li>
+        <li className="mr-4 hover:font-bold hover:cursor-pointer flex items-center border-l px-3 border-black/5 border-r">
+          <a href="/conocenos">Conocenos</a>
         </li>
 
         {/*Barra de busqueda */}
@@ -60,8 +63,7 @@ const Navbar = (params) => {
             Buscar
           </Button>
         </div>
-
-        <li className="text-center text-white mx-auto my-auto">
+        <li className="text-center mx-auto my-auto">
           {' '}
           <h1 className="w-full text-center text-sm my-auto">
             ¡Bienvenido a <span className="text-tertiary font-bold">Ciclo</span>
@@ -96,7 +98,7 @@ const Navbar = (params) => {
             </Button>
           </li>
         ) : (
-          <li className="hover:font-bold flex items-center ml-auto">
+          <li className="hover:font-bold flex items-center">
             <Button
               className="border-[1px] text-white bg-tertiary border-tertiary mr-2 text-base hover:bg-transparent hover:text-tertiary active:outline-neutral-300 focus:outline-neutral-300"
               to="/login"

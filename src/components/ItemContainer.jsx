@@ -3,6 +3,7 @@ import { LocalShipping } from '@mui/icons-material'
 import colombianPrice from '../utils/colombianPrice'
 import { Link } from 'react-router-dom'
 import Img from './Img'
+import { twMerge } from 'tailwind-merge'
 
 import ComparisonButton from './Comparison/ComparisonButton'
 import { useSelector } from 'react-redux'
@@ -14,6 +15,7 @@ const ItemContainer = ({
   precio,
   precioCompleto,
   costoEnvio,
+  className,
 }) => {
   const discountPercentage = Math.floor(
     ((precioCompleto - precio) / precioCompleto) * 100
@@ -30,8 +32,11 @@ const ItemContainer = ({
 
   return (
     <Link
-      className={`flex flex-col justify-evenly w-[225px] h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative 
-        ${selectedClass}`}
+      className={twMerge(
+        `flex flex-col justify-evenly w-[225px] h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative 
+        ${selectedClass}`,
+        className
+      )}
       to={`/product/${idProducto}`}
     >
       {/* Seccion de imágenes y nombre */}
