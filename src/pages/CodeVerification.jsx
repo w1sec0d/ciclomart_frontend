@@ -31,6 +31,7 @@ const CodeVerification = () => {
             apellido: request.data.apellido,
             email: request.data.correo,
             password: request.data.password,
+            telefono: request.data.telefono,
           })
 
           if (registro) {
