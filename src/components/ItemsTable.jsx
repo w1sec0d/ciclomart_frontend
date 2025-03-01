@@ -9,7 +9,6 @@ const columns = [
   { accessorKey: 'estado', header: 'Estado' },
   { accessorKey: 'disponibilidad', header: 'Disponibilidad' },
   { accessorKey: 'nombre', header: 'Nombre' },
-  { accessorKey: 'tipo', header: 'Tipo' },
   { accessorKey: 'descripcionModelo', header: 'Descripción del Modelo' },
   { accessorKey: 'categoria', header: 'Categoría' },
   { accessorKey: 'compatibilidad', header: 'Compatibilidad' },
@@ -48,7 +47,7 @@ const ItemsTable = ({ data }) => {
               Característica
             </th>
             <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider border ">
-              Valor
+              Descripción
             </th>
           </tr>
         </thead>

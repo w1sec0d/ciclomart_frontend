@@ -1,23 +1,28 @@
+import React from 'react'
 import ImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
 
-const images = [
-  {
-    original: 'https://picsum.photos/id/1018/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1018/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1015/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1015/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1019/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1019/250/150/',
-  },
-]
+const GalleryImages = ({ imageProduct, imagePropertyCard }) => {
+  const images = []
 
-const GalleryImages = () => {
+  //Verifica si existe imagen de producto y actualiza
+  if (imageProduct) {
+    images.push({
+      original: `${imageProduct.replace('/upload/', '/upload/c_scale,w_800/')}`,
+      thumbnail: `${imageProduct.replace('/upload/', '/upload/c_scale,w_200/')}`,
+    })
+  }
+
+  //Verifica si exsite tarjeta de propiedad y actualiza images
+  if (imagePropertyCard) {
+    images.push({
+      original: `${imagePropertyCard.replace('/upload/', '/upload/c_scale,w_800/')}`,
+      thumbnail: `${imagePropertyCard.replace('/upload/', '/upload/c_scale,w_200/')}`,
+    })
+  }
+
   return (
+    //Se muestran las imágenes
     <ImageGallery
       items={images}
       thumbnailPosition="left"

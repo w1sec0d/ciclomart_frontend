@@ -170,6 +170,7 @@ const ProductPage = () => {
   if (isLoading) return <Loading />
   if (isError) return <p>Error: {isError.message}</p>
 
+  console.log('producto', producto)
   return (
     <section className="px-10 bg-lgray h-full flex flex-col">
       <div className=" bg-white  rounded-xl  my-4 ">
@@ -185,7 +186,7 @@ const ProductPage = () => {
           /> */}
 
             <div className="w-3/5 h-auto bg-white shadow-xl border-r border-primary rounded-xl  py-2 pl-2 pr-4 ">
-              <GalleryImages />
+              <GalleryImages imageProduct={producto.imagenURL} />
             </div>
             <div className="w-2/5   h-full bg-white shadow-xl border-y border-primary">
               <div className="flex items-center">
@@ -275,7 +276,7 @@ const ProductPage = () => {
               </p>
             </div>
             <div
-              className={`w-full h-full px-20 mb-4 ${showAll && 'max-h-[300px]'} overflow-hidden`}
+              className={`w-full h-full px-20 mb-4 ${showAll && 'max-h-[300px]'} overflow-y-hidden`}
             >
               <ItemsTable data={[producto]} />
             </div>
