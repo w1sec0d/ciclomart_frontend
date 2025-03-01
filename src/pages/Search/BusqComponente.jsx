@@ -14,7 +14,7 @@ const BicycleComponentFinder = () => {
     // Estado para el componente seleccionado
     const [selectedComponent, setSelectedComponent] = useState(null);
     // Datos de ejemplo para componentes de bicicleta
-    let {
+    const {
         data: componentes,
         isError,
         isLoading,

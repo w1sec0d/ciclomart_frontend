@@ -49,12 +49,12 @@ const Navbar = (params) => {
         <div className="flexs mx-4 p-4 flex flex-wrap items-center justify-between">
           <Button
             className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
-            to="/search/component">
+            to="/search/bycicle">
             Explorar Bicicletas
           </Button>
           <Button
             className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
-            to="/search/bycicle">
+            to="/search/component">
             Explorar Componentes
           </Button>
         </div>

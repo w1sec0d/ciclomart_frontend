@@ -12,10 +12,13 @@ import Fuse from 'fuse.js'
 import { IoIosArrowForward } from 'react-icons/io'
 import { IoIosArrowBack } from 'react-icons/io'
 
-const IndividualProduct = ({ products, title }) => {
+const IndividualProduct = ({ products, title, searchQuery = null }) => {
+
+  const currentQuery = searchQuery || ''
+
   const itemsPerPage = 10
   const [currentPage, setCurrentPage] = useState(0)
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState(currentQuery)
 
   const fuse = new Fuse(products, {
     keys: ['nombre', 'precio'],

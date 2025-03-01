@@ -7,7 +7,6 @@ import { Route, Routes } from 'react-router-dom'
 // Pages
 import Landing from './pages/Landing'
 import Register from './pages/Register'
-import Search from './pages/Search'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
 import Verificacion from './pages/Verificacion'
@@ -26,6 +25,7 @@ import Bicicleta from './pages/Bicicleta'
 import Componentes from './pages/Componentes'
 import Ofertas from './pages/Ofertas'
 import BusqComponente from './pages/Search/BusqComponente'
+import BusqBicicleta from './pages/Search/BusqBicicleta'
 
 // Services
 import apiService from './services/apiService'
@@ -56,10 +56,8 @@ const App = () => {
         <Route path="verificationCode/:token?" element={<CodeVerification />} />
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
         <Route path="profile" element={<Profile />} />
-        <Route
-          path="search/component"
-          element={<BusqComponente />}
-        />
+        <Route path="search/component" element={<BusqComponente />}/>
+        <Route path="search/bycicle" element={<BusqBicicleta />}/>
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
         <Route path="product/:id" element={<ProductPage />} />
         <Route path="comparison/:id1/:id2" element={<ComparisonView />} />
@@ -76,8 +74,8 @@ const App = () => {
         <Route path="shoppingCart" element={<ShoppingCart />} />
         <Route path="purchases/:idComprador" element={<Purchases />} />
         <Route path="/conocenos" element={<Conocenos />} />
-        <Route path="/bicicletas" element={<Bicicleta />} />
-        <Route path="/componentes" element={<Componentes />} />
+        <Route path="/bicicletas" element={<BusqBicicleta />} />
+        <Route path="/componentes" element={<BusqComponente />} />
         <Route path="/ofertas" element={<Ofertas />} />
       </Route>
     </Routes>
