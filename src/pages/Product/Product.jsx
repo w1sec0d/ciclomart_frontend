@@ -38,7 +38,7 @@ const ProductPage = () => {
   const authUser = useSelector((state) => state.auth.authUser)
   const cartItems = useSelector((state) => state.cart.items)
   const [cantidad, setCantidad] = useState(1)
-
+  const [showAll, setShowAll] = useState(false)
 
   // Hace fetch del producto con react-query
   const {
@@ -73,7 +73,6 @@ const ProductPage = () => {
     }
 
     const { paymentURL } = await mercadoPago.createPreference(
-
       producto,
       1,
       authUser.idUsuario
@@ -296,7 +295,7 @@ const ProductPage = () => {
               </p>
             </div>
             <div
-              className={`w-full h-full px-20 mb-4 ${showAll && 'max-h-[300px]'} overflow-y-hidden`}
+              className={`w-full h-full px-20 mb-4 ${!showAll && 'max-h-[300px]'} overflow-y-hidden`}
             >
               <ItemsTable data={[producto]} />
             </div>
@@ -306,7 +305,7 @@ const ProductPage = () => {
                 className="text-primary font-bold  flex items-center justify-center border-b hover:cursor-pointer"
                 onClick={() => setShowAll(!showAll)}
               >
-                {showAll ? (
+                {!showAll ? (
                   'Mostrar completo'
                 ) : (
                   <Redirect
@@ -355,7 +354,6 @@ const ProductPage = () => {
 
             <p className=" my-4 font-bold text-xl ">Pregúntale al vendedor</p>
 
-
             <div className="flex flex-row gap-4">
               <form
                 onSubmit={handleQuestion}
@@ -382,8 +380,8 @@ const ProductPage = () => {
             <p className="py-2 pt-5 font-bold text-xl"> Últimas realizadas </p>
 
             <div className="flex flex-col gap-4">
-              {preguntas.length > 0 ? (
-                preguntas.map((pregunta, index) => (
+              {producto.preguntas.length > 0 ? (
+                producto.preguntas.map((pregunta, index) => (
                   <div key={index} className="flex flex-col gap-2">
                     <p className="font-bold text-primary">
                       {pregunta.descripcion}
