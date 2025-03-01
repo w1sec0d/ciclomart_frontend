@@ -57,7 +57,7 @@ const ShoppingCart = () => {
       accessorKey: 'delete',
       header: '',
       Cell: ({ row }) => (
-        <Button color="secondary" onClick={() => removeFromCart(row.index)}>
+        <Button color="secondary" onClick={() => removeFromCart(row.id)}>
           <RemoveCircleOutlineIcon />
         </Button>
       ),
@@ -154,6 +154,7 @@ const ShoppingCart = () => {
       total: calculateTotal(item.precio_unitario, item.cantidad),
     }))
 
+    console.log('updatedDataWithTotal', updatedDataWithTotal)
     setDataWithTotal(updatedDataWithTotal)
 
     // Calcular el subtotal

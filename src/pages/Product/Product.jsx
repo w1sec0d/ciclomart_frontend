@@ -15,7 +15,7 @@ import Input from '../../components/Input'
 // servicios
 import { getProductById } from '../../services/productService'
 import mercadoPago from '../../services/mercadoPago'
-import shoppingCart from '../../services/cartService'
+import cartService from '../../services/cartService'
 import questionService from '../../services/questionService'
 
 // utils
@@ -40,6 +40,7 @@ const ProductPage = () => {
     isLoading,
     isError,
   } = useQuery(['productos', id], () => getProductById(id))
+  console.log('producto', producto)
 
   const handleBuy = async () => {
     dispatch(setLoading())
@@ -114,19 +115,11 @@ const ProductPage = () => {
     }
 
     // Agregar el producto al carrito
-
-    const item = {
-      id: producto.idProducto,
-      nombre: producto.nombre,
-      cantidad: cantidad,
-      precio_unitario: producto.precio,
-    }
-
-    dispatch(addItem(item))
-    await shoppingCart.addProductToCart(idUsuario, idProducto, cantidad)
+    dispatch(addItem(producto))
+    await cartService.addProductToCart(idUsuario, idProducto, cantidad)
 
     // Sync the cart with localStorage
-    const updatedCart = [...cartItems, item]
+    const updatedCart = [...cartItems, producto]
     localStorage.setItem('cart', JSON.stringify(updatedCart))
 
     dispatch(
