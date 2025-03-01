@@ -260,7 +260,7 @@ const ProductRating = (props) => {
                   className="StartRating cursor-pointer"
                   size={30}
                   color={
-                    currentRating <= (hover || rating) ? '#ffc107' : '#e4e5e9'
+                    currentRating <= (hover || rating) ? '#F28A19' : '#e4e5e9'
                   }
                   onMouseEnter={() => setHover(currentRating)}
                   onMouseLeave={() => setHover(null)}
@@ -277,58 +277,67 @@ const ProductRating = (props) => {
   }
 
   return (
-    <div className="flex flex-col px-8 py-12">
-      <h2 className="font-black text-2xl"> Opiniones del producto</h2>
-      <div className="mt-4">
-        <div className="flex  items-start space-x-12">
-          <div className="flex space-x-5 items-center">
-            <div className="text-7xl font-bold text-blue-500">
-              {(avgRating || 0).toFixed(1)}
+    <div className="flex flex-col mt-8">
+      <div className="w-full h-auto border-y border-lgray py-2 flex items-center justify-center">
+        <h2 className="font-black text-2xl"> Opiniones del producto</h2>
+      </div>
+      <div className="h-auto w-auto border border-primary mt-6 rounded-xl pl-6 py-8 shadow-xl flex-row flex mb-6">
+        <div>
+          <div className="flex  items-start space-x-12 border-lgray border-r pr-8">
+            <div className="flex space-x-5 items-center ">
+              <div className="text-7xl font-bold text-primary">
+                {(avgRating || 0).toFixed(1)}
+              </div>
+              <div className="flex flex-col">
+                {!avgRating ? (
+                  <StarRating rating={0} size="star-large" />
+                ) : (
+                  <StarRating rating={avgRating} size="star-large" />
+                )}
+                <p className="text-sm ">{commentList.length} comentario(s)</p>
+              </div>
             </div>
-            <div className="flex flex-col">
-              {!avgRating ? (
-                <StarRating rating={0} size="star-large" />
+            <div className="flex flex-col space-y-4">
+              {commentList.length === 0 ? (
+                <p>No hay comentarios disponibles.</p>
               ) : (
-                <StarRating rating={avgRating} size="star-large" />
+                commentList.map((val, key) => (
+                  <div key={val.idCalificacion}>
+                    <RatingView
+                      description={val.comentario}
+                      date={new Date(
+                        val.fechaCalificacion
+                      ).toLocaleDateString()}
+                      rating={val.puntuacion}
+                      image={val.foto}
+                    />
+                  </div>
+                ))
               )}
-              <p className="text-sm ">{commentList.length} comentario(s)</p>
             </div>
           </div>
-          <div className="flex flex-col space-y-4">
-            {commentList.length === 0 ? (
-              <p>No hay comentarios disponibles.</p>
-            ) : (
-              commentList.map((val, key) => (
-                <div key={val.idCalificacion}>
-                  <RatingView
-                    description={val.comentario}
-                    date={new Date(val.fechaCalificacion).toLocaleDateString()}
-                    rating={val.puntuacion}
-                    image={val.foto}
-                  />
-                </div>
-              ))
-            )}
+        </div>
+        <div className="mx-auto flex flex-col items-center justify-center ">
+          <p className="py-2 pt-5 font-secondary text-xl ">
+            Puedes iniciar un chat con el vendedor
+          </p>
+
+          <div className="py-4">
+            <Button
+              type="button"
+              className="text-center py-1 px-2 bg-primary text-white rounded"
+              to="/login"
+            >
+              Iniciar chat
+            </Button>
           </div>
         </div>
       </div>
-
-      <p className="py-2 pt-5 font-secondary text-xl">
-        Puedes iniciar un chat con el vendedor
-      </p>
-
-      <div className="py-4">
-        <Button
-          type="button"
-          className="text-center py-1 px-2 bg-blue-500 text-white rounded"
-          to="/login"
-        >
-          Iniciar chat
-        </Button>
-      </div>
-      <div className="py-1">
-        <h2 className="py-2 font-black text-2xl">Deja tú comentario</h2>
-        <div className="flex flex-col justify-center items-center ">
+      <div>
+        <div className="flex border-y h-auto border-lgray justify-center py-2 mb-4">
+          <h2 className="font-black text-2xl">Deja tú comentario</h2>
+        </div>
+        <div className="flex flex-col justify-center items-center mt-6 ">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col w-full max-w-4xl gap-3"
@@ -341,7 +350,7 @@ const ProductRating = (props) => {
                   {...register('calificacion', { required: false })}
                   rows="4"
                   maxLength="45"
-                  className="mt-1 block w-full p-2 border border-blue-500 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className=" block w-full p-2 border resize-none border-primary rounded-md shadow-sm focus:border-secondary sm:text-sm focus:outline-none"
                 />
               </div>
               <div className="relative flex items-center justify-center">
@@ -371,10 +380,10 @@ const ProductRating = (props) => {
             <div className="mt-0">
               <StartGenerate />
             </div>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center mb-10">
               <Button
                 type="submit"
-                className="text-center bg-blue-500 text-white py-2 px-7  rounded-full"
+                className="text-center bg-primary text-white py-2 px-7  rounded-full"
               >
                 Enviar
               </Button>

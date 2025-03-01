@@ -6,6 +6,7 @@ import makeAnimated from 'react-select/animated'
 const animatedComponents = makeAnimated()
 
 const Filters = ({ label, results, onChange }) => {
+  console.log(results)
   const getOptions = () => {
     let options = []
     results.forEach((result) => {

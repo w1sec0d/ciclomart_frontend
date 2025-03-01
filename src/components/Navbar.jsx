@@ -21,46 +21,40 @@ const Navbar = (params) => {
 
   return (
     <nav className="bg-primary p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-lg">
-      <ul className="flex flex-col md:flex-row w-full">
-        <li className="mx-4 hover:font-bold hover:cursor-pointer flex items-center ">
+      <ul className="flex flex-col md:flex-row w-full  justify-center ">
+        <li className="mx-4  flex flex-row items-center w-3/12">
           <img
             src={logo}
             alt="Logo de Ciclomart, un carrito de compras fusionado con una bicicleta"
-            className="w-12 h-12 mr-4"
+            className="w-12 h-12 mr-6"
           />
-          <a href="/">Inicio</a>
-        </li>
-        <li className="mr-4 hover:font-bold hover:cursor-pointer flex items-center border-l px-3 border-black/5 border-r">
-          <a href="/conocenos">Conocenos</a>
+          <a href="/" className="hover:font-bold mr-4">
+            Inicio
+          </a>
+          <a
+            href="/conocenos"
+            className="mr-4 hover:font-bold hover:cursor-pointer flex items-center border-l px-3 border-black/5 border-r mr-auot"
+          >
+            Conocenos
+          </a>
         </li>
 
         {/*Barra de busqueda */}
         <div className="flexs mx-4 p-4 flex flex-wrap items-center justify-between">
-          <input
-            type="search"
-            className="flex m-0 w-1/2"
-            placeholder="Buscar"
-            aria-label="Buscar"
-            value={inputText}
-            onChange={handleInputChange}
-          />
           <Button
-            className="flex mx-2 bg-secondary text-black rounded-r px-6 py-2 text-xs uppercase transition duration-150 ease-in-out hover:bg-opacity-80"
-            to="/search"
-            onClick={() => params.onSearch(inputText)}
+            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
+            to="/search/bycicle"
           >
-            Buscar
+            Explorar Bicicletas
+          </Button>
+          <Button
+            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
+            to="/search/component"
+          >
+            Explorar Componentes
           </Button>
         </div>
-        <li className="text-center mx-auto my-auto">
-          {' '}
-          <h1 className="w-full text-center text-sm my-auto">
-            ¡Bienvenido a <span className="text-tertiary font-bold">Ciclo</span>
-            <span className="text-secondary font-bold">Mart</span>! Tu{' '}
-            <span className="font-bold">mercado bici </span>
-            de <span className="font-bold">confianza</span>
-          </h1>
-        </li>
+
         {user ? (
           <li className="mx-4 hover:font-bold flex items-center">
             {user.rol == 'vendedor' ? (
@@ -87,15 +81,15 @@ const Navbar = (params) => {
             </Button>
           </li>
         ) : (
-          <li className="hover:font-bold flex items-center">
+          <li className="hover:font-bold flex flex-row items-center justify-end w-3/12 ">
             <Button
-              className="border-[1px] text-white bg-tertiary border-tertiary mr-2 text-base hover:bg-transparent hover:text-tertiary active:outline-neutral-300 focus:outline-neutral-300"
+              className=" text-white bg-tertiary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
               to="/login"
             >
               Inicia sesión
             </Button>
             <Button
-              className="border-[1px] text-white bg-tertiary border-tertiary mr-2 text-base hover:bg-transparent hover:text-tertiary active:outline-neutral-300 focus:outline-neutral-300"
+              className=" text-white bg-tertiary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
               to="/register"
             >
               Regístrate

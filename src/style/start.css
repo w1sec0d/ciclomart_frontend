@@ -6,11 +6,11 @@
 }
 
 .star.rated {
-  color: #3b82f6; /* Color de las estrellas llenas */
+  color: #4f86c5; /* Color de las estrellas llenas */
 }
 
 .star.partial {
-  background: linear-gradient(to right, #3b82f6 var(--fill), #ddd var(--fill));
+  background: linear-gradient(to right, #4f86c5 var(--fill), #ddd var(--fill));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
