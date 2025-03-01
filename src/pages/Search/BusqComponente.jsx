@@ -54,7 +54,7 @@ const BicycleComponentFinder = () => {
             <div className="w-full">
                 {/* Instrucciones */}
                 
-                <div className="bg-primary rounded-lg p-2 h-full flex items-center justify-center">
+                <div className="bg-primary bg-opacity-50 m-1 h-full flex flex-col items-center shadow pb-8 ">
                     
                 {/* Contenedor de la imagen y los hotspots */}
                     <div className="relative w-full max-w-lg mx-auto">
@@ -119,12 +119,19 @@ const BicycleComponentFinder = () => {
                         aria-label="Frenos"
                         /> */}
                     </div>
+
+                    <div className="h-full flex items-center justify-center text-gray-500">
+                        <p className="text-center text-bold text-xl">
+                        Selecciona un componente de la bicicleta para ver los productos disponibles
+                        </p>
+                    </div>
                 </div>
+
                 
             </div>
         
             {/* Panel de productos */}
-            <div className="w-1/2 bg-white rounded-lg shadow p-2 h-full">
+            <div className="w-full md:w-1/2 bg-white rounded-lg p-1 h-full">
                 {selectedComponent ? (
                 <>
                     <IndividualProduct 
@@ -132,11 +139,7 @@ const BicycleComponentFinder = () => {
                         title = {selectedComponent}/>
                 </>
                 ) : (
-                <div className="h-full flex items-center justify-center text-gray-500">
-                    <p className="text-center text-bold text-xl">
-                    Selecciona un componente de la bicicleta para ver los productos disponibles
-                    </p>
-                </div>
+                    null
                 )}
             </div>
         </div>
