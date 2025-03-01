@@ -21,6 +21,8 @@ import Vendedor from './pages/Vendedor'
 import ShoppingCart from './pages/ShoppingCart'
 import ExposurePage from './components/Exposure/ExpositionPage'
 import Purchases from './pages/Purchases'
+import TermsAndCondition from './pages/TermsAndConditions'
+import DataPrivacy from './pages/DataPrivacy'
 
 // Services
 import apiService from './services/apiService'
@@ -70,6 +72,8 @@ const App = () => {
         <Route path="vendedor/:id" element={<Vendedor />} />
         <Route path="shoppingCart" element={<ShoppingCart />} />
         <Route path="purchases/:idComprador" element={<Purchases />} />
+        <Route path="terms" element={<TermsAndCondition />} />
+        <Route path="privacy" element={<DataPrivacy />} />
       </Route>
     </Routes>
   )
