@@ -4,7 +4,7 @@ import Button from '../Button'
 
 //Utilidades
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import mercadoPago from '../../services/mercadoPago'
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoading, clearLoading } from '../../store/slices/loadingSlice'
@@ -22,7 +22,7 @@ const ExpositionPage = ({ idProduct }) => {
     isLoading,
     isError,
   } = useQuery(['productos', idProduct], () => getProductById(idProduct))
-  console.log(producto)
+
   const dispatch = useDispatch()
   const [selected, setSelected] = useState()
   const exposure = useSelector((state) => state.exposure)
@@ -42,7 +42,7 @@ const ExpositionPage = ({ idProduct }) => {
     }
     const { paymentURL } = await mercadoPago.sendBuyExposureRequest(
       exposure,
-      authUser.idUsuario
+      idProduct
     )
     window.location.href = paymentURL
     setTimeout(() => {
@@ -58,19 +58,22 @@ const ExpositionPage = ({ idProduct }) => {
     }
   }
 
-  if (isLoading) {
-    dispatch(setLoading())
-    return
-  } else if (producto) {
-    dispatch(clearLoading())
-  }
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(setLoading())
+    } else {
+      dispatch(clearLoading())
+    }
+  }, [isLoading, dispatch])
+
+  if (isLoading) return null
   if (isError) return <p>Error: {isError.message}</p>
 
   return (
     <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-t from-primary/95 to-zinc-100 from-50% to-50% mt-[64px]">
       <div
         className=" flex flex-col items-center justify-center w-full max-w-4xl pb-6 bg-zinc-100
-      rounded-lg mt-4 mb-8 shadow-lg shadow-black/35"
+        rounded-lg mt-4 mb-8 shadow-lg shadow-black/35"
       >
         <div className="w-full h-14 bg-primary rounded-t-lg flex items-center justify-center drop-shadow-lg">
           <h1 className="text-2xl font-bold ">
