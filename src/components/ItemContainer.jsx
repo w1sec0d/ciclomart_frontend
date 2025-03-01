@@ -4,6 +4,7 @@ import colombianPrice from '../utils/colombianPrice'
 import { Link } from 'react-router-dom'
 import Img from './Img'
 import { twMerge } from 'tailwind-merge'
+import { FaRegAddressCard } from 'react-icons/fa'
 
 import ComparisonButton from './Comparison/ComparisonButton'
 import { useSelector } from 'react-redux'
@@ -16,6 +17,7 @@ const ItemContainer = ({
   precioCompleto,
   costoEnvio,
   className,
+  ...props
 }) => {
   const discountPercentage = Math.floor(
     ((precioCompleto - precio) / precioCompleto) * 100
@@ -39,6 +41,13 @@ const ItemContainer = ({
       )}
       to={`/product/${idProducto}`}
     >
+      {/*Muestra si el producto tiene tarjeta de propiedad */}
+      {props.tarjeta && (
+        <FaRegAddressCard
+          className="absolute top-0 left-0 mt-4 ml-4 text-primary "
+          title="Este producto tiene tarjeta de propiedad"
+        />
+      )}
       {/* Seccion de imágenes y nombre */}
       <div className="w-[200px] h-[200px] mx-auto flex items-center justify-center">
         <Img src={imagenURL} />
