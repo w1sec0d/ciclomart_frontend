@@ -20,6 +20,11 @@ const getBrands = async () => {
   return request.data
 }
 
+const addBrand = async (nombre) => {
+  const request = await axios.post(API_URL + '/addBrand', {nombre})
+  return request.data
+}
+
 const uploadImage = async (id, image) => {
   if (!image) {
     return 'Please select an image to upload'
@@ -44,4 +49,4 @@ const uploadImage = async (id, image) => {
   }
 }
 
-export default { publishProduct, getModels, getBrands, uploadImage }
+export default { publishProduct, getModels, getBrands, addBrand, uploadImage }

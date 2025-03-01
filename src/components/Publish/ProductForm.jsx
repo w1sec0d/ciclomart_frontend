@@ -6,8 +6,9 @@ import GeneralInfo from './GeneraInfo'
 import AvailabilityForm from './AvailabilityForm'
 import Button from '../Button'
 import ExpositionPage from '../Exposure/ExpositionPage'
+import publicationService from '../../services/publicationService'
 
-const ProductForm = ({ type, onSubmit, models, brands }) => {
+const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
   const [step, setStep] = useState(1)
   const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
@@ -108,6 +109,11 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
     setValue('idMarca', e.target.id)
   }
 
+  const handleAddBrand = async (brand) => {
+    await publicationService.addBrand(brand)
+    getBrands()
+  }
+
   const handleNext = () => {
     setStep(step + 1)
   }
@@ -138,6 +144,7 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
                 handleImageChange={handleImageChange}
                 brands={brands}
                 handleBrandChange={handleBrandChange}
+                handleAddBrand={handleAddBrand}
               />
             )}
 
