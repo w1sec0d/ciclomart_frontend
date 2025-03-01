@@ -48,13 +48,13 @@ const BicycleComponentFinder = () => {
   return (
     <>
         <h1 className="text-3xl font-bold text-center pt-8 mt-8">Encuentra los componentes para tu bicicleta</h1>
-        <div className="flex flex-col md:flex-row p-2 w-full max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row p-2 w-full mx-auto">
             
             {/* Panel de imagen interactiva */}
-            <div className="w-full relative">
+            <div className="w-full">
                 {/* Instrucciones */}
                 
-                <div className="bg-gray-100 rounded-lg p-2 h-full flex items-center justify-center">
+                <div className="bg-primary rounded-lg p-2 h-full flex items-center justify-center">
                     
                 {/* Contenedor de la imagen y los hotspots */}
                     <div className="relative w-full max-w-lg mx-auto">
