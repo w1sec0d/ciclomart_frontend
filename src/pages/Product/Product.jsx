@@ -167,6 +167,15 @@ const ProductPage = () => {
     await questionService.addQuestions(idUsuario, idProducto, pregunta)
   }
 
+  const handleAnswer = async (event, idPregunta) => {
+    event.preventDefault()
+
+    const idProducto = producto.idProducto
+    const respuesta = document.getElementById(`respuesta-${idPregunta}`).value
+
+    await questionService.answerQuestion(idPregunta, idProducto, respuesta)
+  }
+
   const setDefaultQuestion = (question) => {
     document.getElementById('pregunta').value = question
   }
@@ -386,14 +395,14 @@ const ProductPage = () => {
                     <p className="font-bold text-primary">
                       {pregunta.descripcion}
                     </p>
-                    {authUser && authUser.rol === 'vendedor' && authUser.id === producto.idUsuario &&(
+                    {authUser && authUser.rol === 'vendedor' && authUser.id === producto.idUsuario && pregunta.respuesta == null &&(
                       <form
-                      onSubmit={handleQuestion}
+                      onSubmit={(e) => handleAnswer(e, pregunta.idPregunta)}
                       className="flex flex-col w-full max-w-4xl gap-3"
                     >
                       <div className="flex flex-row gap-2 justify-start">
                         <textarea
-                          id="responder"
+                          id={`respuesta-${pregunta.idPregunta}`}
                           placeholder="Escribe aquí tu respuesta"
                           rows="1"
                           maxLength="45"
