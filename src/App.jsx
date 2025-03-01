@@ -54,8 +54,8 @@ const App = () => {
         <Route path="verificationCode/:token?" element={<CodeVerification />} />
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="search/component" element={<Componente />}/>
-        <Route path="search/bycicle" element={<Bicicleta />}/>
+        <Route path="search/component" element={<Componente />} />
+        <Route path="search/bycicle" element={<Bicicleta />} />
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
         <Route path="product/:id" element={<ProductPage />} />
         <Route path="comparison/:id1/:id2" element={<ComparisonView />} />

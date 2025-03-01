@@ -12,8 +12,12 @@ import Fuse from 'fuse.js'
 import { IoIosArrowForward } from 'react-icons/io'
 import { IoIosArrowBack } from 'react-icons/io'
 
-const IndividualProduct = ({ products, title, columns = 5, itemsPerPage = 10 }) => {
-
+const IndividualProduct = ({
+  products,
+  title,
+  columns = 5,
+  itemsPerPage = 10,
+}) => {
   const [currentPage, setCurrentPage] = useState(0)
   const [query, setQuery] = useState('')
 
@@ -64,7 +68,10 @@ const IndividualProduct = ({ products, title, columns = 5, itemsPerPage = 10 }) 
       </div>
       {/*Muestra todos los productos pasados por parámetro */}
       <div className="px-9 mb-10">
-        <div className="grid" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
+        <div
+          className="grid"
+          style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+        >
           {currentItems.map((product) => (
             <ItemContainer
               {...product}

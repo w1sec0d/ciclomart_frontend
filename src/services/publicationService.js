@@ -22,7 +22,7 @@ const getBrands = async () => {
 
 const uploadImage = async (id, image) => {
   if (!image) {
-    return ('Please select an image to upload')
+    return 'Please select an image to upload'
   }
   try {
     const formData = new FormData()
@@ -33,15 +33,13 @@ const uploadImage = async (id, image) => {
       'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload', // Reemplaza con tu cloud name
       formData
     )
-    console.log('Response:',
-      response.data.secure_url)
+    console.log('Response:', response.data.secure_url)
     console.log('Id:', id)
     await axios.post(`${API_URL}/uploadImage`, {
       idProducto: id,
       file: response.data.secure_url,
     })
-}
-  catch (error) {
+  } catch (error) {
     console.error('Error subiendo la imagen:', error)
   }
 }

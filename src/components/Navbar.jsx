@@ -49,12 +49,14 @@ const Navbar = (params) => {
         <div className="flexs mx-4 p-4 flex flex-wrap items-center justify-between">
           <Button
             className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
-            to="/search/bycicle">
+            to="/search/bycicle"
+          >
             Explorar Bicicletas
           </Button>
           <Button
             className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
-            to="/search/component">
+            to="/search/component"
+          >
             Explorar Componentes
           </Button>
         </div>
@@ -68,15 +70,15 @@ const Navbar = (params) => {
           </h1>
         </li>
         {user ? (
-          <li className= "mx-4 hover:font-bold flex items-center">
+          <li className="mx-4 hover:font-bold flex items-center">
             {user.rol == 'vendedor' ? (
               <Button
-              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
-              to="/publish"
-              >Publicar
+                className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+                to="/publish"
+              >
+                Publicar
               </Button>
-            ): null
-            }
+            ) : null}
             <Button
               className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
               to="/shoppingCart"

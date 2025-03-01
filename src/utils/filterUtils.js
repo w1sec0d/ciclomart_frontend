@@ -1,95 +1,100 @@
-import capitalize from '../utils/capitalize';
+import capitalize from '../utils/capitalize'
 
 const colorNames = {
-    '#FFFFFF': 'Blanco',
-    '#000000': 'Negro',
-    '#FF7F7B': 'Rojo',
-    '#A2FF75': 'Verde',
-    '#5A67FF': 'Azul',
-    '#F5FF78': 'Amarillo',
-    '#B471FF': 'Magenta',
-    '#8BFFFF': 'Cian',
-    '#808080': 'Gris',
-    '#FFB760': 'Naranja'
-    // Añade más colores según sea necesario
-  };
+  '#FFFFFF': 'Blanco',
+  '#000000': 'Negro',
+  '#FF7F7B': 'Rojo',
+  '#A2FF75': 'Verde',
+  '#5A67FF': 'Azul',
+  '#F5FF78': 'Amarillo',
+  '#B471FF': 'Magenta',
+  '#8BFFFF': 'Cian',
+  '#808080': 'Gris',
+  '#FFB760': 'Naranja',
+  // Añade más colores según sea necesario
+}
 
 // Obtener opciones únicas para los filtros
 export const getFilterOptions = (field, bikes) => {
-    if (!bikes) return [];
-    
-    const options = [...new Set(bikes.map(bike => bike[field]))].filter(Boolean);
-    return options.map(option => {
-        // Verificar si la opción es un color hexadecimal
-        if (typeof option === 'string' && option.startsWith('#')) {
-          const colorName = colorNames[option.toUpperCase()] || option;
-          return { value: option, label: colorName };
-        }
-        return { value: option, label: capitalize(option) };
-      });
-};
+  if (!bikes) return []
+
+  const options = [...new Set(bikes.map((bike) => bike[field]))].filter(Boolean)
+  return options.map((option) => {
+    // Verificar si la opción es un color hexadecimal
+    if (typeof option === 'string' && option.startsWith('#')) {
+      const colorName = colorNames[option.toUpperCase()] || option
+      return { value: option, label: colorName }
+    }
+    return { value: option, label: capitalize(option) }
+  })
+}
 
 // Formatear nombre de campo para mostrar
 export const formatFieldName = (field) => {
-    return field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1');
-};
+  return (
+    field.charAt(0).toUpperCase() + field.slice(1).replace(/([A-Z])/g, ' $1')
+  )
+}
 
 // Obtener rango de precios mínimo y máximo
 export const getPriceRange = (bikes) => {
-    if (!bikes || bikes.length === 0) return [0, 10000];
-    
-    const prices = bikes.map(bike => {
-        return typeof bike.precio === 'string' 
-            ? parseInt(bike.precio.replace(/[^\d]/g, '')) 
-            : bike.precio;
-    }).filter(price => !isNaN(price) && price > 0);
-    
-    if (prices.length === 0) return [0, 10000];
-    
-    return [Math.min(...prices), Math.max(...prices)];
-};
+  if (!bikes || bikes.length === 0) return [0, 10000]
+
+  const prices = bikes
+    .map((bike) => {
+      return typeof bike.precio === 'string'
+        ? parseInt(bike.precio.replace(/[^\d]/g, ''))
+        : bike.precio
+    })
+    .filter((price) => !isNaN(price) && price > 0)
+
+  if (prices.length === 0) return [0, 10000]
+
+  return [Math.min(...prices), Math.max(...prices)]
+}
 
 // Aplicar todos los filtros
 export const applyFilters = (bikes, filters, priceRange, dateRange) => {
-    if (!bikes) return [];
-    
-    return bikes.filter(bike => {
-        // Verificar todos los filtros de propiedades
-        for (const [key, value] of Object.entries(filters)) {
-            if (value && bike[key] !== value.value) {
-                return false;
-            }
+  if (!bikes) return []
+
+  return bikes.filter((bike) => {
+    // Verificar todos los filtros de propiedades
+    for (const [key, value] of Object.entries(filters)) {
+      if (value && bike[key] !== value.value) {
+        return false
+      }
+    }
+
+    // Verificar el rango de precio
+    const price =
+      typeof bike.precio === 'string'
+        ? parseInt(bike.precio.replace(/[^\d]/g, ''))
+        : bike.precio
+
+    if (isNaN(price)) return true // Si no hay precio, mostrar igualmente
+
+    const priceMatch = price >= priceRange[0] && price <= priceRange[1]
+
+    // Verificar el rango de fechas (si está establecido)
+    let dateMatch = true
+    if (dateRange.startDate || dateRange.endDate) {
+      const createdDate = new Date(bike.fechaPublicacion)
+
+      if (dateRange.startDate && createdDate < dateRange.startDate) {
+        dateMatch = false
+      }
+
+      if (dateRange.endDate) {
+        // Ajustar la fecha final para incluir todo el día
+        const endOfDay = new Date(dateRange.endDate)
+        endOfDay.setHours(23, 59, 59, 999)
+
+        if (createdDate > endOfDay) {
+          dateMatch = false
         }
-        
-        // Verificar el rango de precio
-        const price = typeof bike.precio === 'string' 
-            ? parseInt(bike.precio.replace(/[^\d]/g, '')) 
-            : bike.precio;
-            
-        if (isNaN(price)) return true; // Si no hay precio, mostrar igualmente
-        
-        const priceMatch = price >= priceRange[0] && price <= priceRange[1];
-        
-        // Verificar el rango de fechas (si está establecido)
-        let dateMatch = true;
-        if (dateRange.startDate || dateRange.endDate) {
-            const createdDate = new Date(bike.fechaPublicacion);
-            
-            if (dateRange.startDate && createdDate < dateRange.startDate) {
-                dateMatch = false;
-            }
-            
-            if (dateRange.endDate) {
-                // Ajustar la fecha final para incluir todo el día
-                const endOfDay = new Date(dateRange.endDate);
-                endOfDay.setHours(23, 59, 59, 999);
-                
-                if (createdDate > endOfDay) {
-                    dateMatch = false;
-                }
-            }
-        }
-        
-        return priceMatch && dateMatch;
-    });
-};
+      }
+    }
+
+    return priceMatch && dateMatch
+  })
+}
