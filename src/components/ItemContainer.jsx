@@ -42,7 +42,7 @@ const ItemContainer = ({
       to={`/product/${idProducto}`}
     >
       {/*Muestra si el producto tiene tarjeta de propiedad */}
-      {!props.tarjeta && (
+      {props.tarjeta && (
         <FaRegAddressCard
           className="absolute top-0 left-0 mt-4 ml-4 text-primary "
           title="Este producto tiene tarjeta de propiedad"
