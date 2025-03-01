@@ -1,11 +1,32 @@
 import capitalize from '../utils/capitalize';
 
+const colorNames = {
+    '#FFFFFF': 'Blanco',
+    '#000000': 'Negro',
+    '#FF7F7B': 'Rojo',
+    '#A2FF75': 'Verde',
+    '#5A67FF': 'Azul',
+    '#F5FF78': 'Amarillo',
+    '#B471FF': 'Magenta',
+    '#8BFFFF': 'Cian',
+    '#808080': 'Gris',
+    '#FFB760': 'Naranja'
+    // Añade más colores según sea necesario
+  };
+
 // Obtener opciones únicas para los filtros
 export const getFilterOptions = (field, bikes) => {
     if (!bikes) return [];
     
     const options = [...new Set(bikes.map(bike => bike[field]))].filter(Boolean);
-    return options.map(option => ({ value: option, label: capitalize(option) }));
+    return options.map(option => {
+        // Verificar si la opción es un color hexadecimal
+        if (typeof option === 'string' && option.startsWith('#')) {
+          const colorName = colorNames[option.toUpperCase()] || option;
+          return { value: option, label: colorName };
+        }
+        return { value: option, label: capitalize(option) };
+      });
 };
 
 // Formatear nombre de campo para mostrar
