@@ -43,8 +43,10 @@ const Input = forwardRef(
           htmlFor={id}
           className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-primary peer-focus:text-sm"
         >
-          {label} 
-          {required && <span className="text-gray text-2xl align-middle">*</span>}
+          {label}
+          {required && (
+            <span className="text-gray text-2xl align-middle">*</span>
+          )}
         </label>
         {type === 'password' && (
           <button
