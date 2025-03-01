@@ -27,7 +27,7 @@ const getProductById = async (id) => {
   const preguntas = await questionService.getQuestions(id)
   return {
     ...request.data.results[0],
-    preguntas
+    preguntas,
   }
 }
 

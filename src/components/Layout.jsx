@@ -15,9 +15,11 @@ import { useDispatch } from 'react-redux'
 
 // Redux
 import { clearAuth, setAuthUser } from '../store/slices/authSlice'
+import { setCart } from '../store/slices/cartSlice'
 
 // Utils
 import getUserFromLocalStorage from '../utils/getUser'
+import getCartFromLocalStorage from '../utils/getCartFromLocalStorage'
 
 // Inicialización de MercadoPago
 import { initMercadoPago } from '@mercadopago/sdk-react'
@@ -40,7 +42,17 @@ const Layout = (params) => {
         dispatch(clearAuth())
       }
     }
+
+    const fetchCart = async () => {
+      const cart = getCartFromLocalStorage()
+      console.log('cart', cart)
+      if (cart) {
+        dispatch(setCart(cart))
+      }
+    }
+
     fetchUser()
+    fetchCart()
   }, [dispatch])
 
   return (

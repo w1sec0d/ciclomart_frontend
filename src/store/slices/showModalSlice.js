@@ -16,6 +16,7 @@ const showModalSlice = createSlice({
   },
 })
 
-export const { setShowModal, cleanShowModal, setShowAddressModal } = showModalSlice.actions
+export const { setShowModal, cleanShowModal, setShowAddressModal } =
+  showModalSlice.actions
 
 export default showModalSlice.reducer
