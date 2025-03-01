@@ -24,6 +24,7 @@ import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import capitalize from '../../utils/capitalize'
 
 import { addItem } from '../../store/slices/cartSlice'
+import { setShowAddressModal } from '../../store/slices/showModalSlice'
 
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
@@ -32,7 +33,6 @@ const ProductPage = () => {
   const authUser = useSelector((state) => state.auth.authUser)
   const cartItems = useSelector((state) => state.cart.items)
   const [cantidad, setCantidad] = useState(1)
-  const [preguntas, setPreguntas] = useState([])
 
   // Hace fetch del producto con react-query
   const {
@@ -41,15 +41,9 @@ const ProductPage = () => {
     isError,
   } = useQuery(['productos', id], () => getProductById(id))
 
-  const getQuestions = useCallback(async (id) => {
-    const preguntasObtenidas = await questionService.getQuestions(id)
-    console.log('preguntasObtenidas', preguntasObtenidas.results)
-    setPreguntas(preguntasObtenidas.results)
-    return preguntasObtenidas
-  }, [])
-
   const handleBuy = async () => {
     dispatch(setLoading())
+    // Verifica si el usuario está autenticado
     if (!authUser) {
       dispatch(
         setNotification({
@@ -60,7 +54,17 @@ const ProductPage = () => {
       dispatch(clearLoading())
       return
     }
-    console.log('producto', producto)
+    // Verifica que el usuario tenga una dirección de envío
+    if (
+      !authUser.direccionNombre ||
+      !authUser.direccionNumero ||
+      !authUser.codigoPostal
+    ) {
+      dispatch(setShowAddressModal(4)) // Mostrar el mensaje inicial
+      dispatch(clearLoading())
+      return
+    }
+
     const { paymentURL } = await mercadoPago.createPreference(
       producto,
       1,
@@ -162,12 +166,6 @@ const ProductPage = () => {
   const setDefaultQuestion = (question) => {
     document.getElementById('pregunta').value = question
   }
-
-  useEffect(() => {
-    if (producto) {
-      getQuestions(producto.idProducto)
-    }
-  }, [producto, getQuestions])
 
   if (isLoading) return <Loading />
   if (isError) return <p>Error: {isError.message}</p>
@@ -301,8 +299,8 @@ const ProductPage = () => {
         <p className="py-2 pt-5 font-secondary text-xl"> Últimas realizadas </p>
 
         <div className="flex flex-col gap-4">
-          {preguntas.length > 0 ? (
-            preguntas.map((pregunta, index) => (
+          {producto.preguntas.length > 0 ? (
+            producto.preguntas.map((pregunta, index) => (
               <div key={index} className="flex flex-col gap-2">
                 <p className="font-bold from-neutral-400">
                   {pregunta.descripcion}

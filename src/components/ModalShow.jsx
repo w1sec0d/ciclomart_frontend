@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react'
 import InfoModal from './Profile/Modals/Bodies/InfoModal'
 import PrefModal from './Profile/Modals/Bodies/PrefModal'
 import SecurityModal from './Profile/Modals/Bodies/SecurityModal'
+import DireccionForm from './DireccionForm'
+import AddressPrompt from './AddressPrompt'
 
 //-> Modal
 import Modal from './Profile/Modals/Modal'
@@ -43,7 +45,25 @@ const ModalShow = () => {
                 <PrefModal />
               </Modal>
             )
-          : setModalComponent(null)
+          : activeModal === 4
+            ? setModalComponent(
+                <Modal
+                  onClose={handleModalClose}
+                  title="🏠 Registrar Dirección"
+                >
+                  <AddressPrompt />
+                </Modal>
+              )
+            : activeModal === 5
+              ? setModalComponent(
+                  <Modal
+                    onClose={handleModalClose}
+                    title="🏠 Registrar Dirección"
+                  >
+                    <DireccionForm />
+                  </Modal>
+                )
+              : setModalComponent(null)
   }, [activeModal])
 
   return modalComponent

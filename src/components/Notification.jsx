@@ -18,6 +18,7 @@ const ToastNotification = () => {
         timerProgressBar: true,
         position: 'top-right',
         showConfirmButton: false,
+        showCloseButton: true,
         ...notification,
       }).then(() => {
         dispatch(clearNotification())
