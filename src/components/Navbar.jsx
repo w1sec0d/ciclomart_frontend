@@ -47,20 +47,15 @@ const Navbar = (params) => {
 
         {/*Barra de busqueda */}
         <div className="flexs mx-4 p-4 flex flex-wrap items-center justify-between">
-          <input
-            type="search"
-            className="flex m-0 w-1/2"
-            placeholder="Buscar"
-            aria-label="Buscar"
-            value={inputText}
-            onChange={handleInputChange}
-          />
           <Button
-            className="flex mx-2 bg-secondary text-black rounded-r px-6 py-2 text-xs uppercase transition duration-150 ease-in-out hover:bg-opacity-80"
-            to="/search"
-            onClick={() => params.onSearch(inputText)}
-          >
-            Buscar
+            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
+            to="/search/component">
+            Explorar Bicicletas
+          </Button>
+          <Button
+            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
+            to="/search/bycicle">
+            Explorar Componentes
           </Button>
         </div>
         <li className="text-center mx-auto my-auto">

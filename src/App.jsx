@@ -25,6 +25,7 @@ import Conocenos from './pages/Conocenos'
 import Bicicleta from './pages/Bicicleta'
 import Componentes from './pages/Componentes'
 import Ofertas from './pages/Ofertas'
+import BusqComponente from './pages/Search/BusqComponente'
 
 // Services
 import apiService from './services/apiService'
@@ -56,8 +57,8 @@ const App = () => {
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
         <Route path="profile" element={<Profile />} />
         <Route
-          path="search"
-          element={<Search searchResults={searchResults} name={searchText} />}
+          path="search/component"
+          element={<BusqComponente />}
         />
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
         <Route path="product/:id" element={<ProductPage />} />
