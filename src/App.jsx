@@ -23,6 +23,11 @@ import ExposurePage from './components/Exposure/ExpositionPage'
 import Purchases from './pages/Purchases'
 import TermsAndCondition from './pages/TermsAndConditions'
 import DataPrivacy from './pages/DataPrivacy'
+import Conocenos from './pages/Conocenos'
+import Bicicleta from './pages/Bicicleta'
+import Componentes from './pages/Componentes'
+import Ofertas from './pages/Ofertas'
+
 
 // Services
 import apiService from './services/apiService'
@@ -60,10 +65,7 @@ const App = () => {
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
         <Route path="product/:id" element={<ProductPage />} />
         <Route path="comparison/:id1/:id2" element={<ComparisonView />} />
-        <Route
-          path="requestResult/:type"
-          element={<RequestResult message="Compra exitosa" />}
-        />
+        <Route path="requestResult/:type" element={<RequestResult />} />
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
         <Route path="publish" element={<Publish />} />
         <Route path="productRating" element={<ProductRating />} />
@@ -74,6 +76,11 @@ const App = () => {
         <Route path="purchases/:idComprador" element={<Purchases />} />
         <Route path="terms" element={<TermsAndCondition />} />
         <Route path="privacy" element={<DataPrivacy />} />
+        <Route path="/conocenos" element={<Conocenos />} />
+        <Route path="/bicicletas" element={<Bicicleta />} />
+        <Route path="/componentes" element={<Componentes />} />
+        <Route path="/ofertas" element={<Ofertas />} />
+
       </Route>
     </Routes>
   )

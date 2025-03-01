@@ -20,4 +20,30 @@ const getBrands = async () => {
   return request.data
 }
 
-export default { publishProduct, getModels, getBrands }
+const uploadImage = async (id, image) => {
+  if (!image) {
+    return ('Please select an image to upload')
+  }
+  try {
+    const formData = new FormData()
+    formData.append('file', image)
+    formData.append('upload_preset', 'ciclomart')
+
+    const response = await axios.post(
+      'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload', // Reemplaza con tu cloud name
+      formData
+    )
+    console.log('Response:',
+      response.data.secure_url)
+    console.log('Id:', id)
+    await axios.post(`${API_URL}/uploadImage`, {
+      idProducto: id,
+      file: response.data.secure_url,
+    })
+}
+  catch (error) {
+    console.error('Error subiendo la imagen:', error)
+  }
+}
+
+export default { publishProduct, getModels, getBrands, uploadImage }
