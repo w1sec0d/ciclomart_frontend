@@ -362,7 +362,7 @@ const ProductPage = () => {
                 <div className="flex flex-row gap-2 justify-start">
                   <textarea
                     id="pregunta"
-                    placeholder="í tu pregunta"
+                    placeholder="Escribe aquí tu pregunta"
                     rows="1"
                     maxLength="45"
                     className=" block w-full p-2 border border-primary rounded-md shadow-sm  focus:border-secondary sm:text-sm resize-none outline-none"
@@ -386,6 +386,28 @@ const ProductPage = () => {
                     <p className="font-bold text-primary">
                       {pregunta.descripcion}
                     </p>
+                    {authUser && authUser.rol === 'vendedor' && authUser.id === producto.idUsuario &&(
+                      <form
+                      onSubmit={handleQuestion}
+                      className="flex flex-col w-full max-w-4xl gap-3"
+                    >
+                      <div className="flex flex-row gap-2 justify-start">
+                        <textarea
+                          id="responder"
+                          placeholder="Escribe aquí tu respuesta"
+                          rows="1"
+                          maxLength="45"
+                          className=" block w-full p-2 border border-primary rounded-md shadow-sm  focus:border-secondary sm:text-sm resize-none outline-none"
+                        />
+                        <Button
+                          type="submit"
+                          className="text-center bg-primary text-white py-2 px-7  rounded-xl h-full "
+                        >
+                          Responder
+                        </Button>
+                      </div>
+                    </form>
+                    )}
                     <p>{pregunta.respuesta}</p>
                   </div>
                 ))
