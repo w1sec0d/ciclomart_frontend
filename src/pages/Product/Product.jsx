@@ -188,7 +188,10 @@ const ProductPage = () => {
           /> */}
 
             <div className="w-3/5 h-auto bg-white shadow-xl border-r border-primary rounded-xl  py-2 pl-2 pr-4 ">
-              <GalleryImages imageProduct={producto.imagenURL} />
+              <GalleryImages
+                imageProduct={producto.imagenURL}
+                imagePropertyCard={producto.tarjeta}
+              />
             </div>
             <div className="w-2/5   h-full bg-white shadow-xl border-y border-primary">
               <div className="flex items-center">
