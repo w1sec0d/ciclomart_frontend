@@ -6,6 +6,12 @@ const ProductGrid = ({ filteredBikes, bicicletas }) => {
     
     return (
         <div className="w-full md:w-3/4">
+            <IndividualProduct
+                products={bikesToShow}
+                title={'¡Encuentra tu próxima bicicleta!'}
+                columns= {4}
+                itemsPerPage={8}
+            />
             <div className="flex justify-between items-center mb-4">
                 <span className="text-sm bg-gray-200 px-2 py-1 rounded">
                     {filteredBikes.length > 0 
@@ -14,11 +20,6 @@ const ProductGrid = ({ filteredBikes, bicicletas }) => {
                     }
                 </span>
             </div>
-            
-            <IndividualProduct
-                products={bikesToShow}
-                title={'¡Encuentra tu próxima bicicleta!'}
-            />
         </div>
     );
 };

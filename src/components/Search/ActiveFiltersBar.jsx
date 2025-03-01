@@ -18,13 +18,13 @@ const ActiveFiltersBar = ({
     if (activeFilterCount === 0 && !isPriceRangeModified && !isDateRangeModified) return null;
     
     return (
-        <div className="mb-4 p-2 bg-primary bg-opacity-25 rounded">
+        <div className=" p-2 bg-primary">
             <div className="flex flex-wrap gap-2 items-center">
-                <span className="text-sm font-medium">Filtros activos:</span>
+                <span className="text-sm font-medium text-slate-50">Filtros activos:</span>
                 {Object.entries(selectedFilters).map(([key, value]) => {
                     if (!value) return null;
                     return (
-                        <div key={key} className="bg-secondary text-black px-2 py-1 rounded text-sm flex items-center">
+                        <div key={key} className="bg-secondary text-black px-2 py-1 text-sm flex items-center">
                             <span>{formatFieldName(key)}: {value.label}</span>
                             <button 
                                 className="ml-2 text-primary hover:text-blue-700"
@@ -56,7 +56,7 @@ const ActiveFiltersBar = ({
                     </div>
                 )}
                 <button 
-                    className="ml-auto text-blue-600 hover:text-blue-800 text-sm"
+                    className="ml-auto text-slate-50 hover:text-blue-900 text-sm"
                     onClick={resetFilters}
                 >
                     Limpiar todos

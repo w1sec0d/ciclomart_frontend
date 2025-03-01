@@ -15,7 +15,7 @@ const FilterSidebar = ({
     bicicletas
 }) => {
     return (
-        <div className="hidden md:block md:w-1/4 bg-gray-100 p-4 rounded-lg sticky top-4 max-h-screen overflow-y-auto">
+        <div className="hidden md:block md:w-1/4 bg-gray-100 sticky top-4 max-h-screen overflow-y-auto">
             <FilterContent 
                 filterFields={filterFields}
                 priceRange={priceRange}

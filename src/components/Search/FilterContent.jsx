@@ -25,13 +25,15 @@ const FilterContent = ({
 
     return (
         <>
-            <h1 className="text-xl font-bold text-center mb-6">Filtros</h1>
+            <h1 className="text-2xl bg-tertiary py-4 font-bold text-center pb-8 shadow-xl">
+                Filtros
+            </h1>
             
             {/* Filtros dinámicos */}
             {filterFields
                 .filter(field => field !== 'createdAt' && field !== 'updatedAt')
                 .map(field => (
-                    <div className="mb-4" key={field}>
+                    <div className="m-4 mt-5" key={field}>
                         <label className="block mb-2 font-medium">{formatFieldName(field)}</label>
                         <Select
                             className="w-full"
@@ -47,8 +49,8 @@ const FilterContent = ({
 
             {/* Filtro de fecha de publicación */}
             <div className="mb-4">
-                <label className="block mb-2 font-medium">Fecha de Publicación</label>
-                <div className="flex flex-col space-y-2">
+                <label className="block mb-2 mx-4 font-medium ">Fecha de Publicación</label>
+                <div className="flex flex-col items-center space-y-2">
                     <div>
                         <label className="block text-sm mb-1">Desde</label>
                         <DatePicker
@@ -83,12 +85,12 @@ const FilterContent = ({
 
             {/* Filtro de Rango de Precio */}
             <div className="mb-4">
-                <label className="block mb-2 font-medium">Rango de Precio</label>
-                <div className="flex justify-between mb-2">
+                <label className="block mb-2 mx-4 font-medium">Rango de Precio</label>
+                <div className="flex justify-between mb-2 mx-4">
                     <span>${priceRange[0].toLocaleString()}</span>
                     <span>${priceRange[1].toLocaleString()}</span>
                 </div>
-                <div className="mb-2">
+                <div className="mb-2 mx-4">
                     <label className="block text-sm mb-1">Precio mínimo</label>
                     <input
                         type="range"
@@ -101,7 +103,7 @@ const FilterContent = ({
                         className="w-full"
                     />
                 </div>
-                <div className="mb-2">
+                <div className="mb-2 mx-4">
                     <label className="block text-sm mb-1">Precio máximo</label>
                     <input
                         type="range"
@@ -115,17 +117,17 @@ const FilterContent = ({
                     />
                 </div>
             </div>
-            
-            {/* Botón para limpiar filtros */}
-            <Button
-                className="w-full bg-primary text-white py-2 rounded hover:bg-blue-200 hover:text-primary"
-                onClick={resetFilters}
-            >
-                Limpiar Filtros
-            </Button>
-            
+            <div className="flex justify-center">
+                {/* Botón para limpiar filtros */}
+                <Button
+                    className="w-4/5 bg-primary text-white py-2 rounded hover:bg-blue-200 hover:text-primary"
+                    onClick={resetFilters}
+                >
+                    Limpiar Filtros
+                </Button>
+            </div>
             {/* Contador de filtros activos */}
-            <div className="mt-4 p-2 bg-secondary rounded text-center">
+            <div className="m-4 p-2 bg-secondary rounded text-center">
                 {activeFilterCount > 0 || 
                  isPriceRangeModified ||
                  isDateRangeModified ? (

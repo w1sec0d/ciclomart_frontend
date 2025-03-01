@@ -146,7 +146,7 @@ const BicycleFinder = () => {
     const roundedMaxPrice = Math.ceil(maxPrice / 10000) * 10000;
 
     return (
-        <div className="p-4">
+        <div className="bg-slate-100">
             {/* Filtros móviles */}
             <MobileFilters 
                 showMobileFilters={showMobileFilters}
@@ -175,7 +175,7 @@ const BicycleFinder = () => {
                 resetFilters={resetFilters}
             />
 
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col bg-slate-100 md:flex-row gap-0">
                 {/* Sidebar de filtros (escritorio) */}
                 <FilterSidebar 
                     filterFields={filterFields}
