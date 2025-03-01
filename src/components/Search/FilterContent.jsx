@@ -3,6 +3,7 @@ import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { getFilterOptions, formatFieldName } from '../../utils/filterUtils';
+import Button from '../Button';
 
 const FilterContent = ({
     filterFields,
@@ -116,15 +117,15 @@ const FilterContent = ({
             </div>
             
             {/* Botón para limpiar filtros */}
-            <button
-                className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+            <Button
+                className="w-full bg-primary text-white py-2 rounded hover:bg-blue-200 hover:text-primary"
                 onClick={resetFilters}
             >
                 Limpiar Filtros
-            </button>
+            </Button>
             
             {/* Contador de filtros activos */}
-            <div className="mt-4 p-2 bg-blue-100 rounded text-center">
+            <div className="mt-4 p-2 bg-secondary rounded text-center">
                 {activeFilterCount > 0 || 
                  isPriceRangeModified ||
                  isDateRangeModified ? (
