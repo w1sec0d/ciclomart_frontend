@@ -1,9 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import cartService from '../../services/cartService'
 
 const initialState = {
   items: [],
   total: 0,
 }
+
+export const addItemToCart = createAsyncThunk(
+  'cart/addItemToCart',
+  async ({ idUsuario, idProducto, cantidad }, { dispatch }) => {
+    const response = await cartService.addProductToCart(idUsuario, idProducto, cantidad)
+    dispatch(addItem(response))
+    return response
+  }
+)
+
+export const removeItemFromCart = createAsyncThunk(
+  'cart/removeItemFromCart',
+  async ({ idUsuario, idProducto }, { dispatch }) => {
+    await cartService.removeFromCart(idUsuario, idProducto)
+    dispatch(removeItem(idProducto))
+  }
+)
 
 const cartSlice = createSlice({
   name: 'cart',

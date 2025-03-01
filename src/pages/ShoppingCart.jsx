@@ -18,7 +18,7 @@ import Button from '../components/Button'
 import cartService from '../services/cartService'
 import { setCart } from '../store/slices/cartSlice'
 import { setLoading } from '../store/slices/loadingSlice'
-import { removeItem, removeItemFromCart } from '../store/slices/cartSlice'
+import { removeItemFromCart } from '../store/slices/cartSlice'
 import colombianPrice from '../utils/colombianPrice'
 import getCartFromLocalStorage from '../utils/getCartFromLocalStorage'
 
