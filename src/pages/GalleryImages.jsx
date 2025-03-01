@@ -2,15 +2,13 @@ import React from 'react'
 import ImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
 import { PedalBike } from '@mui/icons-material'
+import { useState } from 'react'
+import Loading from '../components/Loading'
+import { SyncLoader } from 'react-spinners'
 
 const GalleryImages = ({ imageProduct, imagePropertyCard }) => {
+  const [loading, setLoading] = useState(true)
   const images = []
-
-  // const DefaultImage= [
-  //   {
-  //     original:
-  //   }
-  // ]
 
   //Verifica si existe imagen de producto y actualiza
   if (imageProduct) {
@@ -29,9 +27,18 @@ const GalleryImages = ({ imageProduct, imagePropertyCard }) => {
     })
   }
 
+  const handleImageLoad = () => {
+    setLoading(false)
+  }
+
   return (
     //Se muestran las imágenes
     <div>
+      {loading && imageProduct && (
+        <div className=" bg-opacity-50  h-80 flex items-center justify-center">
+          <SyncLoader />
+        </div>
+      )}
       <ImageGallery
         items={images}
         thumbnailPosition="left"
@@ -41,8 +48,9 @@ const GalleryImages = ({ imageProduct, imagePropertyCard }) => {
         slideDuration={0}
         showPlayButton={false}
         disableSwipe={false}
+        onImageLoad={handleImageLoad}
       />
-      {!imageProduct && (
+      {!imageProduct && !imagePropertyCard && (
         <div className="flex justify-center items-center">
           <div
             style={{
