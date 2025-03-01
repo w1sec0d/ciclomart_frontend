@@ -61,10 +61,9 @@ const Publish = () => {
   const handleProductSubmit = (general, product) => {
     const productData = { ...general, ...product }
     setProductData(productData)
-    if(productType === 'bicicleta') {
+    if (productType === 'bicicleta') {
       setStep('verification')
-    }
-    else{
+    } else {
       handleFinalSubmit(productData)
     }
   }
@@ -98,7 +97,7 @@ const Publish = () => {
   }
 
   const handleVerification = async (tarjeta) => {
-    const validTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+    const validTypes = ['image/jpeg', 'image/png', 'application/pdf']
     if (!validTypes.includes(tarjeta.type)) {
       dispatch(
         setNotification({
@@ -107,9 +106,9 @@ const Publish = () => {
           icon: 'error',
           timer: 3000,
         })
-      );
-      return;
-    } 
+      )
+      return
+    }
     const formData = new FormData()
     formData.append('file', tarjeta)
     formData.append('upload_preset', 'ciclomart')
@@ -125,7 +124,7 @@ const Publish = () => {
   }
 
   console.log('step', step)
-  
+
   return (
     <div>
       {step === 'selection' && <ProductSelection onSelect={handleSelect} />}
