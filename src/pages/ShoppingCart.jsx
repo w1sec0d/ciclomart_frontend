@@ -84,6 +84,53 @@ const ShoppingCart = () => {
     dispatch(setCart(updated.results))
   }
 
+  const handleSubmit = () => {
+    console.log('cart', cart)
+    // output:
+    //     {
+    //   "success": true,
+    //   "message": "Carrito obtenido con exito",
+    //   "results": [
+    //     {
+    //       "idUsuario": 4,
+    //       "usuario": "Carlos",
+    //       "correo": "cadavid4003@gmail.com",
+    //       "idCarrito": 26,
+    //       "fecha": "2025-02-28T23:31:18.000Z",
+    //       "estado": "pendiente_pago",
+    //       "precioTotal": 5000,
+    //       "metodoPago": "MercadoPago",
+    //       "direccionEnvio": "Direccion de envio",
+    //       "idCarritoProducto": 5,
+    //       "idProducto": 10,
+    //       "cantidad": 1,
+    //       "precio_unitario": 5000,
+    //       "idModelo": 10,
+    //       "costoEnvio": 0,
+    //       "nombre": "Neumático MTB rin 26\""
+    //     },
+    //     {
+    //       "idUsuario": 4,
+    //       "usuario": "Carlos",
+    //       "correo": "cadavid4003@gmail.com",
+    //       "idCarrito": 25,
+    //       "fecha": "2025-02-28T23:30:54.000Z",
+    //       "estado": "pendiente_pago",
+    //       "precioTotal": 5000,
+    //       "metodoPago": "MercadoPago",
+    //       "direccionEnvio": "Direccion de envio",
+    //       "idCarritoProducto": 4,
+    //       "idProducto": 10,
+    //       "cantidad": 1,
+    //       "precio_unitario": 5000,
+    //       "idModelo": 10,
+    //       "costoEnvio": 0,
+    //       "nombre": "Neumático MTB rin 26\""
+    //     }
+    //   ]
+    // }
+  }
+
   useEffect(() => {
     if (authUser) getCartElements(authUser.idUsuario)
   }, [authUser, getCartElements])
@@ -217,7 +264,12 @@ const ShoppingCart = () => {
                 Total
               </Typography>
               <Typography variant="h4">{colombianPrice(total)}</Typography>
-              <Button variant="contained" color="primary" sx={{ marginTop: 2 }}>
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ marginTop: 2 }}
+                onClick={handleSubmit}
+              >
                 Continuar al pago
               </Button>
             </div>
