@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 import { useQuery, useQueryClient } from 'react-query'
 import { useParams } from 'react-router-dom'
 
+import { LocalShippingRounded } from '@mui/icons-material'
+
 import {
   getPurchasesByBuyerId,
   confirmShipment,
@@ -24,7 +26,48 @@ const Purchases = () => {
     isError,
     error,
   } = useQuery('purchases', () => getPurchasesByBuyerId(idComprador))
-  console.log('purchases', purchases)
+
+  const getPurchaseText = (estado) => {
+    switch (estado) {
+      case 'pendiente_pago':
+        return {
+          stateText: 'Pendiente de pago',
+          color: 'yellow',
+        }
+      case 'pendiente_envio':
+        return {
+          stateText: 'Pendiente de envío',
+          color: 'blue',
+        }
+      case 'enviado':
+        return {
+          stateText: 'Enviado',
+          color: 'green',
+          icon: <LocalShippingRounded />,
+        }
+      case 'recibido':
+        return {
+          stateText: 'Recibido',
+          color: 'green',
+        }
+      case 'fallido':
+        return {
+          stateText: 'Fallido',
+          color: 'red',
+        }
+      case 'reembolsado':
+        return {
+          stateText: 'Reembolsado',
+          color: 'red',
+        }
+      default:
+        return {
+          stateText: 'Desconocido',
+          color: 'gray',
+        }
+    }
+  }
+
   const handleConfirm = async (idCarrito) => {
     try {
       const response = await confirmShipment(idCarrito)
@@ -89,33 +132,65 @@ const Purchases = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Mis compras</h1>
-      <div className="space-y-4">
-        {purchases.map((purchase, index) => (
-          <div key={index} className="p-4 border rounded shadow">
-            <h2 className="text-xl font-semibold">{purchase.nombreModelo}</h2>
-            <h3 className="text-xl">{colombianPrice(purchase.precio)}</h3>
-            <h3 className="text-xl">{purchase.estado}</h3>
-            <div className="mt-2 space-x-2">
-              {purchase.estado != 'enviado' && purchase.estado != 'fallido' && (
-                <>
-                  <button
-                    className="px-4 py-2 bg-green-500 text-white rounded"
-                    onClick={() => handleConfirm(purchase.idCarrito)}
+      <h1 className="text-3xl font-bold mb-6 text-center">Mis compras</h1>
+      <div className="space-y-6">
+        {purchases.map((purchase, index) => {
+          const { stateText, color, icon } = getPurchaseText(purchase.estado)
+          return (
+            <div
+              key={index}
+              className="p-6 border rounded-lg shadow-lg flex flex-col md:flex-row items-center"
+            >
+              <img
+                src={purchase.imagenModelo}
+                alt={purchase.nombreModelo}
+                className="w-32 h-32 object-cover rounded-lg mb-4 md:mb-0 md:mr-6"
+              />
+              <div className="flex-1">
+                <h2 className="text-2xl font-semibold mb-2">
+                  {purchase.nombreModelo}
+                  <span
+                    className={`text-lg mb-1 bg-gray-200 p-1 rounded text-${color}-600`}
                   >
-                    Recibí el producto
-                  </button>
-                  <button
-                    className="px-4 py-2 bg-red-500 text-white rounded"
-                    onClick={() => handleCancel(purchase.idCarrito)}
-                  >
-                    Quiero un reembolso
-                  </button>
-                </>
-              )}
+                    {icon}
+                    {stateText}
+                  </span>
+                </h2>
+                <p className="text-lg mb-1">
+                  Precio: {colombianPrice(purchase.precio)}
+                </p>
+                <p className="text-lg mb-1">
+                  Fecha: {new Date(purchase.fecha).toLocaleDateString()}
+                </p>
+                <p className="text-lg mb-1">
+                  Método de pago: {purchase.metodoPago}
+                </p>
+                <p className="text-lg mb-1">
+                  Dirección de envío: {purchase.direccionEnvio}
+                </p>
+                <div className="mt-4 space-x-2">
+                  {purchase.estado !== 'enviado' &&
+                    purchase.estado !== 'fallido' && (
+                      <>
+                        <button
+                          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+                          onClick={() => handleConfirm(purchase.idCarrito)}
+                        >
+                          Recibí el producto
+                        </button>
+                        <button
+                          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                          onClick={() => handleCancel(purchase.idCarrito)}
+                        >
+                          Quiero un reembolso
+                        </button>
+                      </>
+                    )}
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

@@ -10,9 +10,12 @@ const showModalSlice = createSlice({
   reducers: {
     setShowModal: (state, action) => action.payload,
     cleanShowModal: () => initialState,
+    setShowAddressModal: (state, action) => {
+      state.activeModal = action.payload
+    },
   },
 })
 
-export const { setShowModal, cleanShowModal } = showModalSlice.actions
+export const { setShowModal, cleanShowModal, setShowAddressModal } = showModalSlice.actions
 
 export default showModalSlice.reducer

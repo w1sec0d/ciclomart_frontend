@@ -9,6 +9,7 @@ const InfoModal = ({ data }) => {
   const client_id = import.meta.env.VITE_MP_CLIENT_ID
   const redirect_uri = import.meta.env.VITE_MP_REDIRECT_URI
   const randomIdValue = randomId()
+  const rolUsuario = useSelector((state) => state.auth.authUser.rol)
   const idUsuario = useSelector((state) => state.auth.authUser.idUsuario)
   const state = `${randomIdValue},${idUsuario}`
 
@@ -36,11 +37,13 @@ const InfoModal = ({ data }) => {
             title="Dirección:"
             dataItem={direccion}
           />
-          <Button
-            to={`https://auth.mercadopago.com/authorization?client_id=${client_id}&response_type=code&platform_id=mp&state=${encodedState}&redirect_uri=${redirect_uri}`}
-          >
-            Registrarme como vendedor
-          </Button>
+          {rolUsuario === 'comprador' && (
+            <Button
+              to={`https://auth.mercadopago.com/authorization?client_id=${client_id}&response_type=code&platform_id=mp&state=${encodedState}&redirect_uri=${redirect_uri}`}
+            >
+              Registrarme como vendedor
+            </Button>
+          )}
         </div>
       ) : null}
     </>
