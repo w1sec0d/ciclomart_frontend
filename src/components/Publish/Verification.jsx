@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Button from '../Button'	
+import Button from '../Button'
 
 const Verification = ({ onVerify }) => {
   const [document, setDocument] = useState(null)
@@ -32,17 +32,14 @@ const Verification = ({ onVerify }) => {
               Por favor sube aquí la tarjeta de propiedad de la bicicleta
             </label>
             <input
-            type="file"
-            id="imagenes"
-            onChange={handleImageChange}
-            multiple
-            className="mt-4 block w-full rounded-md border-gray-300 shadow-sm"
+              type="file"
+              id="imagenes"
+              onChange={handleImageChange}
+              multiple
+              className="mt-4 block w-full rounded-md border-gray-300 shadow-sm"
             />
           </div>
-          <Button
-            type="submit"
-            className="w-full"
-          >
+          <Button type="submit" className="w-full">
             Enviar
           </Button>
         </form>
