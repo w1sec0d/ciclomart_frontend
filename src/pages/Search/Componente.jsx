@@ -53,7 +53,7 @@ const BicycleComponentFinder = () => {
             {/* Panel de imagen interactiva */}
             <div className="w-full md:w-1/3 stroke-black">
                 {/* Instrucciones */}
-                <h1 className="bg-secondary text-3xl font-bold shadow-xl text-center w-full py-5 px-5">
+                <h1 className="bg-tertiary text-3xl font-bold shadow-xl text-center w-full py-5 px-5">
                     Encuentra los componentes para tu bicicleta
                 </h1>        
                 <div className="m-1 h-full flex flex-col items-center pb-8 ">
