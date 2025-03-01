@@ -19,17 +19,6 @@ const Navbar = (params) => {
     setInputText(e.target.value)
   }
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      if (user) {
-        const elements = await cartService.getCart(user.idUsuario)
-        dispatch(setCart(elements.results))
-      }
-    }
-
-    fetchCartItems()
-  }, [dispatch, user])
-
   return (
     <nav className="bg-primary p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-lg">
       <ul className="flex flex-col md:flex-row w-full">
