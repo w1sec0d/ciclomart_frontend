@@ -7,7 +7,9 @@ import { useCallback, useEffect, useState } from 'react'
 import Loading from '../../components/Loading'
 import Button from '../../components/Button'
 import Img from '../../components/Img'
-import { FavoriteBorder } from '@mui/icons-material'
+
+import { CiCircleCheck } from 'react-icons/ci'
+
 import ProductRating from '../ProductRating'
 import { setNotification } from '../../store/slices/notificationSlice'
 import Input from '../../components/Input'
@@ -267,6 +269,18 @@ const ProductPage = () => {
                 Detalles del producto
               </h2>
             </div>
+            {producto.tarjeta && (
+              <div className="w-full bg-secondary/30 border-secondary flex flex-row border-dashed  mt-2 py-4 px-2 items-center border-2">
+                <CiCircleCheck className="text-7xl mr-3 text-primary" />
+                <div>
+                  <b>Este producto esta verificado</b>
+                  <p>
+                    ¡Lo que significa que puedes consultar su tarjeta de
+                    propiedad!
+                  </p>
+                </div>
+              </div>
+            )}
             <div className="flex flex-row items-center w-full pt-4 ">
               <b className="font-bold text-xl mr-2 ">Descripción:</b>
 
