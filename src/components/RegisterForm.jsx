@@ -99,7 +99,13 @@ const RegisterForm = () => {
             },
           })}
         />
-        {errors.password && (
+
+        {!errors.password ? (
+          <p className="text-xs" style={{ color: '#A2C634' }}>
+            La contraseña debe tener al menos 6 caracteres, una letra mayúscula,
+            una letra minúscula y un número.
+          </p>
+        ) : (
           <span className="text-red-500 text-xs">
             {errors.password.message}
           </span>
@@ -128,12 +134,12 @@ const RegisterForm = () => {
         <div>
           <Checkbox id="terms" {...register('terms', { required: true })}>
             Acepto los{' '}
-            <a
-              href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=49981"
-              target="_BLANK"
-              className="text-primary"
-            >
+            <a href="/terms" target="_BLANK" className="text-primary">
               Términos y condiciones
+            </a>
+            {' y '}
+            <a href="/privacy" target="_BLANK" className="text-primary">
+              politica de datos
             </a>
             {errors.terms && (
               <span className="ml-5 text-red-500 text-xs">

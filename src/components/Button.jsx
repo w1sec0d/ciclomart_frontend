@@ -15,7 +15,13 @@ const Button = ({
   const handleClick = (event) => {
     if (to) {
       event.preventDefault()
-      navigate(to)
+      if (to.startsWith('http')) {
+        // Redirect to external URL
+        window.location.href = to
+      } else {
+        // Navigate to internal route
+        navigate(to)
+      }
       if (onClick) {
         onClick(event)
       }

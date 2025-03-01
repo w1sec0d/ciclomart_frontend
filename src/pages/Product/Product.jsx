@@ -29,6 +29,7 @@ import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import capitalize from '../../utils/capitalize'
 
 import { addItem } from '../../store/slices/cartSlice'
+import { setShowAddressModal } from '../../store/slices/showModalSlice'
 
 const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
@@ -37,8 +38,7 @@ const ProductPage = () => {
   const authUser = useSelector((state) => state.auth.authUser)
   const cartItems = useSelector((state) => state.cart.items)
   const [cantidad, setCantidad] = useState(1)
-  const [preguntas, setPreguntas] = useState([])
-  const [showAll, setShowAll] = useState(true)
+
 
   // Hace fetch del producto con react-query
   const {
@@ -47,14 +47,9 @@ const ProductPage = () => {
     isError,
   } = useQuery(['productos', id], () => getProductById(id))
 
-  const getQuestions = useCallback(async (id) => {
-    const preguntasObtenidas = await questionService.getQuestions(id)
-    setPreguntas(preguntasObtenidas.results)
-    return preguntasObtenidas
-  }, [])
-
   const handleBuy = async () => {
     dispatch(setLoading())
+    // Verifica si el usuario está autenticado
     if (!authUser) {
       dispatch(
         setNotification({
@@ -65,8 +60,22 @@ const ProductPage = () => {
       dispatch(clearLoading())
       return
     }
-    const { paymentURL } = await mercadoPago.sendBuyRequest(
+
+    // Verifica que el usuario tenga una dirección de envío
+    if (
+      !authUser.direccionNombre ||
+      !authUser.direccionNumero ||
+      !authUser.codigoPostal
+    ) {
+      dispatch(setShowAddressModal(4)) // Mostrar el mensaje inicial
+      dispatch(clearLoading())
+      return
+    }
+
+    const { paymentURL } = await mercadoPago.createPreference(
+
       producto,
+      1,
       authUser.idUsuario
     )
     window.location.href = paymentURL
@@ -162,12 +171,6 @@ const ProductPage = () => {
   const setDefaultQuestion = (question) => {
     document.getElementById('pregunta').value = question
   }
-
-  useEffect(() => {
-    if (producto) {
-      getQuestions(producto.idProducto)
-    }
-  }, [producto, getQuestions])
 
   if (isLoading) return <Loading />
   if (isError) return <p>Error: {isError.message}</p>
@@ -352,6 +355,7 @@ const ProductPage = () => {
 
             <p className=" my-4 font-bold text-xl ">Pregúntale al vendedor</p>
 
+
             <div className="flex flex-row gap-4">
               <form
                 onSubmit={handleQuestion}
@@ -360,7 +364,7 @@ const ProductPage = () => {
                 <div className="flex flex-row gap-2 justify-start">
                   <textarea
                     id="pregunta"
-                    placeholder="Escribe aquí tu pregunta"
+                    placeholder="í tu pregunta"
                     rows="1"
                     maxLength="45"
                     className=" block w-full p-2 border border-primary rounded-md shadow-sm  focus:border-secondary sm:text-sm resize-none outline-none"

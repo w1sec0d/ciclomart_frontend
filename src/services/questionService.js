@@ -5,7 +5,7 @@ import axios from 'axios'
 const getQuestions = async (idProducto) => {
   try {
     const response = await axios.get(API_URL + '/questions/' + idProducto)
-    return response.data
+    return response.data.results
   } catch (error) {
     console.error('Error obteniendo preguntas:', error)
   }

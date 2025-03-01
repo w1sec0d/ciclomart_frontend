@@ -5,6 +5,8 @@ import Verification from '../components/Publish/Verification'
 import publicationService from '../services/publicationService'
 import ExpositionPage from '../components/Exposure/ExpositionPage'
 
+import axios from 'axios'
+
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../store/slices/notificationSlice'
 
@@ -56,16 +58,33 @@ const Publish = () => {
     getBrand()
   }, [])
 
-  const handleFormSubmit = (general, product) => {
-    const finalProduct = { ...general, ...product }
-    setProductData(finalProduct)
-    console.log('Final Product:', finalProduct)
+  const handleProductSubmit = (general, product) => {
+    const productData = { ...general, ...product }
+    setProductData(productData)
+    if(productType === 'bicicleta') {
+      setStep('verification')
+    }
+    else{
+      handleFinalSubmit(productData)
+    }
+  }
+
+  const handleFinalSubmit = (product) => {
     publicationService
-      .publishProduct(finalProduct)
+      .publishProduct(product)
       .then((data) => {
         console.log('Product Data:', data)
-        setIdProducto(data.idProducto)
-        setStep('complete')
+        const id = data.dProducto
+        setIdProducto(id)
+        publicationService
+          .uploadImage(id, product.imagenes[0])
+          .then((data) => {
+            console.log('Image Data:', data)
+            setStep('complete')
+          })
+          .catch((error) => {
+            console.error('Error:', error)
+          })
       })
       .catch((error) => {
         dispatch(
@@ -78,18 +97,42 @@ const Publish = () => {
       })
   }
 
-  const handleVerification = (code) => {
-    console.log('Verification Code:', code)
-    setStep('complete')
+  const handleVerification = async (tarjeta) => {
+    const validTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+    if (!validTypes.includes(tarjeta.type)) {
+      dispatch(
+        setNotification({
+          title: 'Tipo de archivo no válido',
+          text: 'Por favor, sube una imagen (JPEG, PNG) o un PDF',
+          icon: 'error',
+          timer: 3000,
+        })
+      );
+      return;
+    } 
+    const formData = new FormData()
+    formData.append('file', tarjeta)
+    formData.append('upload_preset', 'ciclomart')
+
+    const response = await axios.post(
+      'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload', // Reemplaza con tu cloud name
+      formData
+    )
+    const updateProduct = { ...productData, tarjeta: response.data.secure_url }
+    setProductData(updateProduct)
+    console.log('Product Data:', updateProduct)
+    handleFinalSubmit(updateProduct)
   }
+
   console.log('step', step)
+  
   return (
     <div>
       {step === 'selection' && <ProductSelection onSelect={handleSelect} />}
       {step === 'form' && (
         <ProductForm
           type={productType}
-          onSubmit={handleFormSubmit}
+          onSubmit={handleProductSubmit}
           models={models}
           brands={brands}
         />

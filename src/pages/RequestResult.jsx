@@ -30,6 +30,20 @@ const RequestResult = ({
       children = <p>Porfavor, inténtalo de nuevo más tarde</p>
       success = false
       break
+    case 'sellerRegistrationSuccess':
+      message = '¡Registro como vendedor exitoso!'
+      children = (
+        <p>
+          Puedes{' '}
+          <Link to="/publish" className="text-primary font-bold">
+            publicar tu primer producto
+          </Link>{' '}
+          ahora.
+        </p>
+      )
+      subtitle = 'Gracias por unirte a CicloMart como vendedor'
+      success = true
+      break
   }
 
   const textColor = success ? 'text-green-500' : 'text-red-500'

@@ -70,7 +70,16 @@ const Navbar = (params) => {
         </div>
 
         {user ? (
+
           <li className="hover:font-bold flex flex-row items-center justify-end w-3/12 ">
+            {user.rol == 'vendedor' ? (
+              <Button
+              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+              to="/publish"
+              >Publicar
+              </Button>
+            ): null
+            }
             <Button
               className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
               to="/shoppingCart"

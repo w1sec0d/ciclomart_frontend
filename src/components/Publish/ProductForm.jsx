@@ -50,6 +50,7 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
       compatibilidad: '',
       categoria: '',
       marca: '',
+      tarjeta: '',
     },
   })
 
@@ -82,6 +83,7 @@ const ProductForm = ({ type, onSubmit, models, brands }) => {
         modeloSillin: data.modeloSillin,
         modeloCadena: data.modeloCadena,
         extras: data.extras,
+        tarjeta: '',
       })
     } else if (type === 'componente') {
       onSubmit(data, {
