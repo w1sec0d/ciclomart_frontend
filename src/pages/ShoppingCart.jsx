@@ -18,7 +18,7 @@ import Button from '../components/Button'
 import cartService from '../services/cartService'
 import { setCart } from '../store/slices/cartSlice'
 import { setLoading } from '../store/slices/loadingSlice'
-import { removeItem } from '../store/slices/cartSlice'
+import { removeItem, removeItemFromCart } from '../store/slices/cartSlice'
 import colombianPrice from '../utils/colombianPrice'
 import getCartFromLocalStorage from '../utils/getCartFromLocalStorage'
 
@@ -80,15 +80,18 @@ const ShoppingCart = () => {
 
   const removeFromCart = async (index) => {
     const element = cart[index]
-    dispatch(removeItem(element.idProducto))
-    await cartService.removeFromCart(authUser.idUsuario, element.idProducto)
+    dispatch(
+      removeItemFromCart({
+        idUsuario: authUser.idUsuario,
+        idProducto: element.idProducto,
+      })
+    )
     const updated = await cartService.getCart(authUser.idUsuario)
     dispatch(setCart(updated.results))
     localStorage.setItem('cart', JSON.stringify(updated.results))
   }
 
   const handleSubmit = () => {
-    c
     console.log('cart', cart)
     // output:
     //     {
