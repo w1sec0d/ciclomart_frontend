@@ -3,7 +3,7 @@ import ExposurePrice from './ExposurePrice'
 import Button from '../Button'
 
 //Utilidades
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import mercadoPago from '../../services/mercadoPago'
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,8 +13,12 @@ import { getProductById } from '../../services/productService'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 
-const ExpositionPage = ({ idProduct }) => {
+const ExpositionPage = () => {
+  const { idProduct } = useParams()
+  const location = useLocation()
   const navigate = useNavigate()
+  const queryParams = new URLSearchParams(location.search)
+  const failure = queryParams.get('failure')
 
   console.log('IdProduct', idProduct)
   const {
@@ -54,14 +58,20 @@ const ExpositionPage = ({ idProduct }) => {
     if (exposure.grade != 0) {
       handleBuy()
     } else {
-      navigate('/')
+      navigate('/requestResult/publishSuccess')
     }
   }
 
   useEffect(() => {
     if (isLoading) {
       dispatch(setLoading())
-    } else {
+    } else if (failure && !isLoading) {
+      dispatch(
+        setNotification({
+          title: 'Ocurrio un error en tu compra, intentalo de nuevo',
+          icon: 'error',
+        })
+      )
       dispatch(clearLoading())
     }
   }, [isLoading, dispatch])

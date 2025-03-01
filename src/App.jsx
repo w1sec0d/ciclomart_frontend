@@ -27,6 +27,7 @@ import Conocenos from './pages/Conocenos'
 import Bicicleta from './pages/Bicicleta'
 import Componentes from './pages/Componentes'
 import Ofertas from './pages/Ofertas'
+import ExpositionPage from './components/Exposure/ExpositionPage'
 
 // Services
 import apiService from './services/apiService'
@@ -79,6 +80,7 @@ const App = () => {
         <Route path="/bicicletas" element={<Bicicleta />} />
         <Route path="/componentes" element={<Componentes />} />
         <Route path="/ofertas" element={<Ofertas />} />
+        <Route path="/exposure/:idProduct" element={<ExpositionPage />} />
       </Route>
     </Routes>
   )

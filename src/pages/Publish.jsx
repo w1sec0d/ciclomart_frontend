@@ -4,6 +4,7 @@ import ProductSelection from '../components/Publish/ProductSelection'
 import Verification from '../components/Publish/Verification'
 import publicationService from '../services/publicationService'
 import ExpositionPage from '../components/Exposure/ExpositionPage'
+import { useNavigate } from 'react-router-dom'
 
 import axios from 'axios'
 
@@ -11,6 +12,7 @@ import { useDispatch } from 'react-redux'
 import { setNotification } from '../store/slices/notificationSlice'
 
 const Publish = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [step, setStep] = useState('selection')
   const [idProducto, setIdProducto] = useState()
@@ -140,7 +142,7 @@ const Publish = () => {
       {step === 'verification' && (
         <Verification onVerify={handleVerification} />
       )}
-      {step === 'complete' && <ExpositionPage idProduct={idProducto} />}
+      {step === 'complete' && navigate(`/exposure/${idProducto}`)}
     </div>
   )
 }
