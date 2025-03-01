@@ -34,13 +34,10 @@ const Input = forwardRef(
           id={id}
           type={type}
           name={id}
-
-
           className={twMerge(
             'peer h-10 w-full border-b-[1.5px] border-gray border-opacity-75 text-gray-900 placeholder-transparent focus:border-primary focus:outline-none bg-inherit',
             inputClassName
           )}
-
           placeholder={label}
           required={required}
           ref={internalRef}
