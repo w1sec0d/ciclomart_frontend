@@ -13,16 +13,16 @@ const filters = {
     color: {
       label: 'Color',
       options: [
-        { value: '#FF0000', label: 'Rojo' },
-        { value: '#00FF00', label: 'Verde' },
-        { value: '#0000FF', label: 'Azul' },
-        { value: '#FFFF00', label: 'Amarillo' },
-        { value: '#FF00FF', label: 'Magenta' },
-        { value: '#00FFFF', label: 'Cian' },
+        { value: '#FF7F7B', label: 'Rojo' },
+        { value: '#A2FF75', label: 'Verde' },
+        { value: '#5A67FF', label: 'Azul' },
+        { value: '#F5FF78', label: 'Amarillo' },
+        { value: '#B471FF', label: 'Magenta' },
+        { value: '#8BFFFF', label: 'Cian' },
         { value: '#000000', label: 'Negro' },
         { value: '#FFFFFF', label: 'Blanco' },
         { value: '#808080', label: 'Gris' },
-        { value: '#FFA500', label: 'Naranja' },
+        { value: '#FFB760', label: 'Naranja' },
       ],
     },
 

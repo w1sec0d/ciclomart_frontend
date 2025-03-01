@@ -90,11 +90,13 @@ const DireccionForm = () => {
         id="direccionApartamento"
         label="Apartamento (opcional)"
         {...register('direccionApartamento')}
+        required={false}
       />
       <Input
         id="direccionPiso"
         label="Piso (opcional)"
         {...register('direccionPiso')}
+        required={false}
       />
       <Button type="submit">Actualizar Dirección</Button>
     </form>

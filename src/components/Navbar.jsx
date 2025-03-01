@@ -19,17 +19,6 @@ const Navbar = (params) => {
     setInputText(e.target.value)
   }
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      if (user) {
-        const elements = await cartService.getCart(user.idUsuario)
-        dispatch(setCart(elements.results))
-      }
-    }
-
-    fetchCartItems()
-  }, [dispatch, user])
-
   return (
     <nav className="bg-primary p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-lg">
       <ul className="flex flex-col md:flex-row w-full  justify-center ">
@@ -51,25 +40,23 @@ const Navbar = (params) => {
         </li>
 
         {/*Barra de busqueda */}
-        <div className="py-4 flex flex-wrap items-center justify-center  w-6/12  ">
-          <input
-            type="search"
-            className="flex w-5/6 h-full rounded-l-lg px-2 shadow-xl  focus:border focus:border-secondary focus:outline-none"
-            placeholder="Buscar"
-            aria-label="Buscar"
-            value={inputText}
-            onChange={handleInputChange}
-          />
+        <div className="flexs mx-4 p-4 flex flex-wrap items-center justify-between">
           <Button
-            className="flex w-1/6 h-full bg-secondary text-black rounded-l-none px-6  text-sm font-medium  transition duration-150 ease-in-out hover:bg-opacity-80 items-center justify-center "
-            to="/search"
-            onClick={() => params.onSearch(inputText)}
+            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
+            to="/search/bycicle"
           >
-            Buscar
+            Explorar Bicicletas
+          </Button>
+          <Button
+            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
+            to="/search/component"
+          >
+            Explorar Componentes
           </Button>
         </div>
 
         {user ? (
+
           <li className="hover:font-bold flex flex-row items-center justify-end w-3/12 ">
             {user.rol == 'vendedor' ? (
               <Button
