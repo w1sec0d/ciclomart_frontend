@@ -11,7 +11,7 @@ import ratingService from '../services/ratingService'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
-const ProductRating = (props) => {
+const ProductRating = ({ telefono }) => {
   const { id } = useParams()
 
   const { register, handleSubmit, reset } = useForm()
@@ -324,7 +324,7 @@ const ProductRating = (props) => {
 
           <div className="py-4">
             <a
-              href="https://wa.me/573214475328" // Reemplaza con el número de teléfono del vendedor
+              href={`https://wa.me/57${telefono}`}
               className="text-center py-1 px-2 bg-primary text-white rounded"
               target="_blank"
               rel="noopener "
