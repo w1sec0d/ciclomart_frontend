@@ -125,7 +125,7 @@ const LandingPage = () => {
           </h3>
         </a>
         <a
-          href="/bicicletas"
+          href="search/bycicle"
           className="p-4 shadow-a bg-white rounded-md group"
         >
           <img src={bike2} className="w-[200px] h-[200px] object-contain" />
@@ -134,7 +134,7 @@ const LandingPage = () => {
           </h3>
         </a>
         <a
-          href="/componentes"
+          href="/search/component"
           className="p-4 shadow-a bg-white rounded-md group"
         >
           <img src={repuestos} className="w-[200px] h-[200px] object-contain" />
