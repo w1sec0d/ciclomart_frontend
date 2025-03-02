@@ -9,7 +9,7 @@ const Img = ({ src, className, ...props }) => {
       <img
         src={src}
         {...props}
-        className={twMerge('object-contain', className)}
+        className={twMerge('object-contain max-h-[200px]', className)}
       />
     )
   }

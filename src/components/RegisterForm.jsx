@@ -10,6 +10,7 @@ import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 
 const RegisterForm = () => {
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
+  const phoneRegex = /^[0-9]{10}$/
 
   const dispatch = useDispatch()
   const {
@@ -86,6 +87,24 @@ const RegisterForm = () => {
             {...register('apellido', { required: true })}
           />
         </div>
+        <Input
+          id="telefono"
+          label="Teléfono"
+          type="telefono"
+          {...register('telefono', {
+            required: true,
+            pattern: {
+              value: phoneRegex,
+              message: 'Ingresa un número de teléfono válido de 10 dígitos',
+            },
+          })}
+        />
+        {errors.telefono && (
+          <span className="text-red-500 text-xs">
+            {errors.telefono.message}
+          </span>
+        )}
+
         <Input
           id="password"
           label="Contraseña"

@@ -323,13 +323,14 @@ const ProductRating = (props) => {
           </p>
 
           <div className="py-4">
-            <Button
-              type="button"
+            <a
+              href="https://wa.me/573214475328" // Reemplaza con el número de teléfono del vendedor
               className="text-center py-1 px-2 bg-primary text-white rounded"
-              to="/login"
+              target="_blank"
+              rel="noopener "
             >
               Iniciar chat
-            </Button>
+            </a>
           </div>
         </div>
       </div>

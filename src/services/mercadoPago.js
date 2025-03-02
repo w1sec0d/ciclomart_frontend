@@ -47,14 +47,14 @@ const createExposurePreference = async (exposure) => {
   }
 }
 
-const sendBuyExposureRequest = async (exposure, idComprador) => {
+const sendBuyExposureRequest = async (exposure, idProducto) => {
   try {
     const request = await createExposurePreference({
       grade: exposure.grade,
       price: exposure.precio,
       quantity: 1,
       currency: 'COP',
-      idComprador: idComprador,
+      idProducto: idProducto,
     })
     return request
   } catch (error) {

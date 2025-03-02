@@ -9,7 +9,7 @@ const RequestResult = ({
   children,
 }) => {
   // chequea el tipo de petición para mostrar el mensaje adecuado
-  const { type } = useParams()
+  const { type, idProducto } = useParams()
   switch (type) {
     case 'purchaseComplete':
       message = '¡Compra exitosa!'
@@ -44,6 +44,19 @@ const RequestResult = ({
       subtitle = 'Gracias por unirte a CicloMart como vendedor'
       success = true
       break
+    case 'publishSuccess':
+      message = '!Tu producto ha sido publicado!'
+      success = true
+      children = (
+        <p>
+          Puedes ver tus productos publicados{' '}
+          <Link to="/profile" className="text-primary font-bold">
+            aquí
+          </Link>{' '}
+        </p>
+      )
+      subtitle = 'Tu procto ahora puede encontrarse en CicloMart'
+      success = true
   }
 
   const textColor = success ? 'text-green-500' : 'text-red-500'

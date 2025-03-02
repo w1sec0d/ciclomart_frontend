@@ -40,9 +40,13 @@ const IndividualProduct = ({
   // Calcula que elementos mostrar
   const results = fuse.search(query)
   const matchResults = query ? results.map((result) => result.item) : products
+  // Ordena los productos según el valor de exposición
+  const sortedProducts = matchResults.sort(
+    (a, b) => b.exposicion - a.exposicion
+  )
 
   const offset = currentPage * itemsPerPage
-  const currentItems = matchResults.slice(offset, offset + itemsPerPage)
+  const currentItems = sortedProducts.slice(offset, offset + itemsPerPage)
 
   return (
     <div className="bg-slate-100 pb-8 overflow-y-visible">
