@@ -7,7 +7,6 @@ import { Route, Routes } from 'react-router-dom'
 // Pages
 import Landing from './pages/Landing'
 import Register from './pages/Register'
-import Search from './pages/Search'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
 import Verificacion from './pages/Verificacion'
@@ -24,10 +23,13 @@ import Purchases from './pages/Purchases'
 import TermsAndCondition from './pages/TermsAndConditions'
 import DataPrivacy from './pages/DataPrivacy'
 import Conocenos from './pages/Conocenos'
-import Bicicleta from './pages/Bicicleta'
-import Componentes from './pages/Componentes'
 import Ofertas from './pages/Ofertas'
+
 import ExpositionPage from './components/Exposure/ExpositionPage'
+import Componente from './pages/Search/Componente'
+import Bicicleta from './pages/Search/Bicicleta'
+
+
 
 // Services
 import apiService from './services/apiService'
@@ -58,10 +60,8 @@ const App = () => {
         <Route path="verificationCode/:token?" element={<CodeVerification />} />
         <Route path="passwordRecovery/:token" element={<PasswordRecovery />} />
         <Route path="profile" element={<Profile />} />
-        <Route
-          path="search"
-          element={<Search searchResults={searchResults} name={searchText} />}
-        />
+        <Route path="search/component" element={<Componente />} />
+        <Route path="search/bycicle" element={<Bicicleta />} />
         <Route path="verificacionCode/:token" element={<CodeVerification />} />
         <Route path="product/:id" element={<ProductPage />} />
         <Route path="comparison/:id1/:id2" element={<ComparisonView />} />
@@ -77,8 +77,6 @@ const App = () => {
         <Route path="terms" element={<TermsAndCondition />} />
         <Route path="privacy" element={<DataPrivacy />} />
         <Route path="/conocenos" element={<Conocenos />} />
-        <Route path="/bicicletas" element={<Bicicleta />} />
-        <Route path="/componentes" element={<Componentes />} />
         <Route path="/ofertas" element={<Ofertas />} />
         <Route path="/exposure/:idProduct" element={<ExpositionPage />} />
       </Route>
