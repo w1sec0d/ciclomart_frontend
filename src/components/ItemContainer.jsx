@@ -49,7 +49,7 @@ const ItemContainer = ({
         />
       )}
       {/* Seccion de imágenes y nombre */}
-      <div className="w-[200px] h-[200px] mx-auto flex items-center justify-center">
+      <div className="w-[200px] h-[200px] max-h-[200px] mx-auto flex items-center justify-center">
         <Img src={imagenURL} />
       </div>
 

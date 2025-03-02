@@ -14,14 +14,14 @@ const ExposureInfo = () => {
             GRADOS DE EXPOSICIÓN
           </h2>
         </div>
-        <div className="mt-4 font-light">
+        <div className="mt-4 ">
           <p>
             Los grados de exposición son útiles para posicionar la publicación
-            de un producto (bicicletas, repuesto y artículo de ciclismo) en las
-            secciones principales de CicloMart (sección de bicicletas, repuesto
-            u ofertas) por encima de otras publicaciones con un grado de
-            exposición menor. Además también son útiles para ordenar el orden de
-            aparición de los productos en la sección de búsqueda de productos.{' '}
+            de un producto (bicicletas y repuesto) en las secciones principales
+            de CicloMart (sección de bicicletas, repuesto u ofertas) por encima
+            de otras publicaciones con un grado de exposición menor. Además
+            también son útiles para ordenar el orden de aparición de los
+            productos en la sección de búsqueda de productos.{' '}
             <p className="inline-block text-primary font-bold">
               ¡Consulta nuestros formas de pago y selecciona una que se ajuste a
               lo que buscas!{' '}
@@ -52,6 +52,7 @@ const ExposureInfo = () => {
             ¿COMO FUNCIONA?
           </h2>
         </div>
+        <GradeInformation grade={0} />
         <GradeInformation grade={1} />
         <GradeInformation grade={2} />
         <GradeInformation grade={3} />

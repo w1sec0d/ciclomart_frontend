@@ -24,8 +24,11 @@ import TermsAndCondition from './pages/TermsAndConditions'
 import DataPrivacy from './pages/DataPrivacy'
 import Conocenos from './pages/Conocenos'
 import Ofertas from './pages/Ofertas'
+
+import ExpositionPage from './components/Exposure/ExpositionPage'
 import Componente from './pages/Search/Componente'
 import Bicicleta from './pages/Search/Bicicleta'
+
 
 
 // Services
@@ -75,7 +78,7 @@ const App = () => {
         <Route path="privacy" element={<DataPrivacy />} />
         <Route path="/conocenos" element={<Conocenos />} />
         <Route path="/ofertas" element={<Ofertas />} />
-
+        <Route path="/exposure/:idProduct" element={<ExpositionPage />} />
       </Route>
     </Routes>
   )

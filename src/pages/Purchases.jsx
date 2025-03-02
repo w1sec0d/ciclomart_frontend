@@ -3,7 +3,15 @@ import { useDispatch } from 'react-redux'
 import { useQuery, useQueryClient } from 'react-query'
 import { useParams } from 'react-router-dom'
 
-import { LocalShippingRounded } from '@mui/icons-material'
+import {
+  Cancel,
+  CheckCircle,
+  Help,
+  Inventory,
+  LocalShippingRounded,
+  Payment,
+  Undo,
+} from '@mui/icons-material'
 
 import {
   getPurchasesByBuyerId,
@@ -27,17 +35,21 @@ const Purchases = () => {
     error,
   } = useQuery('purchases', () => getPurchasesByBuyerId(idComprador))
 
+  console.log('purchases', purchases)
+
   const getPurchaseText = (estado) => {
     switch (estado) {
       case 'pendiente_pago':
         return {
-          stateText: 'Pendiente de pago',
+          stateText: 'Pago Pendiente',
           color: 'yellow',
+          icon: <Payment />,
         }
       case 'pendiente_envio':
         return {
-          stateText: 'Pendiente de envío',
+          stateText: 'Envío Pendiente',
           color: 'blue',
+          icon: <Inventory />,
         }
       case 'enviado':
         return {
@@ -49,21 +61,25 @@ const Purchases = () => {
         return {
           stateText: 'Recibido',
           color: 'green',
+          icon: <CheckCircle />,
         }
       case 'fallido':
         return {
           stateText: 'Fallido',
           color: 'red',
+          icon: <Cancel />,
         }
       case 'reembolsado':
         return {
           stateText: 'Reembolsado',
           color: 'red',
+          icon: <Undo />,
         }
       default:
         return {
           stateText: 'Desconocido',
           color: 'gray',
+          icon: <Help />,
         }
     }
   }
@@ -135,7 +151,9 @@ const Purchases = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Mis compras</h1>
       <div className="space-y-6">
         {purchases.map((purchase, index) => {
-          const { stateText, color, icon } = getPurchaseText(purchase.estado)
+          const { stateText, color, icon } = getPurchaseText(
+            purchase.estadoCarrito
+          )
           return (
             <div
               key={index}
@@ -150,14 +168,14 @@ const Purchases = () => {
                 <h2 className="text-2xl font-semibold mb-2">
                   {purchase.nombreModelo}
                   <span
-                    className={`text-lg mb-1 bg-gray-200 p-1 rounded text-${color}-600`}
+                    className={`text-lg mb-1 px-2 py-1 rounded bg-${color}-500 ml-4`}
                   >
                     {icon}
-                    {stateText}
+                    <span className="ml-2">{stateText}</span>
                   </span>
                 </h2>
                 <p className="text-lg mb-1">
-                  Precio: {colombianPrice(purchase.precio)}
+                  Precio: {colombianPrice(purchase.precioCarrito)}
                 </p>
                 <p className="text-lg mb-1">
                   Fecha: {new Date(purchase.fecha).toLocaleDateString()}
@@ -169,17 +187,18 @@ const Purchases = () => {
                   Dirección de envío: {purchase.direccionEnvio}
                 </p>
                 <div className="mt-4 space-x-2">
-                  {purchase.estado !== 'enviado' &&
-                    purchase.estado !== 'fallido' && (
+                  {purchase.estadoCarrito !== 'recibido' &&
+                    purchase.estadoCarrito !== 'fallido' &&
+                    purchase.estadoCarrito !== 'reembolsado' && (
                       <>
                         <button
-                          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+                          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition font-semibold"
                           onClick={() => handleConfirm(purchase.idCarrito)}
                         >
                           Recibí el producto
                         </button>
                         <button
-                          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition font-semibold"
                           onClick={() => handleCancel(purchase.idCarrito)}
                         >
                           Quiero un reembolso
