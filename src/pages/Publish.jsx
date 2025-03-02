@@ -27,6 +27,12 @@ const Publish = () => {
     setStep('form')
   }
 
+  useEffect(() => {
+    if (step === 'complete' && idProducto) {
+      navigate(`/exposure/${idProducto}`)
+    }
+  }, [step, idProducto, navigate])
+
   // const getModels = async (type, id) => {
   //   await publicationService.getModels(type, id).then((data) => {
   //     console.log('Models:', data)
@@ -143,7 +149,6 @@ const Publish = () => {
       {step === 'verification' && (
         <Verification onVerify={handleVerification} />
       )}
-      {step === 'complete' && navigate(`/exposure/${idProducto}`)}
     </div>
   )
 }

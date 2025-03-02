@@ -469,7 +469,7 @@ const ProductPage = () => {
               )}
             </div>
 
-            <ProductRating />
+            <ProductRating telefono={producto.telefonoVendedor} />
           </div>
         </div>
       </div>
