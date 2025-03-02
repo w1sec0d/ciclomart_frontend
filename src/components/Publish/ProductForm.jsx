@@ -4,11 +4,14 @@ import BycicleForm from './BycicleForm'
 import SparePartForm from './SparePartForm'
 import GeneralInfo from './GeneraInfo'
 import AvailabilityForm from './AvailabilityForm'
+
 import Button from '../Button'
 import ExpositionPage from '../Exposure/ExpositionPage'
 import publicationService from '../../services/publicationService'
+import { useSelector } from 'react-redux'
 
 const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
+  const authUser = useSelector((state) => state.auth.authUser)
   const [step, setStep] = useState(1)
   const { register, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
@@ -52,6 +55,7 @@ const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
       categoria: '',
       marca: '',
       tarjeta: '',
+      idVendedor: authUser.idUsuario,
     },
   })
 
