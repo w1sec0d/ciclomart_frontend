@@ -72,6 +72,7 @@ const ExpositionPage = () => {
           icon: 'error',
         })
       )
+      dispatch(clearLoading())
     } else {
       dispatch(clearLoading())
     }
