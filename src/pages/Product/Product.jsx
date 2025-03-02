@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { useCallback, useEffect, useState } from 'react'
 
 // componentes
@@ -35,10 +35,13 @@ const ProductPage = () => {
   // Obtiene el id del producto de los parámetros de la URL
   const { id } = useParams()
   const dispatch = useDispatch()
+  const queryClient = useQueryClient()
   const authUser = useSelector((state) => state.auth.authUser)
   const cartItems = useSelector((state) => state.cart.items)
   const [cantidad, setCantidad] = useState(1)
   const [showAll, setShowAll] = useState(false)
+  const [preguntas, setPreguntas] = useState([])
+  const [respuestas, setRespuestas] = useState([])
 
   // Hace fetch del producto con react-query
   const {
@@ -157,12 +160,66 @@ const ProductPage = () => {
     const idUsuario = authUser.idUsuario
     const idProducto = producto.idProducto
     const pregunta = document.getElementById('pregunta').value
-    await questionService.addQuestions(idUsuario, idProducto, pregunta)
+    try {
+      const newQuestion = await questionService.addQuestions(idUsuario, idProducto, pregunta)
+      
+      // Asegúrate de que newQuestion tiene la misma estructura que las preguntas existentes
+      setPreguntas(prevPreguntas => [...prevPreguntas, {
+        idPregunta: newQuestion.idPregunta,
+        descripcion: pregunta,
+        respuesta: null
+      }])
+      
+      // Invalida la consulta del producto para que se actualice en segundo plano
+      queryClient.invalidateQueries(['productos', id])
+
+      document.getElementById('pregunta').value = ''
+    } catch (error) {
+      console.error("Error al añadir pregunta:", error)
+      dispatch(
+        setNotification({
+          title: 'Error',
+          text: 'No se pudo agregar la pregunta',
+          icon: 'error',
+          timer: 3000,
+        })
+      )
+    }
+  }
+
+  const handleAnswer = async (event, idPregunta) => {
+    event.preventDefault()
+
+    const idProducto = producto.idProducto
+    const respuesta = document.getElementById(`respuesta-${idPregunta}`).value
+
+    try {
+      await questionService.answerQuestion(idPregunta, idProducto, respuesta)
+      
+      // Actualiza el estado local con la respuesta
+      setPreguntas(prevPreguntas => 
+        prevPreguntas.map(pregunta => 
+          pregunta.idPregunta === idPregunta 
+            ? { ...pregunta, respuesta: respuesta }
+            : pregunta
+        )
+      )
+      
+      document.getElementById(`respuesta-${idPregunta}`).value = ''
+    } catch (error) {
+      console.error("Error al responder:", error)
+    }
   }
 
   const setDefaultQuestion = (question) => {
     document.getElementById('pregunta').value = question
   }
+
+  useEffect(() => {
+    if (producto && producto.preguntas) {
+      setPreguntas(producto.preguntas)
+    }
+  }, [producto])
 
   if (isLoading) return <Loading />
   if (isError) return <p>Error: {isError.message}</p>
@@ -355,7 +412,7 @@ const ProductPage = () => {
                 <div className="flex flex-row gap-2 justify-start">
                   <textarea
                     id="pregunta"
-                    placeholder="í tu pregunta"
+                    placeholder="Escribe aquí tu pregunta"
                     rows="1"
                     maxLength="45"
                     className=" block w-full p-2 border border-primary rounded-md shadow-sm  focus:border-secondary sm:text-sm resize-none outline-none"
@@ -373,12 +430,37 @@ const ProductPage = () => {
             <p className="py-2 pt-5 font-bold text-xl"> Últimas realizadas </p>
 
             <div className="flex flex-col gap-4">
-              {producto.preguntas.length > 0 ? (
-                producto.preguntas.map((pregunta, index) => (
+              {preguntas.length > 0 ? (
+                preguntas.map((pregunta, index) => (
                   <div key={index} className="flex flex-col gap-2">
                     <p className="font-bold text-primary">
                       {pregunta.descripcion}
                     </p>
+                    {authUser && 
+                    authUser.rol === 'vendedor' && 
+                    authUser.id === producto.idUsuario && 
+                    pregunta.respuesta == null &&(
+                      <form
+                      onSubmit={(e) => handleAnswer(e, pregunta.idPregunta)}
+                      className="flex flex-col w-full max-w-4xl gap-3"
+                    >
+                      <div className="flex flex-row gap-2 justify-start">
+                        <textarea
+                          id={`respuesta-${pregunta.idPregunta}`}
+                          placeholder="Escribe aquí tu respuesta"
+                          rows="1"
+                          maxLength="45"
+                          className=" block w-full p-2 border border-primary rounded-md shadow-sm  focus:border-secondary sm:text-sm resize-none outline-none"
+                        />
+                        <Button
+                          type="submit"
+                          className="text-center bg-primary text-white py-2 px-7  rounded-xl h-full "
+                        >
+                          Responder
+                        </Button>
+                      </div>
+                    </form>
+                    )}
                     <p>{pregunta.respuesta}</p>
                   </div>
                 ))

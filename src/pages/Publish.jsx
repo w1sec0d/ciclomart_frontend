@@ -137,6 +137,7 @@ const Publish = () => {
           onSubmit={handleProductSubmit}
           models={models}
           brands={brands}
+          getBrands={getBrand}
         />
       )}
       {step === 'verification' && (

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../Input'
+import Button from '../Button'
 import Textarea from '../TextArea'
 import CustomSelect from './Select'
 
@@ -10,7 +11,15 @@ const GeneralInfo = ({
   imagePreviews = [],
   brands,
   handleBrandChange,
+  handleAddBrand,
 }) => {
+
+  const [otraMarca, setOtraMarca] = useState('')
+
+  const handleInputChange = (event) => {
+    setOtraMarca(event.target.value)
+  }
+
   return (
     <>
       <div>
@@ -71,6 +80,22 @@ const GeneralInfo = ({
             {...register('marca')}
             onChange={handleBrandChange}
           />
+        </div>
+        <div className='flex flex-row mt-10'>
+          <Input
+            id="otraMarca"
+            label="Otra Marca"
+            required = {false}
+            value={otraMarca}
+            onChange={handleInputChange}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+          />
+          <Button
+            type="button"
+            className="mb-4 ml-2"
+            onClick={() => handleAddBrand(otraMarca)}>
+            +
+          </Button>
         </div>
       </div>
     </>
