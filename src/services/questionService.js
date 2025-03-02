@@ -24,7 +24,21 @@ const addQuestions = async (idUsuario, idProducto, pregunta) => {
   }
 }
 
+const answerQuestion = async (idPregunta, idProducto, respuesta) => {
+  try {
+    const response = await axios.post(API_URL + '/answerQuestion', {
+      idPregunta,
+      idProducto,
+      respuesta,
+    })
+    return response.data
+  } catch (error) {
+    console.error('Error respondiendo pregunta:', error)
+  }
+}
+
 export default {
   getQuestions,
   addQuestions,
+  answerQuestion,
 }
