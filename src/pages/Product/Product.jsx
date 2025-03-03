@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // componentes
 import Loading from '../../components/Loading'
 import Button from '../../components/Button'
-import Img from '../../components/Img'
 
 import { CiCircleCheck } from 'react-icons/ci'
 
@@ -41,7 +40,6 @@ const ProductPage = () => {
   const [cantidad, setCantidad] = useState(1)
   const [showAll, setShowAll] = useState(false)
   const [preguntas, setPreguntas] = useState([])
-  const [respuestas, setRespuestas] = useState([])
 
   // Hace fetch del producto con react-query
   const {
@@ -161,21 +159,28 @@ const ProductPage = () => {
     const idProducto = producto.idProducto
     const pregunta = document.getElementById('pregunta').value
     try {
-      const newQuestion = await questionService.addQuestions(idUsuario, idProducto, pregunta)
-      
+      const newQuestion = await questionService.addQuestions(
+        idUsuario,
+        idProducto,
+        pregunta
+      )
+
       // Asegúrate de que newQuestion tiene la misma estructura que las preguntas existentes
-      setPreguntas(prevPreguntas => [...prevPreguntas, {
-        idPregunta: newQuestion.idPregunta,
-        descripcion: pregunta,
-        respuesta: null
-      }])
-      
+      setPreguntas((prevPreguntas) => [
+        ...prevPreguntas,
+        {
+          idPregunta: newQuestion.idPregunta,
+          descripcion: pregunta,
+          respuesta: null,
+        },
+      ])
+
       // Invalida la consulta del producto para que se actualice en segundo plano
       queryClient.invalidateQueries(['productos', id])
 
       document.getElementById('pregunta').value = ''
     } catch (error) {
-      console.error("Error al añadir pregunta:", error)
+      console.error('Error al añadir pregunta:', error)
       dispatch(
         setNotification({
           title: 'Error',
@@ -195,19 +200,19 @@ const ProductPage = () => {
 
     try {
       await questionService.answerQuestion(idPregunta, idProducto, respuesta)
-      
+
       // Actualiza el estado local con la respuesta
-      setPreguntas(prevPreguntas => 
-        prevPreguntas.map(pregunta => 
-          pregunta.idPregunta === idPregunta 
+      setPreguntas((prevPreguntas) =>
+        prevPreguntas.map((pregunta) =>
+          pregunta.idPregunta === idPregunta
             ? { ...pregunta, respuesta: respuesta }
             : pregunta
         )
       )
-      
+
       document.getElementById(`respuesta-${idPregunta}`).value = ''
     } catch (error) {
-      console.error("Error al responder:", error)
+      console.error('Error al responder:', error)
     }
   }
 
@@ -303,12 +308,12 @@ const ProductPage = () => {
                 </div>
               </div>
               <div className="flex items-center flex-col px-6  ">
-                <Button
+                {/* <Button
                   className="h-full w-full mb-2 bg-white border-primary border text-black transition duration-100 ease-in-out hover:scale-105"
                   onClick={handleAddToCart}
                 >
                   Añade al carrito 🛒
-                </Button>
+                </Button> */}
                 <Button
                   className="w-full mb-2 ease-in-out duration-100 transition hover:scale-105"
                   onClick={handleBuy}
@@ -436,31 +441,31 @@ const ProductPage = () => {
                     <p className="font-bold text-primary">
                       {pregunta.descripcion}
                     </p>
-                    {authUser && 
-                    authUser.rol === 'vendedor' && 
-                    authUser.id === producto.idUsuario && 
-                    pregunta.respuesta == null &&(
-                      <form
-                      onSubmit={(e) => handleAnswer(e, pregunta.idPregunta)}
-                      className="flex flex-col w-full max-w-4xl gap-3"
-                    >
-                      <div className="flex flex-row gap-2 justify-start">
-                        <textarea
-                          id={`respuesta-${pregunta.idPregunta}`}
-                          placeholder="Escribe aquí tu respuesta"
-                          rows="1"
-                          maxLength="45"
-                          className=" block w-full p-2 border border-primary rounded-md shadow-sm  focus:border-secondary sm:text-sm resize-none outline-none"
-                        />
-                        <Button
-                          type="submit"
-                          className="text-center bg-primary text-white py-2 px-7  rounded-xl h-full "
+                    {authUser &&
+                      authUser.rol === 'vendedor' &&
+                      authUser.id === producto.idUsuario &&
+                      pregunta.respuesta == null && (
+                        <form
+                          onSubmit={(e) => handleAnswer(e, pregunta.idPregunta)}
+                          className="flex flex-col w-full max-w-4xl gap-3"
                         >
-                          Responder
-                        </Button>
-                      </div>
-                    </form>
-                    )}
+                          <div className="flex flex-row gap-2 justify-start">
+                            <textarea
+                              id={`respuesta-${pregunta.idPregunta}`}
+                              placeholder="Escribe aquí tu respuesta"
+                              rows="1"
+                              maxLength="45"
+                              className=" block w-full p-2 border border-primary rounded-md shadow-sm  focus:border-secondary sm:text-sm resize-none outline-none"
+                            />
+                            <Button
+                              type="submit"
+                              className="text-center bg-primary text-white py-2 px-7  rounded-xl h-full "
+                            >
+                              Responder
+                            </Button>
+                          </div>
+                        </form>
+                      )}
                     <p>{pregunta.respuesta}</p>
                   </div>
                 ))

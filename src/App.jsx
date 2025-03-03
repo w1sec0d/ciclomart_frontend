@@ -1,6 +1,3 @@
-// React and state logic
-import { useState } from 'react'
-
 // Routing
 import { Route, Routes } from 'react-router-dom'
 
@@ -17,7 +14,7 @@ import ComparisonView from './pages/ComparisonView'
 import Publish from './pages/Publish'
 import ExposureInfo from './pages/ExposureInfo'
 import Vendedor from './pages/Vendedor'
-import ShoppingCart from './pages/ShoppingCart'
+// import ShoppingCart from './pages/ShoppingCart'
 import ExposurePage from './components/Exposure/ExpositionPage'
 import Purchases from './pages/Purchases'
 import TermsAndCondition from './pages/TermsAndConditions'
@@ -29,30 +26,15 @@ import ExpositionPage from './components/Exposure/ExpositionPage'
 import Componente from './pages/Search/Componente'
 import Bicicleta from './pages/Search/Bicicleta'
 
-
-
 // Services
-import apiService from './services/apiService'
 import ProductPage from './pages/Product/Product'
 import RequestResult from './pages/RequestResult'
 import ProductRating from './pages/ProductRating'
 
 const App = () => {
-  const [searchText, setSearchText] = useState('')
-  const [searchResults, setSearchResults] = useState([])
-
-  const handleSearch = async (text) => {
-    setSearchText(text)
-    const request = await apiService.searchProducts({ nombre: text })
-    setSearchResults(request.results)
-  }
-
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<Layout searchText={searchText} onSearch={handleSearch} />}
-      >
+      <Route path="/" element={<Layout />}>
         <Route index element={<Landing />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
@@ -72,7 +54,7 @@ const App = () => {
         <Route path="exposureInfo" element={<ExposureInfo />} />
         <Route path="exposurePayment" element={<ExposurePage />} />
         <Route path="vendedor/:id" element={<Vendedor />} />
-        <Route path="shoppingCart" element={<ShoppingCart />} />
+        {/* <Route path="shoppingCart" element={<ShoppingCart />} /> */}
         <Route path="purchases/:idComprador" element={<Purchases />} />
         <Route path="terms" element={<TermsAndCondition />} />
         <Route path="privacy" element={<DataPrivacy />} />
