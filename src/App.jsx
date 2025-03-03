@@ -1,6 +1,3 @@
-// React and state logic
-import { useState } from 'react'
-
 // Routing
 import { Route, Routes } from 'react-router-dom'
 
@@ -30,27 +27,14 @@ import Componente from './pages/Search/Componente'
 import Bicicleta from './pages/Search/Bicicleta'
 
 // Services
-import apiService from './services/apiService'
 import ProductPage from './pages/Product/Product'
 import RequestResult from './pages/RequestResult'
 import ProductRating from './pages/ProductRating'
 
 const App = () => {
-  const [searchText, setSearchText] = useState('')
-  const [searchResults, setSearchResults] = useState([])
-
-  const handleSearch = async (text) => {
-    setSearchText(text)
-    const request = await apiService.searchProducts({ nombre: text })
-    setSearchResults(request.results)
-  }
-
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<Layout searchText={searchText} onSearch={handleSearch} />}
-      >
+      <Route path="/" element={<Layout />}>
         <Route index element={<Landing />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />

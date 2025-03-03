@@ -117,9 +117,9 @@ const Login = () => {
           </div>
           <p className="text-center mt-3">
             ¿No tienes una cuenta?{' '}
-            <a href="/register" className="text-blue-500 hover:underline">
+            <Link to="/register" className="text-blue-500 hover:underline">
               Registrate
-            </a>
+            </Link>
           </p>
         </form>
       </div>

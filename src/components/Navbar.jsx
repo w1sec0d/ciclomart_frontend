@@ -1,13 +1,14 @@
 import Button from './Button'
 import logo from '../assets/logo.png'
-import { Badge } from '@mui/material'
+// import { Badge } from '@mui/material'
 import { Person, ShoppingCart } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   // load user info to check if user is logged in
   const user = useSelector((state) => state.auth.authUser)
-  const cartItemsCount = useSelector((state) => state.cart.items.length)
+  // const cartItemsCount = useSelector((state) => state.cart.items.length)
 
   return (
     <nav className="bg-primary p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-lg">
@@ -18,15 +19,15 @@ const Navbar = () => {
             alt="Logo de Ciclomart, un carrito de compras fusionado con una bicicleta"
             className="w-12 h-12 mr-6"
           />
-          <a href="/" className="hover:font-bold mr-4">
+          <Link to="/" className="hover:font-bold mr-4">
             Inicio
-          </a>
-          <a
-            href="/conocenos"
+          </Link>
+          <Link
+            to="/conocenos"
             className="mr-4 hover:font-bold hover:cursor-pointer flex items-center border-l px-3 border-black/5 border-r mr-auot"
           >
             Conocenos
-          </a>
+          </Link>
         </li>
 
         {/*Barra de busqueda */}
