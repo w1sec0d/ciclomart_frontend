@@ -22,6 +22,7 @@ export default {
       },
       height: {
         'screen-minus-navbar': 'calc(100vh - 64px)',
+        '176': '44rem',
       },
     },
     plugins: [],
