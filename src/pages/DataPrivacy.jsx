@@ -1,4 +1,10 @@
+import { useEffect } from "react"
 const DataPrivacy = () => {
+
+  useEffect(() => {
+    window.scrollTo(0,0);
+  },[])
+  
   return (
     <div className="flex flex-col px-56 py-10 h-auto w-full">
       <h1 className="font-bold text-3xl mb-6">Politica de privacidad</h1>

@@ -7,6 +7,7 @@ import Button from './Button'
 import loginService from '../services/loginService'
 import { useNavigate } from 'react-router-dom'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
+import { Link } from 'react-router-dom'
 
 const RegisterForm = () => {
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
@@ -153,13 +154,13 @@ const RegisterForm = () => {
         <div>
           <Checkbox id="terms" {...register('terms', { required: true })}>
             Acepto los{' '}
-            <a href="/terms" target="_BLANK" className="text-primary">
+            <Link to="/terms" className="text-primary">
               Términos y condiciones
-            </a>
+            </Link>
             {' y '}
-            <a href="/privacy" target="_BLANK" className="text-primary">
+            <Link to="/privacy" className="text-primary">
               politica de datos
-            </a>
+            </Link>
             {errors.terms && (
               <span className="ml-5 text-red-500 text-xs">
                 Debes aceptar los términos y condiciones
