@@ -17,7 +17,7 @@ import ComparisonView from './pages/ComparisonView'
 import Publish from './pages/Publish'
 import ExposureInfo from './pages/ExposureInfo'
 import Vendedor from './pages/Vendedor'
-import ShoppingCart from './pages/ShoppingCart'
+// import ShoppingCart from './pages/ShoppingCart'
 import ExposurePage from './components/Exposure/ExpositionPage'
 import Purchases from './pages/Purchases'
 import TermsAndCondition from './pages/TermsAndConditions'
@@ -28,8 +28,6 @@ import Ofertas from './pages/Ofertas'
 import ExpositionPage from './components/Exposure/ExpositionPage'
 import Componente from './pages/Search/Componente'
 import Bicicleta from './pages/Search/Bicicleta'
-
-
 
 // Services
 import apiService from './services/apiService'
@@ -72,7 +70,7 @@ const App = () => {
         <Route path="exposureInfo" element={<ExposureInfo />} />
         <Route path="exposurePayment" element={<ExposurePage />} />
         <Route path="vendedor/:id" element={<Vendedor />} />
-        <Route path="shoppingCart" element={<ShoppingCart />} />
+        {/* <Route path="shoppingCart" element={<ShoppingCart />} /> */}
         <Route path="purchases/:idComprador" element={<Purchases />} />
         <Route path="terms" element={<TermsAndCondition />} />
         <Route path="privacy" element={<DataPrivacy />} />
