@@ -1,6 +1,7 @@
 //Componentes
 import Philosophy from '../components/Conocenos/Philosophy'
 import ValueCard from '../components/Conocenos/ValueCard'
+import Team from '../components/Conocenos/Team'
 
 //Iconos
 import Security from '@mui/icons-material/GppGoodOutlined'
@@ -10,6 +11,9 @@ import Bicycle from '@mui/icons-material/DirectionsBikeOutlined'
 import Information from '@mui/icons-material/HelpOutlineOutlined'
 import Mision from '@mui/icons-material/ShoppingCartOutlined'
 import Vision from '@mui/icons-material/PedalBikeOutlined'
+
+//Imagenes grupo
+import daniel from '../assets/Daniel.png'
 //Logo
 import Logo from '../assets/Logo.svg'
 
@@ -84,7 +88,7 @@ const Conocenos = () => {
           transporte alternativo
         </ValueCard>
       </div>
-      <div class="flex space-x-4 w-full items-center justify-center mb-10 h-72 ">
+      <div className="flex space-x-4 w-full items-center justify-center mb-10 h-72 ">
         <ValueCard title={'Confianza'} Icon={Contact}>
           Facilitamos una comunicación efectiva en el proceso de adquisición de
           uno de los productos publicados
@@ -94,6 +98,35 @@ const Conocenos = () => {
           los usuarios que utilizan nuestros servicios
         </ValueCard>
       </div>
+
+      <div className="h-12 w-full bg-primary flex items-center justify-center mt-8 rounded-xl"> 
+        <h2 className='font-bold text-2xl'>Nuestro equipo</h2>
+      </div>
+      <div className='flex flex-col sm:flex-row sm:space-x-10 items-center justify-center mt-10 mb-3 w-full space-y-8 sm:space-y-0'>
+        <Team photo = {daniel} 
+              name={'Ronald Daniel Jacanamejoy'}
+              description={'Soy una persona que siempre le gusta mejorar, aprender nuevas cosas que me ayuden en mi formacion profesional y vida personal. '}
+              phrase={'"Disfruta cada dia, como si fuera el último"'}
+              linkedin={'https://www.linkedin.com/in/ronald-daniel-jacanamejoy-mutumbajoy-29b2442b4/'}/>
+              
+        <Team photo = {daniel} 
+              name={'Juan David Madrid Contreras'}
+              description={'Soy un apacionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'}
+              phrase={'"La vida es una, toca disfrutarla y vivirla"'}
+              linkedin={''}/>
+        <Team photo = {daniel} 
+              name={'Carlos David Ramirez Muñoz'}
+              description={'Soy un apacionado por la resolución de problesma.'}
+              phrase={'"La vida es una, toca disfrutarla y vivirla"'}
+              linkedin={''}/>
+        <Team photo = {daniel} 
+              name={'Johan Rodriguez Gutierrez'}
+              description={'Soy un apacionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'}
+              phrase={'"La vida es una, toca disfrutarla y vivirla"'}
+              linkedin={''}/>
+      </div>
+
+
     </div>
   )
 }
