@@ -284,6 +284,9 @@ const ProductPage = () => {
                     {new Date(producto.fechaPublicacion).toLocaleDateString()}
                   </p>
                   <p>
+                    <b>Costo de envío</b>: {colombianPrice(producto.costoEnvio)}
+                  </p>
+                  <p>
                     <Redirect
                       section={'section1'}
                       name={'Más detalles'}
