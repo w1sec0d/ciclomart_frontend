@@ -35,7 +35,7 @@ const ItemContainer = ({
   return (
     <Link
       className={twMerge(
-        `flex flex-col justify-evenly w-[225px] h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative 
+        `flex flex-col items-center lg:h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative mx-4
         ${selectedClass}`,
         className
       )}
