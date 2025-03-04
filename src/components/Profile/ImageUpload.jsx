@@ -43,10 +43,12 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
         'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload', // Reemplaza con tu cloud name
         formData
       )
+      const photoUrl = response.data.secure_url
       await axios.put(`${API_URL}/updateUsuarioFoto/${authUser.idUsuario}`, {
         photoUrl: response.data.secure_url,
       })
-      setUrl(response.data.secure_url)
+      setUrl(photoUrl)
+      setPhoto({ photoUrl })
       setLoading(false)
       setImage(null) // Reset the image state after successful upload
     } catch (error) {
@@ -57,19 +59,20 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
   }
 
   useEffect(() => {
-    if (photo) {
-      const fetchUserPhoto = async () => {
-        try {
-          const photo = await apiService.getUsuarioPhoto(authUser.idUsuario)
-          setPhoto(photo)
-        } catch (error) {
-          console.error('Error fetching user photo:', error)
-        }
+    const fetchUserPhoto = async () => {
+      try {
+        const photo = await apiService.getUsuarioPhoto(authUser.idUsuario)
+        console.log(photo)
+        setPhoto(photo)
+      } catch (error) {
+        console.error('Error fetching user photo:', error)
       }
+    }
 
+    if (authUser && authUser.idUsuario) {
       fetchUserPhoto()
     }
-  }, [url])
+  }, [authUser, url]) // Agrega authUser y url como dependencias
 
   return (
     <div className="h-full">

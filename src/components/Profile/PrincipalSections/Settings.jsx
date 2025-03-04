@@ -21,7 +21,7 @@ const Settings = () => {
   }
 
   return (
-    <div className=" mt-8 mx-[105px] bg-lgray h-80 w-auto shadow-2xl rounded-3xl ">
+    <div className=" mt-8 md:mx-[105px] bg-lgray h-80 w-auto shadow-2xl rounded-3xl ">
       <ul className="h-full">
         {/*Grupo de botones para configuraciones*/}
         <li className="h-1/2">
