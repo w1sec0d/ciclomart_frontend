@@ -127,16 +127,16 @@ const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
   }
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-t from-primary/95 to-zinc-100 from-50% to-50%">
+    <div className="flex items-center justify-center w-full lg:min-h-screen bg-gradient-to-t from-primary/95 to-zinc-100 from-50% to-50%">
       <div
-        className=" flex flex-col items-center justify-center w-full max-w-4xl pb-6 bg-zinc-100
+        className="flex flex-col items-center justify-center w-full max-w-4xl pb-6 bg-zinc-100
         rounded-lg mt-4 mb-8 shadow-lg shadow-black/35"
       >
         <div className="w-full h-14 bg-primary rounded-t-lg flex items-center justify-center drop-shadow-lg">
-          <h1 className="text-2xl font-bold ">Publicar {type}</h1>
+          <h1 className="text-2xl font-bold">Publicar {type}</h1>
         </div>
 
-        <div className="w-full m-15 px-20 ">
+        <div className="w-full px-4 md:px-20">
           <form
             onSubmit={handleSubmit(onFormSubmit)}
             className="w-full space-y-5 p-4"
@@ -167,33 +167,35 @@ const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
               <AvailabilityForm product={product} register={register} />
             )}
           </form>
-          {step > 1 && (
-            <Button
-              type="button"
-              onClick={handlePrevious}
-              className="justify-center mr-2"
-            >
-              Anterior
-            </Button>
-          )}
+          <div className="flex justify-between mt-4">
+            {step > 1 && (
+              <Button
+                type="button"
+                onClick={handlePrevious}
+                className="justify-center mr-2"
+              >
+                Anterior
+              </Button>
+            )}
 
-          {step < 3 ? (
-            <Button
-              type="button"
-              onClick={handleNext}
-              className="justify-center"
-            >
-              Siguiente
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              onClick={handleSubmit(onFormSubmit)}
-              className="justify-center"
-            >
-              Publicar
-            </Button>
-          )}
+            {step < 3 ? (
+              <Button
+                type="button"
+                onClick={handleNext}
+                className="justify-center"
+              >
+                Siguiente
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                onClick={handleSubmit(onFormSubmit)}
+                className="justify-center"
+              >
+                Publicar
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>
