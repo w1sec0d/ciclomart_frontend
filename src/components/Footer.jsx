@@ -9,22 +9,82 @@ const Footer = forwardRef((props, ref) => {
         <div className="container mx-auto py-4 flex flex-col md:flex-row pl-6 text-white">
           <ul className="w-full md:w-1/3 border-b md:border-b-0 md:border-r border-primaryDark mb-4 md:mb-0">
             <h3 className="text-xl font-bold mb-4">Legalidad</h3>
-            <li>Terminos y condiciones</li>
-            <li>Política de datos</li>
+            <li>
+              <Link to="/terms" className="hover:text-secondary">
+                Terminos y condiciones
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacy" className="hover:text-secondary">
+                Politica de datos
+              </Link>
+            </li>
           </ul>
           <ul className="w-full md:w-1/3 md:ml-4 border-b md:border-b-0 md:border-r border-primaryDark mb-4 md:mb-0">
             <h3 className="text-xl font-bold mb-4">Recursos</h3>
             <li className="flex items-center">
-              <p className="mr-2">Github</p>
-              <FaGithub className="text-3xl" />
+              <div className="flex items-center">
+                <Link
+                  to="https://github.com/w1sec0d/CicloMart_Back"
+                  target="_blanck"
+                >
+                  <div className="hover:text-secondary flex flex-row">
+                    <p className="mr-2">Github BackEnd</p>
+                    <FaGithub className="text-3xl" />
+                  </div>
+                </Link>
+              </div>
+              <div className="flex items-center">
+                <Link
+                  to="https://github.com/w1sec0d/CicloMart_front"
+                  target="_blanck"
+                >
+                  <div className="hover:text-secondary flex flex-row">
+                    <p className="mr-2">Github FrontEnd</p>
+                    <FaGithub className="text-3xl" />
+                  </div>
+                </Link>
+              </div>
             </li>
           </ul>
           <ul className="w-full md:w-1/3 md:ml-4">
             <h3 className="text-xl font-bold mb-4">Responsables</h3>
-            <li>Carlos David Ramírez Muñoz</li>
-            <li>Johan David Rodríguez Gutíerrez</li>
-            <li>Ronald Daniel Jacanamejoy Mutumbajoy</li>
-            <li>Juan David Madrid Contreras</li>
+            <li>
+              <Link
+                to={'https://github.com/w1sec0d'}
+                className="hover:text-secondary"
+                target="_blanck"
+              >
+                Carlos David Ramírez Muñoz
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={'https://github.com/Homeroso'}
+                className="hover:text-secondary"
+                target="_blanck"
+              >
+                Johan David Rodríguez Gutíerrez
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={'https://github.com/RonaldDaniel20'}
+                className="hover:text-secondary"
+                target="_blanck"
+              >
+                Ronald Daniel Jacanamejoy Mutumbajoy
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={'https://github.com/JuMad-SE'}
+                className="hover:text-secondary"
+                target="_blanck"
+              >
+                Juan David Madrid Contreras
+              </Link>
+            </li>
           </ul>
         </div>
         <div className="py-4 w-full border-t border-primaryDark flex flex-col md:flex-row px-6">
