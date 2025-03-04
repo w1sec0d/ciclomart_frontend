@@ -150,66 +150,82 @@ const Purchases = () => {
     <div className="p-4">
       <h1 className="text-3xl font-bold mb-6 text-center">Mis compras</h1>
       <div className="space-y-6">
-        {purchases.map((purchase, index) => {
-          const { stateText, color, icon } = getPurchaseText(
-            purchase.estadoCarrito
-          )
-          return (
-            <div
-              key={index}
-              className="p-6 border rounded-lg shadow-lg flex flex-col md:flex-row items-center"
-            >
-              <img
-                src={purchase.imagenModelo}
-                alt={purchase.nombreModelo}
-                className="w-32 h-32 object-cover rounded-lg mb-4 md:mb-0 md:mr-6"
-              />
-              <div className="flex-1">
-                <h2 className="text-2xl font-semibold mb-2">
-                  {purchase.nombreModelo}
-                  <span
-                    className={`text-lg mb-1 px-2 py-1 rounded bg-${color}-500 ml-4`}
-                  >
-                    {icon}
-                    <span className="ml-2">{stateText}</span>
-                  </span>
-                </h2>
-                <p className="text-lg mb-1">
-                  Precio: {colombianPrice(purchase.precioCarrito)}
-                </p>
-                <p className="text-lg mb-1">
-                  Fecha: {new Date(purchase.fecha).toLocaleDateString()}
-                </p>
-                <p className="text-lg mb-1">
-                  Método de pago: {purchase.metodoPago}
-                </p>
-                <p className="text-lg mb-1">
-                  Dirección de envío: {purchase.direccionEnvio}
-                </p>
-                <div className="mt-4 space-x-2">
-                  {purchase.estadoCarrito !== 'recibido' &&
-                    purchase.estadoCarrito !== 'fallido' &&
-                    purchase.estadoCarrito !== 'reembolsado' && (
-                      <>
-                        <button
-                          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition font-semibold"
-                          onClick={() => handleConfirm(purchase.idCarrito)}
-                        >
-                          Recibí el producto
-                        </button>
-                        <button
-                          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition font-semibold"
-                          onClick={() => handleCancel(purchase.idCarrito)}
-                        >
-                          Quiero un reembolso
-                        </button>
-                      </>
-                    )}
+        {purchases.length === 0 ? (
+          <p className="text-center text-lg h-screen-minus-navbar">
+            No tienes compras aún.
+          </p>
+        ) : (
+          purchases.map((purchase, index) => {
+            const { stateText, color, icon } = getPurchaseText(
+              purchase.estadoCarrito
+            )
+            return (
+              <div
+                key={index}
+                className="p-6 border rounded-lg shadow-lg flex flex-col md:flex-row items-center"
+              >
+                <img
+                  src={purchase.imagenModelo}
+                  alt={purchase.nombreModelo}
+                  className="w-32 h-32 object-cover rounded-lg mb-4 md:mb-0 md:mr-6"
+                />
+                <div className="flex-1">
+                  <h2 className="text-2xl font-semibold mb-2">
+                    {purchase.nombreModelo}
+                    <span
+                      className={`text-lg mb-1 px-2 py-1 rounded bg-${color}-500 ml-4`}
+                    >
+                      {icon}
+                      <span className="ml-2">{stateText}</span>
+                    </span>
+                  </h2>
+                  <p className="text-lg mb-1 font-bold">
+                    Precio:{' '}
+                    <span className="font-normal">
+                      {colombianPrice(purchase.precioCarrito)}
+                    </span>
+                  </p>
+                  <p className="text-lg mb-1 font-bold">
+                    Fecha:{' '}
+                    <span className="font-normal">
+                      {new Date(purchase.fecha).toLocaleDateString()}
+                    </span>
+                  </p>
+                  <p className="text-lg mb-1 font-bold">
+                    Método de pago:{' '}
+                    <span className="font-normal">{purchase.metodoPago}</span>
+                  </p>
+                  <p className="text-lg mb-1 font-bold">
+                    Dirección de envío:{' '}
+                    <span className="font-normal">
+                      {purchase.direccionEnvio}
+                    </span>
+                  </p>
+                  <div className="mt-4 space-y-2 md:space-y-0 md:space-x-2">
+                    {purchase.estadoCarrito !== 'recibido' &&
+                      purchase.estadoCarrito !== 'fallido' &&
+                      purchase.estadoCarrito !== 'reembolsado' && (
+                        <>
+                          <button
+                            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition font-semibold mx-3"
+                            onClick={() => handleConfirm(purchase.idCarrito)}
+                          >
+                            Recibí el producto
+                          </button>
+                          <button
+                            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition font-semibold mx-3"
+                            onClick={() => handleCancel(purchase.idCarrito)}
+                          >
+                            Quiero un reembolso
+                          </button>
+                        </>
+                      )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })
+        )}
       </div>
     </div>
   )
