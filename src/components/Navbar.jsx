@@ -1,87 +1,129 @@
 import Button from './Button'
 import logo from '../assets/logo.png'
-// import { Badge } from '@mui/material'
-import { Person, ShoppingCart } from '@mui/icons-material'
+import { Menu, Person, ShoppingCart, Close } from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 const Navbar = () => {
-  // load user info to check if user is logged in
   const user = useSelector((state) => state.auth.authUser)
-  // const cartItemsCount = useSelector((state) => state.cart.items.length)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  // Cerrar el menú cuando la pantalla se hace grande
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Cerrar menú cuando se hace clic en un enlace
+  const handleLinkClick = () => {
+    if (window.innerWidth < 1024) {
+      setIsMenuOpen(false)
+    }
+  }
 
   return (
-    <nav className="bg-primary p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-lg">
-      <ul className="flex flex-col md:flex-row w-full  justify-center ">
-        <li className="mx-4  flex flex-row items-center w-3/12">
+    <nav className="bg-primary p-4 font-medium shadow-md h-[64px] flex items-center justify-between fixed left-0 top-0 w-screen z-10 text-lg">
+      <div className="flex flex-row items-center">
+        <Link to="/" className="flex flex-row items-center">
           <img
             src={logo}
             alt="Logo de Ciclomart, un carrito de compras fusionado con una bicicleta"
             className="w-12 h-12 mr-6"
           />
-          <Link to="/" className="hover:font-bold mr-4">
+          <h1 className="text-xl font-bold">CicloMart</h1>
+        </Link>
+      </div>
+
+      {/* Icono de menú móvil */}
+      <div className="lg:hidden">
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? <Close /> : <Menu />}
+        </button>
+      </div>
+
+      {/* Menú de navegación */}
+      <ul
+        className={`absolute left-0 w-full bg-primary shadow-md lg:shadow-none flex flex-col lg:flex-row lg:static lg:w-auto transition-all duration-300 ease-in-out ${
+          isMenuOpen ? 'top-[64px]' : '-top-[500px] lg:top-0'
+        } p-4 lg:p-0 z-40`}
+      >
+        <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex items-center justify-center">
+          <Link to="/" className="block w-full" onClick={handleLinkClick}>
             Inicio
           </Link>
+        </li>
+        <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex items-center justify-center">
           <Link
             to="/conocenos"
-            className="mr-4 hover:font-bold hover:cursor-pointer flex items-center border-l px-3 border-black/5 border-r mr-auot"
+            className="block w-full"
+            onClick={handleLinkClick}
           >
-            Conocenos
+            Conócenos
+          </Link>
+        </li>
+        <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex items-center justify-center">
+          <Link
+            to="/search/bycicle"
+            className="block w-full"
+            onClick={handleLinkClick}
+          >
+            Explorar Bicicletas
+          </Link>
+        </li>
+        <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex items-center justify-center">
+          <Link
+            to="/search/component"
+            className="block w-full"
+            onClick={handleLinkClick}
+          >
+            Explorar Componentes
           </Link>
         </li>
 
-        {/*Barra de busqueda */}
-        <div className="flexs mx-4 p-4 flex flex-wrap items-center justify-between">
-          <Button
-            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
-            to="/search/bycicle"
-          >
-            Explorar Bicicletas
-          </Button>
-          <Button
-            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
-            to="/search/component"
-          >
-            Explorar Componentes
-          </Button>
-        </div>
-
+        {/* Sección de usuario */}
         {user ? (
-          <li className="hover:font-bold flex flex-row items-center justify-end w-3/12 ">
-            {user.rol == 'vendedor' ? (
+          <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex flex-col lg:flex-row items-center justify-center gap-2">
+            {user.rol === 'vendedor' && (
               <Button
-                className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+                className="border-[1px] text-tertiary bg-transparent border-tertiary w-full lg:w-auto text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
                 to="/publish"
+                onClick={handleLinkClick}
               >
                 Publicar
               </Button>
-            ) : null}
-            {/* <Button
-              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
-              to="/shoppingCart"
-            >
-              <ShoppingCart />
-              <Badge badgeContent={cartItemsCount} color="secondary" />
-            </Button> */}
+            )}
             <Button
-              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+              className="border-[1px] text-tertiary bg-transparent border-tertiary w-full lg:w-auto text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
               to="/profile"
+              onClick={handleLinkClick}
             >
               <Person />
               Perfil
             </Button>
           </li>
         ) : (
-          <li className="hover:font-bold flex flex-row items-center justify-end w-3/12 ">
+          <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex flex-col lg:flex-row items-center justify-center gap-2">
             <Button
-              className=" text-white bg-tertiary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
+              className="text-white bg-tertiary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90 mb-2 lg:mb-0 lg:mr-2"
               to="/login"
+              onClick={handleLinkClick}
             >
               Inicia sesión
             </Button>
             <Button
-              className=" text-white bg-tertiary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
+              className="text-white bg-tertiary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
               to="/register"
+              onClick={handleLinkClick}
             >
               Regístrate
             </Button>
