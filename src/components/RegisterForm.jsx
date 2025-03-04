@@ -7,7 +7,7 @@ import Button from './Button'
 import loginService from '../services/loginService'
 import { useNavigate } from 'react-router-dom'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
-import { Link } from 'react-router-dom'
+
 
 const RegisterForm = () => {
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
