@@ -68,7 +68,7 @@ const Login = () => {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen-minus-navbar">
+    <div className="flex items-center justify-center md:h-screen-minus-navbar">
       <img
         src={background1}
         alt="Fondo de bicicletas"
@@ -102,7 +102,7 @@ const Login = () => {
             </Checkbox>
             <Link
               to="/verificacion"
-              className="text-sm text-blue-500 hover:underline"
+              className="text-sm text-blue-500 hover:underline text-center"
             >
               ¿Has olvidado tu contraseña?
             </Link>

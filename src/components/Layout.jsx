@@ -56,7 +56,7 @@ const Layout = (params) => {
   }, [dispatch])
 
   return (
-    <div>
+    <div className="min-h-screen overflow-x-hidden">
       <header>
         {/* <Navbar searchText={params.searchText} onSearch={params.onSearch} /> */}
       </header>
