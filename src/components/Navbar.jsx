@@ -33,13 +33,13 @@ const Navbar = () => {
         {/*Barra de busqueda */}
         <div className="flexs mx-4 p-4 flex flex-wrap items-center justify-between">
           <Button
-            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
+            className=" text-white bg-secondary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-secondary/90"
             to="/search/bycicle"
           >
             Explorar Bicicletas
           </Button>
           <Button
-            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
+            className=" text-white bg-secondary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-secondary/90"
             to="/search/component"
           >
             Explorar Componentes
@@ -50,7 +50,7 @@ const Navbar = () => {
           <li className="hover:font-bold flex flex-row items-center justify-end w-3/12 ">
             {user.rol == 'vendedor' ? (
               <Button
-                className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+                className=" text-white bg-tertiary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
                 to="/publish"
               >
                 Publicar
@@ -64,7 +64,7 @@ const Navbar = () => {
               <Badge badgeContent={cartItemsCount} color="secondary" />
             </Button> */}
             <Button
-              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+              className=" text-white bg-tertiary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
               to="/profile"
             >
               <Person />
