@@ -23,15 +23,15 @@ import Logo from '../assets/Logo.svg'
 
 const Conocenos = () => {
   return (
-    <div className="h-auto w-full flex flex-col px-20">
+    <div className="h-auto w-full flex flex-col justify-center md:px-20 px-5">
       {/*Propuesta valor */}
-      <div className="h-72 bg-white shadow-xl w-full mt-8 mb-12 rounded-full flex items-center py-4 pl-4 pr-32 border border-primary/60">
+      <div className="h-auto bg-white shadow-xl w-full mt-8 mb-12 md:rounded-full rounded-xl flex md:flex-row flex-col items-center py-4 md:pl-4 px-2 md:pr-32 border border-primary/60">
         <div className="rounded-full h-full w-1/3 bg-white shadow-xl mr-8 ">
           <img src={Logo} className="h-full object-fill w-full " />
         </div>
-        <div className="flex flex-col h-full items-center justify-center w-full relative px-5">
+        <div className="flex flex-col h-full items-center justify-center w-full px-8 md:px-5">
           <div className="w-full">
-            <h1 className="font-bold text-5xl mt-2 text-primary text-left">
+            <h1 className="font-bold  w-full text-2xl md:text-5xl mt-5 md:mt-2 text-primary text-left">
               {' '}
               ¿Qué hace Ciclomart?{' '}
             </h1>
@@ -80,31 +80,33 @@ const Conocenos = () => {
       </div>
 
       {/*Valores */}
-      <div className="flex space-x-4 mt-10 mb-3 w-full h-72">
-        <ValueCard title={'Transparencia'} Icon={Information}>
-          Facilitamos la compra y venta de bicicletas y repuestos de ciclismo
-          con información clara y detallada
-        </ValueCard>
-        <ValueCard title={'Accesibilidad'} Icon={Persons}>
-          Proporcionamos un servicio abierto y útil para todos nuestros
-          usuarios. Experimentados o no.
-        </ValueCard>
-        <ValueCard title={'Compromiso ambiental'} Icon={Bicycle}>
-          Brindamos un servicio que fomenta la adopción de un medio de
-          transporte alternativo como lo es la bicicleta y fomentando la
-          economía circular
-        </ValueCard>
-      </div>
-      <div className="flex space-x-4 w-full items-center justify-center mb-10 h-72 ">
-        <ValueCard title={'Confianza'} Icon={Contact}>
-          Promovemos la confianza entre nuestros usuarios, facilitando una
-          comunicación efectiva en el proceso de adquisición de uno de los
-          productos publicados. y los documentos de propiedad
-        </ValueCard>
-        <ValueCard title={'Seguridad'} Icon={Security}>
-          Protegemos la información de los usuarios que utilizan nuestros
-          servicios y promovemos una compra y venta segura
-        </ValueCard>
+      <div className="flex flex-col h-auto md:flex-none">
+        <div className="flex flex-col md:flex-row md:space-x-4 mt-10 md:mb-3 w-full md:h-72 h-auto md:flex-nowrap">
+          <ValueCard title={'Transparencia'} Icon={Information}>
+            Facilitamos la compra y venta de bicicletas y repuestos de ciclismo
+            con información clara y detallada
+          </ValueCard>
+          <ValueCard title={'Accesibilidad'} Icon={Persons}>
+            Proporcionamos un servicio abierto y útil para todos nuestros
+            usuarios. Experimentados o no.
+          </ValueCard>
+          <ValueCard title={'Compromiso ambiental'} Icon={Bicycle}>
+            Brindamos un servicio que fomenta la adopción de un medio de
+            transporte alternativo como lo es la bicicleta y fomentando la
+            economía circular
+          </ValueCard>
+        </div>
+        <div className="flex md:flex-row flex-col md:space-x-4 w-full items-center md:justify-center mb-10 md:h-72 h-auto">
+          <ValueCard title={'Confianza'} Icon={Contact}>
+            Promovemos la confianza entre nuestros usuarios, facilitando una
+            comunicación efectiva en el proceso de adquisición de uno de los
+            productos publicados. y los documentos de propiedad
+          </ValueCard>
+          <ValueCard title={'Seguridad'} Icon={Security}>
+            Protegemos la información de los usuarios que utilizan nuestros
+            servicios y promovemos una compra y venta segura
+          </ValueCard>
+        </div>
       </div>
 
       <div className="h-12 w-full bg-primary flex items-center justify-center mt-8 rounded-xl">
@@ -126,7 +128,7 @@ const Conocenos = () => {
         <Team
           photo={juan}
           name={'Juan David Madrid Contreras'}
-          description={''}
+          description={'Me gusta el tenis de mesa '}
           phrase={
             '"No es el último golpe el que rompe la roca, es la suma de todos los anteriores"'
           }
