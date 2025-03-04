@@ -14,6 +14,7 @@ import Vision from '@mui/icons-material/PedalBikeOutlined'
 
 //Imagenes grupo
 import daniel from '../assets/Daniel.png'
+import johan from '../assets/Johan.png'
 //Logo
 import Logo from '../assets/Logo.svg'
 
@@ -119,9 +120,9 @@ const Conocenos = () => {
               description={'Soy un apacionado por la resolución de problesma.'}
               phrase={'"La vida es una, toca disfrutarla y vivirla"'}
               linkedin={''}/>
-        <Team photo = {daniel} 
+        <Team photo = {johan} 
               name={'Johan Rodriguez Gutierrez'}
-              description={'Soy un apacionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'}
+              description={'o'}
               phrase={'"La vida es una, toca disfrutarla y vivirla"'}
               linkedin={''}/>
       </div>
