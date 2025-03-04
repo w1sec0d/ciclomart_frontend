@@ -48,13 +48,13 @@ const Footer = forwardRef((props, ref) => {
           {/* Create an email support */}
           <p className="text-center text-white">
             Soporte:
-            <a
-              href="mailto:cramirezmun@unal.edu.co"
+            <Link
+              to="mailto:cramirezmun@unal.edu.co"
               className="text-secondary font-bold"
             >
               {' '}
               cramirezmun@unal.edu.co
-            </a>
+            </Link>
           </p>
         </div>
       </div>

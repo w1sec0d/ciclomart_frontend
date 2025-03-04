@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import ratingService from '../services/ratingService'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const ProductRating = ({ telefono }) => {
   const { id } = useParams()
@@ -323,14 +323,14 @@ const ProductRating = ({ telefono }) => {
           </p>
 
           <div className="py-4">
-            <a
-              href={`https://wa.me/57${telefono}`}
+            <Link
+              to={`https://wa.me/57${telefono}`}
               className="text-center py-1 px-2 bg-primary text-white rounded"
               target="_blank"
               rel="noopener "
             >
               Iniciar chat
-            </a>
+            </Link>
           </div>
         </div>
       </div>

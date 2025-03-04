@@ -1,23 +1,14 @@
-import { useState, useEffect } from 'react'
 import Button from './Button'
 import logo from '../assets/logo.png'
-import { Badge } from '@mui/material'
+// import { Badge } from '@mui/material'
 import { Person, ShoppingCart } from '@mui/icons-material'
-import { useSelector, useDispatch } from 'react-redux'
-import cartService from '../services/cartService'
-import { setCart } from '../store/slices/cartSlice'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-const Navbar = (params) => {
-  const dispatch = useDispatch()
+const Navbar = () => {
   // load user info to check if user is logged in
   const user = useSelector((state) => state.auth.authUser)
-  const cartItemsCount = useSelector((state) => state.cart.items.length)
-
-  const [inputText, setInputText] = useState('')
-
-  const handleInputChange = (e) => {
-    setInputText(e.target.value)
-  }
+  // const cartItemsCount = useSelector((state) => state.cart.items.length)
 
   return (
     <nav className="bg-primary p-4 font-medium shadow-md md:h-[64px] flex items-center justify-between fixed left-0 top-0 w-full z-10 text-lg">
@@ -28,27 +19,27 @@ const Navbar = (params) => {
             alt="Logo de Ciclomart, un carrito de compras fusionado con una bicicleta"
             className="w-12 h-12 mr-6"
           />
-          <a href="/" className="hover:font-bold mr-4">
+          <Link to="/" className="hover:font-bold mr-4">
             Inicio
-          </a>
-          <a
-            href="/conocenos"
+          </Link>
+          <Link
+            to="/conocenos"
             className="mr-4 hover:font-bold hover:cursor-pointer flex items-center border-l px-3 border-black/5 border-r mr-auot"
           >
             Conocenos
-          </a>
+          </Link>
         </li>
 
         {/*Barra de busqueda */}
         <div className="flexs mx-4 p-4 flex flex-wrap items-center justify-between">
           <Button
-            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
+            className=" text-white bg-secondary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-secondary/90"
             to="/search/bycicle"
           >
             Explorar Bicicletas
           </Button>
           <Button
-            className="border-[1px] text-white bg-secondary border-secondary mr-2 text-base hover:bg-transparent hover:text-secondary active:outline-neutral-300 focus:outline-neutral-300"
+            className=" text-white bg-secondary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-secondary/90"
             to="/search/component"
           >
             Explorar Componentes
@@ -56,25 +47,24 @@ const Navbar = (params) => {
         </div>
 
         {user ? (
-
           <li className="hover:font-bold flex flex-row items-center justify-end w-3/12 ">
             {user.rol == 'vendedor' ? (
               <Button
-                className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+                className=" text-white bg-tertiary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
                 to="/publish"
               >
                 Publicar
               </Button>
             ) : null}
-            <Button
+            {/* <Button
               className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
               to="/shoppingCart"
             >
               <ShoppingCart />
               <Badge badgeContent={cartItemsCount} color="secondary" />
-            </Button>
+            </Button> */}
             <Button
-              className="border-[1px] text-tertiary bg-transparent border-tertiary mr-2 text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+              className=" text-white bg-tertiary mr-2 text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
               to="/profile"
             >
               <Person />

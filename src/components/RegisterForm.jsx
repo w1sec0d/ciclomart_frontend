@@ -5,7 +5,7 @@ import { setNotification } from '../store/slices/notificationSlice'
 import Checkbox from './Checkbox'
 import Button from './Button'
 import loginService from '../services/loginService'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import { Link } from 'react-router-dom'
 
@@ -159,6 +159,7 @@ const RegisterForm = () => {
             </Link>
             {' y '}
             <Link to="/privacy" className="text-primary">
+
               politica de datos
             </Link>
             {errors.terms && (
