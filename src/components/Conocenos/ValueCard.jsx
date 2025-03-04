@@ -4,7 +4,7 @@ const ValueCard = ({ title, children, Icon, className }) => {
   return (
     <div
       className={twMerge(
-        'h-full w-1/3 bg-white rounded-xl shadow-xl flex flex-col items-center border border-primary',
+        'h-full md:w-1/3 w-full mb-4 md:mb-0 bg-white rounded-xl shadow-xl flex flex-col items-center border border-primary',
         className
       )}
     >

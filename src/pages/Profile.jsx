@@ -9,10 +9,9 @@ const Profile = () => {
       {/* Side Bar */}
       <SideBar />
       {/* Main Content */}
-      <div className="flex flex-col w-[80%] h-full">
+      <div className="flex flex-col w-full h-full transition-width duration-300 ml-0">
         {/*General Information*/}
         <Information />
-
         {/*Settings*/}
         <Settings />
       </div>
