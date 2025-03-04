@@ -26,12 +26,18 @@ const ExposurePrice = ({ grade, children, price, setSelected, selected }) => {
   //Porcentajes para mostrar en la ventana de información y para
   //calcular precio final
   const percentages = {
-    1: 3,
-    2: 4.5,
-    3: 6,
-    4: 8,
+    1: { fixed: 15000, percentage: 0, max: 15000 },
+    2: { fixed: 15000, percentage: 1.5, max: 30000 },
+    3: { fixed: 15000, percentage: 2.5, max: 50000 },
+    4: { fixed: 15000, percentage: 3.5, max: 100000 },
   }
-  const gradePrice = parseInt((parseInt(price) * percentages[grade]) / 100)
+
+  const gradePrice = Math.min(
+    Math.round(
+      percentages[grade].fixed + (price * percentages[grade].percentage) / 100
+    ),
+    percentages[grade].max
+  )
 
   const handleSelect = () => {
     if (grade === selected) {
@@ -54,13 +60,21 @@ const ExposurePrice = ({ grade, children, price, setSelected, selected }) => {
       {/*Se usa para calcular precio o para hacer un display del porcentaje */}
       <div className="h-full w-full flex flex-col justify-center items-center pt-2">
         <b className="text-primary text-2xl mb-3">
-          {price
-            ? `${colombianPrice(gradePrice)} COP`
-            : `${percentages[grade]}% del valor de tu producto`}
+          {price ? (
+            `${colombianPrice(gradePrice)} COP`
+          ) : grade > 1 ? (
+            <p className="text-center mb-2">
+              {`$${percentages[grade].fixed} + ${percentages[grade].percentage}% sobre el valor base del producto máximo $${percentages[grade].max}`}
+            </p>
+          ) : (
+            <p className="text-center mb-2">
+              {`$${percentages[grade].fixed} fijo por unidad`}
+            </p>
+          )}
         </b>
         <p className="text-center mb-2">
-          Nivel de exposición grado {grade} para bicicletas y repuestos en
-          publicaciones y búsquedas.
+          Nivel de exposición grado {grade} para bicicletas, repuestos y
+          artículos de ciclismo.
         </p>
         {children}
       </div>
