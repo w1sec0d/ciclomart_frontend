@@ -1,17 +1,18 @@
 import { useEffect } from "react"
+
 const DataPrivacy = () => {
 
   useEffect(() => {
-    window.scrollTo(0,0);
-  },[])
-  
+    window.scrollTo(0, 0);
+  }, [])
+
   return (
-    <div className="flex flex-col px-56 py-10 h-auto w-full">
-      <h1 className="font-bold text-3xl mb-6">Politica de privacidad</h1>
+    <div className="flex flex-col px-4 py-10 h-auto w-full md:px-20 lg:px-32 xl:px-56">
+      <h1 className="font-bold text-3xl mb-6 text-center md:text-left">Politica de privacidad</h1>
       <p className="mb-6">
         CicloMart está comprometida con la protección de la privacidad de sus
         datos personales. Esta Política de Privacidad describe cómo recopilamos,
-        utilizamos y divulgamos sus datos personales uando utiliza nuestro sitio
+        utilizamos y divulgamos sus datos personales cuando utiliza nuestro sitio
         web de acuerdo a la Política de protección de datos personales de la ley
         1582 de 2012 de Colombia.
       </p>
