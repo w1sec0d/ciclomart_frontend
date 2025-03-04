@@ -1,4 +1,6 @@
+import { useEffect } from "react"
 const TermsAndCondition = () => {
+
   const sections = [
     {
       title: '1. Introducción',
@@ -56,6 +58,10 @@ const TermsAndCondition = () => {
         'Si tiene alguna pregunta puede contactarnos en: ciclomartsoporte@gmail.com',
     },
   ]
+
+  useEffect(() => {
+    window.scrollTo(0,0);
+  },[])
 
   return (
     <div className="flex flex-col h-auto w-full px-56 py-10">
