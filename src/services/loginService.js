@@ -28,10 +28,16 @@ const validateCode = async (data, token) => {
   return request
 }
 
+const validateCaptcha = async (token) => {
+  const request = await axios.post(API_URL + '/validateCaptcha', {token})
+  return request.data
+}
+
 export default {
   loginUser,
   sendResetPasswordEmail,
   recoveryPassword,
   sendRegisterCode,
   validateCode,
+  validateCaptcha,
 }

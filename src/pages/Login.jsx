@@ -1,3 +1,4 @@
+
 import Input from '../components/Input'
 import { useForm } from 'react-hook-form'
 import Checkbox from '../components/Checkbox'
@@ -9,15 +10,49 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { setAuthUser, setIsLoggedIn } from '../store/slices/authSlice'
 import loginService from '../services/loginService'
+import { useRef } from 'react'
+
+//Captcha
+
+import ReCAPTCHA from 'react-google-recaptcha'
+const API_CAPTCHA = import.meta.env.VITE_CAPTCHA
+
 
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const captcha = useRef(null);
 
   const { register, handleSubmit, reset } = useForm()
 
   const onSubmit = async (data) => {
     try {
+
+      if(!captcha.current.getValue()){
+        dispatch(
+          setNotification({
+            title:'Captcha requerido',
+            text:'Por favor, completa el captcha antes de continuar ',
+            icon:'error'
+          })
+        )
+      return
+      }
+
+      const validateCaptcha = await loginService.validateCaptcha( captcha.current.getValue())
+
+      if(!validateCaptcha.success){
+        dispatch(
+          setNotification({
+            title: 'Captcha Invalido',
+            text: 'La validación del captcha fallo',
+            icon: 'error'
+          })
+        )
+
+        return
+      }
+
       const request = await loginService.loginUser(data)
 
       if (request.status === 200) {
@@ -54,6 +89,7 @@ const Login = () => {
             icon: 'error',
           })
         )
+        captcha.current.reset()
       } else {
         console.error('Error:', error.message)
         dispatch(
@@ -107,7 +143,8 @@ const Login = () => {
               ¿Has olvidado tu contraseña?
             </Link>
           </div>
-          <div className="flex items-center justify-center">
+          <div className="flex flex-col space-y-2 items-center justify-center">
+            <ReCAPTCHA ref={captcha} sitekey = {API_CAPTCHA}></ReCAPTCHA>
             <Button
               type="submit"
               className="text-center bg-blue-500 text-white py-2 px-7 rounded-full"
