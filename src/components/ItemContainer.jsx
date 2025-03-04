@@ -35,7 +35,7 @@ const ItemContainer = ({
   return (
     <Link
       className={twMerge(
-        `flex flex-col items-center lg:h-[350px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative mx-4 -translate-x-3
+        `flex flex-col items-center lg:h-[350px] lg:w-[250px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative mx-4 -translate-x-3
         ${selectedClass}`,
         className
       )}
@@ -49,7 +49,7 @@ const ItemContainer = ({
         />
       )}
       {/* Seccion de imágenes y nombre */}
-      <div className="w-[200px] h-[200px] max-h-[200px] mx-auto flex items-center justify-center">
+      <div className="w-[150px] h-[150px] sm:w-[175px] sm:h-[175px] md:w-[200px] md:h-[200px] mx-auto flex items-center justify-center">
         <Img src={imagenURL} />
       </div>
 
