@@ -16,19 +16,19 @@ const Verification = ({ onVerify }) => {
   }
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-t from-primary/95 to-zinc-100 from-50% to-50%">
+    <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-t from-primary/95 to-zinc-100 from-50% to-50% p-4">
       <div
-        className=" flex flex-col items-center justify-center w-full max-w-4xl pb-6 bg-zinc-100
-        rounded-lg mt-4 mb-8 shadow-lg shadow-black/35"
+        className="flex flex-col items-center justify-center w-full max-w-4xl pb-6 bg-zinc-100
+        rounded-lg mt-4 mb-8 shadow-lg shadow-black/35 p-4 sm:p-6"
       >
         <div className="w-full h-14 bg-primary rounded-t-lg flex items-center justify-center drop-shadow-lg">
-          <h1 className="text-2xl font-bold my-4">
+          <h1 className="text-xl sm:text-2xl font-bold my-4 text-center">
             Verificar propiedad de la bicicleta
           </h1>
         </div>
-        <form onSubmit={handleSubmit} className="max-w-500 my-4">
+        <form onSubmit={handleSubmit} className="w-full max-w-md my-4">
           <div className="mb-4 w-full">
-            <label className="block mb-1">
+            <label className="block mb-1 text-center sm:text-left">
               Por favor sube aquí la tarjeta de propiedad de la bicicleta
             </label>
             <input

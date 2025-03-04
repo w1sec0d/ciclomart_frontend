@@ -72,53 +72,53 @@ const BicycleComponentFinder = () => {
                 className="opacity-50 "
               ></img>
 
-              {/* Áreas interactivas (hotspots) */}
-              <button
-                className={`absolute bottom-40 left-16 w-20 h-20 rounded-full ${selectedComponent === 'wheels' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+               {/* Áreas interactivas (hotspots) */}
+               <button
+                className={`absolute bottom-[30%] left-[12%] w-[20%] h-[20%] rounded-full ${selectedComponent === 'wheels' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Ruedas')}
                 aria-label="Ruedas delanteras"
               />
 
               <button
-                className={`absolute bottom-40 right-16 w-20 h-20 rounded-full ${selectedComponent === 'wheels' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                className={`absolute bottom-[30%] right-[12%] w-[20%] h-[20%] rounded-full ${selectedComponent === 'wheels' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Ruedas')}
                 aria-label="Ruedas traseras"
               />
 
               <button
-                className={`absolute bottom-64 right-28 w-12 h-12 rounded-full ${selectedComponent === 'wheels' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                className={`absolute bottom-[50%] right-[23%] w-[10%] h-[10%] rounded-full ${selectedComponent === 'suspension' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Suspensión')}
-                aria-label="Ruedas delanteras"
+                aria-label="Suspensión"
               />
 
               <button
-                className={`absolute top-28 right-8 -translate-x-1/2 w-16 h-24 rounded-full ${selectedComponent === 'handlebars' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
+                className={`absolute top-[25%] right-[10%] -translate-x-1/2 w-[10%] h-[14%] rounded-full ${selectedComponent === 'handlebars' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Manubrios')}
                 aria-label="Manillar"
               />
 
               <button
-                className={`absolute top-28 right-28 -translate-x-1/2 w-12 h-12 rounded-full ${selectedComponent === 'handlebars' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
+                className={`absolute top-[25%] right-[20%] -translate-x-1/2 w-[10%] h-[10%] rounded-full ${selectedComponent === 'brakes' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Frenos')}
-                aria-label="Manillar"
+                aria-label="Frenos"
               />
 
               <button
-                className={`absolute top-24 left-24 translate-x-4 w-32 h-12 rounded-full ${selectedComponent === 'saddle' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                className={`absolute top-[20%] left-[18%] translate-x-4 w-[25%] h-[10%] rounded-full ${selectedComponent === 'saddle' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Sillines')}
                 aria-label="Sillín"
               />
 
               <button
-                className={`absolute bottom-32 left-60 -translate-x-8 w-12 h-8 rounded-full ${selectedComponent === 'pedals' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                className={`absolute bottom-[26%] left-[50%] -translate-x-8 w-[8%] h-[6%] rounded-full ${selectedComponent === 'pedals' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Pedales')}
                 aria-label="Pedales"
               />
 
               <button
-                className={`absolute bottom-44 left-60 -translate-x-8 w-12 h-12 rounded-full ${selectedComponent === 'pedals' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
+                className={`absolute bottom-[35%] left-[49%] -translate-x-8 w-[10%] h-[10%] rounded-full ${selectedComponent === 'transmission' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Transmisión')}
-                aria-label="Pedales"
+                aria-label="Transmisión"
               />
 
               {/* <button 

@@ -1,6 +1,16 @@
 import Button from './Button'
 import logo from '../assets/logo.png'
-import { Menu, Person, ShoppingCart, Close } from '@mui/icons-material'
+import {
+  Menu,
+  Person,
+  ShoppingCart,
+  Close,
+  Home,
+  Info,
+  DirectionsBike,
+  Build,
+  Publish,
+} from '@mui/icons-material'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
@@ -37,7 +47,10 @@ const Navbar = () => {
             alt="Logo de Ciclomart, un carrito de compras fusionado con una bicicleta"
             className="w-12 h-12 mr-6"
           />
-          <h1 className="text-xl font-bold">CicloMart</h1>
+          <h1 className="text-xl font-bold">
+            <span className="text-tertiary">Ciclo</span>
+            <span className="text-secondary">Mart</span>
+          </h1>
         </Link>
       </div>
 
@@ -59,7 +72,7 @@ const Navbar = () => {
       >
         <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex items-center justify-center">
           <Link to="/" className="block w-full" onClick={handleLinkClick}>
-            Inicio
+            <Home className="mr-2" /> Inicio
           </Link>
         </li>
         <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex items-center justify-center">
@@ -68,26 +81,26 @@ const Navbar = () => {
             className="block w-full"
             onClick={handleLinkClick}
           >
-            Conócenos
+            <Info className="mr-2" /> Conócenos
           </Link>
         </li>
         <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex items-center justify-center">
-          <Link
+          <Button
+            className="text-white bg-secondary w-full max-w-[250px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-secondary/90 font-semibold"
             to="/search/bycicle"
-            className="block w-full"
             onClick={handleLinkClick}
           >
-            Explorar Bicicletas
-          </Link>
+            <DirectionsBike className="mr-2" /> Explorar Bicicletas
+          </Button>
         </li>
         <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex items-center justify-center">
-          <Link
+          <Button
+            className="text-white bg-secondary w-full max-w-[250px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-secondary/90 font-semibold"
             to="/search/component"
-            className="block w-full"
             onClick={handleLinkClick}
           >
-            Explorar Componentes
-          </Link>
+            <Build className="mr-2" /> Explorar Componentes
+          </Button>
         </li>
 
         {/* Sección de usuario */}
@@ -95,33 +108,32 @@ const Navbar = () => {
           <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex flex-col lg:flex-row items-center justify-center gap-2">
             {user.rol === 'vendedor' && (
               <Button
-                className="border-[1px] text-tertiary bg-transparent border-tertiary w-full lg:w-auto text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+                className="text-white bg-tertiary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90 mb-2 lg:mb-0 lg:mr-2"
                 to="/publish"
                 onClick={handleLinkClick}
               >
-                Publicar
+                <Publish className="mr-2" /> Publicar
               </Button>
             )}
             <Button
-              className="border-[1px] text-tertiary bg-transparent border-tertiary w-full lg:w-auto text-base hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300"
+              className="text-white bg-tertiary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
               to="/profile"
               onClick={handleLinkClick}
             >
-              <Person />
-              Perfil
+              <Person className="mr-2" /> Perfil
             </Button>
           </li>
         ) : (
           <li className="py-2 lg:py-0 lg:px-4 hover:font-bold text-center flex flex-col lg:flex-row items-center justify-center gap-2">
             <Button
-              className="text-white bg-tertiary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90 mb-2 lg:mb-0 lg:mr-2"
+              className="text-white bg-tertiary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90 mb-2 lg:mb-0 lg:mr-2 font-bold"
               to="/login"
               onClick={handleLinkClick}
             >
               Inicia sesión
             </Button>
             <Button
-              className="text-white bg-tertiary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90"
+              className="text-white bg-tertiary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90 font-bold"
               to="/register"
               onClick={handleLinkClick}
             >
