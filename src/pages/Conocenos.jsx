@@ -148,9 +148,7 @@ const Conocenos = () => {
         <Team
           photo={johan}
           name={'Johan Rodriguez Gutierrez'}
-          description={
-            'Soy un apasionado por la resolución de problesma.'
-          }
+          description={'Soy un apasionado por la resolución de problemas.'}
           phrase={'"La vida es una, toca disfrutarla y vivirla"'}
           linkedin={''}
         />

@@ -45,7 +45,6 @@ const Layout = (params) => {
 
     const fetchCart = async () => {
       const cart = getCartFromLocalStorage()
-      console.log('cart', cart)
       if (cart) {
         dispatch(setCart(cart))
       }

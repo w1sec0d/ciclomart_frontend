@@ -15,7 +15,6 @@ const InfoModal = ({ data }) => {
 
   // Codificar el state
   const encodedState = encodeURIComponent(state)
-  console.log('encodedState', encodedState)
 
   // Datos del usuario
   const { nombre, apellido, edad, rol, telefono, username, correo, direccion } =

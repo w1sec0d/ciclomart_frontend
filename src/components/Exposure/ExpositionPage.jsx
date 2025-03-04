@@ -20,7 +20,6 @@ const ExpositionPage = () => {
   const queryParams = new URLSearchParams(location.search)
   const failure = queryParams.get('failure')
 
-  console.log('IdProduct', idProduct)
   const {
     data: producto,
     isLoading,
