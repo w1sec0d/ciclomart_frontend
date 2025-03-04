@@ -75,13 +75,13 @@ const BicycleComponentFinder = () => {
               {/* Áreas interactivas (hotspots) */}
               <button
                 className={`absolute bottom-40 left-16 w-20 h-20 rounded-full ${selectedComponent === 'wheels' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
-                onClick={() => handleComponentClick('Neumáticos')}
+                onClick={() => handleComponentClick('Ruedas')}
                 aria-label="Ruedas delanteras"
               />
 
               <button
                 className={`absolute bottom-40 right-16 w-20 h-20 rounded-full ${selectedComponent === 'wheels' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
-                onClick={() => handleComponentClick('Neumáticos')}
+                onClick={() => handleComponentClick('Ruedas')}
                 aria-label="Ruedas traseras"
               />
 
