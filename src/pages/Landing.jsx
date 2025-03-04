@@ -57,7 +57,7 @@ const LandingPage = () => {
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 3,
+      items: 2,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
@@ -114,7 +114,7 @@ const LandingPage = () => {
       <section className="flex flex-col md:flex-row justify-between max-w-full md:max-w-[800px] mx-auto">
         <Link
           to="/ofertas"
-          className="p-4 shadow-a bg-white rounded-md group mb-4 md:mb-0"
+          className="p-4 shadow-a bg-white rounded-md group mb-4 md:mb-0 mx-5 my-2 lg:mx-0 lg:my-0"
         >
           <img
             src={offer}
@@ -126,7 +126,7 @@ const LandingPage = () => {
         </Link>
         <Link
           to="search/bycicle"
-          className="p-4 shadow-a bg-white rounded-md group mb-4 md:mb-0"
+          className="p-4 shadow-a bg-white rounded-md group mb-4 md:mb-0 mx-5 my-2 lg:mx-0 lg:my-0"
         >
           <img
             src={bike2}
@@ -138,7 +138,7 @@ const LandingPage = () => {
         </Link>
         <Link
           to="/search/component"
-          className="p-4 shadow-a bg-white rounded-md group"
+          className="p-4 shadow-a bg-white rounded-md group mx-5 my-2 lg:mx-0 lg:my-0"
         >
           <img
             src={repuestos}
@@ -150,7 +150,7 @@ const LandingPage = () => {
         </Link>
       </section>
       <section className="my-6">
-        <h2 className="text-2xl md:text-3xl text-center font-bold my-6 md:my-10">
+        <h2 className="text-2xl md:text-3xl text-center font-bold my-6 md:my-10 mx-4 lg:mx-0">
           <SettingsSuggest fontSize="large" /> Encuentra{' '}
           <span className="italic">ese repuesto</span> que necesitas
         </h2>

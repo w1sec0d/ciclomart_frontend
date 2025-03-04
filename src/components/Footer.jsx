@@ -34,11 +34,11 @@ const Footer = forwardRef((props, ref) => {
           <p className="text-center text-white">
             Soporte:
             <Link
-              to="mailto:cramirezmun@unal.edu.co"
+              to="mailto:ciclomartsoporte@gmail.com"
               className="text-secondary font-bold"
             >
               {' '}
-              cramirezmun@unal.edu.co
+              ciclomartsoporte@gmail.com
             </Link>
           </p>
         </div>
