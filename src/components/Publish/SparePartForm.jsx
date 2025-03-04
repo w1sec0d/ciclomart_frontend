@@ -19,8 +19,6 @@ const SparePartForm = ({ componentData, register }) => {
           options={filters['componente'].categoria}
           {...register('categoria')}
         />
-        <Input type="number" id="marca" label="Marca" {...register('marca')} />
-        <Input id="modelo" label="Modelo" {...register('modelo')} />
       </div>
     </>
   )
