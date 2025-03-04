@@ -21,13 +21,13 @@ const Information = () => {
   /*Renderiza el componente teniendo en cuenta las constantes anteriores*/
   return (
     <div
-      className="flex items-center mt-8 mx-[170px] bg-lgray h-44 w-auto 
-              rounded-l-[16rem]  rounded-r-[16rem] shadow-lg pl-5 on"
+      className="flex flex-col md:flex-row items-center mt-12 py-5 md:py-0 md:mt-8 md:mx-[170px] bg-lgray md:h-44 md:w-auto 
+              md:rounded-l-[16rem]  md:rounded-r-[16rem] rounded-3xl shadow-lg md:pl-5 on w-full h-auto "
     >
       <ImageUpload defaultPhoto={Photo}></ImageUpload>
-      <div className="flex flex-col items-center lg:ml-[132px]">
+      <div className="flex flex-col items-center mt-2 lg:ml-[132px]">
         <b className="text-4xl">¡Hola, {firstName}!</b>
-        <p className="text-2xl">{authUser.correo}</p>
+        <p className="md:text-2xl text-xl">{authUser.correo}</p>
         <p className="text-xl">Eres un ciclomáster</p>
         <p className="text-lg ">Te uniste el {formattedDate}</p>
       </div>

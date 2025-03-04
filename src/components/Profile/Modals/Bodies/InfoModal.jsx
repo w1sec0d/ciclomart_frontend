@@ -24,22 +24,27 @@ const InfoModal = ({ data }) => {
   return (
     <>
       {data.length != 0 ? (
-        <div className="grid grid-cols-3 ">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
           <UserData title="Nombre:" dataItem={nombre} />
           <UserData title="Apellido:" dataItem={apellido} />
-          <UserData className="border-l" title="Edad:" dataItem={edad} />
+          <UserData className="md:border-l" title="Edad:" dataItem={edad} />
           <UserData title="Rol:" dataItem={rol} />
           <UserData title="Telefono:" dataItem={telefono} />
           <UserData title="Usuario:" dataItem={username} />
-          <UserData className="col-span-3" title="Correo:" dataItem={correo} />
           <UserData
-            className="col-span-3 border-b-0"
+            className="col-span-1 md:col-span-3"
+            title="Correo:"
+            dataItem={correo}
+          />
+          <UserData
+            className="col-span-1 md:col-span-3 md:border-b-0"
             title="Dirección:"
             dataItem={direccion}
           />
           {rolUsuario === 'comprador' && (
             <Button
               to={`https://auth.mercadopago.com/authorization?client_id=${client_id}&response_type=code&platform_id=mp&state=${encodedState}&redirect_uri=${redirect_uri}`}
+              className="col-span-1 md:col-span-3"
             >
               Registrarme como vendedor
             </Button>

@@ -6,7 +6,8 @@ import ShowDataList from '../ShowDataList.jsx'
 import ShoppingBag from '@mui/icons-material/LocalMallOutlined'
 import Store from '@mui/icons-material/StorefrontOutlined'
 import Tag from '@mui/icons-material/LocalOfferOutlined'
-import ReviewsIcon from '@mui/icons-material/Reviews'
+import { MdOutlineReviews } from 'react-icons/md'
+
 import MenuIcon from '@mui/icons-material/Menu' // Importa el icono de menú
 
 //-> Images
@@ -79,14 +80,14 @@ const SideBar = () => {
   return (
     <div
       className={`fixed top-[64px] left-0 bg-lgray h-[calc(100%-64px)] shadow-2xl flex flex-col ${
-        isSidebarOpen ? 'w-[20%]' : 'w-0'
-      } transition-width duration-300 z-30`}
+        isSidebarOpen ? 'md:w-[20%]' : 'w-0'
+      } transition-width duration-300 z-20`}
     >
       <button
         onClick={toggleSidebar}
-        className={`absolute top-4 transition-left duration-300 ${
-          isSidebarOpen ? 'left-[100%]' : 'left-4'
-        } z-40`}
+        className={`fixed top-[78px] md:absolute md:top-4 transition-left duration-300 ${
+          isSidebarOpen ? 'left-[calc(100%-4rem)] md:left-[100%]' : 'left-4'
+        } z-10`}
       >
         <MenuIcon />
       </button>
@@ -100,7 +101,7 @@ const SideBar = () => {
               className="flex items-center justify-center"
             >
               <ShoppingBag className="ml-2" />
-              <b className="flex flex-col w-full text-center">Compras</b>
+              <b className="flex flex-col w-full text-center mr-4">Compras</b>
             </CardButton>
           </Link>
           <hr />
@@ -141,7 +142,7 @@ const SideBar = () => {
             arrow={0}
             className="flex items-center justify-center"
           >
-            <ReviewsIcon className="ml-2" />
+            <MdOutlineReviews className="ml-2 size-6" />
             <b className="flex flex-col w-full text-center">Mis Reseñas</b>
           </CardButton>
         </li>

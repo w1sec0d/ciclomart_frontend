@@ -12,7 +12,7 @@ const OptionSelector = ({ text, children, className, onClick = () => {} }) => {
       onClick={onClick}
     >
       {children}
-      <div className="h-full w-full flex flex-col justify-center items-center">
+      <div className="h-full w-full flex flex-col justify-center items-center pl-8 md:pl-0">
         <b className="text-2xl">{text}</b>
       </div>
     </div>
