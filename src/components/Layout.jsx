@@ -58,7 +58,7 @@ const Layout = (params) => {
   return (
     <div>
       <header>
-        <Navbar searchText={params.searchText} onSearch={params.onSearch} />
+        {/* <Navbar searchText={params.searchText} onSearch={params.onSearch} /> */}
       </header>
       <main className="mt-[64px]">
         <Outlet />
