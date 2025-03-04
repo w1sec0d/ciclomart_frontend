@@ -63,13 +63,13 @@ const Verificacion = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center py-20 lg:py-0 lg:min-h-screen bg-gray-100">
       <img
         src={background1}
         alt="Fondo de bicicletas"
         className="absolute object-cover -z-10 blur-sm "
       />
-      <div className="bg-white p-8 rounded shadow-md w-400 max-w-4xl">
+      <div className="bg-white p-8 rounded shadow-md w-400 max-w-4xl lg:-translate-y-9">
         <h1 className="font-black text-5xl text-center"> Verificación</h1>
         <p className="text-center mt-3">
           {' '}
