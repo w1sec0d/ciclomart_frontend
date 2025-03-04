@@ -15,6 +15,8 @@ import Vision from '@mui/icons-material/PedalBikeOutlined'
 //Imagenes grupo
 import daniel from '../assets/Daniel.png'
 import juan from '../assets/Juan.jpeg'
+import carlos from '../assets/Carlos.png'
+
 //Logo
 import Logo from '../assets/Logo.svg'
 
@@ -130,17 +132,21 @@ const Conocenos = () => {
           linkedin={''}
         />
         <Team
-          photo={daniel}
+          photo={carlos}
           name={'Carlos David Ramirez Muñoz'}
-          description={'Soy un apacionado por la resolución de problemas.'}
-          phrase={'"La vida es una, toca disfrutarla y vivirla"'}
-          linkedin={''}
+          description={
+            'Soy un desarrollador web y apasionado por el ciclismo. Me esfuerzo por poner el corazón en cada proyecto que emprendo. En CicloMart construyo la experiencia de compra que siempre quise tener como ciclista'
+          }
+          phrase={
+            '"No importa lo que hagas, no importa lo que realices, lo más importante es dar el extra"'
+          }
+          linkedin={'https://www.linkedin.com/in/cramirezmun/'}
         />
         <Team
           photo={daniel}
           name={'Johan Rodriguez Gutierrez'}
           description={
-            'Soy un apacionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'
+            'Soy un apasionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'
           }
           phrase={'"La vida es una, toca disfrutarla y vivirla"'}
           linkedin={''}
