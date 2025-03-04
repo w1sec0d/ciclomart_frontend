@@ -128,7 +128,9 @@ const Conocenos = () => {
         <Team
           photo={juan}
           name={'Juan David Madrid Contreras'}
-          description={'Me gusta el tenis de mesa '}
+          description={
+            'Me emociona crear cosas nuevas e interesantes, desde su estructura hasta su diseño como tal, en general me gusta ver la evolución en el proceso de la creación. '
+          }
           phrase={
             '"No es el último golpe el que rompe la roca, es la suma de todos los anteriores"'
           }
