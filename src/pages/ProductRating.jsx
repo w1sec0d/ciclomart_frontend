@@ -277,14 +277,14 @@ const ProductRating = ({ telefono }) => {
   }
 
   return (
-    <div className="flex flex-col mt-8">
+    <div className="flex flex-col mt-8 px-4 md:px-8 lg:px-16">
       <div className="w-full h-auto border-y border-lgray py-2 flex items-center justify-center">
         <h2 className="font-black text-2xl"> Opiniones del producto</h2>
       </div>
-      <div className="h-auto w-auto border border-primary mt-6 rounded-xl pl-6 py-8 shadow-xl flex-row flex mb-6">
-        <div>
-          <div className="flex  items-start space-x-12 border-lgray border-r pr-8">
-            <div className="flex space-x-5 items-center ">
+      <div className="h-auto w-full border border-primary mt-6 rounded-xl p-4 md:p-8 shadow-xl flex flex-col md:flex-row mb-6">
+        <div className="flex flex-col md:flex-row w-full">
+          <div className="flex items-start space-x-12 border-lgray border-r pr-8">
+            <div className="flex space-x-5 items-center">
               <div className="text-7xl font-bold text-primary">
                 {(avgRating || 0).toFixed(1)}
               </div>
@@ -294,13 +294,11 @@ const ProductRating = ({ telefono }) => {
                 ) : (
                   <StarRating rating={avgRating} size="star-large" />
                 )}
-                <p className="text-sm ">{commentList.length} comentario(s)</p>
+                <p className="text-sm">{commentList.length} comentario(s)</p>
               </div>
             </div>
             <div className="flex flex-col space-y-4">
-              {commentList.length === 0 ? (
-                <p>No hay comentarios disponibles.</p>
-              ) : (
+              {commentList.length != 0 &&
                 commentList.map((val, key) => (
                   <div key={val.idCalificacion}>
                     <RatingView
@@ -312,22 +310,20 @@ const ProductRating = ({ telefono }) => {
                       image={val.foto}
                     />
                   </div>
-                ))
-              )}
+                ))}
             </div>
           </div>
         </div>
-        <div className="mx-auto flex flex-col items-center justify-center ">
-          <p className="py-2 pt-5 font-secondary text-xl ">
+        <div className="mx-auto flex flex-col items-center justify-center mt-4 md:mt-0">
+          <p className="py-2 pt-5 font-secondary text-xl">
             Puedes iniciar un chat con el vendedor
           </p>
-
           <div className="py-4">
             <Link
               to={`https://wa.me/57${telefono}`}
               className="text-center py-1 px-2 bg-primary text-white rounded"
               target="_blank"
-              rel="noopener "
+              rel="noopener"
             >
               Iniciar chat
             </Link>
@@ -338,12 +334,12 @@ const ProductRating = ({ telefono }) => {
         <div className="flex border-y h-auto border-lgray justify-center py-2 mb-4">
           <h2 className="font-black text-2xl">Deja tú comentario</h2>
         </div>
-        <div className="flex flex-col justify-center items-center mt-6 ">
+        <div className="flex flex-col justify-center items-center mt-6">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col w-full max-w-4xl gap-3"
           >
-            <div className="flex flex-row ml-32 gap-2">
+            <div className="flex flex-col md:flex-row gap-2">
               <div className="flex-grow">
                 <textarea
                   id="calificacion"
@@ -351,7 +347,7 @@ const ProductRating = ({ telefono }) => {
                   {...register('calificacion', { required: false })}
                   rows="4"
                   maxLength="45"
-                  className=" block w-full p-2 border resize-none border-primary rounded-md shadow-sm focus:border-secondary sm:text-sm focus:outline-none"
+                  className="block w-full p-2 border resize-none border-primary rounded-md shadow-sm focus:border-secondary sm:text-sm focus:outline-none"
                 />
               </div>
               <div className="relative flex items-center justify-center">
@@ -365,7 +361,7 @@ const ProductRating = ({ telefono }) => {
                       className="transition duration-200 ease-in-out hover:scale-110 hover:opacity-80 hover:cursor-pointer w-36 h-36 rounded-full object-cover"
                     />
                   ) : (
-                    <span className="text-center  flex items-center">
+                    <span className="text-center flex items-center">
                       <FaUpload className="mr-2" size={20} /> Subir Imagen
                     </span>
                   )}
@@ -384,7 +380,7 @@ const ProductRating = ({ telefono }) => {
             <div className="flex items-center justify-center mb-10">
               <Button
                 type="submit"
-                className="text-center bg-primary text-white py-2 px-7  rounded-full"
+                className="text-center bg-primary text-white py-2 px-7 rounded-full"
               >
                 Enviar
               </Button>
