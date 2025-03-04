@@ -14,6 +14,7 @@ import Vision from '@mui/icons-material/PedalBikeOutlined'
 
 //Imagenes grupo
 import daniel from '../assets/Daniel.png'
+import carlos from '../assets/Carlos.png'
 //Logo
 import Logo from '../assets/Logo.svg'
 
@@ -99,34 +100,52 @@ const Conocenos = () => {
         </ValueCard>
       </div>
 
-      <div className="h-12 w-full bg-primary flex items-center justify-center mt-8 rounded-xl"> 
-        <h2 className='font-bold text-2xl'>Nuestro equipo</h2>
+      <div className="h-12 w-full bg-primary flex items-center justify-center mt-8 rounded-xl">
+        <h2 className="font-bold text-2xl">Nuestro equipo</h2>
       </div>
-      <div className='flex flex-col sm:flex-row sm:space-x-10 items-center justify-center mt-10 mb-3 w-full space-y-8 sm:space-y-0'>
-        <Team photo = {daniel} 
-              name={'Ronald Daniel Jacanamejoy'}
-              description={'Soy una persona que siempre le gusta mejorar, aprender nuevas cosas que me ayuden en mi formacion profesional y vida personal. '}
-              phrase={'"Disfruta cada dia, como si fuera el último"'}
-              linkedin={'https://www.linkedin.com/in/ronald-daniel-jacanamejoy-mutumbajoy-29b2442b4/'}/>
-              
-        <Team photo = {daniel} 
-              name={'Juan David Madrid Contreras'}
-              description={'Soy un apacionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'}
-              phrase={'"La vida es una, toca disfrutarla y vivirla"'}
-              linkedin={''}/>
-        <Team photo = {daniel} 
-              name={'Carlos David Ramirez Muñoz'}
-              description={'Soy un apacionado por la resolución de problesma.'}
-              phrase={'"La vida es una, toca disfrutarla y vivirla"'}
-              linkedin={''}/>
-        <Team photo = {daniel} 
-              name={'Johan Rodriguez Gutierrez'}
-              description={'Soy un apacionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'}
-              phrase={'"La vida es una, toca disfrutarla y vivirla"'}
-              linkedin={''}/>
+      <div className="flex flex-col sm:flex-row sm:space-x-10 items-center justify-center mt-10 mb-3 w-full space-y-8 sm:space-y-0">
+        <Team
+          photo={daniel}
+          name={'Ronald Daniel Jacanamejoy'}
+          description={
+            'Soy una persona que siempre le gusta mejorar, aprender nuevas cosas que me ayuden en mi formacion profesional y vida personal. '
+          }
+          phrase={'"Disfruta cada dia, como si fuera el último"'}
+          linkedin={
+            'https://www.linkedin.com/in/ronald-daniel-jacanamejoy-mutumbajoy-29b2442b4/'
+          }
+        />
+
+        <Team
+          photo={daniel}
+          name={'Juan David Madrid Contreras'}
+          description={
+            'Soy un apasionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'
+          }
+          phrase={'"La vida es una, toca disfrutarla y vivirla"'}
+          linkedin={''}
+        />
+        <Team
+          photo={carlos}
+          name={'Carlos David Ramirez Muñoz'}
+          description={
+            'Soy un desarrollador web y apasionado por el ciclismo. Me esfuerzo por poner el corazón en cada proyecto que emprendo. En CicloMart construyo la experiencia de compra que siempre quise tener como ciclista'
+          }
+          phrase={
+            '"No importa lo que hagas, no importa lo que realices, lo más importante es dar el extra"'
+          }
+          linkedin={'https://www.linkedin.com/in/cramirezmun/'}
+        />
+        <Team
+          photo={daniel}
+          name={'Johan Rodriguez Gutierrez'}
+          description={
+            'Soy un apasionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'
+          }
+          phrase={'"La vida es una, toca disfrutarla y vivirla"'}
+          linkedin={''}
+        />
       </div>
-
-
     </div>
   )
 }
