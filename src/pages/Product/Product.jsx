@@ -231,42 +231,29 @@ const ProductPage = () => {
 
   console.log('producto', producto)
   return (
-    <section className="px-10 bg-lgray h-full flex flex-col">
-      <div className=" bg-white  rounded-xl  my-4 ">
-        {/* <div className="w-full h-auto py-2 flex items-center justify-center rounded-t-xl bg-primary/5 shadow-xl ">
-          <h1 className="font-bold text-2xl">Información del producto</h1>
-        </div> */}
-        <div className="px-6">
-          <div className="flex justify-evenly bg-lgray/30 items-center my-10 border rounded-xl border-primary">
-            {/* <Img
-          src={producto.imagenURL}
-          alt={'Imagen del producto: ' + producto.nombre}
-          className="max-w-[500px] max-h-[500px]"
-          /> */}
-
-            <div className="w-3/5 h-auto bg-white shadow-xl border-r border-primary rounded-xl  py-2 pl-2 pr-4 ">
+    <section className="px-4 md:px-10 bg-lgray h-full flex flex-col">
+      <div className="bg-white rounded-xl my-4">
+        <div className="px-4 md:px-6">
+          <div className="flex flex-col md:flex-row justify-evenly bg-lgray/30 items-center my-10 border rounded-xl border-primary">
+            <div className="w-full md:w-3/5 h-auto bg-white shadow-xl border-r border-primary rounded-xl py-2 pl-2 pr-4">
               <GalleryImages
                 imageProduct={producto.imagenURL}
                 imagePropertyCard={producto.tarjeta}
               />
             </div>
-            <div className="w-2/5   h-full bg-white shadow-xl border-y border-primary">
+            <div className="w-full md:w-2/5 h-full bg-white shadow-xl border-y border-primary mt-4 md:mt-0">
               <div className="flex items-center">
-                <div className="flex justify-center flex-col items-center w-full py-2 shadow-md  ">
-                  <h1 className="text-2xl font-bold tracking-wide">
+                <div className="flex justify-center flex-col items-center w-full py-2 shadow-md">
+                  <h1 className="text-xl md:text-2xl font-bold tracking-wide">
                     {producto.nombre}
                   </h1>
-                  <p className="text-2xl text-gray-700 tracking-wide">
+                  <p className="text-xl md:text-2xl text-gray-700 tracking-wide">
                     {colombianPrice(producto.precio)}
                   </p>
                 </div>
-                {/* <FavoriteBorder
-                  sx={{ fontSize: 40, color: 'gray', marginLeft: 4 }}
-                /> */}
               </div>
-              {/* Detalles del producto */}
-              <div className="tracking-wide px-4 py-4 w-full h-full flex flex-row">
-                <div className="w-1/2 border-lgray border-r">
+              <div className="tracking-wide px-4 py-4 w-full h-full flex flex-col md:flex-row">
+                <div className="w-full md:w-1/2 border-lgray md:border-r">
                   <p>
                     <b>Marca</b>: {producto.nombreMarca ?? 'Genérica'}
                   </p>
@@ -294,7 +281,7 @@ const ProductPage = () => {
                     />
                   </p>
                 </div>
-                <div className="w-1/2 px-4">
+                <div className="w-full md:w-1/2 px-4 mt-4 md:mt-0">
                   <Input
                     type="number"
                     label="Cantidad: "
@@ -306,17 +293,11 @@ const ProductPage = () => {
                     max={producto.cantidad}
                     onKeyDown={(e) => e.preventDefault()}
                     className="font-bold py-2"
-                    inputClassName="block w-full font-bold tracking-wide bg-lgray/20 rounded-lg px-2 border border-black/20   "
+                    inputClassName="block w-full font-bold tracking-wide bg-lgray/20 rounded-lg px-2 border border-black/20"
                   />
                 </div>
               </div>
-              <div className="flex items-center flex-col px-6  ">
-                {/* <Button
-                  className="h-full w-full mb-2 bg-white border-primary border text-black transition duration-100 ease-in-out hover:scale-105"
-                  onClick={handleAddToCart}
-                >
-                  Añade al carrito 🛒
-                </Button> */}
+              <div className="flex items-center flex-col px-6">
                 <Button
                   className="w-full mb-2 ease-in-out duration-100 transition hover:scale-105"
                   onClick={handleBuy}
@@ -328,13 +309,13 @@ const ProductPage = () => {
           </div>
           <div>
             <div className="flex items-center justify-center w-full border-y border-lgray py-2">
-              <h2 className="font-black text-2xl" id="section1">
+              <h2 className="font-black text-xl md:text-2xl" id="section1">
                 Detalles del producto
               </h2>
             </div>
             {producto.tarjeta && (
-              <div className="w-full bg-secondary/30 border-secondary flex flex-row border-dashed  mt-2 py-4 px-2 items-center border-2">
-                <CiCircleCheck className="text-7xl mr-3 text-primary" />
+              <div className="w-full bg-secondary/30 border-secondary flex flex-row border-dashed mt-2 py-4 px-2 items-center border-2">
+                <CiCircleCheck className="text-5xl md:text-7xl mr-3 text-primary" />
                 <div>
                   <b>Este producto esta verificado</b>
                   <p>
@@ -344,23 +325,23 @@ const ProductPage = () => {
                 </div>
               </div>
             )}
-            <div className="flex flex-row items-center w-full pt-4 ">
-              <b className="font-bold text-xl mr-2 ">Descripción:</b>
-
-              <p className="text-lg w-full overflow-hidden break-words">
+            <div className="flex flex-col md:flex-row items-center w-full pt-4">
+              <b className="font-bold text-lg md:text-xl mr-2">Descripción:</b>
+              <p className="text-base md:text-lg w-full overflow-hidden break-words">
                 {producto.descripcionModelo ||
                   'Este producto no tiene descripción aún'}
               </p>
             </div>
             <div
-              className={`w-full h-full px-20 mb-4 ${!showAll && 'max-h-[300px]'} overflow-y-hidden`}
+              className={`w-full h-full px-4 md:px-20 mb-4 ${
+                !showAll && 'max-h-[300px]'
+              } overflow-y-hidden`}
             >
               <ItemsTable data={[producto]} />
             </div>
-
             <div className="flex items-center justify-center w-full mb-2">
               <b
-                className="text-primary font-bold  flex items-center justify-center border-b hover:cursor-pointer"
+                className="text-primary font-bold flex items-center justify-center border-b hover:cursor-pointer"
                 onClick={() => setShowAll(!showAll)}
               >
                 {!showAll ? (
@@ -375,17 +356,14 @@ const ProductPage = () => {
               </b>
             </div>
           </div>
-
           <div>
-            <div className="w-full h-auto  flex justify-center items-center bg-white  border-y border-lgray">
-              <h2 className="py-2  font-black text-2xl  ">Preguntas</h2>
+            <div className="w-full h-auto flex justify-center items-center bg-white border-y border-lgray">
+              <h2 className="py-2 font-black text-xl md:text-2xl">Preguntas</h2>
             </div>
-
-            <p className="py-2 font-secondary text-xl font-bold mt-4">
+            <p className="py-2 font-secondary text-lg md:text-xl font-bold mt-4">
               ¿Qué quieres saber?
             </p>
-
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               <Button
                 className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
                 onClick={() =>
@@ -409,34 +387,34 @@ const ProductPage = () => {
                 Precio
               </Button>
             </div>
-
-            <p className=" my-4 font-bold text-xl ">Pregúntale al vendedor</p>
-
-            <div className="flex flex-row gap-4">
+            <p className="my-4 font-bold text-lg md:text-xl">
+              Pregúntale al vendedor
+            </p>
+            <div className="flex flex-col md:flex-row gap-4">
               <form
                 onSubmit={handleQuestion}
                 className="flex flex-col w-full max-w-4xl gap-3"
               >
-                <div className="flex flex-row gap-2 justify-start">
+                <div className="flex flex-col md:flex-row gap-2 justify-start">
                   <textarea
                     id="pregunta"
                     placeholder="Escribe aquí tu pregunta"
                     rows="1"
                     maxLength="45"
-                    className=" block w-full p-2 border border-primary rounded-md shadow-sm  focus:border-secondary sm:text-sm resize-none outline-none"
+                    className="block w-full p-2 border border-primary rounded-md shadow-sm focus:border-secondary sm:text-sm resize-none outline-none"
                   />
                   <Button
                     type="submit"
-                    className="text-center bg-primary text-white py-2 px-7  rounded-xl h-full "
+                    className="text-center bg-primary text-white py-2 px-7 rounded-xl h-full"
                   >
                     Preguntar
                   </Button>
                 </div>
               </form>
             </div>
-
-            <p className="py-2 pt-5 font-bold text-xl"> Últimas realizadas </p>
-
+            <p className="py-2 pt-5 font-bold text-lg md:text-xl">
+              Últimas realizadas
+            </p>
             <div className="flex flex-col gap-4">
               {preguntas.length > 0 ? (
                 preguntas.map((pregunta, index) => (
@@ -452,17 +430,17 @@ const ProductPage = () => {
                           onSubmit={(e) => handleAnswer(e, pregunta.idPregunta)}
                           className="flex flex-col w-full max-w-4xl gap-3"
                         >
-                          <div className="flex flex-row gap-2 justify-start">
+                          <div className="flex flex-col md:flex-row gap-2 justify-start">
                             <textarea
                               id={`respuesta-${pregunta.idPregunta}`}
                               placeholder="Escribe aquí tu respuesta"
                               rows="1"
                               maxLength="45"
-                              className=" block w-full p-2 border border-primary rounded-md shadow-sm  focus:border-secondary sm:text-sm resize-none outline-none"
+                              className="block w-full p-2 border border-primary rounded-md shadow-sm focus:border-secondary sm:text-sm resize-none outline-none"
                             />
                             <Button
                               type="submit"
-                              className="text-center bg-primary text-white py-2 px-7  rounded-xl h-full "
+                              className="text-center bg-primary text-white py-2 px-7 rounded-xl h-full"
                             >
                               Responder
                             </Button>
@@ -476,7 +454,6 @@ const ProductPage = () => {
                 <p>No hay preguntas aún</p>
               )}
             </div>
-
             <ProductRating telefono={producto.telefonoVendedor} />
           </div>
         </div>
