@@ -123,6 +123,7 @@ const filters = {
         { value: 'suspension', label: 'Suspensión' },
         { value: 'manubrio', label: 'Manubrio' },
         { value: 'pedales', label: 'Pedales' },
+        { value: 'sillines', label: 'Sillines' },
       ],
     },
   },

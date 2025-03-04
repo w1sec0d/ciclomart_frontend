@@ -14,6 +14,7 @@ import Vision from '@mui/icons-material/PedalBikeOutlined'
 
 //Imagenes grupo
 import daniel from '../assets/Daniel.png'
+import johan from '../assets/Johan.png'
 import juan from '../assets/Juan.jpeg'
 import carlos from '../assets/Carlos.png'
 
@@ -143,10 +144,10 @@ const Conocenos = () => {
           linkedin={'https://www.linkedin.com/in/cramirezmun/'}
         />
         <Team
-          photo={daniel}
+          photo={johan}
           name={'Johan Rodriguez Gutierrez'}
           description={
-            'Soy un apasionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'
+            'Soy un apasionado por la resolución de problesma.'
           }
           phrase={'"La vida es una, toca disfrutarla y vivirla"'}
           linkedin={''}
