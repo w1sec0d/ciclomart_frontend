@@ -14,6 +14,7 @@ import Vision from '@mui/icons-material/PedalBikeOutlined'
 
 //Imagenes grupo
 import daniel from '../assets/Daniel.png'
+import juan from '../assets/Juan.jpeg'
 //Logo
 import Logo from '../assets/Logo.svg'
 
@@ -54,18 +55,20 @@ const Conocenos = () => {
       {/*Misión */}
       <Philosophy name={'Vision'} Icon={Vision}>
         <p>
-          Para el 2028 “Ciclomart” busca ser la plataforma preferida en Colombia
-          para la compra y venta de artículos de ciclismo de forma ágil,
-          informada, legal, especializada y segura.
+          Para el 2028, Ciclomart busca ser la plataforma preferida en Colombia
+          para la compra y venta de bicicletas y repuestos de ciclismo,
+          destacándonos por ser un referente especializado en el sector,
+          ofreciendo una experiencia ágil, informada, legal y segura.
         </p>
       </Philosophy>
       {/*Visión */}
       <Philosophy name={'Mision'} Icon={Mision}>
         <p>
-          CicloMart facilita la venta y compra de artículos de ciclismo de forma
-          segura, mediante la documentación legal de cada artículo publicado y,
-          teniendo en cuenta, las necesidades más específicas en la búsqueda y
-          adquisición de artículos para nuestros usuarios.
+          CicloMart facilita la compra y venta de bicicletas y repuestos de
+          ciclismo de forma segura y especializada, garantizando la
+          documentación legal de cada artículo y ofreciendo información técnica
+          detallada para que los usuarios encuentren exactamente lo que
+          necesitan
         </p>
       </Philosophy>
 
@@ -76,57 +79,73 @@ const Conocenos = () => {
       {/*Valores */}
       <div className="flex space-x-4 mt-10 mb-3 w-full h-72">
         <ValueCard title={'Transparencia'} Icon={Information}>
-          Facilitamos la compra y venta de bicicletas y repuestos con
-          información clara y detallada
+          Facilitamos la compra y venta de bicicletas y repuestos de ciclismo
+          con información clara y detallada
         </ValueCard>
         <ValueCard title={'Accesibilidad'} Icon={Persons}>
           Proporcionamos un servicio abierto y útil para todos nuestros
-          usuarios. Experimentados o no
+          usuarios. Experimentados o no.
         </ValueCard>
         <ValueCard title={'Compromiso ambiental'} Icon={Bicycle}>
           Brindamos un servicio que fomenta la adopción de un medio de
-          transporte alternativo
+          transporte alternativo como lo es la bicicleta y fomentando la
+          economía circular
         </ValueCard>
       </div>
       <div className="flex space-x-4 w-full items-center justify-center mb-10 h-72 ">
         <ValueCard title={'Confianza'} Icon={Contact}>
-          Facilitamos una comunicación efectiva en el proceso de adquisición de
-          uno de los productos publicados
+          Promovemos la confianza entre nuestros usuarios, facilitando una
+          comunicación efectiva en el proceso de adquisición de uno de los
+          productos publicados. y los documentos de propiedad
         </ValueCard>
         <ValueCard title={'Seguridad'} Icon={Security}>
-          Promovemos una compra y venta segura y protegemos la información de
-          los usuarios que utilizan nuestros servicios
+          Protegemos la información de los usuarios que utilizan nuestros
+          servicios y promovemos una compra y venta segura
         </ValueCard>
       </div>
 
-      <div className="h-12 w-full bg-primary flex items-center justify-center mt-8 rounded-xl"> 
-        <h2 className='font-bold text-2xl'>Nuestro equipo</h2>
+      <div className="h-12 w-full bg-primary flex items-center justify-center mt-8 rounded-xl">
+        <h2 className="font-bold text-2xl">Nuestro equipo</h2>
       </div>
-      <div className='flex flex-col sm:flex-row sm:space-x-10 items-center justify-center mt-10 mb-3 w-full space-y-8 sm:space-y-0'>
-        <Team photo = {daniel} 
-              name={'Ronald Daniel Jacanamejoy'}
-              description={'Soy una persona que siempre le gusta mejorar, aprender nuevas cosas que me ayuden en mi formacion profesional y vida personal. '}
-              phrase={'"Disfruta cada dia, como si fuera el último"'}
-              linkedin={'https://www.linkedin.com/in/ronald-daniel-jacanamejoy-mutumbajoy-29b2442b4/'}/>
-              
-        <Team photo = {daniel} 
-              name={'Juan David Madrid Contreras'}
-              description={'Soy un apacionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'}
-              phrase={'"La vida es una, toca disfrutarla y vivirla"'}
-              linkedin={''}/>
-        <Team photo = {daniel} 
-              name={'Carlos David Ramirez Muñoz'}
-              description={'Soy un apacionado por la resolución de problesma.'}
-              phrase={'"La vida es una, toca disfrutarla y vivirla"'}
-              linkedin={''}/>
-        <Team photo = {daniel} 
-              name={'Johan Rodriguez Gutierrez'}
-              description={'Soy un apacionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'}
-              phrase={'"La vida es una, toca disfrutarla y vivirla"'}
-              linkedin={''}/>
+      <div className="flex flex-col sm:flex-row sm:space-x-10 items-center justify-center mt-10 mb-3 w-full space-y-8 sm:space-y-0">
+        <Team
+          photo={daniel}
+          name={'Ronald Daniel Jacanamejoy'}
+          description={
+            'Soy una persona que siempre le gusta mejorar, aprender nuevas cosas que me ayuden en mi formacion profesional y vida personal. '
+          }
+          phrase={'"Disfruta cada dia, como si fuera el último"'}
+          linkedin={
+            'https://www.linkedin.com/in/ronald-daniel-jacanamejoy-mutumbajoy-29b2442b4/'
+          }
+        />
+
+        <Team
+          photo={juan}
+          name={'Juan David Madrid Contreras'}
+          description={''}
+          phrase={
+            '"No es el último golpe el que rompe la roca, es la suma de todos los anteriores"'
+          }
+          linkedin={''}
+        />
+        <Team
+          photo={daniel}
+          name={'Carlos David Ramirez Muñoz'}
+          description={'Soy un apacionado por la resolución de problemas.'}
+          phrase={'"La vida es una, toca disfrutarla y vivirla"'}
+          linkedin={''}
+        />
+        <Team
+          photo={daniel}
+          name={'Johan Rodriguez Gutierrez'}
+          description={
+            'Soy un apacionado por la resolución de problesma. Me gusta mucho la naturaleza aaaaaaaaaaaaaaaaa'
+          }
+          phrase={'"La vida es una, toca disfrutarla y vivirla"'}
+          linkedin={''}
+        />
       </div>
-
-
     </div>
   )
 }
