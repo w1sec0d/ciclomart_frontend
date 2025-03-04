@@ -5,11 +5,11 @@ const ProductGrid = ({ filteredBikes, bicicletas }) => {
   const bikesToShow = filteredBikes.length > 0 ? filteredBikes : bicicletas
 
   return (
-    <div className="w-full md:w-3/4">
+    <div className="w-full p-2 md:w-3/4 md:p-0">
       <IndividualProduct
         products={bikesToShow}
         title={'¡Encuentra tu próxima bicicleta!'}
-        columns={4}
+        columns={ {base: 1, md:4}}
         itemsPerPage={8}
       />
       <div className="flex justify-between items-center mb-4">

@@ -57,24 +57,24 @@ const IndividualProduct = ({
         </h1>
       </div>
       {/*Permite realizar busqueda, integrada con Fuse (búsqueda difusa) */}
-      <div className="flex items-end justify-center mb-10 ">
-        <div className="w-40 bg-secondary flex items-center justify-center rounded-l-xl  h-10 border-black/50 border font-bold shadow-xl">
+      <div className="flex flex-col sm:flex-row items-end justify-center mb-10">
+        <div className="w-full sm:w-40 bg-secondary flex items-center justify-center rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none h-10 border-black/50 border font-bold shadow-xl">
           <h2>Busca</h2>
         </div>
         <Input
           id={'busqueda'}
-          className={'bg-white mt-2 w-[900px] shadow-xl rounded-r-xl '}
-          inputClassName={' border px-2 rounded-r-xl '}
+          className={'bg-white mt-2 sm:mt-0 w-full sm:w-[900px] shadow-xl rounded-b-xl sm:rounded-r-xl sm:rounded-bl-none'}
+          inputClassName={'border px-2 rounded-b-xl sm:rounded-r-xl sm:rounded-bl-none'}
           label=""
           value={query}
           onChange={handleOnSearch}
         />
       </div>
       {/*Muestra todos los productos pasados por parámetro */}
-      <div className="px-9 mb-10">
+      <div className="px-4 sm:px-9 mb-10">
         <div
-          className="grid"
-          style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+          className="grid gap-4"
+          style={{ gridTemplateColumns: `repeat(auto-fill, minmax(250px, 1fr))` }}
         >
           {currentItems.map((product) => (
             <ItemContainer
