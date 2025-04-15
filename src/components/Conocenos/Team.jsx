@@ -18,8 +18,8 @@ const Team = ({ photo, name, description, phrase, linkedin }) => {
             objectFit: 'cover',
           }}
         />
-        <h2 className="font-bold mt-2  relative">{name}</h2>
-        <p className=" relative">Desarrollador Full-Stack</p>
+        <h2 className="font-bold mt-2 relative">{name}</h2>
+        <p className="relative">Desarrollador Full-Stack</p>
       </section>
       <hr className="w-full border-primary/60 mt-24 relative" />
       <section className="h-60 w-full flex flex-col items-center mt-10">
@@ -29,9 +29,9 @@ const Team = ({ photo, name, description, phrase, linkedin }) => {
           <p className="text-sm font-bold text-center mb-5">{phrase}</p>
         </div>
       </section>
-      <section className="flex items-center justify-center mt-2">
+      <section className="flex items-center justify-center mt-2 relative">
         <Link to={linkedin} target="_blank" rel="noopener noreferrer">
-          <LinkedInIcon />
+          <LinkedInIcon style={{ position: 'static', marginTop: '10px' }} />
         </Link>
       </section>
     </div>
