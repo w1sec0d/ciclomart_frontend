@@ -129,7 +129,7 @@ const Vendedor = () => {
               <div className="flex items-center space-x-3">
                 <StarRating rating={promedio} size="star-large" />
                 <p>
-                  {promedio.toFixed(1)} - {size}{' '}
+                  {Number(promedio).toFixed(1)} - {size}{' '}
                   <strong className="text-black font-bold">reseñas</strong>
                 </p>
               </div>

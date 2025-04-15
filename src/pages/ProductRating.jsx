@@ -275,7 +275,7 @@ const ProductRating = ({ telefono }) => {
       </div>
     )
   }
-
+  console.log('avgRating', avgRating)
   return (
     <div className="flex flex-col mt-8 px-4 md:px-8 lg:px-16">
       <div className="w-full h-auto border-y border-lgray py-2 flex items-center justify-center">
@@ -286,7 +286,9 @@ const ProductRating = ({ telefono }) => {
           <div className="flex items-start space-x-12 border-lgray border-r pr-8 flex-wrap">
             <div className="flex space-x-5 items-center">
               <div className="text-7xl font-bold text-primary">
-                {(avgRating || 0).toFixed(1)}
+                {!isNaN(avgRating) && avgRating !== null
+                  ? (Number(avgRating) || 0).toFixed(1)
+                  : '0.0'}
               </div>
               <div className="flex flex-col">
                 {!avgRating ? (
