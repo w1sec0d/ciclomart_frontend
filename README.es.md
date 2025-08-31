@@ -1,7 +1,13 @@
 # CicloMart (Frontend) - Compra y venta de bicicletas y repuestos de ciclismo
 [![en](https://img.shields.io/badge/Language-English-green)](README.md) [![es](https://img.shields.io/badge/Idioma-Español-green)](README.es.md)
 
+- Link de la app: [ciclomart.com](https://ciclomart.com)
+
+## Descripción
+
 CicloMart es una aplicación web de compra-venta de bicicletas y repuestos de ciclismo. Ofrece una experiencia única, segura y confiable, al exigir documentación legal de propiedad a los vendedores. Los usuarios pueden encontrar exactamente lo que buscan usando filtros avanzados como grupos de transmisión, suspensión, peso, rines, frenos entre muchas otras características relevantes.
+
+<!-- ### Instrucciones para el usuario -->
 
 ## Miembros del equipo
 
