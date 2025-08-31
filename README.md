@@ -1,6 +1,5 @@
-# CicloMart_front
-
-**Read this in other languages:** **English** | [Español](README.es.md)
+# CicloMart (Frontend) - Buy and Sell Bicycles and Cycling Spare Parts
+[![en](https://img.shields.io/badge/Language-English-green)](README.md) [![es](https://img.shields.io/badge/Idioma-Español-green)](README.es.md)
 
 CicloMart is a web application for buying and selling bicycles and cycling spare parts. It offers a unique, secure, and reliable experience by requiring legal ownership documentation from sellers. Users can find exactly what they're looking for using advanced filters such as transmission groups, suspension, weight, rims, brakes, and many other relevant characteristics.
 
