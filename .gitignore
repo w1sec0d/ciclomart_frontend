@@ -26,3 +26,4 @@ dist-ssr
 # environment variables
 .env
 cuentas.txt
+ecosystem.config.cjs
