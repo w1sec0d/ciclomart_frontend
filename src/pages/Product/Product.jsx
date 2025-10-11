@@ -47,7 +47,6 @@ const ProductPage = () => {
     isLoading,
     isError,
   } = useQuery(['productos', id], () => getProductById(id))
-  console.log('producto', producto)
 
   const handleBuy = async () => {
     dispatch(setLoading())
@@ -229,7 +228,6 @@ const ProductPage = () => {
   if (isLoading) return <Loading />
   if (isError) return <p>Error: {isError.message}</p>
 
-  console.log('producto', producto)
   return (
     <section className="px-4 md:px-10 bg-lgray h-full flex flex-col">
       <div className="bg-white rounded-xl my-4">

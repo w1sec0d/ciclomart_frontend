@@ -62,7 +62,6 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
     const fetchUserPhoto = async () => {
       try {
         const photo = await apiService.getUsuarioPhoto(authUser.idUsuario)
-        console.log(photo)
         setPhoto(photo)
       } catch (error) {
         console.error('Error fetching user photo:', error)

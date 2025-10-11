@@ -275,7 +275,6 @@ const ProductRating = ({ telefono }) => {
       </div>
     )
   }
-  console.log('avgRating', avgRating)
   return (
     <div className="flex flex-col mt-8 px-4 md:px-8 lg:px-16">
       <div className="w-full h-auto border-y border-lgray py-2 flex items-center justify-center">

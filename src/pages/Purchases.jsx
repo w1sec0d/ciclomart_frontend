@@ -35,8 +35,6 @@ const Purchases = () => {
     error,
   } = useQuery('purchases', () => getPurchasesByBuyerId(idComprador))
 
-  console.log('purchases', purchases)
-
   const getPurchaseText = (estado) => {
     switch (estado) {
       case 'pendiente_pago':

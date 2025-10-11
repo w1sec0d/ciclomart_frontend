@@ -92,7 +92,6 @@ const ShoppingCart = () => {
   }
 
   const handleSubmit = () => {
-    console.log('cart', cart)
     // output:
     //     {
     //   "success": true,
@@ -154,7 +153,6 @@ const ShoppingCart = () => {
       total: calculateTotal(item.precio_unitario, item.cantidad),
     }))
 
-    console.log('updatedDataWithTotal', updatedDataWithTotal)
     setDataWithTotal(updatedDataWithTotal)
 
     // Calcular el subtotal

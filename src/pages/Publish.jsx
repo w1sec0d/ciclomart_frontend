@@ -35,14 +35,13 @@ const Publish = () => {
 
   // const getModels = async (type, id) => {
   //   await publicationService.getModels(type, id).then((data) => {
-  //     console.log('Models:', data)
   //     const modelNames = data.models.map(
   //       model => ({
   //         value: model.nombre,
   //         label: model.nombre}))
   //     setModels({options: modelNames})
   //   }).catch((error) => {
-  //     console.log('Error:', error)
+  //     console.error(error)
   //   })
   // }
 
@@ -77,17 +76,14 @@ const Publish = () => {
   }
 
   const handleFinalSubmit = (product) => {
-    console.log('producto FINAL', product)
     publicationService
       .publishProduct(product)
       .then((data) => {
-        console.log('Product Data:', data)
         const id = data.idProducto
         setIdProducto(id)
         publicationService
           .uploadImage(id, product.imagenes[0])
-          .then((data) => {
-            console.log('Image Data:', data)
+          .then(() => {
             setStep('complete')
           })
           .catch((error) => {
@@ -95,13 +91,13 @@ const Publish = () => {
           })
       })
       .catch((error) => {
-        dispatch(
+        ;(dispatch(
           setNotification({
             title: 'Ingresa todos los datos',
             icon: 'error',
           })
         ),
-          console.log('Error:', error)
+          console.error(error))
       })
   }
 
@@ -128,11 +124,8 @@ const Publish = () => {
     )
     const updateProduct = { ...productData, tarjeta: response.data.secure_url }
     setProductData(updateProduct)
-    console.log('Product Data:', updateProduct)
     handleFinalSubmit(updateProduct)
   }
-
-  console.log('step', step)
 
   return (
     <div>

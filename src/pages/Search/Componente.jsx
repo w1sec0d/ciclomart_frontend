@@ -20,8 +20,6 @@ const BicycleComponentFinder = () => {
     isLoading,
   } = useQuery(['ofertas'], getComponentes)
 
-  console.log(componentes)
-
   useEffect(() => {
     if (isLoading) {
       dispatch(setLoading())
@@ -72,8 +70,8 @@ const BicycleComponentFinder = () => {
                 className="opacity-50 "
               ></img>
 
-               {/* Áreas interactivas (hotspots) */}
-               <button
+              {/* Áreas interactivas (hotspots) */}
+              <button
                 className={`absolute bottom-[30%] left-[12%] w-[20%] h-[20%] rounded-full ${selectedComponent === 'wheels' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Ruedas')}
                 aria-label="Ruedas delanteras"
