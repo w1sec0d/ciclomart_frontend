@@ -52,18 +52,26 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ec2-user/CicloMart_front
+
             # Backup
             if [ -d "dist" ]; then
               mv dist dist.backup.$(date +%Y%m%d_%H%M%S)
             fi
-            # Extraer
+
+            # Extract
             mkdir -p dist
             cd dist
             tar -xzf /home/ec2-user/frontend-dist.tar.gz
             cd ..
-            # Limpiar
+
+            # Clean
             rm /home/ec2-user/frontend-dist.tar.gz
-            # Reiniciar PM2
-            pm2 restart ciclomart-frontend || pm2 start ecosystem.config.cjs --env production
-            # Limpiar backups antiguos
+
+            # Restart PM2 gracefully (without downtime)
+            pm2 reload ecosystem.config.cjs --env production
+
+            # Clean old backups
             ls -t | grep "dist.backup" | tail -n +4 | xargs -r rm -rf
+
+            # Show status
+            pm2 list
