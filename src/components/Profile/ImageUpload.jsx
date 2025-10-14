@@ -1,12 +1,10 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
-import apiService from '../../services/apiService'
-import { useDispatch } from 'react-redux'
+import { getUsuarioPhoto } from '../../services/userService'
 
-const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
-  const dispatch = useDispatch()
+const ImageUpload = ({ defaultPhoto }) => {
   const authUser = useSelector((state) => state.auth.authUser)
   const [photo, setPhoto] = useState('')
   const [hoverPhoto, setHoverPhoto] = useState(false)
@@ -61,7 +59,7 @@ const ImageUpload = ({ onUploadSuccess, defaultPhoto }) => {
   useEffect(() => {
     const fetchUserPhoto = async () => {
       try {
-        const photo = await apiService.getUsuarioPhoto(authUser.idUsuario)
+        const photo = await getUsuarioPhoto(authUser.idUsuario)
         setPhoto(photo)
       } catch (error) {
         console.error('Error fetching user photo:', error)

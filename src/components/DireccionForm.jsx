@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from '../store/slices/notificationSlice'
 import Button from './Button'
 import Input from './Input'
-import direccionService from '../services/direccionService'
+import { updateDireccion } from '../services/userService'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import { cleanShowModal } from '../store/slices/showModalSlice'
 import { setAuthUser } from '../store/slices/authSlice'
@@ -20,7 +20,7 @@ const DireccionForm = () => {
   const onSubmit = async (data) => {
     try {
       dispatch(setLoading())
-      const response = await direccionService.updateDireccion(
+      const response = await updateDireccion.updateDireccion(
         authUser.idUsuario,
         data
       )

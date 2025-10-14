@@ -15,7 +15,7 @@ import Logo from '../../../assets/logoVector.svg'
 
 //-> Utils
 import apiService from '../../../services/apiService.js'
-import profileService from '../../../services/profileService.js'
+import { getSales, getPurchases } from '../../../services/userService.js'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
@@ -36,10 +36,8 @@ const SideBar = () => {
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const purchaseData = await profileService.getPurchases(
-          authUser.idUsuario
-        )
-        const salesData = await profileService.getSales(authUser.idUsuario)
+        const purchaseData = await getPurchases(authUser.idUsuario)
+        const salesData = await getSales(authUser.idUsuario)
         const storesData = await apiService.getTiendas()
         setPurchaseData(purchaseData.results)
         setSalesData(salesData.results)

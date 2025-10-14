@@ -1,4 +1,4 @@
-import userInfoService from '../services/userInfoService'
+import { getUser } from '../services/userService'
 
 const getUserFromLocalStorage = async () => {
   const token = window.localStorage.getItem('token')
@@ -8,7 +8,7 @@ const getUserFromLocalStorage = async () => {
   }
 
   try {
-    const response = await userInfoService.getUserInfo(token)
+    const response = await getUser(token)
     return response.user ? response.user : null
   } catch (error) {
     window.localStorage.removeItem('token')
