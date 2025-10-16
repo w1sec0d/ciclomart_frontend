@@ -2,7 +2,7 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 import axios from 'axios'
 
 const getUser = async (token) => {
-    const request = await axios.get(API_URL + '/userInfo', {
+    const request = await axios.get(API_URL + '/getUser', {
         headers: {
             Authorization: `Bearer ${token}`,
         },
