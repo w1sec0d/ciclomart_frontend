@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import BycicleForm from './BycicleForm'
 import SparePartForm from './SparePartForm'
@@ -6,7 +6,6 @@ import GeneralInfo from './GeneraInfo'
 import AvailabilityForm from './AvailabilityForm'
 
 import Button from '../Button'
-import ExpositionPage from '../Exposure/ExpositionPage'
 import publicationService from '../../services/publicationService'
 import { useSelector } from 'react-redux'
 
@@ -17,6 +16,7 @@ const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
     defaultValues: {
       nombre: '',
       tipo: type,
+      cantidad: 1,
       exposicion: 0,
       descripcion: '',
       precio: '',

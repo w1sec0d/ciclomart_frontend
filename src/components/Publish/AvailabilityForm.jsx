@@ -1,4 +1,3 @@
-import React from 'react'
 import Input from '../Input'
 import CustomSelect from './Select'
 
@@ -46,13 +45,26 @@ const AvailabilityForm = ({ product, register }) => {
           {...register('estado')}
         />
       </div>
-      <Input
-        type="number"
-        id="costoEnvio"
-        label="Precio de envio"
-        value={product.costoEnvio}
-        {...register('costoEnvio')}
-      />
+
+      <div className="mt-2 grid grid-cols-2 gap-2">
+        <Input
+          type="number"
+          id="cantidad"
+          label="Cantidad disponible"
+          min="1"
+          value={product.cantidad}
+          {...register('cantidad')}
+        />
+
+        <Input
+          type="number"
+          id="costoEnvio"
+          label="Precio de envio"
+          min="0"
+          value={product.costoEnvio}
+          {...register('costoEnvio')}
+        />
+      </div>
     </>
   )
 }

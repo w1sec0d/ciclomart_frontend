@@ -119,7 +119,7 @@ const Publish = () => {
     formData.append('upload_preset', 'ciclomart')
 
     const response = await axios.post(
-      'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload', // Reemplaza con tu cloud name
+      'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload',
       formData
     )
     const updateProduct = { ...productData, tarjeta: response.data.secure_url }
