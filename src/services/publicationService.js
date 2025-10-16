@@ -21,7 +21,7 @@ const getBrands = async () => {
 }
 
 const addBrand = async (nombre) => {
-  const request = await axios.post(API_URL + '/addBrand', {nombre})
+  const request = await axios.post(API_URL + '/addBrand', { nombre })
   return request.data
 }
 

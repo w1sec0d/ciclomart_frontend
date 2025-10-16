@@ -5,7 +5,7 @@ export const fetchSearchResults = createAsyncThunk(
   'search/fetchSearchResults',
   async (filters) => {
     const response = await apiService.searchProducts(filters)
-    return response
+    return response.results  // Extract results from the response
   }
 )
 
