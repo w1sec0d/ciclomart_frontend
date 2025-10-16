@@ -8,7 +8,6 @@ import loginService from '../services/loginService'
 import { Link, useNavigate } from 'react-router-dom'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 
-
 const RegisterForm = () => {
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
   const phoneRegex = /^[0-9]{10}$/
@@ -26,7 +25,7 @@ const RegisterForm = () => {
   const sendRegisterCode = async (values) => {
     const request = await loginService.sendRegisterCode(values)
     if (request.status === 200) {
-      return request.data
+      return request.data.results
     }
     return false
   }
@@ -159,7 +158,6 @@ const RegisterForm = () => {
             </Link>
             {' y '}
             <Link to="/privacy" className="text-primary">
-
               politica de datos
             </Link>
             {errors.terms && (

@@ -1,7 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 import axios from 'axios'
-import { string } from 'prop-types'
 
 const publishProduct = async (product) => {
   const request = await axios.post(API_URL + '/addProduct', product)

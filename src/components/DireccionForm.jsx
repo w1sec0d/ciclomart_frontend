@@ -19,11 +19,10 @@ const DireccionForm = () => {
 
   const onSubmit = async (data) => {
     try {
+      console.log('data', data)
       dispatch(setLoading())
-      const response = await updateDireccion.updateDireccion(
-        authUser.idUsuario,
-        data
-      )
+      const response = await updateDireccion(authUser.idUsuario, data)
+      console.log('response', response)
       // Actualiza el usuario autenticado con la nueva dirección
       dispatch(
         setAuthUser({
@@ -35,7 +34,8 @@ const DireccionForm = () => {
       dispatch(
         setNotification({
           title: '¡Éxito!',
-          text: response.message,
+          text:
+            response.results?.message || 'Dirección actualizada exitosamente',
           icon: 'success',
         })
       )

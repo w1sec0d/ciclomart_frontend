@@ -79,7 +79,7 @@ const Publish = () => {
     publicationService
       .publishProduct(product)
       .then((data) => {
-        const id = data.idProducto
+        const id = data.results.idProducto
         setIdProducto(id)
         publicationService
           .uploadImage(id, product.imagenes[0])

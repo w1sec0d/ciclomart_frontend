@@ -3,6 +3,7 @@ import SideBar from '../components/Profile/PrincipalSections/SideBar.jsx'
 import Information from '../components/Profile/PrincipalSections/Information.jsx'
 import Settings from '../components/Profile/PrincipalSections/Settings.jsx'
 
+// TODO: Fix alignment issues
 const Profile = () => {
   return (
     <section className="relative flex flex-row h-screen">
