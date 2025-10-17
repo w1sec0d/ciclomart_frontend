@@ -2,7 +2,6 @@ import { getUser } from '../services/userService'
 
 const getUserFromLocalStorage = async () => {
   const token = window.localStorage.getItem('token')
-  console.log('token', token)
   if (!token) {
     console.log('No token found')
     return null

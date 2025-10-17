@@ -48,8 +48,8 @@ const ProductRating = ({ telefono }) => {
       const idUsuario = authUser.idUsuario
 
       const request = await ratingService.checkUserPurchase({
-        idComprador: idUsuario,
-        idProducto: idDoc,
+        buyerId: idUsuario,
+        productId: idDoc,
       })
 
       return { success: true, idVendedor: request.results[0].idVendedor }
