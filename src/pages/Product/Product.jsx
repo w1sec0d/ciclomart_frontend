@@ -73,12 +73,13 @@ const ProductPage = () => {
       return
     }
 
-    const { paymentURL } = await mercadoPago.createPreference(
+    const request = await mercadoPago.createPreference(
       producto,
       1,
       authUser.idUsuario
     )
-    window.location.href = paymentURL
+    console.log({ request })
+    window.location.href = request.paymentURL
     setTimeout(() => {
       dispatch(clearLoading())
     }, 5000)

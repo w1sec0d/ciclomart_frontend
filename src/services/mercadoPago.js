@@ -8,7 +8,7 @@ const createPreference = async (producto, cantidad = 1, idComprador) => {
       cantidad,
       idComprador,
     })
-    const { preferenceId, paymentURL } = response.data
+    const { preferenceId, paymentURL } = response.data.results
     return { preferenceId, paymentURL }
   } catch (error) {
     console.error('Error creando la preferencia de Mercado Pago:', error)
