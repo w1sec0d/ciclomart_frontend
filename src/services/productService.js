@@ -7,17 +7,17 @@ const getProducts = async () => {
   return request.data.results
 }
 
-const getBicicletas = async () => {
+const getBicycles = async () => {
   const request = await axios.get(API_URL + '/bicicletas')
   return request.data.results
 }
 
-const getComponentes = async () => {
+const getComponents = async () => {
   const request = await axios.get(API_URL + '/componentes')
   return request.data.results
 }
 
-const getOfertas = async () => {
+const getOffers = async () => {
   const request = await axios.get(API_URL + '/ofertas')
   return request.data.results
 }
@@ -34,7 +34,7 @@ const getProductById = async (id) => {
 export {
   getProducts,
   getProductById,
-  getBicicletas,
-  getComponentes,
-  getOfertas,
+  getBicycles,
+  getComponents,
+  getOffers,
 }

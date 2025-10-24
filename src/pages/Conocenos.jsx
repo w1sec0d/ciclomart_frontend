@@ -1,9 +1,9 @@
-//Componentes
+// Components
 import Philosophy from '../components/Conocenos/Philosophy'
 import ValueCard from '../components/Conocenos/ValueCard'
 import Team from '../components/Conocenos/Team'
 
-//Iconos
+// Icons
 import Security from '@mui/icons-material/GppGoodOutlined'
 import Persons from '@mui/icons-material/PeopleAltOutlined'
 import Contact from '@mui/icons-material/ContactMailOutlined'
@@ -12,19 +12,23 @@ import Information from '@mui/icons-material/HelpOutlineOutlined'
 import Mision from '@mui/icons-material/ShoppingCartOutlined'
 import Vision from '@mui/icons-material/PedalBikeOutlined'
 
-//Imagenes grupo
+// Team photos
 import daniel from '../assets/Daniel.png'
 import johan from '../assets/Johan.png'
 import juan from '../assets/Juan.jpeg'
 import carlos from '../assets/Carlos.png'
 
-//Logo
+// Logo
 import Logo from '../assets/Logo.svg'
 
+// i18n
+import { useTranslation } from 'react-i18next'
+
 const Conocenos = () => {
+  const { t } = useTranslation()
   return (
     <div className="h-auto w-full flex flex-col justify-center md:px-20 px-5">
-      {/*Propuesta valor */}
+      {/* Value proposition */}
       <div className="h-auto bg-white shadow-xl w-full mt-8 mb-12 md:rounded-full rounded-xl flex md:flex-row flex-col items-center py-4 md:pl-4 px-2 md:pr-32 border border-primary/60">
         <div className="rounded-full h-full w-1/3 bg-white shadow-xl mr-8 ">
           <img src={Logo} className="h-full object-fill w-full " />
@@ -32,94 +36,71 @@ const Conocenos = () => {
         <div className="flex flex-col h-full items-center justify-center w-full px-8 md:px-5">
           <div className="w-full">
             <h1 className="font-bold  w-full text-2xl md:text-5xl mt-5 md:mt-2 text-primary text-left">
-              {' '}
-              ¿Qué hace Ciclomart?{' '}
+              {t('aboutUs.whatDoesCiclomart')}
             </h1>
           </div>
 
           <ul className="list-disc mt-8 text-xl mb-4">
             <li>
-              Permitimos el comercio de bicicletas y repuestos de forma
               <p className="text-primary font-bold">
-                especializada, segura e interactiva
+                {t('aboutUs.valueProposition1')}
               </p>
             </li>
-            <li>Gestionamos los documentos legales en el comercio</li>
-            <li>
-              Brindamos herramientas clave como filtros y comparadores para
-              ayudar a los ciclistas a tomar decisiones de compra que se ajusten
-              a sus necesidades.
-            </li>
+            <li>{t('aboutUs.valueProposition2')}</li>
+            <li>{t('aboutUs.valueProposition3')}</li>
           </ul>
         </div>
         <p></p>
       </div>
 
-      {/*Misión */}
-      <Philosophy name={'Vision'} Icon={Vision}>
-        <p>
-          Para el 2028, Ciclomart busca ser la plataforma preferida en Colombia
-          para la compra y venta de bicicletas y repuestos de ciclismo,
-          destacándonos por ser un referente especializado en el sector,
-          ofreciendo una experiencia ágil, informada, legal y segura.
-        </p>
+      {/* Vision */}
+      <Philosophy name={t('aboutUs.vision')} Icon={Vision}>
+        <p>{t('aboutUs.visionText')}</p>
       </Philosophy>
-      {/*Visión */}
-      <Philosophy name={'Mision'} Icon={Mision}>
-        <p>
-          CicloMart facilita la compra y venta de bicicletas y repuestos de
-          ciclismo de forma segura y especializada, garantizando la
-          documentación legal de cada artículo y ofreciendo información técnica
-          detallada para que los usuarios encuentren exactamente lo que
-          necesitan
-        </p>
+      {/* Mission */}
+      <Philosophy name={t('aboutUs.mission')} Icon={Mision}>
+        <p>{t('aboutUs.missionText')}</p>
       </Philosophy>
 
       <div className="h-12 w-full bg-primary flex items-center justify-center mt-8 rounded-xl">
-        <h2 className="font-bold text-2xl">Valores</h2>
+        <h2 className="font-bold text-2xl">{t('aboutUs.values')}</h2>
       </div>
 
-      {/*Valores */}
+      {/* Values */}
       <div className="flex flex-col h-auto md:flex-none">
         <div className="flex flex-col md:flex-row md:space-x-4 mt-10 md:mb-3 w-full md:h-72 h-auto md:flex-nowrap">
-          <ValueCard title={'Transparencia'} Icon={Information}>
-            Facilitamos la compra y venta de bicicletas y repuestos de ciclismo
-            con información clara y detallada
+          <ValueCard title={t('aboutUs.transparency')} Icon={Information}>
+            {t('aboutUs.transparencyText')}
           </ValueCard>
-          <ValueCard title={'Accesibilidad'} Icon={Persons}>
-            Proporcionamos un servicio abierto y útil para todos nuestros
-            usuarios. Experimentados o no.
+          <ValueCard title={t('aboutUs.accessibility')} Icon={Persons}>
+            {t('aboutUs.accessibilityText')}
           </ValueCard>
-          <ValueCard title={'Compromiso ambiental'} Icon={Bicycle}>
-            Brindamos un servicio que fomenta la adopción de un medio de
-            transporte alternativo como lo es la bicicleta y fomentando la
-            economía circular
+          <ValueCard
+            title={t('aboutUs.environmentalCommitment')}
+            Icon={Bicycle}
+          >
+            {t('aboutUs.environmentalCommitmentText')}
           </ValueCard>
         </div>
         <div className="flex md:flex-row flex-col md:space-x-4 w-full items-center md:justify-center mb-10 md:h-72 h-auto">
-          <ValueCard title={'Confianza'} Icon={Contact}>
-            Promovemos la confianza entre nuestros usuarios, facilitando una
-            comunicación efectiva en el proceso de adquisición de uno de los
-            productos publicados. y los documentos de propiedad
+          <ValueCard title={t('aboutUs.trust')} Icon={Contact}>
+            {t('aboutUs.trustText')}
           </ValueCard>
-          <ValueCard title={'Seguridad'} Icon={Security}>
-            Protegemos la información de los usuarios que utilizan nuestros
-            servicios y promovemos una compra y venta segura
+          <ValueCard title={t('aboutUs.security')} Icon={Security}>
+            {t('aboutUs.securityText')}
           </ValueCard>
         </div>
       </div>
 
       <div className="h-12 w-full bg-primary flex items-center justify-center mt-8 rounded-xl">
-        <h2 className="font-bold text-2xl">Nuestro equipo</h2>
+        <h2 className="font-bold text-2xl">{t('aboutUs.ourTeam')}</h2>
       </div>
       <div className="flex flex-col sm:flex-row sm:space-x-10 items-center justify-center mt-10 mb-3 w-full space-y-8 sm:space-y-0">
         <Team
           photo={daniel}
           name={'Ronald Daniel Jacanamejoy'}
-          description={
-            'Soy una persona que siempre le gusta mejorar, aprender nuevas cosas que me ayuden en mi formacion profesional y vida personal. '
-          }
-          phrase={'"Disfruta cada dia, como si fuera el último"'}
+          description={t('aboutUs.danielDescription')}
+          phrase={`"${t('aboutUs.danielPhrase')}"`}
           linkedin={
             'https://www.linkedin.com/in/ronald-daniel-jacanamejoy-mutumbajoy-29b2442b4/'
           }
@@ -128,30 +109,22 @@ const Conocenos = () => {
         <Team
           photo={juan}
           name={'Juan David Madrid Contreras'}
-          description={
-            'Me emociona crear cosas nuevas e interesantes, desde su estructura hasta su diseño como tal, en general me gusta ver la evolución en el proceso de la creación. '
-          }
-          phrase={
-            '"No es el último golpe el que rompe la roca, es la suma de todos los anteriores"'
-          }
+          description={t('aboutUs.juanDescription')}
+          phrase={`"${t('aboutUs.juanPhrase')}"`}
           linkedin={''}
         />
         <Team
           photo={carlos}
           name={'Carlos David Ramirez Muñoz'}
-          description={
-            'Soy un desarrollador web y apasionado por el ciclismo. Me esfuerzo por poner el corazón en cada proyecto que emprendo. En CicloMart construyo la experiencia de compra que siempre quise tener como ciclista'
-          }
-          phrase={
-            '"No importa lo que hagas, no importa lo que realices, lo más importante es dar el extra"'
-          }
+          description={t('aboutUs.carlosDescription')}
+          phrase={`"${t('aboutUs.carlosPhrase')}"`}
           linkedin={'https://www.linkedin.com/in/cramirezmun/'}
         />
         <Team
           photo={johan}
           name={'Johan Rodriguez Gutierrez'}
-          description={'Soy un apasionado por la resolución de problemas.'}
-          phrase={'"La vida es una, toca disfrutarla y vivirla"'}
+          description={t('aboutUs.johanDescription')}
+          phrase={`"${t('aboutUs.johanPhrase')}"`}
           linkedin={''}
         />
       </div>

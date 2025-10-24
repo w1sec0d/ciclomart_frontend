@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 
-import { getBicicletas } from '../../services/productService'
+import { getBicycles } from '../../services/productService'
 import { setLoading, clearLoading } from '../../store/slices/loadingSlice'
 
 import FilterSidebar from '../../components/Search/FilterSidebar'
@@ -24,10 +24,10 @@ const BicycleFinder = () => {
   })
 
   const {
-    data: bicicletas,
+    data: bicycles,
     isError,
     isLoading,
-  } = useQuery(['bicicletas'], getBicicletas)
+  } = useQuery(['bicycles'], getBicycles)
 
   useEffect(() => {
     if (isLoading) {
@@ -37,9 +37,9 @@ const BicycleFinder = () => {
     }
   }, [isLoading, dispatch])
 
-  // Detectar campos filtables dinámicamente
+  // Dynamically detect filterable fields
   useEffect(() => {
-    if (bicicletas && bicicletas.length > 0) {
+    if (bicycles && bicycles.length > 0) {
       const excludedFields = [
         'tipo',
         'compatibilidad',
@@ -67,7 +67,7 @@ const BicycleFinder = () => {
 
       const includedFields = []
 
-      const sampleBike = bicicletas[0]
+      const sampleBike = bicycles[0]
 
       let fields
       if (includedFields.length > 0) {
@@ -94,25 +94,25 @@ const BicycleFinder = () => {
       })
       setSelectedFilters(initialFilters)
 
-      const [min, max] = getPriceRange(bicicletas)
+      const [min, max] = getPriceRange(bicycles)
       const roundedMin = Math.floor(min / 10000) * 10000
       const roundedMax = Math.ceil(max / 10000) * 10000
       setPriceRange([roundedMin, roundedMax])
     }
-  }, [bicicletas])
+  }, [bicycles])
 
-  // Aplicar filtros cuando cambien
+  // Apply filters when they change
   useEffect(() => {
-    if (bicicletas && bicicletas.length > 0) {
+    if (bicycles && bicycles.length > 0) {
       const filtered = applyFilters(
-        bicicletas,
+        bicycles,
         selectedFilters,
         priceRange,
         dateRange
       )
       setFilteredBikes(filtered)
     }
-  }, [selectedFilters, priceRange, bicicletas, dateRange])
+  }, [selectedFilters, priceRange, bicycles, dateRange])
 
   const handleFilterChange = (selectedOption, filterName) => {
     setSelectedFilters((prev) => ({
@@ -144,9 +144,9 @@ const BicycleFinder = () => {
   }
 
   const resetFilters = () => {
-    if (!bicicletas || bicicletas.length === 0) return
+    if (!bicycles || bicycles.length === 0) return
 
-    const [minPrice, maxPrice] = getPriceRange(bicicletas)
+    const [minPrice, maxPrice] = getPriceRange(bicycles)
     const roundedMinPrice = Math.floor(minPrice / 10000) * 10000
     const roundedMaxPrice = Math.ceil(maxPrice / 10000) * 10000
 
@@ -168,13 +168,13 @@ const BicycleFinder = () => {
   if (isError)
     return <p className="p-4 text-red-600">Error: {isError.message}</p>
 
-  const [minPrice, maxPrice] = getPriceRange(bicicletas)
+  const [minPrice, maxPrice] = getPriceRange(bicycles)
   const roundedMinPrice = Math.floor(minPrice / 10000) * 10000
   const roundedMaxPrice = Math.ceil(maxPrice / 10000) * 10000
 
   return (
     <div className="bg-slate-100">
-      {/* Filtros móviles */}
+      {/* Mobile filters */}
       <MobileFilters
         showMobileFilters={showMobileFilters}
         setShowMobileFilters={setShowMobileFilters}
@@ -190,7 +190,7 @@ const BicycleFinder = () => {
         resetFilters={resetFilters}
       />
 
-      {/* Barra de filtros activos */}
+      {/* Active filters bar */}
       <ActiveFiltersBar
         selectedFilters={selectedFilters}
         priceRange={priceRange}
@@ -203,7 +203,7 @@ const BicycleFinder = () => {
       />
 
       <div className="flex flex-col bg-slate-100 md:flex-row gap-0">
-        {/* Sidebar de filtros (escritorio) */}
+        {/* Filter sidebar (desktop) */}
         <FilterSidebar
           filterFields={filterFields}
           priceRange={priceRange}
@@ -215,11 +215,11 @@ const BicycleFinder = () => {
           handlePriceChange={handlePriceChange}
           handleDateChange={handleDateChange}
           resetFilters={resetFilters}
-          bicicletas={bicicletas}
+          bicicletas={bicycles}
         />
 
-        {/* Grid de productos */}
-        <ProductGrid filteredBikes={filteredBikes} bicicletas={bicicletas} />
+        {/* Product grid */}
+        <ProductGrid filteredBikes={filteredBikes} bicicletas={bicycles} />
       </div>
     </div>
   )
