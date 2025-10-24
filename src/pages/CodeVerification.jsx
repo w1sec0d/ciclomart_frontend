@@ -9,8 +9,10 @@ import loginService from '../services/loginService'
 import { createUsuario } from '../services/userService'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import background1 from '../assets/background1.webp'
+import { useTranslation } from 'react-i18next'
 
 const CodeVerification = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -38,8 +40,8 @@ const CodeVerification = () => {
             dispatch(clearLoading())
             dispatch(
               setNotification({
-                title: 'Usuario creado',
-                text: `El usuario ha sido creado`,
+                title: t('errors.userCreated'),
+                text: t('errors.userCreatedSuccess'),
                 icon: 'success',
               })
             )
@@ -51,8 +53,8 @@ const CodeVerification = () => {
         if (error.response && error.response.status === 400) {
           dispatch(
             setNotification({
-              title: '¡ups!',
-              text: 'No coinciden los códigos',
+              title: t('errors.oops'),
+              text: t('errors.codesMismatch'),
               icon: 'error',
             })
           )
@@ -60,15 +62,15 @@ const CodeVerification = () => {
           console.error('Error:', error.message)
           dispatch(
             setNotification({
-              title: 'Error',
-              text: `Ocurrió un error: ${error.message}`,
+              title: t('errors.error'),
+              text: `${t('errors.errorOccurred')}: ${error.message}`,
               icon: 'error',
             })
           )
         }
       }
     },
-    [token, dispatch, navigate]
+    [token, dispatch, navigate, t]
   )
 
   useEffect(() => {
@@ -82,22 +84,19 @@ const CodeVerification = () => {
     <div className="flex items-center justify-center h-screen-minus-navbar">
       <img
         src={background1}
-        alt="Fondo de bicicletas"
+        alt={t('products.backgroundAlt')}
         className="absolute object-cover -z-10 blur-sm "
       />
       <div className="bg-white p-8 rounded shadow-md w-400 max-w-4xl">
         <h1 className="font-black text-5xl text-center">
           {' '}
-          Verificación de cuenta{' '}
+          {t('auth.accountVerification')}{' '}
         </h1>
-        <p className="text-center mt-3">
-          {' '}
-          Ingresa el código de confirmación que se envió a tu correo{' '}
-        </p>
+        <p className="text-center mt-3"> {t('auth.enterConfirmationCode')} </p>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             id="code"
-            label="Código"
+            label={t('auth.code')}
             type="number"
             {...register('code', { required: true })}
           />
@@ -106,7 +105,7 @@ const CodeVerification = () => {
               type="submit"
               className="text-center bg-tertiary text-white py-2 px-7 rounded-full"
             >
-              Continuar
+              {t('auth.continue')}
             </Button>
           </div>
         </form>

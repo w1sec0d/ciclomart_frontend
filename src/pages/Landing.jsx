@@ -25,16 +25,14 @@ import { useDispatch } from 'react-redux'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const LandingPage = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
 
-  // Carga productos con react-query
-  const {
-    data: productos,
-    isLoading,
-    error,
-  } = useQuery('productos', getProducts)
+  // Load products with react-query
+  const { data: products, isLoading, error } = useQuery('products', getProducts)
 
   const landingCarousel = {
     desktop: {
@@ -92,24 +90,24 @@ const LandingPage = () => {
       </Carousel>
       <ComparisonBar />
       <h2 className="text-2xl md:text-3xl text-center font-bold my-6 md:my-10">
-        <LocalFireDepartment fontSize="large" /> Lo más vendido
+        <LocalFireDepartment fontSize="large" /> {t('products.mostSold')}
       </h2>
       <Carousel
         responsive={itemContainer}
         className="pl-4 md:pl-7 pb-6 md:pb-10"
       >
-        {productos.map((producto) => {
+        {products.map((product) => {
           return (
             <ItemContainer
-              {...producto}
-              key={producto.idProducto}
-              envioGratis={producto['método de envio'] === 'gratis'}
+              {...product}
+              key={product.idProducto}
+              envioGratis={product['método de envio'] === 'gratis'}
             />
           )
         })}
       </Carousel>
       <h2 className="text-2xl md:text-3xl text-center font-bold my-6 md:my-10">
-        <PedalBike fontSize="large" /> Explora tu mundo bici
+        <PedalBike fontSize="large" /> {t('products.exploreYourBikeWorld')}
       </h2>
       <section className="flex flex-col md:flex-row justify-between max-w-full md:max-w-[800px] mx-auto">
         <Link
@@ -121,7 +119,7 @@ const LandingPage = () => {
             className="w-full md:w-[200px] h-[200px] object-contain"
           />
           <h3 className="font-semibold text-center my-2 text-lg md:text-xl group-hover:text-primary">
-            Ofertas
+            {t('products.offers')}
           </h3>
         </Link>
         <Link
@@ -133,7 +131,7 @@ const LandingPage = () => {
             className="w-full md:w-[200px] h-[200px] object-contain"
           />
           <h3 className="font-semibold text-center my-2 text-lg md:text-xl group-hover:text-primary">
-            Bicicletas
+            {t('products.bicycles')}
           </h3>
         </Link>
         <Link
@@ -145,26 +143,27 @@ const LandingPage = () => {
             className="w-full md:w-[200px] h-[200px] object-contain"
           />
           <h3 className="font-semibold text-center my-2 text-lg md:text-xl group-hover:text-primary">
-            Repuestos
+            {t('products.spareParts')}
           </h3>
         </Link>
       </section>
       <section className="my-6">
         <h2 className="text-2xl md:text-3xl text-center font-bold my-6 md:my-10 mx-4 lg:mx-0">
-          <SettingsSuggest fontSize="large" /> Encuentra{' '}
-          <span className="italic">ese repuesto</span> que necesitas
+          <SettingsSuggest fontSize="large" /> {t('products.findThatSparePart')}{' '}
+          <span className="italic">{t('products.thatSparePartYouNeed')}</span>{' '}
+          {t('products.youNeed')}
         </h2>
         <Carousel
           responsive={itemContainer}
           className="pl-4 md:pl-7 pb-6 md:pb-10"
         >
-          {productos.map((producto) => {
-            if (producto.tipo !== 'componente') return null
+          {products.map((product) => {
+            if (product.tipo !== 'componente') return null
             return (
               <ItemContainer
-                {...producto}
-                key={producto.idProducto}
-                envioGratis={producto['método de envio'] === 'gratis'}
+                {...product}
+                key={product.idProducto}
+                envioGratis={product['método de envio'] === 'gratis'}
               />
             )
           })}
