@@ -63,6 +63,7 @@ const BicycleFinder = () => {
         'idImagen',
         'idVendedor',
         'correoVendedor',
+        'telefonoVendedor',
       ]
 
       const includedFields = []
