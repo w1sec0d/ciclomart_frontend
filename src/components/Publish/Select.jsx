@@ -1,5 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
+import { t } from 'i18next'
 
 const CustomSelect = React.forwardRef(
   ({ name, label, options, value, onChange, required }, ref) => {
@@ -63,7 +64,7 @@ const CustomSelect = React.forwardRef(
           options={formattedOptions}
           styles={customStyles}
           isClearable={!required}
-          placeholder={`Selecciona un ${label}`}
+          placeholder={`${t('products.selectOption')} ${label}`}
           formatOptionLabel={name === 'color' ? formatOptionLabel : null}
           className="py-2"
           ref={ref}

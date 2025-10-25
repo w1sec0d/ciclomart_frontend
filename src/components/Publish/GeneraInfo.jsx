@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Input from '../Input'
 import Button from '../Button'
 import Textarea from '../TextArea'
@@ -13,7 +14,7 @@ const GeneralInfo = ({
   handleBrandChange,
   handleAddBrand,
 }) => {
-
+  const { t } = useTranslation()
   const [otraMarca, setOtraMarca] = useState('')
 
   const handleInputChange = (event) => {
@@ -23,13 +24,13 @@ const GeneralInfo = ({
   return (
     <>
       <div>
-        <Input id="nombre" label="Título" {...register('nombre')} />
+        <Input id="nombre" label={t('publish.title')} {...register('nombre')} />
       </div>
 
       <div className="">
         <Textarea
           id="descripcion"
-          label="Descripción"
+          label={t('publish.description')}
           {...register('descripcion')}
         />
       </div>
@@ -38,7 +39,7 @@ const GeneralInfo = ({
         <Input
           type="number"
           id="precio"
-          label="Precio"
+          label={t('publish.price')}
           {...register('precio')}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
         />
@@ -46,7 +47,7 @@ const GeneralInfo = ({
 
       <div>
         <label className="block text-sm text-gray-600 font-medium">
-          Imágenes
+          {t('publish.images')}
         </label>
         <input
           type="file"
@@ -75,17 +76,17 @@ const GeneralInfo = ({
         <div>
           <CustomSelect
             name="marca"
-            label="Marca"
+            label={t('publish.brand')}
             options={brands}
             {...register('marca')}
             onChange={handleBrandChange}
           />
         </div>
-        <div className='flex flex-row mt-10'>
+        <div className="flex flex-row mt-10">
           <Input
             id="otraMarca"
-            label="Otra Marca"
-            required = {false}
+            label={t('publish.otherBrand')}
+            required={false}
             value={otraMarca}
             onChange={handleInputChange}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
@@ -93,7 +94,8 @@ const GeneralInfo = ({
           <Button
             type="button"
             className="mb-4 ml-2"
-            onClick={() => handleAddBrand(otraMarca)}>
+            onClick={() => handleAddBrand(otraMarca)}
+          >
             +
           </Button>
         </div>

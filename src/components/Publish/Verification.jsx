@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Button from '../Button'
 
 const Verification = ({ onVerify }) => {
+  const { t } = useTranslation()
   const [document, setDocument] = useState(null)
 
   const handleSubmit = (e) => {
@@ -23,13 +24,13 @@ const Verification = ({ onVerify }) => {
       >
         <div className="w-full h-14 bg-primary rounded-t-lg flex items-center justify-center drop-shadow-lg">
           <h1 className="text-xl sm:text-2xl font-bold my-4 text-center">
-            Verificar propiedad de la bicicleta
+            {t('publish.verifyBicycleOwnership')}
           </h1>
         </div>
         <form onSubmit={handleSubmit} className="w-full max-w-md my-4">
           <div className="mb-4 w-full">
             <label className="block mb-1 text-center sm:text-left">
-              Por favor sube aquí la tarjeta de propiedad de la bicicleta
+              {t('publish.uploadPropertyCardPrompt')}
             </label>
             <input
               type="file"
@@ -40,7 +41,7 @@ const Verification = ({ onVerify }) => {
             />
           </div>
           <Button type="submit" className="w-full">
-            Enviar
+            {t('publish.submit')}
           </Button>
         </form>
       </div>

@@ -1,21 +1,23 @@
-import React from 'react'
+import { useTranslation } from 'react-i18next'
 import filters from '../../utils/newFilters'
 import Input from '../Input'
 import CustomSelect from './Select'
 
 const SparePartForm = ({ componentData, register }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
         <CustomSelect
           name="compatibilidad"
-          label="Compatibilidad"
+          label={t('publish.compatibility')}
           options={filters['componente'].compatibilidad}
           {...register('compatibilidad')}
         />
         <CustomSelect
           name="categoria"
-          label="Categoria"
+          label={t('publish.category')}
           options={filters['componente'].categoria}
           {...register('categoria')}
         />
