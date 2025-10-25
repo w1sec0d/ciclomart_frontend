@@ -38,12 +38,12 @@ const FilterContent = ({
         .map((field) => (
           <div className="m-4 mt-5" key={field}>
             <label className="block mb-2 font-medium">
-              {formatFieldName(field)}
+              {formatFieldName(field, t)}
             </label>
             <Select
               className="w-full"
-              placeholder={`${t('products.selectOption')} ${formatFieldName(field).toLowerCase()}`}
-              options={getFilterOptions(field, bicycles)}
+              placeholder={`${t('products.selectOption')} ${formatFieldName(field, t).toLowerCase()}`}
+              options={getFilterOptions(field, bicycles, t)}
               value={selectedFilters[field]}
               onChange={(option) => handleFilterChange(option, field)}
               isClearable

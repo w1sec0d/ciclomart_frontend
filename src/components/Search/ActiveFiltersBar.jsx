@@ -36,7 +36,7 @@ const ActiveFiltersBar = ({
               className="bg-secondary text-black px-2 py-1 text-sm flex items-center"
             >
               <span>
-                {formatFieldName(key)}: {value.label}
+                {formatFieldName(key, t)}: {value.label}
               </span>
               <button
                 className="ml-2 text-primary hover:text-blue-700"
