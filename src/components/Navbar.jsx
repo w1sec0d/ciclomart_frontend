@@ -130,6 +130,9 @@ const Navbar = () => {
                 <Person className="mr-2" /> {t('nav.profile')}
               </Button>
             </li>
+            <li className="py-2 text-center items-center justify-center hidden lg:flex">
+              <LanguageSwitcher />
+            </li>
           </>
         ) : (
           <>

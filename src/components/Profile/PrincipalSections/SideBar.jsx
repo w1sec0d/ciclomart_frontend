@@ -1,38 +1,42 @@
-//-> Components
+// Components
 import CardButton from '../CardButton.jsx'
 import ShowDataList from '../ShowDataList.jsx'
 
-//-> Icons
+// Icons
 import ShoppingBag from '@mui/icons-material/LocalMallOutlined'
 import Store from '@mui/icons-material/StorefrontOutlined'
 import Tag from '@mui/icons-material/LocalOfferOutlined'
 import { MdOutlineReviews } from 'react-icons/md'
+import MenuIcon from '@mui/icons-material/Menu'
 
-import MenuIcon from '@mui/icons-material/Menu' // Importa el icono de menú
-
-//-> Images
+// Images
 import Logo from '../../../assets/logoVector.svg'
 
-//-> Utils
+// Utils & Services
 import apiService from '../../../services/apiService.js'
 import { getSales, getPurchases } from '../../../services/userService.js'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const SideBar = () => {
-  /*Estado global del usuario registrado*/
+  const { t } = useTranslation()
+
+  // Global state for logged-in user
   const authUser = useSelector((state) => state.auth.authUser)
-  /*Permite manejar que sección se muestra */
+
+  // State to manage which section is shown
   const [activeButton, setActiveButton] = useState(0)
   const [purchaseData, setPurchaseData] = useState([])
   const [salesData, setSalesData] = useState([])
   const [storesData, setStoresData] = useState([])
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false) // Estado para controlar la visibilidad del sidebar
-  /*Cambia de pegina a mis reseñas */
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false) // State to control sidebar visibility
+
+  // Navigate to reviews page
   const navigate = useNavigate()
 
-  //indexSection1 = Compras, indexSection2 = Ventas , indexSection3= Tiendas
+  // indexSection1 = Purchases, indexSection2 = Sales, indexSection3 = Stores
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
@@ -43,7 +47,7 @@ const SideBar = () => {
         setSalesData(salesData.results)
         setStoresData(storesData.results)
       } catch (error) {
-        console.error('Error obteniendo datos de la sidebar', error)
+        console.error('Error fetching sidebar data', error)
       }
     }
 
@@ -52,8 +56,8 @@ const SideBar = () => {
     }
   }, [authUser])
 
-  /* -> Handlers -> */
-  //index1 = compras , index2= ventas , index3 = tiendas , index0 = nada
+  // Handlers
+  // index1 = purchases, index2 = sales, index3 = stores, index0 = none
   const handleShowData = (index) => {
     if (activeButton === index) {
       setActiveButton(0)
@@ -74,7 +78,7 @@ const SideBar = () => {
     ? `/purchases/${authUser.idUsuario}`
     : '/purchases'
 
-  /* -> Contenido Visual -> */
+  // Visual content
   return (
     <div
       className={`fixed top-[64px] left-0 bg-lgray h-[calc(100%-64px)] shadow-2xl flex flex-col ${
@@ -86,6 +90,7 @@ const SideBar = () => {
         className={`fixed top-[78px] md:absolute md:top-4 transition-left duration-300 ${
           isSidebarOpen ? 'left-[calc(100%-4rem)] md:left-[100%]' : 'left-4'
         } z-10`}
+        aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
       >
         <MenuIcon />
       </button>
@@ -99,7 +104,9 @@ const SideBar = () => {
               className="flex items-center justify-center"
             >
               <ShoppingBag className="ml-2" />
-              <b className="flex flex-col w-full text-center mr-4">Compras</b>
+              <b className="flex flex-col w-full text-center mr-4">
+                {t('profile.purchases')}
+              </b>
             </CardButton>
           </Link>
           <hr />
@@ -112,7 +119,9 @@ const SideBar = () => {
             className="flex items-center justify-center"
           >
             <Tag className="ml-2" />
-            <b className="flex flex-col w-full text-center">Ventas</b>
+            <b className="flex flex-col w-full text-center">
+              {t('profile.sales')}
+            </b>
           </CardButton>
           <hr />
           <ShowDataList data={salesData} type={2} activeButton={activeButton} />
@@ -125,7 +134,9 @@ const SideBar = () => {
             className="flex items-center justify-center"
           >
             <Store className="ml-2" />
-            <b className="flex flex-col w-full text-center">Tiendas</b>
+            <b className="flex flex-col w-full text-center">
+              {t('profile.stores')}
+            </b>
           </CardButton>
           <hr />
           <ShowDataList
@@ -141,7 +152,9 @@ const SideBar = () => {
             className="flex items-center justify-center"
           >
             <MdOutlineReviews className="ml-2 size-6" />
-            <b className="flex flex-col w-full text-center">Mis Reseñas</b>
+            <b className="flex flex-col w-full text-center">
+              {t('profile.myReviews')}
+            </b>
           </CardButton>
         </li>
         <hr />

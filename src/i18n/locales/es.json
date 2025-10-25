@@ -274,7 +274,12 @@
     "editProfile": "Editar Perfil",
     "changePhoto": "Cambiar Foto",
     "save": "Guardar",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "purchases": "Compras",
+    "sales": "Ventas",
+    "stores": "Tiendas",
+    "myReviews": "Mis Reseñas",
+    "generalInformation": "Información General"
   },
   "publish": {
     "publishProduct": "Publicar Producto",

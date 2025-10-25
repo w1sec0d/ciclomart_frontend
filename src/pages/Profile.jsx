@@ -1,4 +1,4 @@
-//-> Componentes
+// Components
 import SideBar from '../components/Profile/PrincipalSections/SideBar.jsx'
 import Information from '../components/Profile/PrincipalSections/Information.jsx'
 import Settings from '../components/Profile/PrincipalSections/Settings.jsx'
@@ -7,13 +7,13 @@ import Settings from '../components/Profile/PrincipalSections/Settings.jsx'
 const Profile = () => {
   return (
     <section className="relative flex flex-row h-screen">
-      {/* Side Bar */}
+      {/* Sidebar */}
       <SideBar />
-      {/* Main Content */}
+      {/* Main content */}
       <div className="flex flex-col w-full h-full transition-width duration-300 px-6 md:0">
-        {/*General Information*/}
+        {/* General information */}
         <Information />
-        {/*Settings*/}
+        {/* Settings */}
         <Settings />
       </div>
     </section>
