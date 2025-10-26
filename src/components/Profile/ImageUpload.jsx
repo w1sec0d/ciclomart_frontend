@@ -2,7 +2,7 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
-import { getUsuarioPhoto } from '../../services/userService'
+import { getUserPhoto, updateUserPhoto } from '../../services/userService'
 
 const ImageUpload = ({ defaultPhoto }) => {
   const authUser = useSelector((state) => state.auth.authUser)
@@ -42,24 +42,24 @@ const ImageUpload = ({ defaultPhoto }) => {
         formData
       )
       const photoUrl = response.data.secure_url
-      await axios.put(`${API_URL}/updateUsuarioFoto/${authUser.idUsuario}`, {
-        photoUrl: response.data.secure_url,
-      })
+      await updateUserPhoto(authUser.idUsuario, photoUrl)
       setUrl(photoUrl)
       setPhoto({ photoUrl })
       setLoading(false)
       setImage(null) // Reset the image state after successful upload
     } catch (error) {
-      console.error('Error subiendo la imagen:', error)
+      console.error('Error uploading the image:', error)
       setError('Error uploading the image')
+    } finally {
       setLoading(false)
+      setImage(null)
     }
   }
 
   useEffect(() => {
     const fetchUserPhoto = async () => {
       try {
-        const photo = await getUsuarioPhoto(authUser.idUsuario)
+        const photo = await getUserPhoto(authUser.idUsuario)
         setPhoto(photo)
       } catch (error) {
         console.error('Error fetching user photo:', error)

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from '../store/slices/notificationSlice'
 import Button from './Button'
 import Input from './Input'
-import { updateDireccion } from '../services/userService'
+import { updateUserAddress } from '../services/userService'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import { cleanShowModal } from '../store/slices/showModalSlice'
 import { setAuthUser } from '../store/slices/authSlice'
@@ -21,7 +21,7 @@ const DireccionForm = () => {
     try {
       console.log('data', data)
       dispatch(setLoading())
-      const response = await updateDireccion(authUser.idUsuario, data)
+      const response = await updateUserAddress(authUser.idUsuario, data)
       console.log('response', response)
       // Actualiza el usuario autenticado con la nueva dirección
       dispatch(
