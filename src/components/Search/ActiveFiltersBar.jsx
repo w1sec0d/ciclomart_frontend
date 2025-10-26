@@ -1,5 +1,6 @@
 import React from 'react'
 import { formatFieldName } from '../../utils/filterUtils'
+import { useTranslation } from 'react-i18next'
 
 const ActiveFiltersBar = ({
   selectedFilters,
@@ -11,6 +12,7 @@ const ActiveFiltersBar = ({
   setDateRange,
   resetFilters,
 }) => {
+  const { t } = useTranslation()
   const activeFilterCount =
     Object.values(selectedFilters).filter(Boolean).length
   const isPriceRangeModified =
@@ -24,7 +26,7 @@ const ActiveFiltersBar = ({
     <div className=" p-2 bg-primary">
       <div className="flex flex-wrap gap-2 items-center">
         <span className="text-sm font-medium text-slate-50">
-          Filtros activos:
+          {t('products.activeFilters')}
         </span>
         {Object.entries(selectedFilters).map(([key, value]) => {
           if (!value) return null
@@ -34,7 +36,7 @@ const ActiveFiltersBar = ({
               className="bg-secondary text-black px-2 py-1 text-sm flex items-center"
             >
               <span>
-                {formatFieldName(key)}: {value.label}
+                {formatFieldName(key, t)}: {value.label}
               </span>
               <button
                 className="ml-2 text-primary hover:text-blue-700"
@@ -47,21 +49,21 @@ const ActiveFiltersBar = ({
         })}
         {isPriceRangeModified && (
           <div className="bg-secondary text-black px-2 py-1 rounded text-sm">
-            Precio: ${priceRange[0].toLocaleString()} - $
+            {t('products.price')}: ${priceRange[0].toLocaleString()} - $
             {priceRange[1].toLocaleString()}
           </div>
         )}
         {isDateRangeModified && (
           <div className="bg-secondary text-black px-2 py-1 rounded text-sm flex items-center">
             <span>
-              Fecha:{' '}
+              {t('products.date')}:{' '}
               {dateRange.startDate
                 ? dateRange.startDate.toLocaleDateString()
-                : 'Inicio'}
+                : t('products.start')}
               {' - '}
               {dateRange.endDate
                 ? dateRange.endDate.toLocaleDateString()
-                : 'Fin'}
+                : t('products.end')}
             </span>
             <button
               className="ml-2 text-blue-500 hover:text-blue-700"
@@ -75,7 +77,7 @@ const ActiveFiltersBar = ({
           className="ml-auto text-slate-50 hover:text-blue-900 text-sm"
           onClick={resetFilters}
         >
-          Limpiar todos
+          {t('products.clearAll')}
         </button>
       </div>
     </div>

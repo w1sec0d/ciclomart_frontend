@@ -3,27 +3,27 @@ import questionService from './questionService'
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 const getProducts = async () => {
-  const request = await axios.get(API_URL + '/productos')
+  const request = await axios.get(API_URL + '/products')
   return request.data.results
 }
 
-const getBicicletas = async () => {
-  const request = await axios.get(API_URL + '/bicicletas')
+const getBicycles = async () => {
+  const request = await axios.get(API_URL + '/bicycles')
   return request.data.results
 }
 
-const getComponentes = async () => {
-  const request = await axios.get(API_URL + '/componentes')
+const getComponents = async () => {
+  const request = await axios.get(API_URL + '/components')
   return request.data.results
 }
 
-const getOfertas = async () => {
-  const request = await axios.get(API_URL + '/ofertas')
+const getOffers = async () => {
+  const request = await axios.get(API_URL + '/offers')
   return request.data.results
 }
 
 const getProductById = async (id) => {
-  const request = await axios.get(API_URL + '/productos/' + id)
+  const request = await axios.get(API_URL + '/products/' + id)
   const preguntas = await questionService.getQuestions(id)
   return {
     ...request.data.results[0],
@@ -34,7 +34,7 @@ const getProductById = async (id) => {
 export {
   getProducts,
   getProductById,
-  getBicicletas,
-  getComponentes,
-  getOfertas,
+  getBicycles,
+  getComponents,
+  getOffers,
 }

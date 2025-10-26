@@ -1,11 +1,11 @@
-// -> Componentes
+// Components
 import OptionSelector from '../OptionSelector'
 
-// -> Iconos
+// Icons
 import ChangePassword from '@mui/icons-material/LockResetOutlined'
 import LogOut from '@mui/icons-material/ExitToAppOutlined'
 
-//-> Utilidades
+// Utils
 import logOut from '../../../../utils/logOut'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -14,15 +14,17 @@ import { cleanShowModal } from '../../../../store/slices/showModalSlice'
 import loginService from '../../../../services/loginService'
 import { setNotification } from '../../../../store/slices/notificationSlice'
 import { clearLoading, setLoading } from '../../../../store/slices/loadingSlice'
+import { useTranslation } from 'react-i18next'
 
 const SecurityModal = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const activeModal = useSelector((state) => state.showModal.activeModal)
   const authUser = useSelector((state) => state.auth.authUser)
 
   const handleChangePassword = async () => {
-    if (window.confirm('¿Estás seguro de que quieres cambiar tu contraseña?')) {
+    if (window.confirm(t('profile.changePasswordConfirm'))) {
       try {
         dispatch(cleanShowModal())
         dispatch(setLoading(true))
@@ -33,8 +35,8 @@ const SecurityModal = () => {
           dispatch(clearLoading(true))
           dispatch(
             setNotification({
-              title: '¡Ya casi!',
-              text: 'Hemos enviado un link de cambio de contraseña a tu dirección de correo electrónico',
+              title: t('profile.changePasswordSuccess'),
+              text: t('profile.changePasswordSuccessText'),
               icon: 'success',
               timer: 5000,
             })
@@ -42,8 +44,8 @@ const SecurityModal = () => {
         } else {
           dispatch(
             setNotification({
-              title: 'Algo salio mal!',
-              text: 'Algo ha fallado con tu solictud de cambio de contraseña, intentalo de nuevo más tarde',
+              title: t('profile.changePasswordError'),
+              text: t('profile.changePasswordErrorText'),
               icon: 'error',
               timer: 5000,
             })
@@ -58,7 +60,7 @@ const SecurityModal = () => {
   return (
     <div className="grid grid-cols-1 gap-0 h-full">
       <OptionSelector
-        text={'Cambia tu contraseña'}
+        text={t('profile.changePassword')}
         onClick={handleChangePassword}
       >
         <ChangePassword
@@ -67,7 +69,7 @@ const SecurityModal = () => {
         ></ChangePassword>
       </OptionSelector>
       <OptionSelector
-        text={'Cerrar sesión'}
+        text={t('profile.logOut')}
         className={'border-0 hover:border-red-400  hover:bg-red-200'}
         onClick={() => logOut(dispatch, navigate, activeModal)}
       >

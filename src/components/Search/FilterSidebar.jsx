@@ -12,7 +12,7 @@ const FilterSidebar = ({
   handlePriceChange,
   handleDateChange,
   resetFilters,
-  bicicletas,
+  bicicletas, // API field name for backward compatibility
 }) => {
   return (
     <div className="hidden md:block md:w-1/4 bg-gray-100 sticky top-4 max-h-screen overflow-y-auto">
@@ -27,7 +27,7 @@ const FilterSidebar = ({
         handlePriceChange={handlePriceChange}
         handleDateChange={handleDateChange}
         resetFilters={resetFilters}
-        bicicletas={bicicletas}
+        bicycles={bicicletas}
       />
     </div>
   )

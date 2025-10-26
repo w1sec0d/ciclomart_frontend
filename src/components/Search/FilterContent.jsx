@@ -1,9 +1,9 @@
-import React from 'react'
 import Select from 'react-select'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { getFilterOptions, formatFieldName } from '../../utils/filterUtils'
 import Button from '../Button'
+import { useTranslation } from 'react-i18next'
 
 const FilterContent = ({
   filterFields,
@@ -16,8 +16,9 @@ const FilterContent = ({
   handlePriceChange,
   handleDateChange,
   resetFilters,
-  bicicletas,
+  bicycles,
 }) => {
+  const { t } = useTranslation()
   const priceStep = 10000
   const activeFilterCount =
     Object.values(selectedFilters).filter(Boolean).length
@@ -28,21 +29,21 @@ const FilterContent = ({
   return (
     <>
       <h1 className="text-2xl bg-tertiary py-4 font-bold text-center pb-8 shadow-xl">
-        Filtros
+        {t('products.filters')}
       </h1>
 
-      {/* Filtros dinámicos */}
+      {/* Dynamic filters */}
       {filterFields
         .filter((field) => field !== 'createdAt' && field !== 'updatedAt')
         .map((field) => (
           <div className="m-4 mt-5" key={field}>
             <label className="block mb-2 font-medium">
-              {formatFieldName(field)}
+              {formatFieldName(field, t)}
             </label>
             <Select
               className="w-full"
-              placeholder={`Selecciona ${formatFieldName(field).toLowerCase()}`}
-              options={getFilterOptions(field, bicicletas)}
+              placeholder={`${t('products.selectOption')} ${formatFieldName(field, t).toLowerCase()}`}
+              options={getFilterOptions(field, bicycles, t)}
               value={selectedFilters[field]}
               onChange={(option) => handleFilterChange(option, field)}
               isClearable
@@ -50,14 +51,14 @@ const FilterContent = ({
           </div>
         ))}
 
-      {/* Filtro de fecha de publicación */}
+      {/* Publication date filter */}
       <div className="mb-4">
         <label className="block mb-2 mx-4 font-medium ">
-          Fecha de Publicación
+          {t('products.publicationDate')}
         </label>
         <div className="flex flex-col items-center space-y-2">
           <div>
-            <label className="block text-sm mb-1">Desde</label>
+            <label className="block text-sm mb-1">{t('products.from')}</label>
             <DatePicker
               selected={dateRange.startDate}
               onChange={(date) => handleDateChange(date, 'startDate')}
@@ -65,13 +66,13 @@ const FilterContent = ({
               startDate={dateRange.startDate}
               endDate={dateRange.endDate}
               className="w-full border rounded px-2 py-1"
-              placeholderText="Fecha inicial"
+              placeholderText={t('products.initialDate')}
               dateFormat="dd/MM/yyyy"
               isClearable
             />
           </div>
           <div>
-            <label className="block text-sm mb-1">Hasta</label>
+            <label className="block text-sm mb-1">{t('products.to')}</label>
             <DatePicker
               selected={dateRange.endDate}
               onChange={(date) => handleDateChange(date, 'endDate')}
@@ -80,7 +81,7 @@ const FilterContent = ({
               endDate={dateRange.endDate}
               minDate={dateRange.startDate}
               className="w-full border rounded px-2 py-1"
-              placeholderText="Fecha final"
+              placeholderText={t('products.finalDate')}
               dateFormat="dd/MM/yyyy"
               isClearable
             />
@@ -88,15 +89,17 @@ const FilterContent = ({
         </div>
       </div>
 
-      {/* Filtro de Rango de Precio */}
+      {/* Price range filter */}
       <div className="mb-4">
-        <label className="block mb-2 mx-4 font-medium">Rango de Precio</label>
+        <label className="block mb-2 mx-4 font-medium">
+          {t('products.priceRange')}
+        </label>
         <div className="flex justify-between mb-2 mx-4">
           <span>${priceRange[0].toLocaleString()}</span>
           <span>${priceRange[1].toLocaleString()}</span>
         </div>
         <div className="mb-2 mx-4">
-          <label className="block text-sm mb-1">Precio mínimo</label>
+          <label className="block text-sm mb-1">{t('products.minPrice')}</label>
           <input
             type="range"
             id="minPrice"
@@ -109,7 +112,7 @@ const FilterContent = ({
           />
         </div>
         <div className="mb-2 mx-4">
-          <label className="block text-sm mb-1">Precio máximo</label>
+          <label className="block text-sm mb-1">{t('products.maxPrice')}</label>
           <input
             type="range"
             id="maxPrice"
@@ -123,15 +126,15 @@ const FilterContent = ({
         </div>
       </div>
       <div className="flex justify-center">
-        {/* Botón para limpiar filtros */}
+        {/* Clear filters button */}
         <Button
           className="w-4/5 bg-primary text-white py-2 rounded hover:bg-blue-200 hover:text-primary"
           onClick={resetFilters}
         >
-          Limpiar Filtros
+          {t('products.clearFilters')}
         </Button>
       </div>
-      {/* Contador de filtros activos */}
+      {/* Active filters counter */}
       <div className="m-4 p-2 bg-secondary rounded text-center">
         {activeFilterCount > 0 ||
         isPriceRangeModified ||
@@ -140,10 +143,10 @@ const FilterContent = ({
             {activeFilterCount +
               (isPriceRangeModified ? 1 : 0) +
               (isDateRangeModified ? 1 : 0)}{' '}
-            filtros aplicados
+            {t('products.filtersApplied')}
           </p>
         ) : (
-          <p className="text-sm">Sin filtros activos</p>
+          <p className="text-sm">{t('products.noActiveFilters')}</p>
         )}
       </div>
     </>

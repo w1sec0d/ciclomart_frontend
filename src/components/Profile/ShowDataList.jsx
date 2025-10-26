@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import DataList from './DataList.jsx'
 
-//Este componente sirve para mostrar los datos al dar click en algun elemento de la sidebar
+// This component is used to show data when clicking on a sidebar element
 const showDataList = ({ data, type, activeButton }) => {
   const [activeModal, setActiveModal] = useState(0)
   return (

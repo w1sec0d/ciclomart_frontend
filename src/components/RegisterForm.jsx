@@ -7,8 +7,10 @@ import Button from './Button'
 import loginService from '../services/loginService'
 import { Link, useNavigate } from 'react-router-dom'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
+import { useTranslation } from 'react-i18next'
 
 const RegisterForm = () => {
+  const { t } = useTranslation()
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
   const phoneRegex = /^[0-9]{10}$/
 
@@ -39,20 +41,20 @@ const RegisterForm = () => {
       }
     } catch (error) {
       dispatch(clearLoading())
-      // check error http response
+      // Check error http response
       if (error.status === 400) {
         dispatch(
           setNotification({
-            title: '¡Error!',
-            text: error.response.data.message ?? 'ha ocurrido un error',
+            title: t('errors.error'),
+            text: error.response.data.message ?? t('errors.errorOccurred'),
             icon: 'error',
           })
         )
       } else if (error.status === 500) {
         dispatch(
           setNotification({
-            title: '¡Error!',
-            text: 'Error en el servidor, intentalo más tarde',
+            title: t('errors.error'),
+            text: t('errors.serverError'),
             icon: 'error',
           })
         )
@@ -61,12 +63,12 @@ const RegisterForm = () => {
   }
   return (
     <>
-      <h1 className="font-black text-5xl">Únete a CicloMart</h1>
-      <p>Crea una cuenta gratuita o inicia sesión</p>
+      <h1 className="font-black text-5xl">{t('auth.joinCiclomart')}</h1>
+      <p>{t('auth.createAccountOrLogin')}</p>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <Input
           id="email"
-          label="Correo electrónico"
+          label={t('auth.email')}
           type="email"
           {...register('email', { required: true })}
         />
@@ -76,26 +78,26 @@ const RegisterForm = () => {
         <div className="flex gap-4">
           <Input
             id="name"
-            label="Nombres"
+            label={t('auth.names')}
             className="w-1/2"
             {...register('nombre', { required: true })}
           />
           <Input
             id="surname"
-            label="Apellidos"
+            label={t('auth.surnames')}
             className="w-1/2"
             {...register('apellido', { required: true })}
           />
         </div>
         <Input
-          id="telefono"
-          label="Teléfono"
-          type="telefono"
+          id="phone"
+          label={t('auth.phone')}
+          type="tel"
           {...register('telefono', {
             required: true,
             pattern: {
               value: phoneRegex,
-              message: 'Ingresa un número de teléfono válido de 10 dígitos',
+              message: t('errors.invalidPhone'),
             },
           })}
         />
@@ -107,22 +109,20 @@ const RegisterForm = () => {
 
         <Input
           id="password"
-          label="Contraseña"
+          label={t('auth.password')}
           type="password"
           {...register('password', {
-            required: 'Password is required',
+            required: t('validation.passwordRequired'),
             pattern: {
               value: passwordRegex,
-              message:
-                'La contraseña debe tener al menos 6 caracteres, una letra mayúscula, una letra minúscula y un número.',
+              message: t('validation.passwordRequirements'),
             },
           })}
         />
 
         {!errors.password ? (
           <p className="text-xs" style={{ color: '#A2C634' }}>
-            La contraseña debe tener al menos 6 caracteres, una letra mayúscula,
-            una letra minúscula y un número.
+            {t('validation.passwordRequirements')}
           </p>
         ) : (
           <span className="text-red-500 text-xs">
@@ -131,17 +131,15 @@ const RegisterForm = () => {
         )}
         <Input
           id="passwordConfirm"
-          label="Confirmar contraseña"
+          label={t('auth.confirmPassword')}
           type="password"
           {...register('passwordConfirm', {
-            required: 'Password is required',
+            required: t('validation.passwordRequired'),
             validate: (value) =>
-              value === password ||
-              'Las contraseñas no coinciden, verifica de nuevo',
+              value === password || t('errors.passwordsDontMatch'),
             pattern: {
               value: passwordRegex,
-              message:
-                'La contraseña debe tener al menos 6 caracteres, una letra mayúcula, una letra minúscula y un número.',
+              message: t('validation.passwordRequirements'),
             },
           })}
         />
@@ -152,22 +150,22 @@ const RegisterForm = () => {
         )}
         <div>
           <Checkbox id="terms" {...register('terms', { required: true })}>
-            Acepto los{' '}
+            {t('auth.acceptTerms')}{' '}
             <Link to="/terms" className="text-primary">
-              Términos y condiciones
-            </Link>
-            {' y '}
+              {t('auth.termsLink')}
+            </Link>{' '}
+            {t('auth.and')}{' '}
             <Link to="/privacy" className="text-primary">
-              politica de datos
+              {t('auth.privacyLink')}
             </Link>
             {errors.terms && (
               <span className="ml-5 text-red-500 text-xs">
-                Debes aceptar los términos y condiciones
+                {t('errors.acceptTermsRequired')}
               </span>
             )}
           </Checkbox>
 
-          <Button type="submit">Registrarse</Button>
+          <Button type="submit">{t('auth.registerButton')}</Button>
         </div>
       </form>
     </>

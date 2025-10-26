@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useQuery, useQueryClient } from 'react-query'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-// componentes
+// Components
 import Loading from '../../components/Loading'
 import Button from '../../components/Button'
 
@@ -16,32 +17,32 @@ import GalleryImages from '../GalleryImages'
 import ItemsTable from '../../components/ItemsTable'
 import Redirect from '../../components/Redirect'
 
-// servicios
+// Services
 import { getProductById } from '../../services/productService'
 import mercadoPago from '../../services/mercadoPago'
-import cartService from '../../services/cartService'
 import questionService from '../../services/questionService'
 
-// utils
+// Utils
 import colombianPrice from '../../utils/colombianPrice'
 import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import capitalize from '../../utils/capitalize'
 
-import { addItem } from '../../store/slices/cartSlice'
 import { setShowAddressModal } from '../../store/slices/showModalSlice'
+import { getValueTranslationKey } from '../../utils/filterMappings'
+import { ShoppingBag } from '@mui/icons-material'
 
 const ProductPage = () => {
-  // Obtiene el id del producto de los parámetros de la URL
+  const { t } = useTranslation()
+  // Get product ID from URL parameters
   const { id } = useParams()
   const dispatch = useDispatch()
   const queryClient = useQueryClient()
   const authUser = useSelector((state) => state.auth.authUser)
-  const cartItems = useSelector((state) => state.cart.items)
   const [cantidad, setCantidad] = useState(1)
   const [showAll, setShowAll] = useState(false)
   const [preguntas, setPreguntas] = useState([])
 
-  // Hace fetch del producto con react-query
+  // Fetch product with react-query
   const {
     data: producto,
     isLoading,
@@ -50,11 +51,11 @@ const ProductPage = () => {
 
   const handleBuy = async () => {
     dispatch(setLoading())
-    // Verifica si el usuario está autenticado
+    // Check if user is authenticated
     if (!authUser) {
       dispatch(
         setNotification({
-          title: 'Debes iniciar sesión para comprar',
+          title: t('product.mustLoginToBuy'),
           icon: 'error',
         })
       )
@@ -62,13 +63,13 @@ const ProductPage = () => {
       return
     }
 
-    // Verifica que el usuario tenga una dirección de envío
+    // Check that user has a shipping address
     if (
       !authUser.direccionNombre ||
       !authUser.direccionNumero ||
       !authUser.codigoPostal
     ) {
-      dispatch(setShowAddressModal(4)) // Mostrar el mensaje inicial
+      dispatch(setShowAddressModal(4)) // Show initial message
       dispatch(clearLoading())
       return
     }
@@ -85,69 +86,12 @@ const ProductPage = () => {
     }, 5000)
   }
 
-  const handleAddToCart = async () => {
-    // Verificar si el usuario está autenticado
-
-    if (!authUser) {
-      dispatch(
-        setNotification({
-          title: '¡UPS!',
-          text: 'Debes iniciar sesión primero para poder agregar al carrito',
-          icon: 'error',
-          timer: 3000,
-        })
-      )
-
-      return
-    }
-
-    const idUsuario = authUser.idUsuario
-    const idProducto = producto.idProducto
-
-    //Verificar que la cantidad de producto en el carrito no exceda la cantidad disponible
-
-    const existingItem = cartItems.find((item) => item.id === idProducto)
-    const existingQuantity = existingItem ? existingItem.cantidad : 0
-    const totalQuantity = existingQuantity + cantidad
-
-    if (totalQuantity > producto.cantidad) {
-      dispatch(
-        setNotification({
-          title: '¡UPS!',
-          text: `No puedes agregar más de ${producto.cantidad} unidades de este producto.`,
-          icon: 'error',
-          timer: 3000,
-        })
-      )
-      return
-    }
-
-    // Agregar el producto al carrito
-    dispatch(addItem(producto))
-    await cartService.addProductToCart(idUsuario, idProducto, cantidad)
-
-    // Sync the cart with localStorage
-    const updatedCart = [...cartItems, producto]
-    localStorage.setItem('cart', JSON.stringify(updatedCart))
-
-    dispatch(
-      setNotification({
-        title: '¡Éxito!',
-        text: 'Producto agregado al carrito',
-        icon: 'success',
-        timer: 3000,
-      })
-    )
-  }
-
   const handleQuestion = async () => {
-    event.preventDefault()
-
     if (!authUser) {
       dispatch(
         setNotification({
-          title: '¡UPS!',
-          text: 'Debes iniciar sesión para realizar una pregunta',
+          title: t('product.oops'),
+          text: t('product.mustLoginToAsk'),
           icon: 'error',
           timer: 3000,
         })
@@ -165,7 +109,7 @@ const ProductPage = () => {
         pregunta
       )
 
-      // Asegúrate de que newQuestion tiene la misma estructura que las preguntas existentes
+      // Ensure newQuestion has the same structure as existing questions
       setPreguntas((prevPreguntas) => [
         ...prevPreguntas,
         {
@@ -175,16 +119,16 @@ const ProductPage = () => {
         },
       ])
 
-      // Invalida la consulta del producto para que se actualice en segundo plano
+      // Invalidate product query to update in the background
       queryClient.invalidateQueries(['productos', id])
 
       document.getElementById('pregunta').value = ''
     } catch (error) {
-      console.error('Error al añadir pregunta:', error)
+      console.error('Error adding question:', error)
       dispatch(
         setNotification({
           title: 'Error',
-          text: 'No se pudo agregar la pregunta',
+          text: t('product.errorAddingQuestion'),
           icon: 'error',
           timer: 3000,
         })
@@ -201,7 +145,7 @@ const ProductPage = () => {
     try {
       await questionService.answerQuestion(idPregunta, idProducto, respuesta)
 
-      // Actualiza el estado local con la respuesta
+      // Update local state with the answer
       setPreguntas((prevPreguntas) =>
         prevPreguntas.map((pregunta) =>
           pregunta.idPregunta === idPregunta
@@ -212,7 +156,7 @@ const ProductPage = () => {
 
       document.getElementById(`respuesta-${idPregunta}`).value = ''
     } catch (error) {
-      console.error('Error al responder:', error)
+      console.error('Error answering:', error)
     }
   }
 
@@ -254,28 +198,32 @@ const ProductPage = () => {
               <div className="tracking-wide px-4 py-4 w-full h-full flex flex-col md:flex-row">
                 <div className="w-full md:w-1/2 border-lgray md:border-r">
                   <p>
-                    <b>Marca</b>: {producto.nombreMarca ?? 'Genérica'}
+                    <b>{t('product.brand')}</b>:{' '}
+                    {producto.nombreMarca ?? t('product.generic')}
                   </p>
                   <p>
-                    <b>Tipo</b>: {capitalize(producto.tipo)}
+                    <b>{t('product.type')}</b>:{' '}
+                    {t(getValueTranslationKey('tipoProducto', producto.tipo)) ||
+                      capitalize(producto.tipo)}
                   </p>
                   <p>
-                    <b>Estado</b>:{' '}
+                    <b>{t('product.status')}</b>:{' '}
                     {producto.disponibilidad === 'disponible'
-                      ? 'Disponible'
-                      : 'No Disponible'}
+                      ? t('products.available')
+                      : t('products.sold')}
                   </p>
                   <p>
-                    <b>Publicado el: </b>
+                    <b>{t('product.publishedOn')} </b>
                     {new Date(producto.fechaPublicacion).toLocaleDateString()}
                   </p>
                   <p>
-                    <b>Costo de envío</b>: {colombianPrice(producto.costoEnvio)}
+                    <b>{t('product.shippingCost')}</b>:{' '}
+                    {colombianPrice(producto.costoEnvio)}
                   </p>
                   <p>
                     <Redirect
                       section={'section1'}
-                      name={'Más detalles'}
+                      name={t('product.moreDetails')}
                       idProducto={producto.idProducto}
                     />
                   </p>
@@ -283,7 +231,7 @@ const ProductPage = () => {
                 <div className="w-full md:w-1/2 px-4 mt-4 md:mt-0">
                   <Input
                     type="number"
-                    label="Cantidad: "
+                    label={t('product.quantity')}
                     id="cantidad"
                     name="cantidad"
                     value={cantidad}
@@ -298,10 +246,11 @@ const ProductPage = () => {
               </div>
               <div className="flex items-center flex-col px-6">
                 <Button
-                  className="w-full mb-2 ease-in-out duration-100 transition hover:scale-105"
+                  className="mb-2 ease-in-out duration-100 transition hover:scale-105 font-bold"
                   onClick={handleBuy}
                 >
-                  Comprar
+                  <ShoppingBag className="mr-2" />
+                  {t('product.buy')}
                 </Button>
               </div>
             </div>
@@ -309,26 +258,24 @@ const ProductPage = () => {
           <div>
             <div className="flex items-center justify-center w-full border-y border-lgray py-2">
               <h2 className="font-black text-xl md:text-2xl" id="section1">
-                Detalles del producto
+                {t('product.details')}
               </h2>
             </div>
             {producto.tarjeta && (
               <div className="w-full bg-secondary/30 border-secondary flex flex-row border-dashed mt-2 py-4 px-2 items-center border-2">
                 <CiCircleCheck className="text-5xl md:text-7xl mr-3 text-primary" />
                 <div>
-                  <b>Este producto esta verificado</b>
-                  <p>
-                    ¡Lo que significa que puedes consultar su tarjeta de
-                    propiedad!
-                  </p>
+                  <b>{t('product.verified')}</b>
+                  <p>{t('product.verifiedDescription')}</p>
                 </div>
               </div>
             )}
             <div className="flex flex-col md:flex-row items-center w-full pt-4">
-              <b className="font-bold text-lg md:text-xl mr-2">Descripción:</b>
+              <b className="font-bold text-lg md:text-xl mr-2">
+                {t('product.description')}:
+              </b>
               <p className="text-base md:text-lg w-full overflow-hidden break-words">
-                {producto.descripcionModelo ||
-                  'Este producto no tiene descripción aún'}
+                {producto.descripcionModelo || t('product.noDescription')}
               </p>
             </div>
             <div
@@ -338,17 +285,18 @@ const ProductPage = () => {
             >
               <ItemsTable data={[producto]} />
             </div>
+            {/* TODO: Handle specific description and values of the product, that came from the db in spanish */}
             <div className="flex items-center justify-center w-full mb-2">
               <b
                 className="text-primary font-bold flex items-center justify-center border-b hover:cursor-pointer"
                 onClick={() => setShowAll(!showAll)}
               >
                 {!showAll ? (
-                  'Mostrar completo'
+                  t('product.showComplete')
                 ) : (
                   <Redirect
                     section={'section1'}
-                    name={'Mostrar menos'}
+                    name={t('product.showLess')}
                     idProducto={producto.idProducto}
                   />
                 )}
@@ -357,37 +305,41 @@ const ProductPage = () => {
           </div>
           <div>
             <div className="w-full h-auto flex justify-center items-center bg-white border-y border-lgray">
-              <h2 className="py-2 font-black text-xl md:text-2xl">Preguntas</h2>
+              <h2 className="py-2 font-black text-xl md:text-2xl">
+                {t('product.questions')}
+              </h2>
             </div>
             <p className="py-2 font-secondary text-lg md:text-xl font-bold mt-4">
-              ¿Qué quieres saber?
+              {t('product.whatDoYouWantToKnow')}
             </p>
             <div className="flex flex-col md:flex-row gap-4">
               <Button
                 className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
                 onClick={() =>
-                  setDefaultQuestion('¿Cuál es la garantía del producto?')
+                  setDefaultQuestion(t('product.warrantyQuestion'))
                 }
               >
-                Garantía
+                {t('product.warranty')}
               </Button>
               <Button
                 className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
                 onClick={() =>
-                  setDefaultQuestion('¿Cómo funcionan las devoluciones gratis?')
+                  setDefaultQuestion(t('product.freeReturnsQuestion'))
                 }
               >
-                Devoluciones gratis
+                {t('product.freeReturns')}
               </Button>
               <Button
                 className="bg-slate-100 border-primary text-primary hover:bg-slate-50"
-                onClick={() => setDefaultQuestion('¿El precio es negociable?')}
+                onClick={() =>
+                  setDefaultQuestion(t('product.priceNegotiableQuestion'))
+                }
               >
-                Precio
+                {t('product.priceNegotiable')}
               </Button>
             </div>
             <p className="my-4 font-bold text-lg md:text-xl">
-              Pregúntale al vendedor
+              {t('product.askTheSeller')}
             </p>
             <div className="flex flex-col md:flex-row gap-4">
               <form
@@ -397,7 +349,7 @@ const ProductPage = () => {
                 <div className="flex flex-col md:flex-row gap-2 justify-start">
                   <textarea
                     id="pregunta"
-                    placeholder="Escribe aquí tu pregunta"
+                    placeholder={t('product.writeYourQuestion')}
                     rows="1"
                     maxLength="45"
                     className="block w-full p-2 border border-primary rounded-md shadow-sm focus:border-secondary sm:text-sm resize-none outline-none"
@@ -406,13 +358,13 @@ const ProductPage = () => {
                     type="submit"
                     className="text-center bg-primary text-white py-2 px-7 rounded-xl h-full"
                   >
-                    Preguntar
+                    {t('product.ask')}
                   </Button>
                 </div>
               </form>
             </div>
             <p className="py-2 pt-5 font-bold text-lg md:text-xl">
-              Últimas realizadas
+              {t('product.latestQuestions')}
             </p>
             <div className="flex flex-col gap-4">
               {preguntas.length > 0 ? (
@@ -432,7 +384,7 @@ const ProductPage = () => {
                           <div className="flex flex-col md:flex-row gap-2 justify-start">
                             <textarea
                               id={`respuesta-${pregunta.idPregunta}`}
-                              placeholder="Escribe aquí tu respuesta"
+                              placeholder={t('product.writeYourAnswer')}
                               rows="1"
                               maxLength="45"
                               className="block w-full p-2 border border-primary rounded-md shadow-sm focus:border-secondary sm:text-sm resize-none outline-none"
@@ -441,7 +393,7 @@ const ProductPage = () => {
                               type="submit"
                               className="text-center bg-primary text-white py-2 px-7 rounded-xl h-full"
                             >
-                              Responder
+                              {t('product.answer')}
                             </Button>
                           </div>
                         </form>
@@ -450,7 +402,7 @@ const ProductPage = () => {
                   </div>
                 ))
               ) : (
-                <p>No hay preguntas aún</p>
+                <p>{t('product.noQuestionsYet')}</p>
               )}
             </div>
             <ProductRating telefono={producto.telefonoVendedor} />

@@ -3,8 +3,8 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 import axios from 'axios'
 
-const getTiendas = async () => {
-  const request = await axios.get(API_URL + '/tiendas')
+const getStores = async () => {
+  const request = await axios.get(API_URL + '/stores')
   return request.data
 }
 
@@ -17,5 +17,5 @@ const searchProducts = async (params) => {
 
 export default {
   searchProducts,
-  getTiendas,
+  getStores,
 }

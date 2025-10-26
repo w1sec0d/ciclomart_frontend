@@ -1,29 +1,30 @@
-//-> Utilidades
+// Utils
 import { setShowModal } from '../../../store/slices/showModalSlice.js'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
-//-> Componentes
+// Components
 import CardButton from '../CardButton.jsx'
 
-//-> Iconos
-import SettingsIcon from '@mui/icons-material/TuneOutlined'
+// Icons
 import Security from '@mui/icons-material/GppGoodOutlined'
 import CardIcon from '@mui/icons-material/BadgeOutlined'
 
 const Settings = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
 
   const handleModalShow = (index) => {
-    /*Utiliza las utilidades del DOM-API para ocultar la barra scroll*/
+    // Use DOM-API utilities to hide scroll bar
     // document.body.style.overflow = 'hidden'
-    /*Hábilita al modal (index) para mostrarse*/
+    // Enable modal (index) to be shown
     dispatch(setShowModal({ activeModal: index }))
   }
 
   return (
     <div className=" mt-8 md:mx-[105px] bg-lgray h-80 w-auto shadow-2xl rounded-3xl ">
       <ul className="h-full">
-        {/*Grupo de botones para configuraciones*/}
+        {/* Settings button group */}
         <li className="h-1/2">
           <CardButton
             arrow="2"
@@ -32,8 +33,10 @@ const Settings = () => {
           >
             <CardIcon className="ml-8" style={{ fontSize: '3.5rem' }} />
             <div className="flex flex-col w-full">
-              <b className="flex flex-col w-full">Información personal</b>
-              <p>Tus datos de identidad y contacto</p>
+              <b className="flex flex-col w-full">
+                {t('profile.personalInformation')}
+              </b>
+              <p>{t('profile.identityAndContactData')}</p>
             </div>
           </CardButton>
         </li>
@@ -45,8 +48,8 @@ const Settings = () => {
           >
             <Security className="ml-8" style={{ fontSize: '3.5rem' }} />
             <div className="flex flex-col w-full">
-              <b className="flex flex-col w-full">Seguridad</b>
-              <p>Configuración de inicio de sesión</p>
+              <b className="flex flex-col w-full">{t('profile.security')}</b>
+              <p>{t('profile.loginSettings')}</p>
             </div>
           </CardButton>
         </li>

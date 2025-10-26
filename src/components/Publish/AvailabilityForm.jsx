@@ -1,18 +1,21 @@
+import { useTranslation } from 'react-i18next'
 import Input from '../Input'
 import CustomSelect from './Select'
 
 const AvailabilityForm = ({ product, register }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <div className="mt-2 grid grid-cols-2 gap-2">
         <CustomSelect
           name="disponibilidad"
-          label="Disponibilidad"
+          label={t('publish.availability')}
           options={{
             options: [
-              { label: 'Disponible', value: 'disponible' },
-              { label: 'Vendido', value: 'vendido' },
-              { label: 'Reservado', value: 'reservado' },
+              { label: t('publish.available'), value: 'disponible' },
+              { label: t('publish.sold'), value: 'vendido' },
+              { label: t('publish.reserved'), value: 'reservado' },
             ],
           }}
           value={product.disponibilidad}
@@ -21,11 +24,11 @@ const AvailabilityForm = ({ product, register }) => {
 
         <CustomSelect
           name="retiro"
-          label="Retiro disponible"
+          label={t('publish.pickupAvailable')}
           options={{
             options: [
-              { label: 'Si', value: true },
-              { label: 'No', value: false },
+              { label: t('publish.yes'), value: true },
+              { label: t('publish.no'), value: false },
             ],
           }}
           value={product.retiro}
@@ -34,11 +37,11 @@ const AvailabilityForm = ({ product, register }) => {
 
         <CustomSelect
           name="estado"
-          label="Condición"
+          label={t('publish.condition')}
           options={{
             options: [
-              { label: 'Nuevo', value: 'nuevo' },
-              { label: 'Usado', value: 'usado' },
+              { label: t('publish.new'), value: 'nuevo' },
+              { label: t('publish.used'), value: 'usado' },
             ],
           }}
           value={product.estado}
@@ -50,7 +53,7 @@ const AvailabilityForm = ({ product, register }) => {
         <Input
           type="number"
           id="cantidad"
-          label="Cantidad disponible"
+          label={t('publish.availableQuantity')}
           min="1"
           value={product.cantidad}
           {...register('cantidad')}
@@ -59,7 +62,7 @@ const AvailabilityForm = ({ product, register }) => {
         <Input
           type="number"
           id="costoEnvio"
-          label="Precio de envio"
+          label={t('publish.shippingPrice')}
           min="0"
           value={product.costoEnvio}
           {...register('costoEnvio')}

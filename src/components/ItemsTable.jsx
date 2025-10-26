@@ -1,37 +1,40 @@
-import React from 'react'
 import {
   useReactTable,
   getCoreRowModel,
   flexRender,
 } from '@tanstack/react-table'
+import { useTranslation } from 'react-i18next'
 
-const columns = [
-  { accessorKey: 'estado', header: 'Estado' },
-  { accessorKey: 'disponibilidad', header: 'Disponibilidad' },
-  { accessorKey: 'nombre', header: 'Nombre' },
-  { accessorKey: 'descripcionModelo', header: 'Descripción del Modelo' },
-  { accessorKey: 'categoria', header: 'Categoría' },
-  { accessorKey: 'compatibilidad', header: 'Compatibilidad' },
-  { accessorKey: 'tipoBicicleta', header: 'Tipo de Bicicleta' },
-  { accessorKey: 'color', header: 'Color' },
-  { accessorKey: 'genero', header: 'Género' },
-  { accessorKey: 'edad', header: 'Edad' },
-  { accessorKey: 'tamañoMarco', header: 'Tamaño del Marco' },
-  { accessorKey: 'materialMarco', header: 'Material del Marco' },
-  { accessorKey: 'tamañoRueda', header: 'Tamaño de la Rueda' },
-  { accessorKey: 'tipoFrenos', header: 'Tipo de Frenos' },
-  { accessorKey: 'velocidades', header: 'Velocidades' },
-  { accessorKey: 'suspension', header: 'Suspensión' },
-  { accessorKey: 'transmision', header: 'Transmisión' },
-  { accessorKey: 'tipoPedales', header: 'Tipo de Pedales' },
-  { accessorKey: 'manubrio', header: 'Manubrio' },
-  { accessorKey: 'pesoBicicleta', header: 'Peso de la Bicicleta' },
-  { accessorKey: 'pesoMaximo', header: 'Peso Máximo' },
-  { accessorKey: 'extras', header: 'Extras' },
-  { accessorKey: 'nombreMarca', header: 'Marca' },
-]
-
+// Map database field names to translation keys
 const ItemsTable = ({ data }) => {
+  const { t } = useTranslation()
+
+  // Create columns with translated headers
+  const columns = [
+    { accessorKey: 'estado', header: t('table.condition') },
+    { accessorKey: 'disponibilidad', header: t('table.availability') },
+    { accessorKey: 'nombre', header: t('table.name') },
+    { accessorKey: 'descripcionModelo', header: t('table.modelDescription') },
+    { accessorKey: 'categoria', header: t('table.category') },
+    { accessorKey: 'compatibilidad', header: t('table.compatibility') },
+    { accessorKey: 'tipoBicicleta', header: t('table.bicycleType') },
+    { accessorKey: 'color', header: t('table.color') },
+    { accessorKey: 'genero', header: t('table.gender') },
+    { accessorKey: 'edad', header: t('table.age') },
+    { accessorKey: 'tamañoMarco', header: t('table.frameSize') },
+    { accessorKey: 'materialMarco', header: t('table.frameMaterial') },
+    { accessorKey: 'tamañoRueda', header: t('table.wheelSize') },
+    { accessorKey: 'tipoFrenos', header: t('table.brakeType') },
+    { accessorKey: 'velocidades', header: t('table.speeds') },
+    { accessorKey: 'suspension', header: t('table.suspension') },
+    { accessorKey: 'transmision', header: t('table.transmission') },
+    { accessorKey: 'tipoPedales', header: t('table.pedalType') },
+    { accessorKey: 'manubrio', header: t('table.handlebar') },
+    { accessorKey: 'pesoBicicleta', header: t('table.bicycleWeight') },
+    { accessorKey: 'pesoMaximo', header: t('table.maxWeight') },
+    { accessorKey: 'extras', header: t('table.extras') },
+    { accessorKey: 'nombreMarca', header: t('table.brand') },
+  ]
   const table = useReactTable({
     data,
     columns,
@@ -44,10 +47,10 @@ const ItemsTable = ({ data }) => {
         <thead>
           <tr className="bg-primary/80 rounded-xl">
             <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider border">
-              Característica
+              {t('table.characteristic')}
             </th>
             <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider border ">
-              Descripción
+              {t('table.description')}
             </th>
           </tr>
         </thead>

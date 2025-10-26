@@ -10,10 +10,11 @@ import { useSelector } from 'react-redux'
 import ratingService from '../services/ratingService'
 import axios from 'axios'
 import { Link, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
-const ProductRating = ({ telefono }) => {
+const ProductRating = ({ telefono = '1234567890' }) => {
   const { id } = useParams()
-
+  const { t } = useTranslation()
   const { register, handleSubmit, reset } = useForm()
   const [rating, setRating] = useState(null)
   const [hover, setHover] = useState(null)
@@ -24,11 +25,9 @@ const ProductRating = ({ telefono }) => {
   const dispatch = useDispatch()
 
   //el id del Documento producto es necesario pasarlo por la prop
-
   const idDoc = Number(id)
 
   //Obteniendo el id del usuario logueado
-
   const authUser = useSelector((state) => state.auth.authUser)
 
   //Verifica si un usuario ya ha realizado un compra del producto
@@ -188,11 +187,11 @@ const ProductRating = ({ telefono }) => {
         formData.append('upload_preset', 'cicloMart')
 
         const response = await axios.post(
-          'https://api.cloudinary.com/v1_1/dg354wdzy/image/upload', // Reemplaza con tu cloud name
+          'https://api.cloudinary.com/v1_1/dg354wdzy/image/upload',
           formData
         )
 
-        const request = await ratingService.createRating({
+        await ratingService.createRating({
           idProducto: idDoc,
           idUsuarioComprador: idUsuario,
           idUsuarioVendedor: isPurchase.idVendedor,
@@ -270,7 +269,9 @@ const ProductRating = ({ telefono }) => {
           })}
         </div>
         <div>
-          <p className="mt-1">Tu calificación es {rating}</p>
+          <p className="mt-1">
+            {t('product.yourCalification')} {rating}
+          </p>
         </div>
       </div>
     )
@@ -278,7 +279,7 @@ const ProductRating = ({ telefono }) => {
   return (
     <div className="flex flex-col mt-8 px-4 md:px-8 lg:px-16">
       <div className="w-full h-auto border-y border-lgray py-2 flex items-center justify-center">
-        <h2 className="font-black text-2xl"> Opiniones del producto</h2>
+        <h2 className="font-black text-2xl">{t('product.productOpinions')}</h2>
       </div>
       <div className="h-auto w-full border border-primary mt-6 rounded-xl p-4 md:p-8 shadow-xl flex flex-col md:flex-row mb-6">
         <div className="flex flex-col md:flex-row w-full">
@@ -295,7 +296,9 @@ const ProductRating = ({ telefono }) => {
                 ) : (
                   <StarRating rating={avgRating} size="star-large" />
                 )}
-                <p className="text-sm">{commentList.length} comentario(s)</p>
+                <p className="text-sm">
+                  {commentList.length} {t('product.comments')}
+                </p>
               </div>
             </div>
             <div className="flex flex-col space-y-4 mt-8 lg:mt-0">
@@ -317,7 +320,7 @@ const ProductRating = ({ telefono }) => {
         </div>
         <div className="mx-auto flex flex-col items-center justify-center mt-4 md:mt-0">
           <p className="py-2 pt-5 font-secondary text-xl">
-            Puedes iniciar un chat con el vendedor
+            {t('product.startChatDescription')}
           </p>
           <div className="py-4">
             <Link
@@ -326,14 +329,16 @@ const ProductRating = ({ telefono }) => {
               target="_blank"
               rel="noopener"
             >
-              Iniciar chat
+              {t('product.startChat')}
             </Link>
           </div>
         </div>
       </div>
       <div>
         <div className="flex border-y h-auto border-lgray justify-center py-2 mb-4">
-          <h2 className="font-black text-2xl">Deja tú comentario</h2>
+          <h2 className="font-black text-2xl">
+            {t('product.leaveYourOpinion')}
+          </h2>
         </div>
         <div className="flex flex-col justify-center items-center mt-6">
           <form
@@ -344,7 +349,7 @@ const ProductRating = ({ telefono }) => {
               <div className="flex-grow">
                 <textarea
                   id="calificacion"
-                  placeholder="Escribe aquí tu comentario"
+                  placeholder={t('product.writeHereYourComment')}
                   {...register('calificacion', { required: false })}
                   rows="4"
                   maxLength="45"
@@ -363,7 +368,8 @@ const ProductRating = ({ telefono }) => {
                     />
                   ) : (
                     <span className="text-center flex items-center">
-                      <FaUpload className="mr-2" size={20} /> Subir Imagen
+                      <FaUpload className="mr-2" size={20} />{' '}
+                      {t('product.uploadImage')}
                     </span>
                   )}
                   <input
@@ -383,7 +389,7 @@ const ProductRating = ({ telefono }) => {
                 type="submit"
                 className="text-center bg-primary text-white py-2 px-7 rounded-full"
               >
-                Enviar
+                {t('product.send')}
               </Button>
             </div>
           </form>

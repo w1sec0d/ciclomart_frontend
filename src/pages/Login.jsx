@@ -9,8 +9,10 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { setAuthUser, setIsLoggedIn } from '../store/slices/authSlice'
 import loginService from '../services/loginService'
+import { useTranslation } from 'react-i18next'
 
 const Login = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -25,8 +27,8 @@ const Login = () => {
 
         dispatch(
           setNotification({
-            title: '¡Éxito!',
-            text: 'Usuario y contraseña correctos.',
+            title: t('errors.success'),
+            text: t('errors.correctCredentials'),
             icon: 'success',
             timer: 1000,
           })
@@ -49,8 +51,8 @@ const Login = () => {
       if (error.response && error.response.status === 401) {
         dispatch(
           setNotification({
-            title: '¡ups!',
-            text: 'Usuario y contraseña incorrectos.',
+            title: t('errors.oops'),
+            text: t('errors.invalidCredentials'),
             icon: 'error',
           })
         )
@@ -58,8 +60,8 @@ const Login = () => {
         console.error('Error:', error.message)
         dispatch(
           setNotification({
-            title: 'Error',
-            text: `Ocurrió un error: ${error.message}`,
+            title: t('errors.error'),
+            text: `${t('errors.errorOccurred')}: ${error.message}`,
             icon: 'error',
           })
         )
@@ -71,40 +73,40 @@ const Login = () => {
     <div className="flex items-center justify-center md:h-screen-minus-navbar">
       <img
         src={background1}
-        alt="Fondo de bicicletas"
+        alt={t('products.backgroundAlt')}
         className="absolute object-cover -z-10 blur-sm "
       />
       <div className="bg-white p-8 rounded shadow-md w-full max-w-3xl">
         <h1 className="font-black text-5xl text-center">
           {' '}
-          Bienvenido a CicloMart
+          {t('auth.welcomeToCiclomart')}
         </h1>
-        <p className="text-center mt-3">Por favor ingresa tus datos</p>
+        <p className="text-center mt-3">{t('auth.pleaseEnterYourData')}</p>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <Input
             id="email"
-            label="Correo electrónico"
+            label={t('auth.email')}
             type="email"
             {...register('email', { required: true })}
           />
           <Input
             id="password"
-            label="Contraseña"
+            label={t('auth.password')}
             type="password"
             {...register('password', { required: true })}
           />
           <div className="flex items-center justify-between">
             <Checkbox
-              id="recuerdame"
-              {...register('recuerdame', { required: false })}
+              id="rememberMe"
+              {...register('rememberMe', { required: false })}
             >
-              Recuerdame
+              {t('auth.rememberMe')}
             </Checkbox>
             <Link
               to="/verificacion"
               className="text-sm text-blue-500 hover:underline text-center"
             >
-              ¿Has olvidado tu contraseña?
+              {t('auth.forgotPassword')}
             </Link>
           </div>
           <div className="flex items-center justify-center">
@@ -112,13 +114,13 @@ const Login = () => {
               type="submit"
               className="text-center bg-blue-500 text-white py-2 px-7 rounded-full"
             >
-              Iniciar sesión
+              {t('auth.loginButton')}
             </Button>
           </div>
           <p className="text-center mt-3">
-            ¿No tienes una cuenta?{' '}
+            {t('auth.noAccount')}{' '}
             <Link to="/register" className="text-blue-500 hover:underline">
-              Registrate
+              {t('auth.signUpLink')}
             </Link>
           </p>
         </form>

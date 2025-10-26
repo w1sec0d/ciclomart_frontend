@@ -7,6 +7,8 @@ import { QueryClientProvider } from 'react-query'
 import queryClient from './services/queryClient'
 import App from './App.jsx'
 import './index.css'
+import './i18n/config'
+// TODO: Translate reviews section and check publish values and logic
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

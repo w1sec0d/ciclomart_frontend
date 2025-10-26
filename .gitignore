@@ -28,4 +28,4 @@ dist-ssr
 cuentas.txt
 ecosystem.config.cjs
 
-/bots/*
+bots/
