@@ -2,7 +2,7 @@ import axios from 'axios'
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 const getPurchasesByBuyerId = async (idComprador) => {
-  const request = await axios.get(API_URL + '/compras/' + idComprador)
+  const request = await axios.get(API_URL + '/purchases/' + idComprador)
   return request.data.results
 }
 

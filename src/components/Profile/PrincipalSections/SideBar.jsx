@@ -42,7 +42,7 @@ const SideBar = () => {
       try {
         const purchaseData = await getPurchases(authUser.idUsuario)
         const salesData = await getSales(authUser.idUsuario)
-        const storesData = await apiService.getTiendas()
+        const storesData = await apiService.getStores()
         setPurchaseData(purchaseData.results)
         setSalesData(salesData.results)
         setStoresData(storesData.results)
