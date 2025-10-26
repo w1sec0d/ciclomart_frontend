@@ -11,7 +11,7 @@ const getUser = async (token) => {
     return request.data
 }
 
-const getUsuarioPhoto = async (id) => {
+const getUserPhoto = async (id) => {
     const request = await axios.get(`${API_URL}/getUsuarioPhoto/${id}`)
     return request.data
 }
@@ -26,7 +26,7 @@ const getPurchases = async (idUser) => {
     return request.data
 }
 
-const updatePhoto = async (PhotoUrl, idUser) => {
+const updateUserPhoto = async (PhotoUrl, idUser) => {
     const request = await axios.get(
         `${API_URL}/updateUsuarioFoto/${PhotoUrl}/${idUser}`
     )
@@ -46,4 +46,4 @@ const updateDireccion = async (idUsuario, direccionData) => {
     return response.data
 }
 
-export { getUser, getUsuarioPhoto, createUsuario, updateDireccion, getSales, getPurchases, updatePhoto }
+export { getUser, getUserPhoto, createUsuario, updateDireccion, getSales, getPurchases, updateUserPhoto }

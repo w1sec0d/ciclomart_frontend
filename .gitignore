@@ -27,3 +27,5 @@ dist-ssr
 .env
 cuentas.txt
 ecosystem.config.cjs
+
+/bots/*
