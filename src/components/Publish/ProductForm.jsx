@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import BycicleForm from './BycicleForm'
 import SparePartForm from './SparePartForm'
 import GeneralInfo from './GeneraInfo'
@@ -10,6 +11,7 @@ import publicationService from '../../services/publicationService'
 import { useSelector } from 'react-redux'
 
 const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
+  const { t } = useTranslation()
   const authUser = useSelector((state) => state.auth.authUser)
   const [step, setStep] = useState(1)
   const { register, handleSubmit, setValue, watch } = useForm({
@@ -133,7 +135,9 @@ const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
         rounded-lg mt-4 mb-8 shadow-lg shadow-black/35"
       >
         <div className="w-full h-14 bg-primary rounded-t-lg flex items-center justify-center drop-shadow-lg">
-          <h1 className="text-2xl font-bold">Publicar {type}</h1>
+          <h1 className="text-2xl font-bold">
+            {t('publish.publishType', { type })}
+          </h1>
         </div>
 
         <div className="w-full px-4 md:px-20">
@@ -174,7 +178,7 @@ const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
                 onClick={handlePrevious}
                 className="justify-center mr-2"
               >
-                Anterior
+                {t('publish.previous')}
               </Button>
             )}
 
@@ -184,7 +188,7 @@ const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
                 onClick={handleNext}
                 className="justify-center"
               >
-                Siguiente
+                {t('publish.next')}
               </Button>
             ) : (
               <Button
@@ -192,7 +196,7 @@ const ProductForm = ({ type, onSubmit, models, brands, getBrands }) => {
                 onClick={handleSubmit(onFormSubmit)}
                 className="justify-center"
               >
-                Publicar
+                {t('publish.publish')}
               </Button>
             )}
           </div>

@@ -20,7 +20,7 @@ const ComparisonBar = () => {
   return (
     <>
       {idProduct1 != 0 && idProduct2 != 0 && (
-        <div className="sticky top-[64px] z-10 bg-white shadow-md flex flex-row items-center justify-center h-10 drop-shadow-2xl">
+        <div className="fixed top-[64px] left-[50%] translate-x-[-50%] z-50 bg-white shadow-md flex flex-row items-center justify-center h-10 drop-shadow-2xl w-full">
           <button className="bg-tertiary h-full w-1/2" onClick={handleCompare}>
             Comparar
           </button>

@@ -1,26 +1,31 @@
-/*Utils*/
+// Utils
 import PropTypes from 'prop-types'
+import { useTranslation } from 'react-i18next'
 
-/*typeContent = 1 = Puchases
-typeContent = 2 = Sales
-typeContent = 3 = Stores*/
+// typeContent = 1 = Purchases
+// typeContent = 2 = Sales
+// typeContent = 3 = Stores
 
 const Title = ({ typeContent }) => {
+  const { t } = useTranslation()
+
   return (
     <div className="w-full flex justify-center">
       <b className="text-primary border-b border-lgray">
         {typeContent === 1
-          ? 'Tus Compras'
+          ? t('profile.yourPurchases')
           : typeContent === 2
-            ? 'Tus Ventas'
-            : 'Nuestras Tiendas'}
+            ? t('profile.yourSales')
+            : t('profile.ourStores')}
       </b>
     </div>
   )
 }
 
 const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
-  //Obtiene las instrucciones para mostrar datos en los botones del sidebar
+  const { t } = useTranslation()
+
+  // Get instructions for displaying data in sidebar buttons
   const getInstructions = () => {
     if (typeContent === 3) {
       return { firstKey: 'nombre', secondKey: 'telefono' }
@@ -28,14 +33,14 @@ const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
     return { firstKey: 'fecha', secondKey: 'precio_unitario' }
   }
 
-  //Formatea la fecha para mostrar un formato más abreviado
+  // Format date to abbreviated format
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString()
   }
 
   const { firstKey, secondKey } = getInstructions()
 
-  if (!data) return <p>No hay datos que mostrar</p>
+  if (!data) return <p>{t('profile.noDataToShow')}</p>
   return (
     <div className="w-full h-full overflow-auto">
       <Title typeContent={typeContent} />
@@ -61,7 +66,7 @@ const DataList = ({ data = [], typeContent = 1, onShowModal = () => {} }) => {
             )
           })
         ) : (
-          <p>No hay datos que mostrar</p>
+          <p>{t('profile.noDataToShow')}</p>
         )}
       </div>
     </div>

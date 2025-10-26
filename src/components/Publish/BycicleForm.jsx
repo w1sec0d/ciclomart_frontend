@@ -1,159 +1,166 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import filters from '../../utils/newFilters'
 import Input from '../Input'
 import CustomSelect from './Select'
 import TextArea from '../TextArea'
 
 const BycicleForm = ({ bycicle, register }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
         <CustomSelect
           name="tipoBicicleta"
-          label="Tipo"
+          label={t('publish.type')}
           options={filters['bicicleta'].tipo}
           {...register('tipoBicicleta')}
         />
         <CustomSelect
           name="color"
-          label="Color"
+          label={t('products.color')}
           options={filters['bicicleta'].color}
           {...register('color')}
         />
         <CustomSelect
           name="genero"
-          label="Genero"
+          label={t('products.gender')}
           options={filters['bicicleta'].genero}
           {...register('genero')}
         />
         <CustomSelect
           name="edad"
-          label="Edad"
+          label={t('products.ageGroup')}
           options={filters['bicicleta'].edad}
           {...register('edad')}
         />
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
-        Detalles del marco
+        {t('publish.frameDetails')}
       </h3>
 
       <div className="grid grid-cols-2 gap-4">
         <Input
           type="number"
           id="tamañoMarco"
-          label="Tamaño del marco (cm)"
+          label={t('publish.frameSizeCm')}
           {...register('tamañoMarco')}
         />
         <CustomSelect
           name="materialMarco"
-          label="Material del marco"
+          label={t('publish.frameMaterialLabel')}
           options={filters['bicicleta'].materialMarco}
           {...register('materialMarco')}
         />
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
-        Detalles de las ruedas
+        {t('publish.wheelDetails')}
       </h3>
 
       <div className="grid grid-cols-2 gap-4">
         <Input
           type="number"
           id="tamañoRueda"
-          label="Tamaño de las ruedas"
+          label={t('publish.wheelSizeLabel')}
           {...register('tamañoRueda')}
         />
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
-        Detalles de transmisión
+        {t('publish.transmissionDetails')}
       </h3>
 
       <div className="grid grid-cols-2 gap-4">
         <CustomSelect
           name="transmision"
-          label="Transmisión"
+          label={t('publish.transmissionLabel')}
           options={filters['bicicleta'].transmision}
           {...register('transmision')}
         />
         <CustomSelect
           name="tipoPedales"
-          label="Pedales"
+          label={t('publish.pedalsLabel')}
           options={filters['bicicleta'].pedales}
           {...register('tipoPedales')}
         />
         <Input
           type="number"
           id="velocidades"
-          label="Número de velocidades"
+          label={t('publish.numberOfSpeeds')}
           {...register('velocidades')}
         />
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
-        Detalles de suspensión
+        {t('publish.suspensionDetails')}
       </h3>
 
       <div className="grid grid-cols-2 gap-4">
         <CustomSelect
           name="tipoSuspension"
-          label="Suspensión"
+          label={t('publish.suspensionLabel')}
           options={filters['bicicleta'].suspension}
           {...register('tipoSuspension')}
         />
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
-        Detalles de los frenos
+        {t('publish.brakeDetails')}
       </h3>
 
       <div className="grid grid-cols-2 gap-4">
         <CustomSelect
           name="tipoFrenos"
-          label="Tipo de frenos"
+          label={t('publish.brakeTypeLabel')}
           options={filters['bicicleta'].frenos}
           {...register('tipoFrenos')}
         />
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
-        Detalles de peso
+        {t('publish.weightDetails')}
       </h3>
 
       <div className="grid grid-cols-2 gap-4">
         <Input
           type="number"
           id="pesoBicicleta"
-          label="Peso de la bicicleta (kg)"
+          label={t('publish.bicycleWeightKg')}
           {...register('pesoBicicleta')}
         />
         <Input
           type="number"
           id="pesoMaximo"
-          label="Peso máximo soportado (kg)"
+          label={t('publish.maxSupportedWeightKg')}
           {...register('pesoMaximo')}
         />
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
-        Detalles del manubrio
+        {t('publish.handlebarDetails')}
       </h3>
 
       <div className="grid grid-cols-2 gap-4">
         <CustomSelect
           name="tipoManubrio"
-          label="Tipo de Manubrio"
+          label={t('publish.handlebarTypeLabel')}
           options={filters['bicicleta'].manubrio}
           {...register('tipoManubrio')}
         />
       </div>
 
       <h3 className="text-xl mt-8 text-primary justify-self-stretch">
-        Adicionales
+        {t('publish.additional')}
       </h3>
 
-      <TextArea id="extras" label="Extras" {...register('extras')} />
+      <TextArea
+        id="extras"
+        label={t('publish.extrasLabel')}
+        {...register('extras')}
+      />
     </>
   )
 }

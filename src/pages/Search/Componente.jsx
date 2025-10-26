@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
-import { getComponentes } from '../../services/productService'
+import { getComponents } from '../../services/productService'
 import bikeIcon from '../../assets/bikeIcon.png'
 import IndividualProduct from '../../components/IndividualProduct'
 import InfoIcon from '@mui/icons-material/Info'
@@ -10,15 +11,16 @@ import InfoIcon from '@mui/icons-material/Info'
 import { setLoading, clearLoading } from '../../store/slices/loadingSlice'
 
 const BicycleComponentFinder = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
-  // Estado para el componente seleccionado
+  // State for selected component
   const [selectedComponent, setSelectedComponent] = useState(null)
-  // Datos de ejemplo para componentes de bicicleta
+  // Bicycle components data
   const {
-    data: componentes,
+    data: components,
     isError,
     isLoading,
-  } = useQuery(['ofertas'], getComponentes)
+  } = useQuery(['components'], getComponents)
 
   useEffect(() => {
     if (isLoading) {
@@ -31,7 +33,7 @@ const BicycleComponentFinder = () => {
   if (isLoading) return null
   if (isError) return <p>Error: {isError.message}</p>
 
-  // Función para manejar el clic en un componente
+  // Function to handle component click
   const handleComponentClick = (componentId) => {
     setSelectedComponent(componentId)
   }
@@ -42,11 +44,11 @@ const BicycleComponentFinder = () => {
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
 
-  const filteredComponentes = selectedComponent
-    ? componentes.filter(
-        (componente) =>
-          componente.categoria === selectedComponent ||
-          normalizeString(componente.categoria) ===
+  const filteredComponents = selectedComponent
+    ? components.filter(
+        (component) =>
+          component.categoria === selectedComponent ||
+          normalizeString(component.categoria) ===
             normalizeString(selectedComponent)
       )
     : []
@@ -54,86 +56,80 @@ const BicycleComponentFinder = () => {
   return (
     <>
       <div className="bg-slate-100 flex flex-col md:flex-row w-full mx-auto">
-        {/* Panel de imagen interactiva */}
+        {/* Interactive image panel */}
         <div className="w-full md:w-1/3 stroke-black">
-          {/* Instrucciones */}
+          {/* Instructions */}
           <h1 className="bg-tertiary text-3xl font-bold shadow-xl text-center w-full py-5 px-5">
-            Encuentra los componentes para tu bicicleta
+            {t('products.findComponentsForBike')}
           </h1>
           <div className="m-1 h-full flex flex-col items-center pb-8 ">
-            {/* Contenedor de la imagen y los hotspots */}
+            {/* Image container and hotspots */}
             <div className="relative w-full max-w-lg mx-auto p-3">
-              {/* Imagen de bicicleta */}
+              {/* Bicycle image */}
               <img
                 src={bikeIcon}
-                alt="Bicicleta de montaña"
+                alt={t('products.bicycles')}
                 className="opacity-50 "
               ></img>
 
-              {/* Áreas interactivas (hotspots) */}
+              {/* Interactive areas (hotspots) */}
               <button
-                className={`absolute bottom-[30%] left-[12%] w-[20%] h-[20%] rounded-full ${selectedComponent === 'wheels' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                className={`absolute bottom-[30%] left-[12%] w-[20%] h-[20%] rounded-full ${selectedComponent === 'Ruedas' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Ruedas')}
-                aria-label="Ruedas delanteras"
+                aria-label={t('products.wheelsFront')}
               />
 
               <button
-                className={`absolute bottom-[30%] right-[12%] w-[20%] h-[20%] rounded-full ${selectedComponent === 'wheels' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                className={`absolute bottom-[30%] right-[12%] w-[20%] h-[20%] rounded-full ${selectedComponent === 'Ruedas' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Ruedas')}
-                aria-label="Ruedas traseras"
+                aria-label={t('products.wheelsRear')}
               />
 
               <button
-                className={`absolute bottom-[50%] right-[23%] w-[10%] h-[10%] rounded-full ${selectedComponent === 'suspension' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                className={`absolute bottom-[50%] right-[23%] w-[10%] h-[10%] rounded-full ${selectedComponent === 'Suspensión' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Suspensión')}
-                aria-label="Suspensión"
+                aria-label={t('products.suspensionComponent')}
               />
 
               <button
-                className={`absolute top-[25%] right-[10%] -translate-x-1/2 w-[10%] h-[14%] rounded-full ${selectedComponent === 'handlebars' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
+                className={`absolute top-[25%] right-[10%] -translate-x-1/2 w-[10%] h-[14%] rounded-full ${selectedComponent === 'Manubrios' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Manubrios')}
-                aria-label="Manillar"
+                aria-label={t('products.handlebars')}
               />
 
               <button
-                className={`absolute top-[25%] right-[20%] -translate-x-1/2 w-[10%] h-[10%] rounded-full ${selectedComponent === 'brakes' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
+                className={`absolute top-[25%] right-[20%] -translate-x-1/2 w-[10%] h-[10%] rounded-full ${selectedComponent === 'Frenos' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Frenos')}
-                aria-label="Frenos"
+                aria-label={t('products.brakes')}
               />
 
               <button
-                className={`absolute top-[20%] left-[18%] translate-x-4 w-[25%] h-[10%] rounded-full ${selectedComponent === 'saddle' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                className={`absolute top-[20%] left-[18%] translate-x-4 w-[25%] h-[10%] rounded-full ${selectedComponent === 'Sillines' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Sillines')}
-                aria-label="Sillín"
+                aria-label={t('products.saddle')}
               />
 
               <button
-                className={`absolute bottom-[26%] left-[50%] -translate-x-8 w-[8%] h-[6%] rounded-full ${selectedComponent === 'pedals' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                className={`absolute bottom-[26%] left-[50%] -translate-x-8 w-[8%] h-[6%] rounded-full ${selectedComponent === 'Pedales' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Pedales')}
-                aria-label="Pedales"
+                aria-label={t('products.pedals')}
               />
 
               <button
-                className={`absolute bottom-[35%] left-[49%] -translate-x-8 w-[10%] h-[10%] rounded-full ${selectedComponent === 'transmission' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
+                className={`absolute bottom-[35%] left-[49%] -translate-x-8 w-[10%] h-[10%] rounded-full ${selectedComponent === 'Transmisión' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
                 onClick={() => handleComponentClick('Transmisión')}
-                aria-label="Transmisión"
+                aria-label={t('products.transmissionComponent')}
               />
-
-              {/* <button 
-                        className={`absolute top-32 right-40 w-12 h-12 rounded-full ${selectedComponent === 'brakes' ? 'bg-purple-500 opacity-40' : 'bg-purple-300 opacity-20 hover:opacity-40'}`}
-                        onClick={() => handleComponentClick('brakes')}
-                        aria-label="Frenos"
-                        /> */}
             </div>
           </div>
         </div>
         {/* <div className=" w-3 bg-secondary"></div> */}
-        {/* Panel de productos */}
+        {/* Products panel */}
         <div className="w-full md:w-2/3 rounded-lg px-3 h-full">
           {selectedComponent ? (
             <>
               <IndividualProduct
-                products={filteredComponentes}
+                products={filteredComponents}
                 title={selectedComponent}
                 columns={3}
               />
@@ -142,8 +138,7 @@ const BicycleComponentFinder = () => {
             <div className="h-full flex flex-row items-center pt-16 justify-center text-gray-500">
               <InfoIcon className="text-6xl mr-4" />
               <p className="text-center text-bold text-xl">
-                Selecciona un componente de la bicicleta para ver los productos
-                disponibles
+                {t('products.selectComponentToView')}
               </p>
             </div>
           )}

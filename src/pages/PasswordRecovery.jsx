@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import loginService from '../services/loginService'
+import { useTranslation } from 'react-i18next'
 
 const PasswordRecovery = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { token } = useParams()
@@ -18,7 +20,6 @@ const PasswordRecovery = () => {
 
   const onSubmit = async (data) => {
     try {
-      //const request = await loginService.recoveryPassword(data,token);
       if (data.password === data['password-confirm']) {
         const request = await loginService.recoveryPassword(
           data.password,
@@ -27,8 +28,8 @@ const PasswordRecovery = () => {
         if (request.status === 200) {
           dispatch(
             setNotification({
-              title: '¡Exito!',
-              text: 'Su contraseña se ha actualizado correctamente',
+              title: t('errors.success'),
+              text: t('errors.passwordUpdated'),
               icon: 'success',
             })
           )
@@ -39,8 +40,8 @@ const PasswordRecovery = () => {
         } else {
           dispatch(
             setNotification({
-              title: '¡Ups!',
-              text: 'Occurrio un error. Vuelva a intentarlo',
+              title: t('errors.oops'),
+              text: t('errors.errorTryAgain'),
               icon: 'error',
             })
           )
@@ -50,8 +51,8 @@ const PasswordRecovery = () => {
       } else {
         dispatch(
           setNotification({
-            title: '¡Ups!',
-            text: 'Las contraseñas no coinciden',
+            title: t('errors.oops'),
+            text: t('errors.passwordsDontMatch'),
             icon: 'error',
           })
         )
@@ -61,8 +62,8 @@ const PasswordRecovery = () => {
     } catch (error) {
       dispatch(
         setNotification({
-          title: '¡Ups!',
-          text: `Occurrio un error. Vuelva a intentarlo ${error.message}`,
+          title: t('errors.oops'),
+          text: `${t('errors.errorTryAgain')} ${error.message}`,
           icon: 'error',
         })
       )
@@ -75,21 +76,19 @@ const PasswordRecovery = () => {
       <div className="bg-white p-8 rounded shadow-md w-full max-w-4xl">
         <h1 className="font-black text-5xl text-center">
           {' '}
-          Recuperación de contraseña{' '}
+          {t('auth.passwordRecovery')}{' '}
         </h1>
-        <p className="text-center mt-3">
-          Por favor ingresa tu nueva contraseña
-        </p>
+        <p className="text-center mt-3">{t('auth.enterNewPassword')}</p>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <Input
             id="password"
-            label="Contraseña"
+            label={t('auth.password')}
             type="password"
             {...register('password', { required: true })}
           />
           <Input
             id="password-confirm"
-            label="Confirmar contraseña"
+            label={t('auth.confirmPassword')}
             type="password"
             {...register('password-confirm', { required: true })}
           />
@@ -98,7 +97,7 @@ const PasswordRecovery = () => {
               type="submit"
               className="text-center bg-blue-500 text-white py-2 px-7 rounded-full"
             >
-              Cambiar Contraseña
+              {t('auth.changePassword')}
             </Button>
           </div>
         </form>

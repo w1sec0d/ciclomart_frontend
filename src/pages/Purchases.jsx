@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useQuery, useQueryClient } from 'react-query'
 import { useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import {
   Cancel,
@@ -24,7 +25,8 @@ import colombianPrice from '../utils/colombianPrice'
 import { setNotification } from '../store/slices/notificationSlice'
 
 const Purchases = () => {
-  // Obtener id de la url
+  const { t } = useTranslation()
+  // Get buyer ID from URL
   const { idComprador } = useParams()
   const queryClient = useQueryClient()
   const dispatch = useDispatch()
@@ -39,43 +41,43 @@ const Purchases = () => {
     switch (estado) {
       case 'pendiente_pago':
         return {
-          stateText: 'Pago Pendiente',
+          stateText: t('purchases.pendingPayment'),
           color: 'yellow',
           icon: <Payment />,
         }
       case 'pendiente_envio':
         return {
-          stateText: 'Envío Pendiente',
+          stateText: t('purchases.pendingShipment'),
           color: 'blue',
           icon: <Inventory />,
         }
       case 'enviado':
         return {
-          stateText: 'Enviado',
+          stateText: t('purchases.shipped'),
           color: 'green',
           icon: <LocalShippingRounded />,
         }
       case 'recibido':
         return {
-          stateText: 'Recibido',
+          stateText: t('purchases.received'),
           color: 'green',
           icon: <CheckCircle />,
         }
       case 'fallido':
         return {
-          stateText: 'Fallido',
+          stateText: t('purchases.failed'),
           color: 'red',
           icon: <Cancel />,
         }
       case 'reembolsado':
         return {
-          stateText: 'Reembolsado',
+          stateText: t('purchases.refunded'),
           color: 'red',
           icon: <Undo />,
         }
       default:
         return {
-          stateText: 'Desconocido',
+          stateText: t('purchases.unknown'),
           color: 'gray',
           icon: <Help />,
         }

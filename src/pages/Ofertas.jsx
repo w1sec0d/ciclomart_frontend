@@ -1,24 +1,22 @@
-//Ofertas
+// Offers page
 import IndividualProduct from '../components/IndividualProduct'
 
-//Utilidades
+// Utilities
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
 import { setLoading, clearLoading } from '../store/slices/loadingSlice'
 
-//Servicios
-import { getOfertas } from '../services/productService'
+// Services
+import { getOffers } from '../services/productService'
 
 const Ofertas = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
 
-  //Trae bicicletas
-  const {
-    data: ofertas,
-    isError,
-    isLoading,
-  } = useQuery(['ofertas'], getOfertas)
+  // Fetch offers
+  const { data: offers, isError, isLoading } = useQuery(['offers'], getOffers)
 
   useEffect(() => {
     if (isLoading) {
@@ -33,8 +31,8 @@ const Ofertas = () => {
 
   return (
     <IndividualProduct
-      products={ofertas}
-      title={'¡Consulta nuestras principales ofertas!'}
+      products={offers}
+      title={t('products.offersPageTitle')}
     />
   )
 }

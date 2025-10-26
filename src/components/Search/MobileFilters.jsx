@@ -1,5 +1,6 @@
 import React from 'react'
 import FilterContent from './FilterContent'
+import { useTranslation } from 'react-i18next'
 
 const MobileFilters = ({
   showMobileFilters,
@@ -15,6 +16,7 @@ const MobileFilters = ({
   handleDateChange,
   resetFilters,
 }) => {
+  const { t } = useTranslation()
   const activeFilterCount =
     Object.values(selectedFilters).filter(Boolean).length
 
@@ -26,8 +28,8 @@ const MobileFilters = ({
       >
         <span>
           {showMobileFilters
-            ? 'Ocultar filtros'
-            : `Filtros ${activeFilterCount > 0 ? `(${activeFilterCount})` : ''}`}
+            ? t('products.hideFilters')
+            : `${t('products.filters')} ${activeFilterCount > 0 ? `(${activeFilterCount})` : ''}`}
         </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
