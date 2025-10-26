@@ -1,7 +1,16 @@
-import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import { GitHub, LinkedIn } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
-const Team = ({ photo, name, description, phrase, linkedin }) => {
+const TeamMemberCard = ({
+  photo,
+  name,
+  description,
+  phrase,
+  linkedin,
+  github,
+}) => {
+  const { t } = useTranslation()
   return (
     <div className="h-176 w-[300px] border border-primary/60 mt-4 mb-4 rounded-2xl flex flex-col relative">
       <section className="h-60 w-full flex flex-col justify-center items-center relative">
@@ -19,11 +28,11 @@ const Team = ({ photo, name, description, phrase, linkedin }) => {
           }}
         />
         <h2 className="font-bold mt-2 relative">{name}</h2>
-        <p className="relative">Desarrollador Full-Stack</p>
+        <p className="relative">{t('aboutUs.developer')}</p>
       </section>
       <hr className="w-full border-primary/60 mt-24 relative" />
       <section className="h-60 w-full flex flex-col items-center mt-10">
-        <h1 className="font-bold mb-3 text-sm">Acerca de mí</h1>
+        <h1 className="font-bold mb-3 text-sm">{t('aboutUs.aboutMe')}</h1>
         <div className="flex flex-col space-y-2 ml-4 mr-4 justify-center items-center">
           <p className="text-sm text-center mb-5">{description}</p>
           <p className="text-sm font-bold text-center mb-5">{phrase}</p>
@@ -31,11 +40,14 @@ const Team = ({ photo, name, description, phrase, linkedin }) => {
       </section>
       <section className="flex items-center justify-center mt-2 relative">
         <Link to={linkedin} target="_blank" rel="noopener noreferrer">
-          <LinkedInIcon style={{ position: 'static', marginTop: '10px' }} />
+          <LinkedIn style={{ position: 'static', marginTop: '10px' }} />
+        </Link>
+        <Link to={github} target="_blank" rel="noopener noreferrer">
+          <GitHub style={{ position: 'static', marginTop: '10px' }} />
         </Link>
       </section>
     </div>
   )
 }
 
-export default Team
+export default TeamMemberCard

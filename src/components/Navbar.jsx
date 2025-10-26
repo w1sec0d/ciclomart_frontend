@@ -113,11 +113,11 @@ const Navbar = () => {
             {user.rol === 'vendedor' && (
               <li className="py-2 hover:font-bold text-center flex items-center justify-center">
                 <Button
-                  className="text-white bg-tertiary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90 mb-2 lg:mb-0 lg:mr-2"
+                  className="text-white bg-tertiary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-tertiary/90 mb-2 lg:mb-0"
                   to="/publish"
                   onClick={handleLinkClick}
                 >
-                  <Publish className="mr-2" /> {t('nav.publish')}
+                  <Publish /> {t('nav.publish')}
                 </Button>
               </li>
             )}

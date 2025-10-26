@@ -13,41 +13,43 @@ const Footer = forwardRef((props, ref) => {
           <ul className="w-full md:w-1/3 border-b md:border-b-0 md:border-r border-primaryDark md:mb-0 py-6 md:py-0">
             <h3 className="text-xl font-bold mb-4">{t('footer.legal')}</h3>
             <li>
-              <Link to="/terms" className="hover:text-secondary">
+              <Link
+                to="/terms"
+                className="hover:text-secondary hover:font-bold"
+              >
                 {t('footer.termsAndConditions')}
               </Link>
             </li>
             <li>
-              <Link to="/privacy" className="hover:text-secondary">
+              <Link
+                to="/privacy"
+                className="hover:text-secondary hover:font-bold"
+              >
                 {t('footer.privacyPolicy')}
               </Link>
             </li>
           </ul>
-          <ul className="w-full md:w-1/3 md:ml-4 border-b md:border-b-0 md:border-r border-primaryDark mb-4 md:mb-0 py-6 md:py-0">
+          <ul className="mtw-full md:w-1/3 md:ml-4 border-b md:border-b-0 md:border-r border-primaryDark mb-4 md:mb-0 py-6 md:py-0">
             <h3 className="text-xl font-bold mb-4">{t('footer.resources')}</h3>
-            <li className="flex items-center flex-col justify-center">
-              <div className="flex items-center w-full">
-                <Link
-                  to="https://github.com/w1sec0d/CicloMart_Back"
-                  target="_blank"
-                >
-                  <div className="hover:text-secondary flex flex-row justify-center items-center">
-                    <p className="mr-2">{t('footer.githubBackend')}</p>
-                    <FaGithub className="text-3xl" />
-                  </div>
-                </Link>
-              </div>
-              <div className="flex items-center w-full mt-6">
-                <Link
-                  to="https://github.com/w1sec0d/CicloMart_front"
-                  target="_blank"
-                >
-                  <div className="hover:text-secondary flex flex-row justify-center items-center">
-                    <p className="mr-2">{t('footer.githubFrontend')}</p>
-                    <FaGithub className="text-3xl" />
-                  </div>
-                </Link>
-              </div>
+            <li className="flex items-center flex-col lg:flex-row lg:gap-4 justify-center">
+              <Link
+                to="https://github.com/w1se0d/CicloMart_Back"
+                target="_blank"
+              >
+                <div className="hover:text-secondary hover:font-bold flex flex-row justify-center items-center">
+                  <p className="mr-2">{t('footer.githubBackend')}</p>
+                  <FaGithub className="text-3xl" />
+                </div>
+              </Link>
+              <Link
+                to="https://github.com/w1sec0d/CicloMart_front"
+                target="_blank"
+              >
+                <div className="hover:text-secondary hover:font-bold flex flex-row justify-center items-center">
+                  <p className="mr-2">{t('footer.githubFrontend')}</p>
+                  <FaGithub className="text-3xl" />
+                </div>
+              </Link>
             </li>
           </ul>
           <ul className="w-full md:w-1/3 md:ml-4 py-6 md:py-0">
@@ -55,7 +57,7 @@ const Footer = forwardRef((props, ref) => {
             <li>
               <Link
                 to={'https://github.com/w1sec0d'}
-                className="hover:text-secondary"
+                className="hover:text-secondary  hover:font-bold"
                 target="_blank"
               >
                 Carlos David Ramírez Muñoz
@@ -64,7 +66,7 @@ const Footer = forwardRef((props, ref) => {
             <li>
               <Link
                 to={'https://github.com/Homeroso'}
-                className="hover:text-secondary"
+                className="hover:text-secondary  hover:font-bold"
                 target="_blank"
               >
                 Johan David Rodríguez Gutíerrez
@@ -73,7 +75,7 @@ const Footer = forwardRef((props, ref) => {
             <li>
               <Link
                 to={'https://github.com/RonaldDaniel20'}
-                className="hover:text-secondary"
+                className="hover:text-secondary  hover:font-bold"
                 target="_blank"
               >
                 Ronald Daniel Jacanamejoy Mutumbajoy
@@ -82,7 +84,7 @@ const Footer = forwardRef((props, ref) => {
             <li>
               <Link
                 to={'https://github.com/JuMad-SE'}
-                className="hover:text-secondary"
+                className="hover:text-secondary  hover:font-bold"
                 target="_blank"
               >
                 Juan David Madrid Contreras
@@ -98,7 +100,7 @@ const Footer = forwardRef((props, ref) => {
             {t('footer.support')}
             <Link
               to="mailto:ciclomartsoporte@gmail.com"
-              className="text-secondary font-bold"
+              className="font-bold hover:font-black"
             >
               {' '}
               ciclomartsoporte@gmail.com

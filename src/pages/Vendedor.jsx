@@ -9,37 +9,46 @@ import Modal from 'react-modal'
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt'
+import { useTranslation } from 'react-i18next'
 
 Modal.setAppElement('#root')
 
-//Navbar para las opciones de filtrado
+// Navbar for filter options
 const Navbar = ({ setFilter }) => {
+  const { t } = useTranslation()
   const buttonClasses =
     'rounded-full p-1 bg-lgray hover:bg-blue-500 hover:text-white transition-all duration-300'
+
+  const filterLabels = [
+    { key: 'Recientes', label: t('seller.recent') },
+    { key: 'Con Fotos', label: t('seller.withPhotos') },
+    { key: 'Positivas', label: t('seller.positive') },
+    { key: 'Neutrales', label: t('seller.neutral') },
+    { key: 'Negativas', label: t('seller.negative') },
+  ]
 
   return (
     <nav className="flex items-center justify-between w-full gap-8 px-6 py-3 flex-wrap">
       <div>
-        <h1 className="flex text-3xl font-bold">Reseñas</h1>
+        <h1 className="flex text-3xl font-bold">{t('seller.reviews')}</h1>
       </div>
       <div className="rounded-lg md:rounded-full bg-lgray p-2 px-3 space-x-4 items-center w-full md:w-fit flex flex-wrap justify-center">
-        {['Recientes', 'Con Fotos', 'Positivas', 'Neutrales', 'Negativas'].map(
-          (label) => (
-            <button
-              key={label}
-              className={buttonClasses}
-              onClick={() => setFilter(label)}
-            >
-              {label}
-            </button>
-          )
-        )}
+        {filterLabels.map(({ key, label }) => (
+          <button
+            key={key}
+            className={buttonClasses}
+            onClick={() => setFilter(key)}
+          >
+            {label}
+          </button>
+        ))}
       </div>
     </nav>
   )
 }
 
 const Vendedor = () => {
+  const { t } = useTranslation()
   const { id } = useParams()
   const [results, setResults] = useState([])
   const [promedio, setPromedio] = useState(0)
@@ -52,7 +61,7 @@ const Vendedor = () => {
   const [filter, setFilter] = useState('Recientes')
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  //Establece los datos para uso en los filtros
+  // Set up data for filter use
   const establecerDatos = (results) => {
     const sumaNotas = results.reduce((suma, { nota }) => suma + nota, 0)
     const promedio = results.length ? sumaNotas / results.length : 0
@@ -77,7 +86,7 @@ const Vendedor = () => {
     setRecientes(recientes)
   }
 
-  //Obtine todas las calificaciones del vendedor
+  // Get all seller ratings
   const getRatingSeller = async () => {
     try {
       const results = await ratingService.getRatingSeller(id)
@@ -91,7 +100,7 @@ const Vendedor = () => {
     getRatingSeller()
   }, [id])
 
-  //Aplica filtros con base en la elección del usuario
+  // Apply filters based on user selection
   const filterResults = (() => {
     switch (filter) {
       case 'Positivas':
@@ -117,7 +126,7 @@ const Vendedor = () => {
             <img
               src={results.imagenVendedor || Photo}
               className="w-36 h-36 rounded-full"
-              alt="Foto de perfil"
+              alt={t('product.profilePhoto')}
             />
           </div>
           <div className="flex flex-col lg:ml-[50px] mt-4 lg:mt-0 text-center lg:text-left">
@@ -130,13 +139,15 @@ const Vendedor = () => {
                 <StarRating rating={promedio} size="star-large" />
                 <p>
                   {Number(promedio).toFixed(1)} - {size}{' '}
-                  <strong className="text-black font-bold">reseñas</strong>
+                  <strong className="text-black font-bold">
+                    {t('seller.reviews').toLowerCase()}
+                  </strong>
                 </p>
               </div>
               <div className="flex space-x-1 mt-3 lg:mt-0">
                 <FaClockRotateLeft size={24} color="#A2C634" />
                 <p className="text-1xl">
-                  Fecha de registro:{' '}
+                  {t('seller.registrationDate')}{' '}
                   {new Date(results.fechaRegistro).toLocaleDateString()}
                 </p>
               </div>
@@ -147,10 +158,10 @@ const Vendedor = () => {
                   <ThumbUpAltIcon style={{ fontSize: 30, color: '#A2C634' }} />
                   <div className="flex flex-col">
                     <p className="text-1xl text-black ">
-                      Este usuario <strong>no tiene</strong>
+                      {t('seller.thisUserHasNo')}
                     </p>
                     <p className="text-1xl text-black font-bold ">
-                      reportes negativos
+                      {t('seller.negativeReports')}
                     </p>
                   </div>
                 </div>
@@ -161,10 +172,10 @@ const Vendedor = () => {
                   />
                   <div className="flex flex-col">
                     <p className="text-1xl text-black ">
-                      Este usuario <strong>tiene</strong>
+                      {t('seller.thisUserHas')}
                     </p>
                     <p className="text-1xl text-black font-bold">
-                      reportes negativos
+                      {t('seller.negativeReports')}
                     </p>
                   </div>
                 </div>
@@ -194,7 +205,7 @@ const Vendedor = () => {
                   className="px-4 py-1 bg-blue-500 text-white rounded-full"
                   onClick={() => setModalIsOpen(true)}
                 >
-                  Ver más reseñas
+                  {t('seller.seeMoreReviews')}
                 </button>
               )}
             </div>
@@ -204,7 +215,7 @@ const Vendedor = () => {
               <div className="flex flex-col items-center justify-center">
                 <SentimentDissatisfiedIcon style={{ fontSize: 60 }} />
                 <p className="text-center text-2xl justify-center mt-5">
-                  No hay reseñas para mostrar
+                  {t('seller.noReviewsToShow')}
                 </p>
               </div>
             )}
@@ -214,7 +225,7 @@ const Vendedor = () => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Todas las calificaciones"
+        contentLabel={t('seller.allReviews')}
         className="fixed inset-0 flex items-center justify-center"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50"
       >
@@ -223,9 +234,9 @@ const Vendedor = () => {
             className="absolute top-4 right-4 bg-gray-200 text-tertiary hover:bg-tertiary hover:text-white active:outline-neutral-300 focus:outline-neutral-300 rounded-full p-2"
             onClick={() => setModalIsOpen(false)}
           >
-            Cerrar
+            {t('seller.close')}
           </button>
-          <h2 className="text-2xl font-bold mb-4">Todas las calificaciones</h2>
+          <h2 className="text-2xl font-bold mb-4">{t('seller.allReviews')}</h2>
           <div className="flex flex-col px-2">
             {filterResults.map((review, index) => (
               <RatingSeller

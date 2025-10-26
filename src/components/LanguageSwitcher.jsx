@@ -27,7 +27,7 @@ const LanguageSwitcher = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors bg-white text-black hover:bg-gray-100 shadow-md"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors bg-white text-black hover:bg-neutral-200 hadow-md"
         aria-label="Change language"
       >
         <Language />

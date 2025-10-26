@@ -33,6 +33,7 @@ export const fieldNameMap = {
     compatibilidad: 'products.compatibility',
     disponibilidad: 'products.availability',
     exposicion: 'products.exposition',
+    tipoProducto: 'products.productType',
 }
 
 /**
@@ -151,6 +152,12 @@ export const fieldValueMap = {
         'Gris': 'products.colorGray',
         'Plata': 'products.colorSilver',
         'Dorado': 'products.colorGold',
+    },
+
+    tipoProducto: {
+        'bicicleta': 'products.bicycle',
+        'componente': 'products.component',
+        'repuesto': 'products.sparePart',
     },
 }
 

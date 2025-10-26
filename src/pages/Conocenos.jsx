@@ -1,7 +1,7 @@
 // Components
-import Philosophy from '../components/Conocenos/Philosophy'
-import ValueCard from '../components/Conocenos/ValueCard'
-import Team from '../components/Conocenos/Team'
+import Philosophy from '../components/About/Philosophy'
+import ValueCard from '../components/About/ValueCard'
+import TeamMemberCard from '../components/About/TeamMemberCard'
 
 // Icons
 import Security from '@mui/icons-material/GppGoodOutlined'
@@ -96,7 +96,7 @@ const Conocenos = () => {
         <h2 className="font-bold text-2xl">{t('aboutUs.ourTeam')}</h2>
       </div>
       <div className="flex flex-col sm:flex-row sm:space-x-10 items-center justify-center mt-10 mb-3 w-full space-y-8 sm:space-y-0">
-        <Team
+        <TeamMemberCard
           photo={daniel}
           name={'Ronald Daniel Jacanamejoy'}
           description={t('aboutUs.danielDescription')}
@@ -104,28 +104,34 @@ const Conocenos = () => {
           linkedin={
             'https://www.linkedin.com/in/ronald-daniel-jacanamejoy-mutumbajoy-29b2442b4/'
           }
+          github={'https://github.com/RonaldDaniel20'}
         />
 
-        <Team
+        <TeamMemberCard
           photo={juan}
           name={'Juan David Madrid Contreras'}
           description={t('aboutUs.juanDescription')}
           phrase={`"${t('aboutUs.juanPhrase')}"`}
-          linkedin={''}
+          linkedin={'https://www.linkedin.com/in/jumad-se/'}
+          github={'https://github.com/JuMad-SE'}
         />
-        <Team
+        <TeamMemberCard
           photo={carlos}
           name={'Carlos David Ramirez Muñoz'}
           description={t('aboutUs.carlosDescription')}
           phrase={`"${t('aboutUs.carlosPhrase')}"`}
           linkedin={'https://www.linkedin.com/in/cramirezmun/'}
+          github={'https://github.com/w1sec0d'}
         />
-        <Team
+        <TeamMemberCard
           photo={johan}
           name={'Johan Rodriguez Gutierrez'}
           description={t('aboutUs.johanDescription')}
           phrase={`"${t('aboutUs.johanPhrase')}"`}
-          linkedin={''}
+          linkedin={
+            'https://www.linkedin.com/in/johan-david-rodriguez-gutierrez-a55738279/'
+          }
+          github={'https://github.com/Homeroso'}
         />
       </div>
     </div>
