@@ -46,4 +46,4 @@ const updateUserAddress = async (idUsuario, userAddressData) => {
     return response.data
 }
 
-export { getUser, getUserPhoto, createUsuario, updateUserAddress, getSales, getPurchases, updatePhoto }
+export { getUser, getUserPhoto, createUsuario, updateUserAddress, getSales, getPurchases, updateUserPhoto }
