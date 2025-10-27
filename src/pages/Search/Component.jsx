@@ -123,17 +123,14 @@ const ComponentFinderPage = () => {
             </div>
           </div>
         </div>
-        {/* <div className=" w-3 bg-secondary"></div> */}
         {/* Products panel */}
         <div className="w-full md:w-2/3 rounded-lg px-3 h-full">
           {selectedComponent ? (
-            <>
-              <IndividualProduct
-                products={filteredComponents}
-                title={selectedComponent}
-                columns={3}
-              />
-            </>
+            <IndividualProduct
+              products={filteredComponents}
+              title={selectedComponent}
+              columns={3}
+            />
           ) : (
             <div className="h-full flex flex-row items-center pt-16 justify-center text-gray-500">
               <InfoIcon className="text-6xl mr-4" />

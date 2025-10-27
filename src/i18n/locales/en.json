@@ -246,7 +246,8 @@
     "sales": "Sales",
     "fullPrice": "Full Price",
     "shippingCost": "Shipping Cost",
-    "productType": "Product Type"
+    "productType": "Product Type",
+    "wheels": "Wheels"
   },
   "purchases": {
     "myPurchases": "My Purchases",

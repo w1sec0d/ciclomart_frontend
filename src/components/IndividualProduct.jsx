@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 // Icons
 import { IoIosArrowForward } from 'react-icons/io'
 import { IoIosArrowBack } from 'react-icons/io'
+import { getValueTranslationKey } from '../utils/filterMappings'
 
 const IndividualProduct = ({
   products,
@@ -55,7 +56,7 @@ const IndividualProduct = ({
       <ComparisonBar />
       <div>
         <h1 className="font-bold text-3xl bg-secondary w-full h-20 mb-10 shadow-xl flex items-center justify-center">
-          {title}
+          {t(getValueTranslationKey('componente', title)) || title}
         </h1>
       </div>
       {/* Search functionality integrated with Fuse (fuzzy search) */}

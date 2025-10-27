@@ -188,6 +188,18 @@ export const fieldValueMap = {
         'ninguno': 'products.none',
         'Ninguno': 'products.none'
     },
+
+    componente: {
+        'Ruedas': 'products.wheels',
+        'ruedas': 'products.wheels',
+        'Transmisión': 'products.transmission',
+        'Frenos': 'products.brakes',
+        'Manubrio': 'products.handlebar',
+        'Pedales': 'products.pedals',
+        'Sillines': 'products.saddle',
+        'Manubrios': 'products.handlebars',
+        'Suspensión': 'products.suspension'
+    }
 }
 
 /**

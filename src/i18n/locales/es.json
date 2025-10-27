@@ -142,7 +142,7 @@
     "double": "Doble",
     "doubleSuspension": "Doble",
     "rigid": "Rígida",
-    "transmission": "Transmision",
+    "transmission": "Transmisión",
     "singleChainring": "Monoplato",
     "doubleChainring": "Doble plato",
     "tripleChainring": "Triple plato",
@@ -246,7 +246,8 @@
     "sales": "Ventas",
     "fullPrice": "Precio Completo",
     "shippingCost": "Costo de Envío",
-    "productType": "Tipo de Producto"
+    "productType": "Tipo de Producto",
+    "wheels": "Ruedas"
   },
   "purchases": {
     "myPurchases": "Mis Compras",
