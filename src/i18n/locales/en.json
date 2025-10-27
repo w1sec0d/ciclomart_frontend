@@ -240,7 +240,12 @@
     "transmissionComponent": "Transmission",
     "exposition": "Exposition",
     "component": "Component",
-    "sparePart": "Spare Part"
+    "sparePart": "Spare Part",
+    "quantity": "Quantity",
+    "sales": "Sales",
+    "fullPrice": "Full Price",
+    "shippingCost": "Shipping Cost",
+    "productType": "Product Type"
   },
   "purchases": {
     "myPurchases": "My Purchases",
@@ -403,13 +408,20 @@
     "pleaseUploadImageOrPDF": "Please upload an image (JPEG, PNG) or a PDF"
   },
   "comparison": {
+    "compare": "Compare",
+    "clean": "Clean",
     "compareProducts": "Compare Products",
+    "comparison": "Comparison",
     "addToCompare": "Add to Compare",
+    "sharedElements": "Shared Elements",
+    "additionalFeatures": "Additional Features",
+    "sellerInformation": "Seller Information",
+    "viewSellerReviews": "View seller reviews",
     "removeFromCompare": "Remove from Compare",
     "compareNow": "Compare Now",
     "selectProducts": "Select 2 products to compare",
-    "comparison": "Comparison",
     "specifications": "Specifications",
+    "highlightDifferences": "Highlight differences",
     "buy": "Buy"
   },
   "errors": {
@@ -507,7 +519,11 @@
     "seeMoreReviews": "See more reviews",
     "noReviewsToShow": "No reviews to show",
     "close": "Close",
-    "allReviews": "All reviews"
+    "allReviews": "All reviews",
+    "name": "Seller Name",
+    "lastName": "Seller Last Name",
+    "email": "Seller Email",
+    "phone": "Seller Phone"
   },
   "product": {
     "details": "Product details",

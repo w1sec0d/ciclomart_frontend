@@ -8,8 +8,10 @@ import {
   setComparisonItem,
   removeComparisonItem,
 } from '../../store/slices/comparisonSlice'
+import { useTranslation } from 'react-i18next'
 
 const ComparisonButton = ({ idProducto, className }) => {
+  const { t } = useTranslation()
   const idProduct1 = useSelector((state) => state.comparison.idProduct1)
   const idProduct2 = useSelector((state) => state.comparison.idProduct2)
   const dispatch = useDispatch()
@@ -38,7 +40,7 @@ const ComparisonButton = ({ idProducto, className }) => {
       )}
       onClick={handleComparison}
     >
-      <b className="mr-2">Comparar</b>
+      <b className="mr-2">{t('comparison.compare')}</b>
       <CompareArrows />
     </button>
   )

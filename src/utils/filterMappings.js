@@ -34,6 +34,24 @@ export const fieldNameMap = {
     disponibilidad: 'products.availability',
     exposicion: 'products.exposition',
     tipoProducto: 'products.productType',
+    descripcionModelo: 'table.modelDescription',
+
+    // Additional product fields (for comparison view)
+    cantidad: 'products.quantity',
+    ventas: 'products.sales',
+    fechaPublicacion: 'products.publicationDate',
+    tipo: 'products.productType',
+    costoEnvio: 'products.shippingCost',
+    precioCompleto: 'products.fullPrice',
+
+    // Seller fields
+    nombreVendedor: 'seller.name',
+    apellidoVendedor: 'seller.lastName',
+    correoVendedor: 'seller.email',
+    telefonoVendedor: 'seller.phone',
+
+    // Other fields
+    preguntas: 'product.questions',
 }
 
 /**

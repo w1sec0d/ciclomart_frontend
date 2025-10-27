@@ -240,7 +240,12 @@
     "transmissionComponent": "Transmisión",
     "exposition": "Exposición",
     "component": "Componente",
-    "sparePart": "Repuesto"
+    "sparePart": "Repuesto",
+    "quantity": "Cantidad",
+    "sales": "Ventas",
+    "fullPrice": "Precio Completo",
+    "shippingCost": "Costo de Envío",
+    "productType": "Tipo de Producto"
   },
   "purchases": {
     "myPurchases": "Mis Compras",
@@ -403,13 +408,20 @@
     "pleaseUploadImageOrPDF": "Por favor, sube una imagen (JPEG, PNG) o un PDF"
   },
   "comparison": {
+    "compare": "Comparar",
+    "clean": "Limpiar",
     "compareProducts": "Comparar Productos",
+    "comparison": "Comparación",
     "addToCompare": "Agregar a Comparación",
+    "sharedElements": "Elementos Compartidos",
+    "additionalFeatures": "Agregados",
+    "sellerInformation": "Información vendedores",
+    "viewSellerReviews": "Ver reseñas vendedor",
     "removeFromCompare": "Quitar de Comparación",
     "compareNow": "Comparar Ahora",
     "selectProducts": "Selecciona 2 productos para comparar",
-    "comparison": "Comparación",
     "specifications": "Especificaciones",
+    "highlightDifferences": "Resaltar diferencias",
     "buy": "Comprar"
   },
   "errors": {
@@ -507,7 +519,11 @@
     "seeMoreReviews": "Ver más reseñas",
     "noReviewsToShow": "No hay reseñas para mostrar",
     "close": "Cerrar",
-    "allReviews": "Todas las calificaciones"
+    "allReviews": "Todas las calificaciones",
+    "name": "Nombre del Vendedor",
+    "lastName": "Apellido del Vendedor",
+    "email": "Correo del Vendedor",
+    "phone": "Teléfono del Vendedor"
   },
   "product": {
     "details": "Detalles del producto",

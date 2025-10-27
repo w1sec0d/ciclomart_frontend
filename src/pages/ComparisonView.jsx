@@ -1,25 +1,28 @@
-// Utilidades
+// Utilities
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { getProductById } from '../services/productService'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
-// Componentes
+// Components
 import BuyButton from '../components/Comparison/BuyButton'
-import ComparisionSection from '../components/Comparison/ComparisionSection'
+import ComparisonSection from '../components/Comparison/ComparisonSection'
 import Loading from '../components/Loading'
 import DisplayImg from '../components/Comparison/DisplayImg'
 
-// Iconos
+// Icons
 import SouthIcon from '@mui/icons-material/South'
 import Photo from '../assets/userPhoto.png'
 
 const Header = ({ product1, product2 }) => {
+  const { t } = useTranslation()
+
   return (
     <div className="h-[50px] flex flex-row relative">
       <BuyButton producto={product1}>{product1.precio}</BuyButton>
       <div className="z-10 h-5/6 bg-lblue w-full absolute top-0 left-0 rounded-t-3xl flex justify-center items-center">
-        <b className="text-xl mx-4">Comparación</b>
+        <b className="text-xl mx-4">{t('comparison.comparison')}</b>
       </div>
       <BuyButton
         className={
@@ -34,6 +37,7 @@ const Header = ({ product1, product2 }) => {
 }
 
 const ComparisonView = () => {
+  const { t } = useTranslation()
   const { id1, id2 } = useParams()
 
   const {
@@ -53,11 +57,11 @@ const ComparisonView = () => {
 
   const { product1, product2 } = products
 
-  //Captura las keys de cada uno de los productos
+  // Capture the keys of each product
   const propertiesProduct1 = Object.keys(product1)
   const propertiesProduct2 = Object.keys(product2)
 
-  // Filtra las propiedades que existen en product1 y product2 para imprimir solo lo existente en cada producto
+  // Filter properties that exist in product1 and product2 to print only what exists in each product
   const filteredProperties1 = propertiesProduct1.filter(
     (property) =>
       product1[property] &&
@@ -74,11 +78,11 @@ const ComparisonView = () => {
       !property.startsWith('nombre')
   )
 
-  //Elimina keys duplicadas
+  // Remove duplicate keys
   const properties = filteredProperties1.concat(filteredProperties2)
   const uniqProperties = [...new Set(properties)]
 
-  //Captura las coindencias entre los productos y retorna las keys sin duplicados
+  // Capture the coincidences between products and return keys without duplicates
   const coincidences = uniqProperties.filter((property) => {
     return (
       filteredProperties1.includes(property) &&
@@ -86,7 +90,7 @@ const ComparisonView = () => {
     )
   })
 
-  //Captura las discrepancias entre los productos
+  // Capture the discrepancies between products
   const discrepancies = uniqProperties.filter(
     (property) =>
       !filteredProperties2.includes(property) ||
@@ -96,25 +100,25 @@ const ComparisonView = () => {
   return (
     <div className="h-auto flex flex-col">
       <div className="h-auto w-auto mx-10 mb-8 my-10 rounded-3xl bg-white drop-shadow-lg flex flex-col">
-        {/*Header */}
+        {/* Header */}
         <Header product1={product1} product2={product2} />
-        {/*Sección nombre y foto producto 1 y 2 respectivamente*/}
+        {/* Name and photo section for product 1 and 2 respectively */}
         <div className="h-72 flex flex-row w-full">
           <DisplayImg product={product1} />
           <DisplayImg product={product2} />
         </div>
-        {/*Sección elementos compartidos producto 1 y 2 respectviamente */}
-        <ComparisionSection
-          title={'Elementos Compartidos'}
+        {/* Shared elements section for product 1 and 2 respectively */}
+        <ComparisonSection
+          title={t('comparison.sharedElements')}
           product1={product1}
           product2={product2}
           coincidences={coincidences}
           highlightDiffs={true}
         />
-        {/*Sección elementos Agregados */}
+        {/* Additional features section */}
         {discrepancies ? (
-          <ComparisionSection
-            title={'Agregados'}
+          <ComparisonSection
+            title={t('comparison.additionalFeatures')}
             className1={'rounded-bl-3xl'}
             className2={'rounded-br-3xl'}
             product1={product1}
@@ -129,12 +133,16 @@ const ComparisonView = () => {
       </div>
       <div className="h-auto w-auto mx-10 mb-8 my-10 rounded-bl-3xl rounded-br-3xl bg-white drop-shadow-lg flex flex-col">
         <div className="text-black h-10 border-y border-y-lgray w-full flex flex-row items-center justify-center  text-xl bg-lblue opacity-80">
-          {/*Muestra un botón para resaltar diferencias */}
-          <b>Información vendedores</b>
+          {/* Shows seller information section */}
+          <b>{t('comparison.sellerInformation')}</b>
         </div>
         <div className="flex flex-row items-center">
           <div className="w-1/2 h-auto border-r border-lgray flex flex-row items-center justify-center">
-            <img src={Photo} className="h-24 w-24 ml-2 my-2" />
+            <img
+              src={Photo}
+              className="h-24 w-24 ml-2 my-2"
+              alt={product1.nombreVendedor}
+            />
             <div className="flex flex-col ml-4">
               <b>
                 {product1.nombreVendedor} {product1.apellidoVendedor}
@@ -144,12 +152,16 @@ const ComparisonView = () => {
                 className="text-sm text-blue-500"
                 to={`/seller/${product1.idVendedor}`}
               >
-                Ver reseñas vendedor
+                {t('comparison.viewSellerReviews')}
               </Link>
             </div>
           </div>
           <div className="w-1/2 h-auto border-r border-lgray flex flex-row items-center justify-center">
-            <img src={Photo} className="h-24 w-24 ml-2 my-2" />
+            <img
+              src={Photo}
+              className="h-24 w-24 ml-2 my-2"
+              alt={product2.nombreVendedor}
+            />
             <div className="flex flex-col ml-4">
               <b>
                 {product2.nombreVendedor} {product2.apellidoVendedor}
@@ -159,7 +171,7 @@ const ComparisonView = () => {
                 className="text-sm text-blue-500"
                 to={`/seller/${product2.idVendedor}`}
               >
-                Ver reseñas vendedor
+                {t('comparison.viewSellerReviews')}
               </Link>
             </div>
           </div>
