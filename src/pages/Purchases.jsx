@@ -27,7 +27,7 @@ import { setNotification } from '../store/slices/notificationSlice'
 const Purchases = () => {
   const { t } = useTranslation()
   // Get buyer ID from URL
-  const { idComprador } = useParams()
+  const { BuyerId } = useParams()
   const queryClient = useQueryClient()
   const dispatch = useDispatch()
   const {
@@ -35,7 +35,7 @@ const Purchases = () => {
     isLoading,
     isError,
     error,
-  } = useQuery('purchases', () => getPurchasesByBuyerId(idComprador))
+  } = useQuery('purchases', () => getPurchasesByBuyerId(BuyerId))
 
   const getPurchaseText = (estado) => {
     switch (estado) {

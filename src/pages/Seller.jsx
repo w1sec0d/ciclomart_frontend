@@ -4,7 +4,7 @@ import { FaClockRotateLeft } from 'react-icons/fa6'
 import StarRating from '../components/StarRating'
 import ratingService from '../services/ratingService'
 import { useState, useEffect } from 'react'
-import RatingSeller from '../components/Vendedor/RatingSeller'
+import RatingSeller from '../components/Seller/RatingSeller'
 import Modal from 'react-modal'
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
@@ -47,7 +47,7 @@ const Navbar = ({ setFilter }) => {
   )
 }
 
-const Vendedor = () => {
+const SellerPage = () => {
   const { t } = useTranslation()
   const { id } = useParams()
   const [results, setResults] = useState([])
@@ -258,4 +258,4 @@ const Vendedor = () => {
   )
 }
 
-export default Vendedor
+export default SellerPage

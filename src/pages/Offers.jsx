@@ -11,7 +11,7 @@ import { setLoading, clearLoading } from '../store/slices/loadingSlice'
 // Services
 import { getOffers } from '../services/productService'
 
-const Ofertas = () => {
+const OffersPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -37,4 +37,4 @@ const Ofertas = () => {
   )
 }
 
-export default Ofertas
+export default OffersPage

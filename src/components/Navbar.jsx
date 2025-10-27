@@ -82,7 +82,7 @@ const Navbar = () => {
         </li>
         <li className="py-2 hover:font-bold text-center flex items-center justify-center">
           <Link
-            to="/conocenos"
+            to="/aboutUs"
             className="block w-full"
             onClick={handleLinkClick}
           >

@@ -103,7 +103,7 @@ const Login = () => {
               {t('auth.rememberMe')}
             </Checkbox>
             <Link
-              to="/verificacion"
+              to="/verification"
               className="text-sm text-blue-500 hover:underline text-center"
             >
               {t('auth.forgotPassword')}

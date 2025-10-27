@@ -1,11 +1,19 @@
+// Main landing page showing the most sold products, the offers, the bicycles and the spare parts
+
+// React
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+
+// Carousel
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+import { landingCarousel, itemContainer } from './carouselSettings'
 
 // Assets importing
-import landing1 from '../assets/landing1.webp'
-import bike2 from '../assets/bike2.webp'
-import offer from '../assets/offer.png'
-import repuestos from '../assets/repuestos.webp'
+import landing1 from '../../assets/landing1.webp'
+import bike2 from '../../assets/bike2.webp'
+import offer from '../../assets/offer.png'
+import repuestos from '../../assets/repuestos.webp'
 import {
   LocalFireDepartment,
   PedalBike,
@@ -13,18 +21,16 @@ import {
 } from '@mui/icons-material'
 
 // Components
-import ItemContainer from '../components/ItemContainer'
-import ComparisonBar from '../components/Comparison/ComparisonBar'
+import ItemContainer from '../../components/ItemContainer'
+import ComparisonBar from '../../components/Comparison/ComparisonBar'
 
 // React Query
 import { useQuery } from 'react-query'
 
 // Services
-import { getProducts } from '../services/productService'
+import { getProducts } from '../../services/productService'
 import { useDispatch } from 'react-redux'
-import { clearLoading, setLoading } from '../store/slices/loadingSlice'
-import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import { useTranslation } from 'react-i18next'
 
 const LandingPage = () => {
@@ -33,35 +39,6 @@ const LandingPage = () => {
 
   // Load products with react-query
   const { data: products, isLoading, error } = useQuery('products', getProducts)
-
-  const landingCarousel = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  }
-  const itemContainer = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 5,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  }
 
   useEffect(() => {
     if (isLoading) {
@@ -77,7 +54,7 @@ const LandingPage = () => {
   return (
     <section>
       <Carousel responsive={landingCarousel} className="hover:cursor-pointer">
-        <Link to="/ofertas">
+        <Link to="/offers">
           <div className="flex items-center justify-center w-full relative bg-[#ebf9f6]">
             <img
               src={landing1}
@@ -111,7 +88,7 @@ const LandingPage = () => {
       </h2>
       <section className="flex flex-col md:flex-row justify-between max-w-full md:max-w-[800px] mx-auto">
         <Link
-          to="/ofertas"
+          to="/offers"
           className="p-4 shadow-a bg-white rounded-md group mb-4 md:mb-0 mx-5 my-2 lg:mx-0 lg:my-0"
         >
           <img

@@ -11,7 +11,7 @@ import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import background1 from '../assets/background1.webp'
 import { useTranslation } from 'react-i18next'
 
-const CodeVerification = () => {
+const CodeVerificationPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -114,4 +114,4 @@ const CodeVerification = () => {
   )
 }
 
-export default CodeVerification
+export default CodeVerificationPage

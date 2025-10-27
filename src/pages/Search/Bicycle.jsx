@@ -11,7 +11,7 @@ import ActiveFiltersBar from '../../components/Search/ActiveFiltersBar'
 import ProductGrid from '../../components/Search/ProductGrid'
 import { getPriceRange, applyFilters } from '../../utils/filterUtils'
 
-const BicycleFinder = () => {
+const BicycleFinderPage = () => {
   const dispatch = useDispatch()
   const [priceRange, setPriceRange] = useState([0, 10000])
   const [filteredBikes, setFilteredBikes] = useState([])
@@ -226,4 +226,4 @@ const BicycleFinder = () => {
   )
 }
 
-export default BicycleFinder
+export default BicycleFinderPage

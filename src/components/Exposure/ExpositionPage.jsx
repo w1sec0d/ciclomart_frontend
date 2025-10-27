@@ -14,7 +14,7 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 
 const ExpositionPage = () => {
-  const { idProduct } = useParams()
+  const { ProductId } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
   const queryParams = new URLSearchParams(location.search)
@@ -24,7 +24,7 @@ const ExpositionPage = () => {
     data: producto,
     isLoading,
     isError,
-  } = useQuery(['productos', idProduct], () => getProductById(idProduct))
+  } = useQuery(['productos', ProductId], () => getProductById(ProductId))
 
   const dispatch = useDispatch()
   const [selected, setSelected] = useState()
@@ -45,7 +45,7 @@ const ExpositionPage = () => {
     }
     const { paymentURL } = await mercadoPago.sendBuyExposureRequest(
       exposure,
-      idProduct
+      ProductId
     )
     window.location.href = paymentURL
     setTimeout(() => {

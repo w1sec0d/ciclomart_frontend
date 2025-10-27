@@ -67,7 +67,7 @@ const SideBar = () => {
   }
 
   const handleRedirect = () => {
-    navigate(`/vendedor/${authUser.idUsuario}`)
+    navigate(`/seller/${authUser.idUsuario}`)
   }
 
   const toggleSidebar = () => {

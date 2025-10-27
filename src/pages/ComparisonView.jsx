@@ -142,7 +142,7 @@ const ComparisonView = () => {
               <p>{product1.correoVendedor}</p>
               <Link
                 className="text-sm text-blue-500"
-                to={`/vendedor/${product1.idVendedor}`}
+                to={`/seller/${product1.idVendedor}`}
               >
                 Ver reseñas vendedor
               </Link>
@@ -157,7 +157,7 @@ const ComparisonView = () => {
               <p>{product2.correoVendedor}</p>
               <Link
                 className="text-sm text-blue-500"
-                to={`/vendedor/${product2.idVendedor}`}
+                to={`/seller/${product2.idVendedor}`}
               >
                 Ver reseñas vendedor
               </Link>

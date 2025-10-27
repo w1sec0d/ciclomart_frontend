@@ -10,7 +10,7 @@ import InfoIcon from '@mui/icons-material/Info'
 
 import { setLoading, clearLoading } from '../../store/slices/loadingSlice'
 
-const BicycleComponentFinder = () => {
+const ComponentFinderPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   // State for selected component
@@ -148,4 +148,4 @@ const BicycleComponentFinder = () => {
   )
 }
 
-export default BicycleComponentFinder
+export default ComponentFinderPage

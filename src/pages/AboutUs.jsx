@@ -24,7 +24,7 @@ import Logo from '../assets/Logo.svg'
 // i18n
 import { useTranslation } from 'react-i18next'
 
-const Conocenos = () => {
+const AboutUsPage = () => {
   const { t } = useTranslation()
   return (
     <div className="h-auto w-full flex flex-col justify-center md:px-20 px-5">
@@ -138,4 +138,4 @@ const Conocenos = () => {
   )
 }
 
-export default Conocenos
+export default AboutUsPage

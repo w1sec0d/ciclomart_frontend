@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 
 import background1 from '../assets/background1.webp'
 
-const Verificacion = () => {
+const VerificationPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
@@ -97,4 +97,4 @@ const Verificacion = () => {
   )
 }
 
-export default Verificacion
+export default VerificationPage
