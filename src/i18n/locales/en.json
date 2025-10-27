@@ -81,6 +81,7 @@
     "allowStorePickup": "Allow store pickup"
   },
   "products": {
+    "none": "None",
     "bicycles": "Bicycles",
     "bicycle": "Bicycle",
     "bicycleFound": "bicycle found",

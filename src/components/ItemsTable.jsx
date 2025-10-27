@@ -4,35 +4,102 @@ import {
   flexRender,
 } from '@tanstack/react-table'
 import { useTranslation } from 'react-i18next'
+import PropTypes from 'prop-types'
+import { getValueTranslationKey } from '../utils/filterMappings'
 
-// Map database field names to translation keys
 const ItemsTable = ({ data }) => {
   const { t } = useTranslation()
 
-  // Create columns with translated headers
+  // Translate value if it has a translation, otherwise return as-is
+  const translateValue = (fieldName, value) => {
+    const translationKey = getValueTranslationKey(fieldName, value)
+    return translationKey ? t(translationKey) : value
+  }
+
+  // Create columns with translated headers and custom cell renderers for values
   const columns = [
-    { accessorKey: 'estado', header: t('table.condition') },
-    { accessorKey: 'disponibilidad', header: t('table.availability') },
+    {
+      accessorKey: 'estado',
+      header: t('table.condition'),
+      cell: ({ getValue }) => translateValue('estado', getValue()),
+    },
+    {
+      accessorKey: 'disponibilidad',
+      header: t('table.availability'),
+      cell: ({ getValue }) => translateValue('disponibilidad', getValue()),
+    },
     { accessorKey: 'nombre', header: t('table.name') },
     { accessorKey: 'descripcionModelo', header: t('table.modelDescription') },
-    { accessorKey: 'categoria', header: t('table.category') },
+    {
+      accessorKey: 'categoria',
+      header: t('table.category'),
+      cell: ({ getValue }) => translateValue('categoria', getValue()),
+    },
     { accessorKey: 'compatibilidad', header: t('table.compatibility') },
-    { accessorKey: 'tipoBicicleta', header: t('table.bicycleType') },
-    { accessorKey: 'color', header: t('table.color') },
-    { accessorKey: 'genero', header: t('table.gender') },
-    { accessorKey: 'edad', header: t('table.age') },
-    { accessorKey: 'tamañoMarco', header: t('table.frameSize') },
-    { accessorKey: 'materialMarco', header: t('table.frameMaterial') },
+    {
+      accessorKey: 'tipoBicicleta',
+      header: t('table.bicycleType'),
+      cell: ({ getValue }) => translateValue('tipoBicicleta', getValue()),
+    },
+    {
+      accessorKey: 'color',
+      header: t('table.color'),
+      cell: ({ getValue }) => translateValue('color', getValue()),
+    },
+    {
+      accessorKey: 'genero',
+      header: t('table.gender'),
+      cell: ({ getValue }) => translateValue('genero', getValue()),
+    },
+    {
+      accessorKey: 'edad',
+      header: t('table.age'),
+      cell: ({ getValue }) => translateValue('edad', getValue()),
+    },
+    {
+      accessorKey: 'tamañoMarco',
+      header: t('table.frameSize'),
+      cell: ({ getValue }) => translateValue('tamañoMarco', getValue()),
+    },
+    {
+      accessorKey: 'materialMarco',
+      header: t('table.frameMaterial'),
+      cell: ({ getValue }) => translateValue('materialMarco', getValue()),
+    },
     { accessorKey: 'tamañoRueda', header: t('table.wheelSize') },
-    { accessorKey: 'tipoFrenos', header: t('table.brakeType') },
+    {
+      accessorKey: 'tipoFrenos',
+      header: t('table.brakeType'),
+      cell: ({ getValue }) => translateValue('tipoFrenos', getValue()),
+    },
     { accessorKey: 'velocidades', header: t('table.speeds') },
-    { accessorKey: 'suspension', header: t('table.suspension') },
-    { accessorKey: 'transmision', header: t('table.transmission') },
-    { accessorKey: 'tipoPedales', header: t('table.pedalType') },
-    { accessorKey: 'manubrio', header: t('table.handlebar') },
+    {
+      accessorKey: 'suspension',
+      header: t('table.suspension'),
+      cell: ({ getValue }) => translateValue('suspension', getValue()),
+    },
+    {
+      accessorKey: 'transmision',
+      header: t('table.transmission'),
+      cell: ({ getValue }) => translateValue('transmision', getValue()),
+    },
+    {
+      accessorKey: 'tipoPedales',
+      header: t('table.pedalType'),
+      cell: ({ getValue }) => translateValue('tipoPedales', getValue()),
+    },
+    {
+      accessorKey: 'manubrio',
+      header: t('table.handlebar'),
+      cell: ({ getValue }) => translateValue('manubrio', getValue()),
+    },
     { accessorKey: 'pesoBicicleta', header: t('table.bicycleWeight') },
     { accessorKey: 'pesoMaximo', header: t('table.maxWeight') },
-    { accessorKey: 'extras', header: t('table.extras') },
+    {
+      accessorKey: 'extras',
+      header: t('table.extras'),
+      cell: ({ getValue }) => translateValue('extras', getValue()),
+    },
     { accessorKey: 'nombreMarca', header: t('table.brand') },
   ]
   const table = useReactTable({
@@ -55,7 +122,7 @@ const ItemsTable = ({ data }) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {table.getRowModel().rows.map((row, rowIndex) =>
+          {table.getRowModel().rows.map((row) =>
             row.getVisibleCells().map((cell, cellIndex) => {
               const cellValue = cell.getValue()
               if (!cellValue) return null
@@ -81,6 +148,10 @@ const ItemsTable = ({ data }) => {
       </table>
     </div>
   )
+}
+
+ItemsTable.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default ItemsTable

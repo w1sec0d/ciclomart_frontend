@@ -65,6 +65,7 @@ export const fieldValueMap = {
         'Montaña': 'products.mountain',
         'Carretera': 'products.road',
         'Ruta': 'products.road',
+        'ruta': 'products.road',
         'BMX': 'products.bmx',
         'Híbrida': 'products.hybrid',
         'Eléctrica': 'products.electric',
@@ -176,6 +177,16 @@ export const fieldValueMap = {
         'bicicleta': 'products.bicycle',
         'componente': 'products.component',
         'repuesto': 'products.sparePart',
+    },
+
+    categoria: {
+        'carretera': 'products.road',
+        'Carretera': 'products.road'
+    },
+
+    extras: {
+        'ninguno': 'products.none',
+        'Ninguno': 'products.none'
     },
 }
 

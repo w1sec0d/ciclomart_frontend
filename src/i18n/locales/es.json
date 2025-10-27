@@ -81,6 +81,7 @@
     "allowStorePickup": "Permitir retiro en tienda"
   },
   "products": {
+    "none": "Ninguno",
     "bicycles": "Bicicletas",
     "bicycle": "bicicleta",
     "bicycleFound": "bicicleta encontrada",
