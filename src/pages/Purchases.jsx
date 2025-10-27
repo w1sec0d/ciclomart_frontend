@@ -90,8 +90,8 @@ const Purchases = () => {
       if (response.success) {
         dispatch(
           setNotification({
-            title: 'Compra confirmada',
-            text: 'Gracias por tu tiempo, disfruta tu producto :)',
+            title: t('purchases.purchaseConfirmed'),
+            text: t('purchases.thankYouMessage'),
             icon: 'success',
           })
         )
@@ -102,8 +102,8 @@ const Purchases = () => {
       console.error(error)
       dispatch(
         setNotification({
-          title: 'Error al confirmar la compra',
-          text: 'Porfavor, intentalo más tarde',
+          title: t('purchases.errorConfirming'),
+          text: t('purchases.pleaseTryAgainLater'),
           icon: 'error',
         })
       )
@@ -116,8 +116,8 @@ const Purchases = () => {
       if (response.success) {
         dispatch(
           setNotification({
-            title: 'Compra cancelada',
-            text: 'En breve te contactaremos sobre tu reclamo',
+            title: t('purchases.purchaseCanceled'),
+            text: t('purchases.claimMessage'),
             icon: 'success',
           })
         )
@@ -128,8 +128,8 @@ const Purchases = () => {
       console.error(error)
       dispatch(
         setNotification({
-          title: 'Error al cancelar la compra',
-          text: 'Porfavor, intentalo más tarde',
+          title: t('purchases.errorCanceling'),
+          text: t('purchases.pleaseTryAgainLater'),
           icon: 'error',
         })
       )
@@ -148,11 +148,13 @@ const Purchases = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Mis compras</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">
+        {t('purchases.myPurchases')}
+      </h1>
       <div className="space-y-6">
         {purchases.length === 0 ? (
           <p className="text-center text-lg h-screen-minus-navbar">
-            No tienes compras aún.
+            {t('purchases.noPurchases')}
           </p>
         ) : (
           purchases.map((purchase, index) => {
@@ -180,23 +182,23 @@ const Purchases = () => {
                     </span>
                   </h2>
                   <p className="text-lg mb-1 font-bold">
-                    Precio:{' '}
+                    {t('purchases.price')}{' '}
                     <span className="font-normal">
                       {colombianPrice(purchase.precioCarrito)}
                     </span>
                   </p>
                   <p className="text-lg mb-1 font-bold">
-                    Fecha:{' '}
+                    {t('purchases.date')}{' '}
                     <span className="font-normal">
                       {new Date(purchase.fecha).toLocaleDateString()}
                     </span>
                   </p>
                   <p className="text-lg mb-1 font-bold">
-                    Método de pago:{' '}
+                    {t('purchases.paymentMethod')}{' '}
                     <span className="font-normal">{purchase.metodoPago}</span>
                   </p>
                   <p className="text-lg mb-1 font-bold">
-                    Dirección de envío:{' '}
+                    {t('purchases.shippingAddress')}{' '}
                     <span className="font-normal">
                       {purchase.direccionEnvio}
                     </span>
@@ -210,13 +212,13 @@ const Purchases = () => {
                             className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition font-semibold mx-3"
                             onClick={() => handleConfirm(purchase.idCarrito)}
                           >
-                            Recibí el producto
+                            {t('purchases.confirmReceived')}
                           </button>
                           <button
                             className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition font-semibold mx-3"
                             onClick={() => handleCancel(purchase.idCarrito)}
                           >
-                            Quiero un reembolso
+                            {t('purchases.requestRefund')}
                           </button>
                         </>
                       )}

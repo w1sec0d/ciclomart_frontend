@@ -266,7 +266,21 @@
     "product": "Product",
     "seller": "Seller",
     "buyer": "Buyer",
-    "actions": "Actions"
+    "actions": "Actions",
+    "noPurchases": "You don't have any purchases yet.",
+    "price": "Price:",
+    "date": "Date:",
+    "paymentMethod": "Payment Method:",
+    "shippingAddress": "Shipping Address:",
+    "confirmReceived": "I received the product",
+    "requestRefund": "I want a refund",
+    "purchaseConfirmed": "Purchase confirmed",
+    "thankYouMessage": "Thanks for your time, enjoy your product :)",
+    "errorConfirming": "Error confirming purchase",
+    "pleaseTryAgainLater": "Please try again later",
+    "purchaseCanceled": "Purchase canceled",
+    "claimMessage": "We'll contact you soon about your claim",
+    "errorCanceling": "Error canceling purchase"
   },
   "profile": {
     "myProfile": "My Profile",

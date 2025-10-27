@@ -266,7 +266,21 @@
     "product": "Producto",
     "seller": "Vendedor",
     "buyer": "Comprador",
-    "actions": "Acciones"
+    "actions": "Acciones",
+    "noPurchases": "No tienes compras aún.",
+    "price": "Precio:",
+    "date": "Fecha:",
+    "paymentMethod": "Método de pago:",
+    "shippingAddress": "Dirección de envío:",
+    "confirmReceived": "Recibí el producto",
+    "requestRefund": "Quiero un reembolso",
+    "purchaseConfirmed": "Compra confirmada",
+    "thankYouMessage": "Gracias por tu tiempo, disfruta tu producto :)",
+    "errorConfirming": "Error al confirmar la compra",
+    "pleaseTryAgainLater": "Por favor, inténtalo más tarde",
+    "purchaseCanceled": "Compra cancelada",
+    "claimMessage": "En breve te contactaremos sobre tu reclamo",
+    "errorCanceling": "Error al cancelar la compra"
   },
   "profile": {
     "myProfile": "Mi Perfil",
