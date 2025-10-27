@@ -10,8 +10,10 @@ import axios from 'axios'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from '../store/slices/notificationSlice'
+import { useTranslation } from 'react-i18next'
 
 const Publish = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [step, setStep] = useState('selection')
@@ -93,7 +95,7 @@ const Publish = () => {
       .catch((error) => {
         ;(dispatch(
           setNotification({
-            title: 'Ingresa todos los datos',
+            title: t('publish.enterAllData'),
             icon: 'error',
           })
         ),
@@ -106,8 +108,8 @@ const Publish = () => {
     if (!validTypes.includes(tarjeta.type)) {
       dispatch(
         setNotification({
-          title: 'Tipo de archivo no válido',
-          text: 'Por favor, sube una imagen (JPEG, PNG) o un PDF',
+          title: t('publish.invalidFileType'),
+          text: t('publish.pleaseUploadImageOrPDF'),
           icon: 'error',
           timer: 3000,
         })

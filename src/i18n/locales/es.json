@@ -309,7 +309,13 @@
     "yourPurchases": "Tus Compras",
     "yourSales": "Tus Ventas",
     "ourStores": "Nuestras Tiendas",
-    "noDataToShow": "No hay datos que mostrar"
+    "noDataToShow": "No hay datos que mostrar",
+    "edit": "Editar",
+    "uploading": "Subiendo...",
+    "uploadImage": "Subir Imagen",
+    "selectValidImage": "Selecciona un archivo de imagen válido",
+    "selectImageToUpload": "Selecciona una imagen para subir",
+    "errorUploadingImage": "Error al subir la imagen"
   },
   "publish": {
     "publishProduct": "Publicar Producto",
@@ -391,7 +397,10 @@
     "seatModel": "Modelo de Sillin",
     "chainModel": "Modelo de Cadena",
     "gender": "Género",
-    "age": "Edad"
+    "age": "Edad",
+    "enterAllData": "Ingresa todos los datos requeridos",
+    "invalidFileType": "Tipo de archivo no válido",
+    "pleaseUploadImageOrPDF": "Por favor, sube una imagen (JPEG, PNG) o un PDF"
   },
   "comparison": {
     "compareProducts": "Comparar Productos",

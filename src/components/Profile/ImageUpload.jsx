@@ -3,8 +3,10 @@ import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { getUserPhoto, updateUserPhoto } from '../../services/userService'
+import { useTranslation } from 'react-i18next'
 
 const ImageUpload = ({ defaultPhoto }) => {
+  const { t } = useTranslation()
   const authUser = useSelector((state) => state.auth.authUser)
   const [photo, setPhoto] = useState('')
   const [hoverPhoto, setHoverPhoto] = useState(false)
@@ -20,25 +22,25 @@ const ImageUpload = ({ defaultPhoto }) => {
       setImage(file)
       setError('')
     } else {
-      setError('Please select a valid image file')
+      setError(t('profile.selectValidImage'))
     }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!image) {
-      setError('Please select an image to upload')
+      setError(t('profile.selectImageToUpload'))
       return
     }
 
     const formData = new FormData()
     formData.append('file', image)
-    formData.append('upload_preset', 'ciclomart') // Reemplaza con tu upload preset de Cloudinary
+    formData.append('upload_preset', 'ciclomart') // Replace with your Cloudinary upload preset
 
     setLoading(true)
     try {
       const response = await axios.post(
-        'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload', // Reemplaza con tu cloud name
+        'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload', // Replace with your cloud name
         formData
       )
       const photoUrl = response.data.secure_url
@@ -49,7 +51,7 @@ const ImageUpload = ({ defaultPhoto }) => {
       setImage(null) // Reset the image state after successful upload
     } catch (error) {
       console.error('Error uploading the image:', error)
-      setError('Error uploading the image')
+      setError(t('profile.errorUploadingImage'))
     } finally {
       setLoading(false)
       setImage(null)
@@ -69,7 +71,7 @@ const ImageUpload = ({ defaultPhoto }) => {
     if (authUser && authUser.idUsuario) {
       fetchUserPhoto()
     }
-  }, [authUser, url]) // Agrega authUser y url como dependencias
+  }, [authUser, url]) // Add authUser and url as dependencies
 
   return (
     <div className="h-full">
@@ -94,7 +96,7 @@ const ImageUpload = ({ defaultPhoto }) => {
             />
             {hoverPhoto ? (
               <b className="pointer-events-none absolute top-1/2 left-1/2 text-lg -translate-x-1/2 -translate-y-1/2">
-                Editar
+                {t('profile.edit')}
               </b>
             ) : null}
           </div>
@@ -111,7 +113,7 @@ const ImageUpload = ({ defaultPhoto }) => {
             className="bg-tertiary text-white px-2 py-2 rounded disabled:opacity-50 mt-4 ml-2 -mr-16"
             disabled={loading}
           >
-            {loading ? 'Uploading...' : 'Subir Imagen'}
+            {loading ? t('profile.uploading') : t('profile.uploadImage')}
           </button>
         )}
       </form>

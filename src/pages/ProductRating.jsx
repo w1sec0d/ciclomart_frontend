@@ -24,20 +24,20 @@ const ProductRating = ({ telefono = '1234567890' }) => {
   const fileInputRef = useRef(null)
   const dispatch = useDispatch()
 
-  //el id del Documento producto es necesario pasarlo por la prop
+  // The product document ID needs to be passed through the prop
   const idDoc = Number(id)
 
-  //Obteniendo el id del usuario logueado
+  // Getting the logged-in user ID
   const authUser = useSelector((state) => state.auth.authUser)
 
-  //Verifica si un usuario ya ha realizado un compra del producto
+  // Check if a user has already purchased the product
   const checkPurchase = async () => {
     try {
       if (!authUser || !authUser.idUsuario) {
         dispatch(
           setNotification({
-            title: '¡UPS!',
-            text: 'Debes iniciar sesión primero para poder calificar el producto',
+            title: t('product.oops'),
+            text: t('product.commentAddedErrorLogin'),
             icon: 'error',
             timer: 3000,
           })
@@ -56,8 +56,8 @@ const ProductRating = ({ telefono = '1234567890' }) => {
       if (error.status === 404) {
         dispatch(
           setNotification({
-            title: '¡UPS!',
-            text: 'No has adquirido el producto para poder calificarlo',
+            title: t('product.oops'),
+            text: t('product.commentAddedErrorUser'),
             icon: 'error',
             timer: 3000,
           })
@@ -66,13 +66,13 @@ const ProductRating = ({ telefono = '1234567890' }) => {
     }
   }
 
-  //Valida si se introdujo un comentario y se marco alguna estrella
+  // Validate if a comment was entered and a star was marked
   const validateFields = (Comment, Rating) => {
     if (!Comment || !Rating) {
       dispatch(
         setNotification({
-          title: '¡UPS!',
-          text: 'Debes calificar con algúna estrella y dejar un comentario',
+          title: t('product.oops'),
+          text: t('product.commentAddedErrorComment'),
           icon: 'error',
           timer: 3000,
         })
@@ -82,7 +82,7 @@ const ProductRating = ({ telefono = '1234567890' }) => {
     return 0
   }
 
-  //Carga la imagen
+  // Upload image
   const ImageUpload = (e) => {
     const file = e.target.files[0]
     if (file && file.type.startsWith('image/')) {
@@ -90,8 +90,8 @@ const ProductRating = ({ telefono = '1234567890' }) => {
     } else {
       dispatch(
         setNotification({
-          title: '¡UPS!',
-          text: 'Selecciona un archivo de imagen válido',
+          title: t('product.oops'),
+          text: t('product.commentAddedErrorImage'),
           icon: 'error',
           timer: 3000,
         })
@@ -99,17 +99,14 @@ const ProductRating = ({ telefono = '1234567890' }) => {
     }
   }
 
-  // Obtiene todos las calificaciones del producto es necesario cambiar el valor por la prop
+  // Get all product ratings
   const getProductRating = useCallback(async () => {
     const getAvgRating = async () => {
       try {
         const request = await ratingService.getAvgRatingProduct(idDoc)
         setAvgRating(request.results[0].avg_calificacion)
       } catch (error) {
-        console.error(
-          'Error al obtener el promedio de las calificaciones',
-          error
-        )
+        console.error('Error getting average rating', error)
       }
     }
     try {
@@ -117,24 +114,24 @@ const ProductRating = ({ telefono = '1234567890' }) => {
       setCommentList(request.results)
       getAvgRating()
     } catch (error) {
-      console.error('Error al obtener las calificaciones', error)
+      console.error('Error getting ratings', error)
     }
   }, [idDoc])
 
-  //Actualiza el componente cada vez que se agrega un comentario
+  // Update component every time a comment is added
   useEffect(() => {
     getProductRating()
   }, [getProductRating])
 
-  // Envia la calificación al backend
+  // Send rating to backend
   const onSubmit = async (data) => {
     try {
       const isPurchase = await checkPurchase()
       if (isPurchase.error === 'login') {
         dispatch(
           setNotification({
-            title: '¡UPS!',
-            text: 'Debes iniciar sesión primero para poder calificar el producto',
+            title: t('product.oops'),
+            text: t('product.commentAddedErrorLogin'),
             icon: 'error',
             timer: 3000,
           })
@@ -145,8 +142,8 @@ const ProductRating = ({ telefono = '1234567890' }) => {
       if (isPurchase.error === 'user') {
         dispatch(
           setNotification({
-            title: '¡UPS!',
-            text: 'Todavia no has adquirido el producto para poder calificarlo',
+            title: t('product.oops'),
+            text: t('product.commentAddedErrorUser'),
             icon: 'error',
             timer: 3000,
           })
@@ -173,8 +170,8 @@ const ProductRating = ({ telefono = '1234567890' }) => {
 
           dispatch(
             setNotification({
-              title: 'Comentario',
-              text: 'Tú comentario se ha añadio con éxito',
+              title: t('product.comment'),
+              text: t('product.commentAddedSuccess'),
               icon: 'success',
               timer: 3000,
             })
@@ -204,8 +201,8 @@ const ProductRating = ({ telefono = '1234567890' }) => {
 
         dispatch(
           setNotification({
-            title: 'Comentario',
-            text: 'Tú comentario se ha añadio con éxito',
+            title: t('product.comment'),
+            text: t('product.commentAddedSuccess'),
             icon: 'success',
             timer: 3000,
           })
@@ -216,8 +213,8 @@ const ProductRating = ({ telefono = '1234567890' }) => {
       if (error.status === 404) {
         dispatch(
           setNotification({
-            title: '¡UPS!',
-            text: 'Ocurrio un error. Vuelve a intentarlo',
+            title: t('product.oops'),
+            text: t('product.commentAddedError'),
             icon: 'error',
             timer: 3000,
           })
@@ -230,13 +227,13 @@ const ProductRating = ({ telefono = '1234567890' }) => {
     }
   }
 
-  //Obtiene el promedio de las calificaciones de un producto
+  // Get the average rating of a product
   const getAvgRating = async () => {
     try {
       const request = await ratingService.getAvgRatingProduct(idDoc)
       setAvgRating(request.results[0].avg_calificacion)
     } catch (error) {
-      console.error('Error al obtener el promedio de las calificaciones', error)
+      console.error('Error getting average rating', error)
     }
   }
 

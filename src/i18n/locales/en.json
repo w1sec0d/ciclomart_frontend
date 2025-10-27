@@ -309,7 +309,13 @@
     "yourPurchases": "Your Purchases",
     "yourSales": "Your Sales",
     "ourStores": "Our Stores",
-    "noDataToShow": "No data to show"
+    "noDataToShow": "No data to show",
+    "edit": "Edit",
+    "uploading": "Uploading...",
+    "uploadImage": "Upload Image",
+    "selectValidImage": "Please select a valid image file",
+    "selectImageToUpload": "Please select an image to upload",
+    "errorUploadingImage": "Error uploading the image"
   },
   "publish": {
     "publishProduct": "Publish Product",
@@ -391,7 +397,10 @@
     "seatModel": "Seat Model",
     "chainModel": "Chain Model",
     "gender": "Gender",
-    "age": "Age"
+    "age": "Age",
+    "enterAllData": "Please enter all required data",
+    "invalidFileType": "Invalid file type",
+    "pleaseUploadImageOrPDF": "Please upload an image (JPEG, PNG) or a PDF"
   },
   "comparison": {
     "compareProducts": "Compare Products",
