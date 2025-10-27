@@ -1,40 +1,39 @@
-//Componentes
+// Components
 import ExposurePrice from '../components/Exposure/ExposurePrice'
 import GradeInformation from '../components/Exposure/GradeInformation'
+import { useTranslation } from 'react-i18next'
 
 const ExposureInfo = () => {
+  const { t } = useTranslation()
+
   return (
     <div className="w-full h-auto flex flex-col">
       <div className="bg-secondary h-14 w-full  flex items-center justify-center drop-shadow-lg">
-        <h1 className="text-xl font-bold">Grados de exposición en CicloMart</h1>
+        <h1 className="text-xl font-bold">
+          {t('exposure.exposureGradesInCiclomart')}
+        </h1>
       </div>
       <div className="flex flex-col h-auto w-full mt-8 mb-8">
         <div>
           <h2 className="font-bold bg-tertiary py-3 px-3  rounded-tr-xl w-64 drop-shadow-lg">
-            GRADOS DE EXPOSICIÓN
+            {t('exposure.exposureGrades')}
           </h2>
         </div>
         <div className="mt-4 ">
           <p>
-            Los grados de exposición son útiles para posicionar la publicación
-            de un producto (bicicletas y repuesto) en las secciones principales
-            de CicloMart (sección de bicicletas, repuesto u ofertas) por encima
-            de otras publicaciones con un grado de exposición menor. Además
-            también son útiles para ordenar el orden de aparición de los
-            productos en la sección de búsqueda de productos.{' '}
-            <p className="inline-block text-primary font-bold">
-              ¡Consulta nuestros formas de pago y selecciona una que se ajuste a
-              lo que buscas!{' '}
-            </p>
+            {t('exposure.exposureGradesDescription')}{' '}
+            <span className="inline-block text-primary font-bold">
+              {t('exposure.checkOurPaymentOptions')}{' '}
+            </span>
           </p>
         </div>
       </div>
 
-      {/* Grados de exposición y selección */}
+      {/* Exposure grades and selection */}
       <div className=" bg-lgray/[.37] w-full h-auto ">
         <div className="mb-20">
           <h2 className="bg-primary  py-3 px-3 font-bold rounded-tr-xl w-64 drop-shadow-lg ">
-            FORMAS DE PAGO
+            {t('exposure.paymentMethods')}
           </h2>
         </div>
         <div className="grid grid-cols-2 gap-16 pb-8 px-8">
@@ -45,11 +44,11 @@ const ExposureInfo = () => {
         </div>
       </div>
 
-      {/*Como funciona? Información de grados para dar info al vendedor */}
+      {/* How does it work? Grade information to give info to the seller */}
       <div className="flex flex-col">
         <div className="mb-4">
           <h2 className="bg-tertiary w-64 rounded-tr-xl mt-5 py-3 px-3 font-bold drop-shadow-lg">
-            ¿COMO FUNCIONA?
+            {t('exposure.howDoesItWork')}
           </h2>
         </div>
         <GradeInformation grade={0} />

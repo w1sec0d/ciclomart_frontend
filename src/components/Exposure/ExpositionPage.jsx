@@ -1,8 +1,8 @@
-//Componentes
+// Components
 import ExposurePrice from './ExposurePrice'
 import Button from '../Button'
 
-//Utilidades
+// Utilities
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import mercadoPago from '../../services/mercadoPago'
@@ -12,8 +12,10 @@ import { setNotification } from '../../store/slices/notificationSlice'
 import { getProductById } from '../../services/productService'
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const ExpositionPage = () => {
+  const { t } = useTranslation()
   const { ProductId } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
@@ -36,7 +38,7 @@ const ExpositionPage = () => {
     if (!authUser) {
       dispatch(
         setNotification({
-          title: 'Debes iniciar sesión para comprar',
+          title: t('exposure.mustLoginToBuy'),
           icon: 'error',
         })
       )
@@ -67,7 +69,7 @@ const ExpositionPage = () => {
     } else if (failure && !isLoading) {
       dispatch(
         setNotification({
-          title: 'Ocurrio un error en tu compra, intentalo de nuevo',
+          title: t('exposure.purchaseError'),
           icon: 'error',
         })
       )
@@ -75,7 +77,7 @@ const ExpositionPage = () => {
     } else {
       dispatch(clearLoading())
     }
-  }, [isLoading, dispatch])
+  }, [isLoading, dispatch, failure, t])
 
   if (isLoading) return null
   if (isError) return <p>Error: {isError.message}</p>
@@ -88,23 +90,19 @@ const ExpositionPage = () => {
       >
         <div className="w-full h-14 bg-primary rounded-t-lg flex items-center justify-center drop-shadow-lg">
           <h1 className="text-2xl font-bold ">
-            Selecciona tu grado de exposición
+            {t('exposure.selectYourExposureLevel')}
           </h1>
         </div>
         <div className="w-full m-15 px-20 ">
           <div className="mb-6">
             <p className="mb-6 mx-[-40px] text-center mt-4">
-              {' '}
-              Aquí podras seleccionar el nivel de exposición para tu producto,{' '}
-              <b>por defecto se establecerá en 0</b>, sin embargo puedes
-              utilizar alguna de las siguientes opciones, de acuerdo a tu
-              necesidad.
+              {t('exposure.exposureDescription')}{' '}
               <Link
                 className="inline-block text-primary font-bold"
                 to={'/ExposureInfo'}
                 target="_blank"
               >
-                Click aquí para mayor información
+                {t('exposure.clickForMoreInfo')}
               </Link>
             </p>
 
@@ -139,7 +137,7 @@ const ExpositionPage = () => {
               className="w-full mt-4 hover:bg-primary/90"
               onClick={handleContinue}
             >
-              Continuar
+              {t('exposure.continue')}
             </Button>
           </div>
         </div>

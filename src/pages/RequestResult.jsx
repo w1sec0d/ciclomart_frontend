@@ -1,61 +1,64 @@
 import { useParams, Link } from 'react-router-dom'
 import background1 from '../assets/background1.webp'
 import { CheckCircle, Cancel } from '@mui/icons-material'
+import { useTranslation } from 'react-i18next'
 
-const RequestResult = ({
-  message = 'Operación realizada con éxito',
-  success = true,
-  subtitle,
-  children,
-}) => {
-  // chequea el tipo de petición para mostrar el mensaje adecuado
+const RequestResult = ({ message, success = true, subtitle, children }) => {
+  const { t } = useTranslation()
+
+  // Set default message if not provided
+  if (!message) {
+    message = t('requestResult.operationSuccessful')
+  }
+
+  // Check the request type to show the appropriate message
   const { type, idProducto } = useParams()
   switch (type) {
     case 'purchaseComplete':
-      message = '¡Compra exitosa!'
+      message = t('requestResult.purchaseComplete')
       children = (
         <p>
-          Puedes{' '}
+          {t('requestResult.purchaseCompleteMessage')}{' '}
           <Link to="/profile" className="text-primary font-bold">
-            ir a tu perfil
+            {t('requestResult.goToYourProfile')}
           </Link>{' '}
-          para ver la compra
+          {t('requestResult.toViewThePurchase')}
         </p>
       )
-      subtitle = 'Gracias por confiar en CicloMart'
+      subtitle = t('requestResult.purchaseCompleteSubtitle')
       success = true
       break
     case 'purchaseFailed':
-      message = 'Ocurrió un error en la compra :('
-      children = <p>Porfavor, inténtalo de nuevo más tarde</p>
+      message = t('requestResult.purchaseFailed')
+      children = <p>{t('requestResult.pleaseTryAgainLater')}</p>
       success = false
       break
     case 'sellerRegistrationSuccess':
-      message = '¡Registro como vendedor exitoso!'
+      message = t('requestResult.sellerRegistrationSuccess')
       children = (
         <p>
-          Puedes{' '}
+          {t('requestResult.purchaseCompleteMessage')}{' '}
           <Link to="/publish" className="text-primary font-bold">
-            publicar tu primer producto
+            {t('requestResult.publishYourFirstProduct')}
           </Link>{' '}
-          ahora.
+          {t('requestResult.now')}
         </p>
       )
-      subtitle = 'Gracias por unirte a CicloMart como vendedor'
+      subtitle = t('requestResult.sellerRegistrationSubtitle')
       success = true
       break
     case 'publishSuccess':
-      message = '!Tu producto ha sido publicado!'
+      message = t('requestResult.publishSuccess')
       success = true
       children = (
         <p>
-          Puedes ver tus productos publicados{' '}
+          {t('requestResult.viewYourProducts')}{' '}
           <Link to="/profile" className="text-primary font-bold">
-            aquí
+            {t('requestResult.here')}
           </Link>{' '}
         </p>
       )
-      subtitle = 'Tu procto ahora puede encontrarse en CicloMart'
+      subtitle = t('requestResult.publishSuccessSubtitle')
       success = true
   }
 
@@ -65,7 +68,7 @@ const RequestResult = ({
     <div className="flex items-center justify-center h-screen-minus-navbar text-center">
       <img
         src={background1}
-        alt="Fondo de bicicletas"
+        alt={t('requestResult.backgroundAlt')}
         className="absolute object-cover -z-10 blur-sm "
       />
       <div className="bg-white bg-opacity-90 p-10 rounded-lg shadow-lg flex flex-col justify-between w-1/2 max-w-[900px] h-full max-h-[300px]">

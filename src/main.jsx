@@ -1,14 +1,26 @@
+// Main entry point for the application
+
+// React
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+
+// Routing
 import { BrowserRouter } from 'react-router-dom'
+// Redux
 import { Provider } from 'react-redux'
-import store from './store/store.js'
 import { QueryClientProvider } from 'react-query'
-import queryClient from './services/queryClient'
+// Store
+import store from './store/store.js'
+// Query Client
+import queryClient from './services/queryClient.js'
+// App
 import App from './App.jsx'
+// CSS
 import './index.css'
-import './i18n/config'
-// TODO: Translate reviews section and check publish values and logic
+// i18n
+import './i18n/config.js'
+
+// TODO: check publish values and logic
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

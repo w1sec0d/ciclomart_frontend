@@ -1,4 +1,4 @@
-//Utilidades
+// Utilities
 import PropTypes from 'prop-types'
 import colombianPrice from '../../utils/colombianPrice'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { setExposure, cleanExposure } from '../../store/slices/exposureSlice'
 import { useDispatch } from 'react-redux'
 import { parse } from 'postcss'
+import { useTranslation } from 'react-i18next'
 
 const Button = ({ onClick = () => {}, children }) => {
   return (
@@ -21,10 +22,10 @@ const Button = ({ onClick = () => {}, children }) => {
 }
 
 const ExposurePrice = ({ grade, children, price, setSelected, selected }) => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  //Porcentajes para mostrar en la ventana de información y para
-  //calcular precio final
+  // Percentages to display in the information window and to calculate final price
   const percentages = {
     1: { fixed: 15000, percentage: 0, max: 15000 },
     2: { fixed: 15000, percentage: 1.5, max: 30000 },
@@ -55,34 +56,38 @@ const ExposurePrice = ({ grade, children, price, setSelected, selected }) => {
       className={`${selected === grade ? 'border-dashed border-2 border-primaryDark' : ''} bg-white h-60 w-full rounded-xl flex flex-col items-center shadow-xl`}
     >
       <div className="w-full bg-primary h-28   rounded-t-xl flex items-center justify-center mb-4 drop-shadow-lg">
-        <h3 className="font-bold">Grado {grade}</h3>
+        <h3 className="font-bold">
+          {t('exposure.grade')} {grade}
+        </h3>
       </div>
-      {/*Se usa para calcular precio o para hacer un display del porcentaje */}
+      {/* Used to calculate price or to display the percentage */}
       <div className="h-full w-full flex flex-col justify-center items-center pt-2">
         <b className="text-primary text-2xl mb-3">
           {price ? (
             `${colombianPrice(gradePrice)} COP`
           ) : grade > 1 ? (
             <p className="text-center mb-2">
-              {`$${percentages[grade].fixed} + ${percentages[grade].percentage}% sobre el valor base del producto máximo $${percentages[grade].max}`}
+              ${percentages[grade].fixed} + {percentages[grade].percentage}%{' '}
+              {t('exposure.onBaseValue')} ${percentages[grade].max}
             </p>
           ) : (
             <p className="text-center mb-2">
-              {`$${percentages[grade].fixed} fijo por unidad`}
+              ${percentages[grade].fixed} {t('exposure.fixedPerUnit')}
             </p>
           )}
         </b>
         <p className="text-center mb-2">
-          Nivel de exposición grado {grade} para bicicletas, repuestos y
-          artículos de ciclismo.
+          {t('exposure.exposureLevelDescription', { grade })}
         </p>
         {children}
       </div>
       <div className="w-full flex justify-center">
         {price ? (
-          <Button onClick={handleSelect}>Seleccionalo</Button>
+          <Button onClick={handleSelect}>{t('exposure.selectIt')}</Button>
         ) : (
-          <Button onClick={() => navigate('/publish')}>¡Pruebalo!</Button>
+          <Button onClick={() => navigate('/publish')}>
+            {t('exposure.tryIt')}
+          </Button>
         )}
       </div>
     </div>
