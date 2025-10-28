@@ -71,7 +71,10 @@ const LandingPage = () => {
       <section>
         <h2 className="text-2xl md:text-3xl text-center font-bold my-6 md:my-10 flex items-center justify-center gap-2">
           <LocalFireDepartment fontSize="large" className="text-orange-500" />{' '}
-          {t('products.mostSold')}
+          {t('products.mostSoldBefore')}
+          <span className="text-orange-600">
+            {t('products.mostSoldHighlight')}
+          </span>
         </h2>
         <Carousel
           responsive={itemContainer}
@@ -91,7 +94,10 @@ const LandingPage = () => {
       <div className="bg-gradient-to-b from-gray-50 to-white">
         <h2 className="text-2xl md:text-3xl text-center font-bold my-6 md:my-10 flex items-center justify-center gap-2">
           <PedalBike fontSize="large" className="text-blue-600" />{' '}
-          {t('products.exploreYourBikeWorld')}
+          {t('products.exploreYourBikeWorldBefore')}
+          <span className="text-blue-600">
+            {t('products.exploreYourBikeWorldHighlight')}
+          </span>
         </h2>
         <section className="flex flex-col md:flex-row justify-between max-w-full md:max-w-[900px] mx-auto px-4">
           <Link
