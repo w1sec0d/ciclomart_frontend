@@ -1,7 +1,13 @@
 # CicloMart (Frontend) - Buy and Sell Bicycles and Cycling Spare Parts
+
 [![en](https://img.shields.io/badge/Language-English-green)](README.md) [![es](https://img.shields.io/badge/Idioma-Español-green)](README.es.md)
 
 - App Link: [ciclomart.com](https://ciclomart.com)
+- User Instructions: [Canva Presentation](https://www.canva.com/design/DAG23e0XYS4/qg8KUY0ukJcyz4XLgN-wlw/edit?utm_content=DAG23e0XYS4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- Hours Listing: [Google Spreadsheet](https://docs.google.com/spreadsheets/d/16X9bC5Drs2z4pwJ-D0CnR451mCKMRXd3i1B2WLkOS3M/edit?usp=sharing)
+
+- Ciclomart Frontend: [Github Repository](https://github.com/w1sec0d/ciclomart_frontend)
+- Ciclomart Backend: [Github Repository](https://github.com/w1sec0d/ciclomart_backend)
 
 ## Description
 
@@ -59,7 +65,6 @@ This will format all files in a standard way and avoid unnecessary conflicts in 
   where data or variables shared between different components are stored.
 
   #### Using Global State
-
   - How to read global state?
     To access global state, you must use the `useSelector` hook from the `react-redux` library. This hook receives a function that takes the global state and returns only a portion of the state that is needed. For example, this is how we can access the 'user' variable that contains user information globally from any component:
 

@@ -1,7 +1,13 @@
 # CicloMart (Frontend) - Compra y venta de bicicletas y repuestos de ciclismo
+
 [![en](https://img.shields.io/badge/Language-English-green)](README.md) [![es](https://img.shields.io/badge/Idioma-Español-green)](README.es.md)
 
 - Link de la app: [ciclomart.com](https://ciclomart.com)
+- Instrucciones de usuario: [Presentación en Canva](https://www.canva.com/design/DAG23e0XYS4/qg8KUY0ukJcyz4XLgN-wlw/edit?utm_content=DAG23e0XYS4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- Listado de horas: [Hoja de cálculo en Google Sheets](https://docs.google.com/spreadsheets/d/16X9bC5Drs2z4pwJ-D0CnR451mCKMRXd3i1B2WLkOS3M/edit?usp=sharing)
+
+- Ciclomart Backend: [Repositorio de Github](https://github.com/w1sec0d/ciclomart_backend)
+- Ciclomart Frontend: [Repositorio de Github](https://github.com/w1sec0d/ciclomart_frontend)
 
 ## Descripción
 
@@ -59,7 +65,6 @@ Esto formateara todos los archivos de forma estándar y evitará conflictos inne
   donde se almacenan los datos o las variables que se comparten entre los diferentes componentes.
 
   #### Usando el estado global
-
   - ¿Cómo se lee el estado global?
     Para acceder al estado global se debe usar el hook `useSelector` de la librería `react-redux`, este hook recibe una función que recibe el estado global y retorna solo una porción del estado que se necesite. Por ejemplo, así podremos acceder desde cualquier componente a la variable 'user' que contiene la informacion del usuario de forma global:
 
