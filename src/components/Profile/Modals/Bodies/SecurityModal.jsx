@@ -11,13 +11,13 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { cleanShowModal } from '../../../../store/slices/showModalSlice'
-import loginService from '../../../../services/loginService'
+import authService from '../../../../services/authService'
 import { setNotification } from '../../../../store/slices/notificationSlice'
 import { clearLoading, setLoading } from '../../../../store/slices/loadingSlice'
 import { useTranslation } from 'react-i18next'
 
 const SecurityModal = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const activeModal = useSelector((state) => state.showModal.activeModal)
@@ -28,8 +28,9 @@ const SecurityModal = () => {
       try {
         dispatch(cleanShowModal())
         dispatch(setLoading(true))
-        const request = await loginService.sendResetPasswordEmail(
-          authUser.correo
+        const request = await authService.sendResetPasswordEmail(
+          authUser.correo,
+          i18n.language || 'es'
         )
         if (request.status === 200) {
           dispatch(clearLoading(true))

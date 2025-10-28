@@ -4,13 +4,13 @@ import { useDispatch } from 'react-redux'
 import { setNotification } from '../store/slices/notificationSlice'
 import Checkbox from './Checkbox'
 import Button from './Button'
-import loginService from '../services/loginService'
+import authService from '../services/authService'
 import { Link, useNavigate } from 'react-router-dom'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import { useTranslation } from 'react-i18next'
 
 const RegisterForm = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
   const phoneRegex = /^[0-9]{10}$/
 
@@ -21,20 +21,22 @@ const RegisterForm = () => {
     watch,
     formState: { errors },
   } = useForm()
-  const password = watch('password') // Watch password input
+  const password = watch('password')
   const navigate = useNavigate()
 
-  const sendRegisterCode = async (values) => {
-    const request = await loginService.sendRegisterCode(values)
+  const sendRegisterCode = async (values, language) => {
+    const request = await authService.sendRegisterCode(values, language)
     if (request.status === 200) {
       return request.data.results
     }
     return false
   }
+
   const onSubmit = async (data) => {
     try {
       dispatch(setLoading())
-      const validateEmail = await sendRegisterCode(data)
+      const validateEmail = await sendRegisterCode(data, i18n.language || 'es')
+
       if (validateEmail) {
         dispatch(clearLoading())
         navigate(`/verificationCode/${validateEmail.token}`)

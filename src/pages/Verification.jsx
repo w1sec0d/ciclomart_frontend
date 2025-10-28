@@ -4,14 +4,14 @@ import Button from '../components/Button'
 
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
-import loginService from '../services/loginService'
+import authService from '../services/authService'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import { useTranslation } from 'react-i18next'
 
 import background1 from '../assets/background1.webp'
 
 const VerificationPage = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const dispatch = useDispatch()
 
   const { register, handleSubmit, reset } = useForm()
@@ -19,7 +19,10 @@ const VerificationPage = () => {
   const onSubmit = async (data) => {
     try {
       dispatch(setLoading(true))
-      const request = await loginService.sendResetPasswordEmail(data.email)
+      const request = await authService.sendResetPasswordEmail(
+        data.email,
+        i18n.language || 'es'
+      )
 
       if (request.status === 200) {
         dispatch(clearLoading(true))

@@ -5,7 +5,7 @@ import Button from '../components/Button'
 import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import loginService from '../services/loginService'
+import authService from '../services/authService'
 import { createUsuario } from '../services/userService'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import background1 from '../assets/background1.webp'
@@ -26,7 +26,7 @@ const CodeVerificationPage = () => {
       const { code } = data
       try {
         dispatch(setLoading())
-        const request = await loginService.validateCode({ code }, token)
+        const request = await authService.validateCode({ code }, token)
         if (request.status === 200) {
           const registro = await createUsuario({
             nombre: request.data.results.nombre,

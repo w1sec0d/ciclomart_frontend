@@ -8,7 +8,7 @@ import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { setAuthUser, setIsLoggedIn } from '../store/slices/authSlice'
-import loginService from '../services/loginService'
+import authService from '../services/authService'
 import { useTranslation } from 'react-i18next'
 
 const Login = () => {
@@ -20,7 +20,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const request = await loginService.loginUser(data)
+      const request = await authService.loginUser(data)
 
       if (request.status === 200) {
         const { token, user } = request.data.results

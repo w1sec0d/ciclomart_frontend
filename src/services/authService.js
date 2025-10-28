@@ -8,18 +8,18 @@ const loginUser = async (data) => {
   return request
 }
 
-const sendResetPasswordEmail = async (data) => {
-  const request = await axios.post(API_URL + '/sendRecover', { data })
+const sendResetPasswordEmail = async (data, language) => {
+  const request = await axios.post(API_URL + '/sendRecover', { data, language })
   return request
 }
 
-const recoveryPassword = async (data, token) => {
-  const request = await axios.post(API_URL + '/updatePassword', { data, token })
+const recoveryPassword = async (data, token, language) => {
+  const request = await axios.post(API_URL + '/updatePassword', { data, token, language })
   return request
 }
 
-const sendRegisterCode = async (data) => {
-  const request = await axios.post(API_URL + '/sendRegisterCode', { data })
+const sendRegisterCode = async (data, language) => {
+  const request = await axios.post(API_URL + '/sendRegisterCode', { data, language })
   return request
 }
 
