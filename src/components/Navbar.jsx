@@ -46,12 +46,16 @@ const Navbar = () => {
     <nav className="bg-primary p-4 font-medium shadow-md h-[64px] flex items-center justify-between fixed left-0 top-0 w-screen z-50 text-lg">
       <div className="flex flex-row items-center relative z-40">
         <Link to="/" className="flex flex-row items-center">
-          <img src={logo} alt={t('nav.logoAlt')} className="w-12 h-12 mr-2" />
+          <img
+            src={logo}
+            alt={t('nav.logoAlt')}
+            className="w-12 h-12 mr-2 shadow-lg rounded-full"
+          />
           <h1 className="text-xl font-bold">
-            <span className="text-tertiary font-outline-1 tracking-[2px] text-[25px] font-extrabold">
+            <span className="text-tertiary logo-outline tracking-[2px] text-[25px] font-extrabold">
               Ciclo
             </span>
-            <span className="text-secondary font-outline-1 tracking-[2px] text-[25px] font-extrabold">
+            <span className="text-secondary logo-outline tracking-[2px] text-[25px] font-extrabold">
               Mart
             </span>
           </h1>
@@ -138,7 +142,7 @@ const Navbar = () => {
           <>
             <li className="py-2 hover:font-bold text-center flex items-center justify-center">
               <Button
-                className="text-white bg-secondary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-secondary/90 mb-2 lg:mb-0 font-bold"
+                className="text-white bg-secondary w-full max-w-[200px] lg:w-auto text-base outline-none focus:outline-primary active:outline-primary hover:bg-secondary/90 lg:mb-0 font-bold"
                 to="/login"
                 onClick={handleLinkClick}
               >
