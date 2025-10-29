@@ -38,7 +38,7 @@ const createExposurePreference = async (exposure) => {
       exposure
     )
     console.log('responseExposure', response)
-    const { preferenceId, paymentURL } = response
+    const { preferenceId, paymentURL } = response.data.results
     return { preferenceId, paymentURL }
   } catch (error) {
     console.error(
@@ -58,9 +58,11 @@ const sendBuyExposureRequest = async (exposure, idProducto) => {
       currency: 'COP',
       idProducto: idProducto,
     })
-    return request
+    console.log('requestExposure', request)
+    return request.data.results
   } catch (error) {
     console.error('Error creando la preferencia de MercadoPago:', error)
+    throw error
   }
 }
 
