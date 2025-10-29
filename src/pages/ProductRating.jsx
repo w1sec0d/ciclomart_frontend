@@ -157,7 +157,7 @@ const ProductRating = ({ telefono = '1234567890' }) => {
         isPurchase.success
       ) {
         if (!image) {
-          const request = await ratingService.createRating({
+          await ratingService.createRating({
             idUsuarioComprador: idUsuario,
             idUsuarioVendedor: isPurchase.idVendedor,
             idProducto: idDoc,
@@ -188,13 +188,14 @@ const ProductRating = ({ telefono = '1234567890' }) => {
           formData
         )
 
+        // correct the fields to english productId, comment, buyerId, sellerId, rating, photo
         await ratingService.createRating({
-          idProducto: idDoc,
-          idUsuarioComprador: idUsuario,
-          idUsuarioVendedor: isPurchase.idVendedor,
-          comentario: data.calificacion,
-          foto: response.data.secure_url,
-          nota: rating,
+          productId: idDoc,
+          buyerId: idUsuario,
+          sellerId: isPurchase.idVendedor,
+          comment: data.calificacion,
+          photo: response.data.secure_url,
+          rating: rating,
         })
 
         getProductRating()
