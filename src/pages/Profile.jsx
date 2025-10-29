@@ -14,6 +14,8 @@ const Profile = () => {
   const { t } = useTranslation()
   const authUser = useSelector((state) => state.auth.authUser)
 
+  console.log('authUser', authUser)
+
   return (
     <section className="relative flex flex-row min-h-screen">
       {/* Sidebar */}
@@ -24,14 +26,18 @@ const Profile = () => {
         <div className="flex flex-col w-[40%] justify-center gap-4 my-6">
           <Information />
           <div className="flex flex-row gap-6 items-center justify-center">
-            <Button link={`/purchases/`}>
-              <ShoppingCart className="mr-2" />
-              {t('profile.myPurchases')}
-            </Button>
-            <Button link={`/reviews/`}>
-              <Reviews className="mr-2" />
-              {t('profile.myReviews')}
-            </Button>
+            {authUser && (
+              <>
+                <Button to={`/purchases/${authUser.idUsuario}`}>
+                  <ShoppingCart className="mr-2" />
+                  {t('profile.myPurchases')}
+                </Button>
+                <Button to={`/seller/${authUser.idUsuario}`}>
+                  <Reviews className="mr-2" />
+                  {t('profile.myReviews')}
+                </Button>
+              </>
+            )}
           </div>
         </div>
         {/* Settings */}
