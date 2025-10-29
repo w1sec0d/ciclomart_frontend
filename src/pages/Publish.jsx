@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProductForm from '../components/Publish/ProductForm'
 import ProductSelection from '../components/Publish/ProductSelection'
 import Verification from '../components/Publish/Verification'
 import publicationService from '../services/publicationService'
-import ExpositionPage from '../components/Exposure/ExpositionPage'
 import { useNavigate } from 'react-router-dom'
 
 import axios from 'axios'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setNotification } from '../store/slices/notificationSlice'
 import { useTranslation } from 'react-i18next'
 
@@ -34,18 +33,6 @@ const Publish = () => {
       navigate(`/exposure/${idProducto}`)
     }
   }, [step, idProducto, navigate])
-
-  // const getModels = async (type, id) => {
-  //   await publicationService.getModels(type, id).then((data) => {
-  //     const modelNames = data.models.map(
-  //       model => ({
-  //         value: model.nombre,
-  //         label: model.nombre}))
-  //     setModels({options: modelNames})
-  //   }).catch((error) => {
-  //     console.error(error)
-  //   })
-  // }
 
   const getBrand = async () => {
     await publicationService
