@@ -285,7 +285,6 @@ const ProductPage = () => {
             >
               <ItemsTable data={[producto]} />
             </div>
-            {/* TODO: Handle specific description and values of the product, that came from the db in spanish */}
             <div className="flex items-center justify-center w-full mb-2">
               <b
                 className="text-primary font-bold flex items-center justify-center border-b hover:cursor-pointer"

@@ -20,8 +20,6 @@ import './index.css'
 // i18n
 import './i18n/config.js'
 
-// TODO: check publish values and logic
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>

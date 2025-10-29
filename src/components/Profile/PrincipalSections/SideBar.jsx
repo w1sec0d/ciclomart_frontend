@@ -10,7 +10,7 @@ import { MdOutlineReviews } from 'react-icons/md'
 import MenuIcon from '@mui/icons-material/Menu'
 
 // Images
-import Logo from '../../../assets/logoVector.svg'
+import logo from '../../../assets/logo.png'
 
 // Utils & Services
 import apiService from '../../../services/apiService.js'
@@ -88,7 +88,9 @@ const SideBar = () => {
       <button
         onClick={toggleSidebar}
         className={`fixed top-[78px] md:absolute md:top-4 transition-left duration-300 ${
-          isSidebarOpen ? 'left-[calc(100%-4rem)] md:left-[100%]' : 'left-4'
+          isSidebarOpen
+            ? 'left-[calc(100%-4rem)] md:left-[100%] ml-4'
+            : 'left-4'
         } z-10`}
         aria-label={isSidebarOpen ? 'Close sidebar' : 'Open sidebar'}
       >
@@ -163,8 +165,8 @@ const SideBar = () => {
         className={`h-full flex justify-center ${isSidebarOpen ? 'block' : 'hidden'}`}
       >
         <img
-          src={Logo}
-          className="w-[160px] h-[140px] mt-8 px-1 opacity-60 grayscale"
+          src={logo}
+          className="w-[160px] h-[160px] mt-8 px-1 opacity-60 grayscale"
         />
       </div>
     </div>
