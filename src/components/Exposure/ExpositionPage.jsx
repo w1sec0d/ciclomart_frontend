@@ -49,10 +49,11 @@ const ExpositionPage = () => {
       exposure,
       ProductId
     )
-    window.location.href = paymentURL
-    setTimeout(() => {
-      dispatch(clearLoading())
-    }, 5000)
+    console.log('paymentURL', paymentURL)
+    // window.location.href = paymentURL
+    // setTimeout(() => {
+    //   dispatch(clearLoading())
+    // }, 5000)
   }
 
   const handleContinue = () => {
