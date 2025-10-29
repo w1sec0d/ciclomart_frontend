@@ -35,16 +35,14 @@ const ImageUpload = ({ defaultPhoto }) => {
 
     const formData = new FormData()
     formData.append('file', image)
-    formData.append('upload_preset', 'ciclomart') // Replace with your Cloudinary upload preset
-
-    setLoading(true)
+    formData.append('upload_preset', 'ciclomart') / setLoading(true)
     try {
       const response = await axios.post(
-        'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload', // Replace with your cloud name
+        'https://api.cloudinary.com/v1_1/drfmpnhaz/image/upload',
         formData
       )
       const photoUrl = response.data.secure_url
-      await updateUserPhoto(authUser.idUsuario, photoUrl)
+      await updateUserPhoto(photoUrl, authUser.idUsuario)
       setUrl(photoUrl)
       setPhoto({ photoUrl })
       setLoading(false)
@@ -62,7 +60,7 @@ const ImageUpload = ({ defaultPhoto }) => {
     const fetchUserPhoto = async () => {
       try {
         const photo = await getUserPhoto(authUser.idUsuario)
-        setPhoto(photo)
+        setPhoto({ photoUrl: photo.results.photoUrl })
       } catch (error) {
         console.error('Error fetching user photo:', error)
       }

@@ -27,13 +27,14 @@ const getPurchases = async (idUser) => {
 }
 
 const updateUserPhoto = async (PhotoUrl, idUser) => {
-    const request = await axios.get(
-        `${API_URL}/updateUserPhoto/${PhotoUrl}/${idUser}`
+    const request = await axios.put(
+        `${API_URL}/updateUserPhoto/${idUser}`,
+        { photoUrl: PhotoUrl }
     )
     return request.data
 }
 
-const createUsuario = async (usuario) => {
+const createUser = async (usuario) => {
     const request = await axios.post(API_URL + '/users', usuario)
     return request.data
 }
@@ -46,4 +47,4 @@ const updateUserAddress = async (idUsuario, userAddressData) => {
     return response.data
 }
 
-export { getUser, getUserPhoto, createUsuario, updateUserAddress, getSales, getPurchases, updateUserPhoto }
+export { getUser, getUserPhoto, createUser, updateUserAddress, getSales, getPurchases, updateUserPhoto }

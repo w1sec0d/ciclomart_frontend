@@ -6,7 +6,7 @@ import { setNotification } from '../store/slices/notificationSlice'
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import authService from '../services/authService'
-import { createUsuario } from '../services/userService'
+import { createUser } from '../services/userService'
 import { clearLoading, setLoading } from '../store/slices/loadingSlice'
 import background1 from '../assets/background1.webp'
 import { useTranslation } from 'react-i18next'
@@ -28,7 +28,7 @@ const CodeVerificationPage = () => {
         dispatch(setLoading())
         const request = await authService.validateCode({ code }, token)
         if (request.status === 200) {
-          const registro = await createUsuario({
+          const registro = await createUser({
             nombre: request.data.results.nombre,
             apellido: request.data.results.apellido,
             email: request.data.results.correo,
