@@ -33,7 +33,7 @@ const Footer = forwardRef((props, ref) => {
             <h3 className="text-xl font-bold mb-4">{t('footer.resources')}</h3>
             <li className="flex items-center flex-col lg:flex-row lg:gap-4 justify-center">
               <Link
-                to="https://github.com/w1se0d/CicloMart_Back"
+                to="https://github.com/w1sec0d/ciclomart_backend"
                 target="_blank"
               >
                 <div className="hover:text-secondary hover:font-bold flex flex-row justify-center items-center">
@@ -42,7 +42,7 @@ const Footer = forwardRef((props, ref) => {
                 </div>
               </Link>
               <Link
-                to="https://github.com/w1sec0d/CicloMart_front"
+                to="https://github.com/w1sec0d/ciclomart_frontend"
                 target="_blank"
               >
                 <div className="hover:text-secondary hover:font-bold flex flex-row justify-center items-center">
