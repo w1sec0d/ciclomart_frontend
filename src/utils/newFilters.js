@@ -1,24 +1,24 @@
 const filters = {
   bicicleta: {
     tipo: {
-      label: 'Tipo',
+      label: 'products.bicycleType',
       options: [
-        { label: 'Montaña', value: 'montaña' },
-        { label: 'Ruta', value: 'ruta' },
-        { label: 'BMX', value: 'bmx' },
-        { label: 'Electrica', value: 'electrica' },
+        { value: 'montaña', labelKey: 'products.mountain' },
+        { value: 'ruta', labelKey: 'products.road' },
+        { value: 'bmx', labelKey: 'products.bmx' },
+        { value: 'electrica', labelKey: 'products.electric' },
       ],
     },
 
     color: {
-      label: 'Color',
+      label: 'products.color',
       options: [
-        { value: '#FF7F7B', label: 'Rojo' },
-        { value: '#A2FF75', label: 'Verde' },
-        { value: '#5A67FF', label: 'Azul' },
-        { value: '#F5FF78', label: 'Amarillo' },
+        { value: '#FF7F7B', labelKey: 'products.red' },
+        { value: '#A2FF75', labelKey: 'products.green' },
+        { value: '#5A67FF', labelKey: 'products.blue' },
+        { value: '#F5FF78', labelKey: 'products.yellow' },
         { value: '#B471FF', label: 'Magenta' },
-        { value: '#8BFFFF', label: 'Cian' },
+        { value: '#8BFFFF', label: 'Cyan' },
         { value: '#000000', label: 'Negro' },
         { value: '#FFFFFF', label: 'Blanco' },
         { value: '#808080', label: 'Gris' },
@@ -27,103 +27,103 @@ const filters = {
     },
 
     genero: {
-      label: 'Genero',
+      label: 'products.gender',
       options: [
-        { value: 'hombre', label: 'Hombre' },
-        { value: 'mujer', label: 'Mujer' },
-        { value: 'unisex', label: 'Unisex' },
+        { value: 'hombre', labelKey: 'products.male' },
+        { value: 'mujer', labelKey: 'products.female' },
+        { value: 'unisex', labelKey: 'products.unisex' },
       ],
     },
 
     edad: {
-      label: 'Edad',
+      label: 'products.ageGroup',
       options: [
-        { value: 'adulto', label: 'Adulto' },
-        { value: 'niño', label: 'Niño' },
-        { value: 'adolescente', label: 'Adolescente' },
+        { value: 'adulto', labelKey: 'products.adult' },
+        { value: 'niño', labelKey: 'products.child' },
+        { value: 'adolescente', labelKey: 'products.youth' },
       ],
     },
 
     materialMarco: {
-      label: 'Material del marco',
+      label: 'products.frameMaterial',
       options: [
-        { value: 'aluminio', label: 'Aluminio' },
-        { value: 'carbono', label: 'Fibra de carbono' },
-        { value: 'titanio', label: 'Titanio' },
-        { value: 'acero', label: 'Acero' },
+        { value: 'aluminio', labelKey: 'products.aluminum' },
+        { value: 'carbono', labelKey: 'products.carbon' },
+        { value: 'titanio', labelKey: 'products.titanium' },
+        { value: 'acero', labelKey: 'products.steel' },
       ],
     },
 
     suspension: {
-      label: 'Suspensión',
+      label: 'products.suspension',
       options: [
-        { value: 'delantera', label: 'Delantera' },
+        { value: 'delantera', labelKey: 'products.front' },
         { value: 'trasera', label: 'Trasera' },
-        { value: 'doble', label: 'Doble' },
-        { value: 'ninguna', label: 'Ninguna' },
+        { value: 'doble', labelKey: 'products.double' },
+        { value: 'ninguna', labelKey: 'products.noSuspension' },
       ],
     },
 
     transmision: {
-      label: 'Transmisión',
+      label: 'products.transmission',
       options: [
-        { value: 'monoplato', label: 'Monoplato' },
-        { value: 'doble', label: 'Doble plato' },
-        { value: 'triple', label: 'Triple plato' },
+        { value: 'monoplato', labelKey: 'products.singleChainring' },
+        { value: 'doble', labelKey: 'products.doubleChainring' },
+        { value: 'triple', labelKey: 'products.tripleChainring' },
       ],
     },
 
     frenos: {
-      label: 'Frenos',
+      label: 'products.brakeType',
       options: [
-        { value: 'disco', label: 'Disco' },
-        { value: 'convencional', label: 'Convencional' },
+        { value: 'disco', labelKey: 'products.disc' },
+        { value: 'convencional', labelKey: 'products.conventional' },
       ],
     },
 
     pedales: {
-      label: 'Pedales',
+      label: 'products.pedalType',
       options: [
-        { value: 'automaticos', label: 'Automáticos' },
-        { value: 'plataforma', label: 'Plataforma' },
+        { value: 'automaticos', labelKey: 'products.clipless' },
+        { value: 'plataforma', labelKey: 'products.platform' },
         { value: 'jaula', label: 'Jaula' },
       ],
     },
 
     manubrio: {
-      label: 'Manubrio',
+      label: 'products.handlebar',
       options: [
-        { value: 'recto', label: 'Recto' },
+        { value: 'recto', labelKey: 'products.flat' },
         { value: 'curvo', label: 'Curvo' },
         { value: 'doble', label: 'Doble altura' },
-        { value: 'dropbar', label: 'Dropbar' },
+        { value: 'dropbar', labelKey: 'products.drop' },
         { value: 'bullhorn', label: 'Bullhorn' },
-        { value: 'levantado', label: 'Levantado' },
+        { value: 'levantado', labelKey: 'products.riser' },
       ],
     },
   },
 
   componente: {
     compatibilidad: {
-      label: 'Compatibilidad',
+      label: 'publish.compatibility',
       options: [
-        { value: 'montaña', label: 'Montaña' },
-        { value: 'ruta', label: 'Ruta' },
-        { value: 'bmx', label: 'BMX' },
-        { value: 'electrica', label: 'Electrica' },
+        { value: 'montaña', labelKey: 'products.mountain' },
+        { value: 'ruta', labelKey: 'products.road' },
+        { value: 'bmx', labelKey: 'products.bmx' },
+        { value: 'electrica', labelKey: 'products.electric' },
       ],
     },
 
     categoria: {
-      label: 'Categoria',
+      label: 'publish.category',
       options: [
-        { value: 'ruedas', label: 'Ruedas' },
-        { value: 'transmision', label: 'Transmisión' },
-        { value: 'frenos', label: 'Frenos' },
-        { value: 'suspension', label: 'Suspensión' },
-        { value: 'manubrio', label: 'Manubrio' },
-        { value: 'pedales', label: 'Pedales' },
-        { value: 'sillines', label: 'Sillines' },
+        { value: 'ruedas', labelKey: 'products.wheels' },
+        { value: 'transmision', labelKey: 'products.transmission' },
+        { value: 'frenos', labelKey: 'products.brakes' },
+        { value: 'suspension', labelKey: 'products.suspension' },
+        { value: 'manubrio', labelKey: 'products.handlebar' },
+        { value: 'pedales', labelKey: 'products.pedals' },
+        { value: 'sillines', labelKey: 'products.saddle' },
       ],
     },
   },

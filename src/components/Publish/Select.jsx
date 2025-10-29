@@ -1,9 +1,11 @@
 import React from 'react'
 import Select from 'react-select'
-import { t } from 'i18next'
+import { useTranslation } from 'react-i18next'
 
 const CustomSelect = React.forwardRef(
   ({ name, label, options, value, onChange, required }, ref) => {
+    const { t } = useTranslation()
+
     const customStyles = {
       control: (provided) => ({
         ...provided,
@@ -29,7 +31,7 @@ const CustomSelect = React.forwardRef(
 
     const formattedOptions = options.options.map((option) => ({
       id: option.id ? option.id : null,
-      label: option.label,
+      label: option.labelKey ? t(option.labelKey) : option.label,
       value: option.value,
     }))
 
