@@ -21,9 +21,9 @@ const Profile = () => {
       {/* Sidebar */}
       <SideBar />
       {/* Main content */}
-      <div className="flex flex-col lg:flex-row w-full h-full justify-center items-center transition-width duration-300 flex-wrap gap-6 my-auto -translate-y-6">
+      <div className="flex flex-col lg:flex-row w-full h-full justify-center items-center transition-width duration-300 flex-wrap gap-6 my-auto -translate-y-6 px-6 lg:px-0">
         {/* General information */}
-        <div className="flex flex-col w-[40%] justify-center gap-4 my-6">
+        <div className="flex flex-col lg:w-[40%] pt-8 lg:pt-0 justify-center gap-4 my-0 lg:my-6">
           <Information />
           <div className="flex flex-row gap-6 items-center justify-center">
             {authUser && (

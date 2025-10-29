@@ -18,6 +18,7 @@ const ItemContainer = ({
   precioCompleto,
   costoEnvio,
   className,
+  tarjeta,
   ...props
 }) => {
   const { t } = useTranslation()
@@ -44,7 +45,7 @@ const ItemContainer = ({
       to={`/product/${idProducto}`}
     >
       {/* Display if product has property card */}
-      {props.tarjeta && (
+      {tarjeta && (
         <FaRegAddressCard
           className="absolute top-0 left-0 mt-4 ml-4 text-primary "
           title={t('products.hasPropertyCard')}

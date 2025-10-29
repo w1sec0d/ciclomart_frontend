@@ -91,6 +91,7 @@ const IndividualProduct = ({
               key={product.idProducto}
               className={'mt-2'}
               envioGratis={product['método de envio'] === 'gratis'}
+              tarjeta={product.tarjeta}
             />
           ))}
         </div>

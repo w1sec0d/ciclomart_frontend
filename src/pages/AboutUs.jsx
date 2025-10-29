@@ -19,7 +19,7 @@ import juan from '../assets/Juan.jpeg'
 import carlos from '../assets/Carlos.png'
 
 // Logo
-import Logo from '../assets/Logo.svg'
+import Logo from '../assets/logo.png'
 
 // i18n
 import { useTranslation } from 'react-i18next'
