@@ -31,34 +31,17 @@ const sendBuyRequest = async (producto, idComprador) => {
   }
 }
 
-const createExposurePreference = async (exposure) => {
-  try {
-    const response = await axios.post(
-      API_URL + '/createExposurePreference',
-      exposure
-    )
-    console.log('responseExposure', response)
-    const { preferenceId, paymentURL } = response
-    return { preferenceId, paymentURL }
-  } catch (error) {
-    console.error(
-      'Error creando la preferencia de exposición en Mercado Pago:',
-      error
-    )
-    throw error // ✅ Throw error so caller can handle it
-  }
-}
-
 const sendBuyExposureRequest = async (exposure, idProducto) => {
   try {
-    const request = await createExposurePreference({
+    const exposureData = {
       grade: exposure.grade,
       price: exposure.precio,
       quantity: 1,
       currency: 'COP',
       idProducto: idProducto,
-    })
-    return request
+    }
+    const request = await axios.post(API_URL + '/createExposurePreference', exposureData)
+    return request.data.results
   } catch (error) {
     console.error('Error creando la preferencia de MercadoPago:', error)
     throw error
@@ -68,6 +51,5 @@ const sendBuyExposureRequest = async (exposure, idProducto) => {
 export default {
   createPreference,
   sendBuyRequest,
-  createExposurePreference,
   sendBuyExposureRequest,
 }
