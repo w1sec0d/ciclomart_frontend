@@ -57,6 +57,9 @@ const CustomSelect = React.forwardRef(
           className="block text-sm font-medium text-gray-700"
         >
           {label}
+          {required && (
+            <span className="text-gray text-2xl align-middle">*</span>
+          )}
         </label>
         <Select
           id={name}

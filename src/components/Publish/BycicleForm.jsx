@@ -16,24 +16,28 @@ const BycicleForm = ({ bycicle, register }) => {
           label={t('publish.type')}
           options={filters['bicicleta'].tipo}
           {...register('tipoBicicleta')}
+          required={false}
         />
         <CustomSelect
           name="color"
           label={t('products.color')}
           options={filters['bicicleta'].color}
           {...register('color')}
+          required={false}
         />
         <CustomSelect
           name="genero"
           label={t('products.gender')}
           options={filters['bicicleta'].genero}
           {...register('genero')}
+          required={false}
         />
         <CustomSelect
           name="edad"
           label={t('products.ageGroup')}
           options={filters['bicicleta'].edad}
           {...register('edad')}
+          required={false}
         />
       </div>
 
@@ -47,12 +51,14 @@ const BycicleForm = ({ bycicle, register }) => {
           id="tamañoMarco"
           label={t('publish.frameSizeCm')}
           {...register('tamañoMarco')}
+          required={false}
         />
         <CustomSelect
           name="materialMarco"
           label={t('publish.frameMaterialLabel')}
           options={filters['bicicleta'].materialMarco}
           {...register('materialMarco')}
+          required={false}
         />
       </div>
 
@@ -66,6 +72,7 @@ const BycicleForm = ({ bycicle, register }) => {
           id="tamañoRueda"
           label={t('publish.wheelSizeLabel')}
           {...register('tamañoRueda')}
+          required={false}
         />
       </div>
 
@@ -79,18 +86,21 @@ const BycicleForm = ({ bycicle, register }) => {
           label={t('publish.transmissionLabel')}
           options={filters['bicicleta'].transmision}
           {...register('transmision')}
+          required={false}
         />
         <CustomSelect
           name="tipoPedales"
           label={t('publish.pedalsLabel')}
           options={filters['bicicleta'].pedales}
           {...register('tipoPedales')}
+          required={false}
         />
         <Input
           type="number"
           id="velocidades"
           label={t('publish.numberOfSpeeds')}
           {...register('velocidades')}
+          required={false}
         />
       </div>
 
@@ -104,6 +114,7 @@ const BycicleForm = ({ bycicle, register }) => {
           label={t('publish.suspensionLabel')}
           options={filters['bicicleta'].suspension}
           {...register('tipoSuspension')}
+          required={false}
         />
       </div>
 
@@ -117,6 +128,7 @@ const BycicleForm = ({ bycicle, register }) => {
           label={t('publish.brakeTypeLabel')}
           options={filters['bicicleta'].frenos}
           {...register('tipoFrenos')}
+          required={false}
         />
       </div>
 
@@ -130,12 +142,14 @@ const BycicleForm = ({ bycicle, register }) => {
           id="pesoBicicleta"
           label={t('publish.bicycleWeightKg')}
           {...register('pesoBicicleta')}
+          required={false}
         />
         <Input
           type="number"
           id="pesoMaximo"
           label={t('publish.maxSupportedWeightKg')}
           {...register('pesoMaximo')}
+          required={false}
         />
       </div>
 
@@ -149,6 +163,7 @@ const BycicleForm = ({ bycicle, register }) => {
           label={t('publish.handlebarTypeLabel')}
           options={filters['bicicleta'].manubrio}
           {...register('tipoManubrio')}
+          required={false}
         />
       </div>
 

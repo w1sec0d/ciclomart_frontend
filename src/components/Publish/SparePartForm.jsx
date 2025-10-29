@@ -14,12 +14,14 @@ const SparePartForm = ({ componentData, register }) => {
           label={t('publish.compatibility')}
           options={filters['componente'].compatibilidad}
           {...register('compatibilidad')}
+          required={false}
         />
         <CustomSelect
           name="categoria"
           label={t('publish.category')}
           options={filters['componente'].categoria}
           {...register('categoria')}
+          required={false}
         />
       </div>
     </>

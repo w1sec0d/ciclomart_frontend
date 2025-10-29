@@ -20,6 +20,7 @@ const AvailabilityForm = ({ product, register }) => {
           }}
           value={product.disponibilidad}
           {...register('disponibilidad')}
+          required={false}
         />
 
         <CustomSelect
@@ -33,6 +34,7 @@ const AvailabilityForm = ({ product, register }) => {
           }}
           value={product.retiro}
           {...register('retiro')}
+          required={false}
         />
 
         <CustomSelect
@@ -46,6 +48,7 @@ const AvailabilityForm = ({ product, register }) => {
           }}
           value={product.estado}
           {...register('estado')}
+          required={true}
         />
       </div>
 
@@ -66,6 +69,7 @@ const AvailabilityForm = ({ product, register }) => {
           min="0"
           value={product.costoEnvio}
           {...register('costoEnvio')}
+          required={false}
         />
       </div>
     </>

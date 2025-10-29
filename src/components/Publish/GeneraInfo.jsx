@@ -80,6 +80,7 @@ const GeneralInfo = ({
             options={brands}
             {...register('marca')}
             onChange={handleBrandChange}
+            required={true}
           />
         </div>
         <div className="flex flex-row mt-10">
