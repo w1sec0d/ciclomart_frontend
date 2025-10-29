@@ -74,10 +74,10 @@ const ImageUpload = ({ defaultPhoto }) => {
   }, [authUser, url]) // Add authUser and url as dependencies
 
   return (
-    <div className="h-full">
+    <div className="h-full w-[50%]">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-row items-center h-full"
+        className="flex flex-row items-center justify-center h-full w-full"
       >
         <div
           className="bg-gray-200 rounded cursor-pointer h-full"

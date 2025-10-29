@@ -11,6 +11,7 @@ import { landingCarousel, itemContainer } from './carouselSettings'
 
 // Assets importing
 import landing1 from '../../assets/landing1.webp'
+import landing1En from '../../assets/landing1_en.webp'
 import bike2 from '../../assets/bike2.webp'
 import offer from '../../assets/offer.png'
 import repuestos from '../../assets/repuestos.webp'
@@ -34,7 +35,7 @@ import { clearLoading, setLoading } from '../../store/slices/loadingSlice'
 import { useTranslation } from 'react-i18next'
 
 const LandingPage = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const dispatch = useDispatch()
 
   // Load products with react-query
@@ -57,7 +58,7 @@ const LandingPage = () => {
         <Link to="/offers">
           <div className="flex items-center justify-center w-full relative bg-[#ebf9f6]">
             <img
-              src={landing1}
+              src={i18n.language === 'es' ? landing1 : landing1En}
               alt="Imagen de una bicicleta deportiva blanca con el mensaje: Encuentra tu nueva bici con los componentes que necesitas (has click aqui)"
               className="max-h-[80vh] object-contain"
               style={{ boxShadow: '0 0 8px 8px #ebf9f6 inset' }}

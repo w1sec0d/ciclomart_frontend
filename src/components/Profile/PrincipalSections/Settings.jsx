@@ -22,7 +22,7 @@ const Settings = () => {
   }
 
   return (
-    <div className=" mt-8 md:mx-[105px] bg-lgray h-80 w-auto shadow-2xl rounded-3xl ">
+    <div className="bg-lgray h-80 w-full lg:w-1/2 shadow-2xl rounded-3xl">
       <ul className="h-full">
         {/* Settings button group */}
         <li className="h-1/2">

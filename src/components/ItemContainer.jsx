@@ -37,7 +37,7 @@ const ItemContainer = ({
   return (
     <Link
       className={twMerge(
-        `flex flex-col items-center lg:h-[350px] lg:w-[250px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative mx-4 -translate-x-3
+        `flex flex-col items-center lg:h-[320px] lg:w-[250px] hover:cursor-pointer group p-2 bg-white rounded-md shadow-a relative mx-4 -translate-x-3
         ${selectedClass}`,
         className
       )}
@@ -59,7 +59,7 @@ const ItemContainer = ({
       <ComparisonButton idProducto={idProducto} />
 
       {/* Prices and name section */}
-      <div className="flex flex-wrap text-xl font-bold relative items-center justify-start mt-2">
+      <div className="flex flex-wrap text-xl font-bold relative items-center justify-start my-auto">
         <p className="group-hover:text-primary font-medium text-base w-full">
           {nombre}
         </p>

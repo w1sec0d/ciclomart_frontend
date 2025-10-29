@@ -23,11 +23,11 @@ const Information = () => {
   // Render component with the above constants
   return (
     <div
-      className="flex flex-col md:flex-row items-center mt-12 py-5 md:py-0 md:mt-8 md:mx-[170px] bg-lgray md:h-44 md:w-auto 
-              md:rounded-l-[16rem]  md:rounded-r-[16rem] rounded-3xl shadow-lg md:pl-5 on w-full h-auto "
+      className="flex flex-col md:flex-row items-center md:py-0 bg-lgray md:h-44 md:w-auto 
+              md:rounded-l-[16rem] md:rounded-r-[16rem] rounded-3xl shadow-lg md:pl-5 h-auto w-full"
     >
       <ImageUpload defaultPhoto={Photo}></ImageUpload>
-      <div className="flex flex-col items-center mt-2 lg:ml-[132px]">
+      <div className="flex flex-col items-center mt-2 w-full">
         <b className="text-4xl">{t('profile.hello', { name: firstName })}</b>
         <p className="md:text-2xl text-xl">{authUser.correo}</p>
         <p className="text-xl">{t('profile.youAreACyclist')}</p>
