@@ -38,7 +38,7 @@ const createExposurePreference = async (exposure) => {
       exposure
     )
     console.log('responseExposure', response)
-    const { preferenceId, paymentURL } = response.data.results
+    const { preferenceId, paymentURL } = response
     return { preferenceId, paymentURL }
   } catch (error) {
     console.error(
