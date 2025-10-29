@@ -58,8 +58,7 @@ const sendBuyExposureRequest = async (exposure, idProducto) => {
       currency: 'COP',
       idProducto: idProducto,
     })
-    console.log('requestExposure', request)
-    return request.data.results
+    return request
   } catch (error) {
     console.error('Error creando la preferencia de MercadoPago:', error)
     throw error
