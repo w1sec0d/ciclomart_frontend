@@ -50,10 +50,10 @@ const ExpositionPage = () => {
       ProductId
     )
     console.log('paymentURL', paymentURL)
-    // window.location.href = paymentURL
-    // setTimeout(() => {
-    //   dispatch(clearLoading())
-    // }, 5000)
+    window.location.href = paymentURL
+    setTimeout(() => {
+      dispatch(clearLoading())
+    }, 5000)
   }
 
   const handleContinue = () => {
