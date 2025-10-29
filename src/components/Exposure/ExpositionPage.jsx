@@ -45,15 +45,15 @@ const ExpositionPage = () => {
       dispatch(clearLoading())
       return
     }
-    const { paymentURL } = await mercadoPago.sendBuyExposureRequest(
+    const response = await mercadoPago.sendBuyExposureRequest(
       exposure,
       ProductId
     )
-    console.log('paymentURL', paymentURL)
-    window.location.href = paymentURL
-    setTimeout(() => {
-      dispatch(clearLoading())
-    }, 5000)
+    console.log('response', response)
+    // window.location.href = paymentURL
+    // setTimeout(() => {
+    //   dispatch(clearLoading())
+    // }, 5000)
   }
 
   const handleContinue = () => {
