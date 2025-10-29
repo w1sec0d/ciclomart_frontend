@@ -75,13 +75,13 @@ const ComponentFinderPage = () => {
               {/* Interactive areas (hotspots) */}
               <button
                 className={`absolute bottom-[30%] left-[12%] w-[20%] h-[20%] rounded-full ${selectedComponent === 'Ruedas' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
-                onClick={() => handleComponentClick('Ruedas')}
+                onClick={() => handleComponentClick('Neumáticos')}
                 aria-label={t('products.wheelsFront')}
               />
 
               <button
-                className={`absolute bottom-[30%] right-[12%] w-[20%] h-[20%] rounded-full ${selectedComponent === 'Ruedas' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
-                onClick={() => handleComponentClick('Ruedas')}
+                className={`absolute bottom-[30%] right-[12%] w-[20%] h-[20%] rounded-full ${selectedComponent === 'Neumáticos' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                onClick={() => handleComponentClick('Neumáticos')}
                 aria-label={t('products.wheelsRear')}
               />
 
@@ -92,8 +92,8 @@ const ComponentFinderPage = () => {
               />
 
               <button
-                className={`absolute top-[25%] right-[10%] -translate-x-1/2 w-[10%] h-[14%] rounded-full ${selectedComponent === 'Manubrios' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
-                onClick={() => handleComponentClick('Manubrios')}
+                className={`absolute top-[25%] right-[10%] -translate-x-1/2 w-[10%] h-[14%] rounded-full ${selectedComponent === 'Manubrio' ? 'bg-secondary opacity-60' : 'bg-secondary opacity-40 hover:opacity-60'}`}
+                onClick={() => handleComponentClick('Manubrio')}
                 aria-label={t('products.handlebars')}
               />
 
@@ -104,8 +104,8 @@ const ComponentFinderPage = () => {
               />
 
               <button
-                className={`absolute top-[20%] left-[18%] translate-x-4 w-[25%] h-[10%] rounded-full ${selectedComponent === 'Sillines' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
-                onClick={() => handleComponentClick('Sillines')}
+                className={`absolute top-[20%] left-[18%] translate-x-4 w-[25%] h-[10%] rounded-full ${selectedComponent === 'Sillín' ? 'bg-tertiary opacity-60' : 'bg-tertiary opacity-40 hover:opacity-60'}`}
+                onClick={() => handleComponentClick('Sillín')}
                 aria-label={t('products.saddle')}
               />
 
