@@ -3,6 +3,7 @@ import SideBar from '../components/Profile/PrincipalSections/SideBar.jsx'
 import Information from '../components/Profile/PrincipalSections/Information.jsx'
 import Settings from '../components/Profile/PrincipalSections/Settings.jsx'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
 // Icons
 import ShoppingCart from '@mui/icons-material/ShoppingCart'
@@ -11,6 +12,8 @@ import Button from '../components/Button'
 
 const Profile = () => {
   const { t } = useTranslation()
+  const authUser = useSelector((state) => state.auth.authUser)
+
   return (
     <section className="relative flex flex-row min-h-screen">
       {/* Sidebar */}
@@ -21,11 +24,11 @@ const Profile = () => {
         <div className="flex flex-col w-[40%] justify-center gap-4 my-6">
           <Information />
           <div className="flex flex-row gap-6 items-center justify-center">
-            <Button>
+            <Button link={`/purchases/`}>
               <ShoppingCart className="mr-2" />
               {t('profile.myPurchases')}
             </Button>
-            <Button>
+            <Button link={`/reviews/`}>
               <Reviews className="mr-2" />
               {t('profile.myReviews')}
             </Button>

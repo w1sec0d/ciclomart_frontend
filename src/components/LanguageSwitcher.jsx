@@ -7,15 +7,23 @@ const LanguageSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const languages = [
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'en', name: 'English', flag: '🇺🇸' },
+    {
+      code: 'es',
+      name: 'Español',
+      flag: 'es',
+      flagUrl: 'https://flagcdn.com/w20/es.png',
+    },
+    {
+      code: 'en',
+      name: 'English',
+      flag: 'us',
+      flagUrl: 'https://flagcdn.com/w20/us.png',
+    },
   ]
 
   const currentLanguage =
     languages.find((lang) => i18n.language.startsWith(lang.code)) ||
     languages[0]
-
-  console.log('currentLanguage', i18n.language)
 
   const handleLanguageChange = (langCode) => {
     i18n.changeLanguage(langCode)
@@ -27,12 +35,15 @@ const LanguageSwitcher = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors bg-white text-black hover:bg-neutral-200 hadow-md"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg transition-colors bg-white text-black hover:bg-neutral-200 shadow-md"
         aria-label="Change language"
       >
         <Language />
-        <span className="hidden sm:inline">{currentLanguage.flag}</span>
-        <span className="sm:hidden">{currentLanguage.flag}</span>
+        <img
+          src={currentLanguage.flagUrl}
+          alt={currentLanguage.name}
+          className="w-5 h-auto"
+        />
       </button>
 
       {isOpen && (
@@ -50,7 +61,11 @@ const LanguageSwitcher = () => {
                   currentLanguage.code === lang.code ? 'font-bold' : ''
                 }`}
               >
-                <span className="text-xl">{lang.flag}</span>
+                <img
+                  src={lang.flagUrl}
+                  alt={lang.name}
+                  className="w-5 h-auto"
+                />
                 <span>{lang.name}</span>
               </button>
             ))}
