@@ -37,13 +37,15 @@ const createExposurePreference = async (exposure) => {
       API_URL + '/createExposurePreference',
       exposure
     )
-    const { preferenceId, paymentURL } = response.data
+    console.log('responseExposure', response)
+    const { preferenceId, paymentURL } = response
     return { preferenceId, paymentURL }
   } catch (error) {
     console.error(
       'Error creando la preferencia de exposición en Mercado Pago:',
       error
     )
+    throw error // ✅ Throw error so caller can handle it
   }
 }
 
