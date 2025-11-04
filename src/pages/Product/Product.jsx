@@ -74,16 +74,36 @@ const ProductPage = () => {
       return
     }
 
-    const request = await mercadoPago.createPreference(
-      producto,
-      1,
-      authUser.idUsuario
-    )
-    console.log({ request })
-    window.location.href = request.paymentURL
-    setTimeout(() => {
-      dispatch(clearLoading())
-    }, 5000)
+    try {
+      const request = await mercadoPago.createPreference(
+        producto,
+        1,
+        authUser.idUsuario
+      )
+      if (request.error) {
+        dispatch(
+          setNotification({
+            title: t('product.errorBuyingProduct'),
+            text: request.error.response.data.message,
+            icon: 'error',
+            timer: 3000,
+          })
+        )
+        dispatch(clearLoading())
+      } else {
+        window.location.href = request.paymentURL
+      }
+    } catch (error) {
+      console.log({ error })
+      dispatch(
+        setNotification({
+          title: t('product.errorBuyingProduct'),
+          text: t('product.errorBuyingProductDescription'),
+          icon: 'error',
+          timer: 5000,
+        })
+      )
+    }
   }
 
   const handleQuestion = async () => {

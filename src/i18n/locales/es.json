@@ -604,7 +604,9 @@
     "commentAddedErrorLogin": "Debes iniciar sesión para poder agregar un comentario",
     "commentAddedErrorUser": "No has adquirido el producto para poder agregar un comentario",
     "commentAddedErrorComment": "Debes calificar con algúna estrella y dejar un comentario",
-    "commentAddedErrorImage": "Debes seleccionar un archivo de imagen válido"
+    "commentAddedErrorImage": "Debes seleccionar un archivo de imagen válido",
+    "errorBuyingProduct": "Error al comprar el producto",
+    "errorBuyingProductDescription": "Ocurrió un error con tu compra, por favor intenta nuevamente"
   },
   "table": {
     "characteristic": "Característica",

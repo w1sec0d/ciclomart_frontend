@@ -604,7 +604,9 @@
     "commentAddedErrorLogin": "You must log in to add a comment",
     "commentAddedErrorUser": "You have not purchased the product to be able to leave a comment",
     "commentAddedErrorComment": "You must rate with at least one star and leave a comment",
-    "commentAddedErrorImage": "You must select a valid image file"
+    "commentAddedErrorImage": "You must select a valid image file",
+    "errorBuyingProduct": "Error buying product",
+    "errorBuyingProductDescription": "An error occurred with your purchase, please try again"
   },
   "table": {
     "characteristic": "Characteristic",
