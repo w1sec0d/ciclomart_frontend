@@ -13,6 +13,9 @@
 
 CicloMart is a web application for buying and selling bicycles and cycling spare parts. It offers a unique, secure, and reliable experience by requiring legal ownership documentation from sellers. Users can find exactly what they're looking for using advanced filters such as transmission groups, suspension, weight, rims, brakes, and many other relevant characteristics.
 
+## System Architecture
+![System Architecture](/src/docs/system_architecture.png)
+
 <!-- ### User Instructions -->
 
 ## Team Members
