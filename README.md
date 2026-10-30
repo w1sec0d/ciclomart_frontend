@@ -113,6 +113,6 @@ This will format all files in a standard way and avoid unnecessary conflicts in 
 
 ## License
 
-The project can be used for educational and non-commercial purposes only. See more details below:
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
