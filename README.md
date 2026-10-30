@@ -19,6 +19,26 @@ CicloMart is a web marketplace for buying and selling bicycles and cycling spare
 
 [Click here to watch the full demo](https://youtu.be/vG_Zx618jJ4)
 
+### Landing page
+
+![CicloMart landing page](/src/docs/landingPage.png)
+
+### Registration page
+
+![Registration page](/src/docs/register.png)
+
+### Advanced spare parts filter
+
+![Advanced spare parts filter](/src/docs/SparePartsFilter.png)
+
+### Product view
+
+![Product view](/src/docs/productView.png)
+
+### User profile
+
+![User profile](/src/docs/profile.png)
+
 ## System Architecture
 ![System Architecture](/src/docs/system_architecture.png)
 

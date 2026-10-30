@@ -19,6 +19,26 @@ CicloMart es una aplicación web de compra-venta de bicicletas y repuestos de ci
 
 [Haz clic aquí para ver la demo completa](https://youtu.be/vG_Zx618jJ4)
 
+### Página de inicio
+
+![Página de inicio de CicloMart](/src/docs/landingPage.png)
+
+### Página de registro
+
+![Página de registro](/src/docs/register.png)
+
+### Filtro avanzado de repuestos
+
+![Filtro avanzado de repuestos](/src/docs/SparePartsFilter.png)
+
+### Vista de producto
+
+![Vista de producto](/src/docs/productView.png)
+
+### Perfil de usuario
+
+![Perfil de usuario](/src/docs/profile.png)
+
 ## Arquitectura del sistema
 
 ![Arquitectura del sistema](/src/docs/system_architecture_es.png)
