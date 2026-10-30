@@ -11,11 +11,13 @@
 
 ## Descripción
 
-CicloMart es una aplicación web de compra-venta de bicicletas y repuestos de ciclismo. Ofrece una experiencia única, segura y confiable, al exigir documentación legal de propiedad a los vendedores. Los usuarios pueden encontrar exactamente lo que buscan usando filtros avanzados como grupos de transmisión, suspensión, peso, rines, frenos entre muchas otras características relevantes.
+CicloMart es una aplicación web de compra-venta de bicicletas y repuestos de ciclismo, con funcionalidades adaptadas a las necesidades de los ciclistas. Ofrece filtros avanzados de repuestos (grupos de transmisión, suspensión, peso, rines, frenos y muchas otras características), comparación de bicicletas y gestión segura de las tarjetas de propiedad legal de cada publicación, brindando una experiencia única, segura y confiable.
 
 ## Demo del proyecto
 
 ![Demo de CicloMart](/src/docs/preview.gif)
+
+[Haz clic aquí para ver la demo completa](https://youtu.be/vG_Zx618jJ4)
 
 ## Arquitectura del sistema
 
